@@ -1,0 +1,10 @@
+.videoPlayerValue{
+    width:230px;
+    height:170px;
+}
+
+@media only screen and (max-width:769px){
+    .videoPlayerValue{
+        width:100% !important;
+    }
+}

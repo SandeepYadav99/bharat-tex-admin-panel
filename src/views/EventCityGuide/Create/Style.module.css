@@ -1,0 +1,117 @@
+.outerFlex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 30px;
+}
+.claimListWrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.newLine {
+  height: 5px;
+  width: 30px;
+  border-radius: 10px;
+  text-align: center;
+  margin-left: 20px;
+  background-image: linear-gradient(265deg, #ab183d, #e56056) !important;
+}
+.adharWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.remove {
+  color: #ab183d;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+.imgClass {
+  width: 90%;
+  height: 300px;
+  aspect-ratio: 2/1;
+  border-radius: 10px;
+  margin: 20px 10px;
+}
+.adharBack {
+  display: flex;
+  gap: 40px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.checkBox {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.6rem;
+  align-items: center;
+  color: #2896e9;
+  font-weight: 500;
+}
+.createBtn {
+  background-color: #29cb97 !important;
+  color: #ffffff !important;
+  padding: 12px 35px !important;
+  font-size: 0.8rem !important;
+  border-radius: 30px !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}
+.btnWrappepr {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin: 15px 20px;
+  justify-content: flex-end;
+}
+.download {
+  border: 2px solid #29cb97 !important;
+  border-radius: 30px !important;
+  color: #29cb97 !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  padding: 7px 50px !important;
+  text-transform: uppercase !important;
+  height: 40px !important;
+}
+.inst {
+  display: flex;
+  margin-top: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  gap: 5px;
+  align-items: center;
+}
+.inst2 {
+  display: flex;
+  margin-top: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  gap: 5px;
+  align-items: center;
+  justify-content: end;
+}
+.checkbo {
+  font-size: 0.8rem !important;
+}
+.lowerWrap {
+  flex: 1;
+}
+.cont {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.banner_upload {
+  display: flex;
+  justify-content: center;
+}
+.inputFileUploader {
+}

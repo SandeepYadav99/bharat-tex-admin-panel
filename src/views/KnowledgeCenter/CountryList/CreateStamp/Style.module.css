@@ -1,0 +1,190 @@
+.mainContainer {
+    padding: 10px;
+  }
+  .headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .headerContainer .title {
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .bottomLine {
+    opacity: 0.4;
+    color: grey;
+    margin-bottom: 5px;
+  }
+  .headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .firstCellFlex {
+    display: flex;
+    align-items: center;
+  }
+  
+  .firstCellFlex .driverImgCont {
+    width: 40px;
+    height: 40px;
+    /*border: 3px solid;*/
+    /*border-radius: 50%;*/
+  }
+  .firstCellFlex img {
+    width: 40px;
+    height: 40px;
+    /*border-radius: 50%;*/
+  }
+  .firstCellInfo {
+    margin-left: 10px;
+  }
+  
+  .headerFlex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .productName {
+    text-transform: capitalize;
+  }
+  .productCat {
+    text-transform: capitalize;
+    font-size: 12px;
+  }
+  
+  .belowLabel {
+    font-weight: bold;
+    margin-left: 10px;
+  }
+  
+  .infoTitle {
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    margin-left: 15px;
+    border-bottom: 1px solid;
+    width: 100%;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+  }
+  
+  .heading {
+    margin-right: 5px;
+  }
+  
+  .featured {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: capitalize;
+    background-color: rgba(250, 139, 12, 0.082);
+    color: rgb(250, 139, 12);
+  }
+  
+  .industry {
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+  
+  .userForm {
+    margin: 0 30%;
+  }
+  
+  .paperBackground {
+    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+      0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+    background-color: white;
+  }
+  
+  .lhs {
+    flex: 0.5;
+  }
+  
+  .newLine {
+    height: 4px;
+    width: 30px;
+    border-radius: 10px;
+    margin-left: 1px;
+    background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+  }
+  
+  .openIcon {
+    color: #2896e9 !important;
+  }
+  
+  .subText {
+    font-size: 0.7rem;
+    margin-left: 5px;
+    color: #2896e9;
+  }
+  
+  /*Create*/
+  .btnCont {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .formContainer {
+    flex: 1;
+  }
+  
+  .imgField {
+    margin-left: 10px;
+  }
+  .nameField {
+    margin-left: 10px;
+  }
+  
+  .outerFlex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 30px;
+  }
+  
+  .resetBtn {
+    background: #f7a728 !important;
+    padding: 20px 50px !important;
+    color: white !important;
+    border-radius: 5px !important;
+  }
+  
+  .enter {
+    font-size: 0.8rem;
+    margin-left: 10px;
+    font-weight: 600;
+    /*padding-bottom: 10px;*/
+    display: block;
+  }
+  
+  .createBtn {
+    background-color: #29cb97 !important;
+    color: #ffffff !important;
+    padding: 12px 35px !important;
+    font-size: 0.8rem !important;
+    border-radius: 30px !important;
+    text-transform: uppercase !important;
+    font-weight: 600 !important;
+  }
+  .lowerWrap{
+    flex: 1;
+  }
+  .cont{
+    display: flex;
+    gap: 10px;
+  }
+  .fileBlock{
+    padding-top: 15px !important;
+  }
+  .newLine {
+    height: 5px;
+    width: 30px;
+    border-radius: 10px;
+    /* text-align: center; */
+    margin-left: 15px;
+    background-image: linear-gradient(265deg, #AB183D, #E56056 ) !important;
+  }
+  .formContainer{
+    display: flex;
+    justify-content: space-between;
+  }

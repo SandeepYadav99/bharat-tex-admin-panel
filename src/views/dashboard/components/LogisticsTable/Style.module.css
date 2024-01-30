@@ -1,0 +1,90 @@
+.waybillFlex{
+    display: flex;
+    justify-content: space-between;
+}
+
+.waybillImg{
+    height: 50px;
+}
+
+.info{
+    margin-left: 15px;
+}
+
+.info>div {
+    margin-bottom: 10px;
+}
+
+.info div:nth-child(2){
+    font-size: 0.9rem;
+}
+
+.innerFlex{
+    display: flex;
+    font-size: 0.7rem;
+}
+
+.heading{
+    font-size: 0.8rem;
+    margin-bottom: 30px;
+    margin-top: 12px;
+}
+
+
+.backgroundColor {
+    background-color: white !important;
+    /*border-top-left-radius: 10px;*/
+    /*border-top-right-radius: 10px;*/
+    border-radius: 10px;
+}
+.paperBackground{
+    padding-top: 10px;
+    /*box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);*/
+    /*background-color: white;*/
+}
+
+/*TAB*/
+.upperFlex{
+    display: flex;
+    align-items: center;
+}
+
+.innerFlex{
+    display: flex;
+}
+
+.selected{
+    color: #F7A728 !important;
+    font-size: 0.8rem !important;
+
+}
+
+.notSelected{
+    font-size: 0.8rem !important;
+}
+
+.title{
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+.whiteBg{
+    border-radius: 10px;
+    padding: 0.7rem;
+    margin-bottom: 3px;
+    background-color: #fff;
+    box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+    display: flex;
+    justify-content: space-between;
+    min-height: 55px;
+}
+
+.warehouse{
+    flex: 0.7;
+}
+
+.refresh{
+    color: darkblue !important;
+}
+
+/**/

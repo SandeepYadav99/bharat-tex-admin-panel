@@ -1,0 +1,77 @@
+.mainContainer {
+    padding: 10px;
+}
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.headerContainer .title {
+    font-size: 1rem;
+}
+.bottomLine {
+    opacity: 0.4;
+    color: grey;
+    margin-bottom: 5px;
+}
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.firstCellFlex {
+    display: flex;
+    align-items: center;
+}
+.firstCellFlex img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.firstCellInfo {
+    margin-left: 10px;
+}
+
+.headerFlex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.includeContainer {
+    font-weight: 700;
+    margin-left: 15px;
+}
+
+.crud{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.teamImages{
+    height: 30px;
+    margin-right: 10px;
+    border: 1px solid #cdcdcdfc;
+    border-radius: 30px;
+}
+.infoTitle{
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    margin-left: 15px;
+    border-bottom: 1px solid;
+    width: 100%;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.heading{
+    margin-right: 5px;
+}
+
+.upperLabel{
+    font-weight: bold;
+    margin-left: 15px;
+    font-size: 1rem;
+}

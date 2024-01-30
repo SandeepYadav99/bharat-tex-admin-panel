@@ -1,0 +1,119 @@
+.paperContainer{
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+    margin-bottom: 20px;
+}
+
+.upperContainer{
+    display: flex;
+}
+
+.barChart{
+    flex: 1;
+}
+
+.upperFlex{
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    padding: 1.2rem;
+    border-bottom: 1px solid #ededed;;
+}
+
+.rightInfo{
+    border-left: 1px solid #ededed;
+    font-size: 0.7rem;
+}
+
+.colorFlex{
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+    border-bottom: 1px solid #ededed;
+   padding: 7px 10px;
+}
+
+.infoFlex{
+    display: flex;
+    align-items: center;
+}
+
+.colorBox{
+    height: 10px;
+    width: 10px;
+    background: #556BF8;
+    margin-right: 10px;
+}
+
+.colorBox2{
+    height: 10px;
+    width: 10px;
+    background: #F855A7;
+    margin-right: 10px;
+}
+
+.colorBox3{
+    height: 10px;
+    width: 10px;
+    background: #B2F855;
+    margin-right: 10px;
+}
+
+.colorBox4{
+    height: 10px;
+    width: 10px;
+    background: #F57D7D;
+    margin-right: 10px;
+}
+
+.colorBox5{
+    height: 10px;
+    width: 10px;
+    background: #60BDFB;
+    margin-right: 10px;
+}
+
+.serviceColorFlex{
+    display: flex;
+    justify-content: space-between;
+    /*width: 150px;*/
+    border-bottom: 1px solid #ededed;
+    padding: 7px 10px;
+}
+
+.serviceBox{
+    flex: 0.2;
+}
+
+.waybillBox{
+    flex: 0.4;
+}
+
+.wayColorBox{
+    height: 10px;
+    width: 10px;
+    background: #556BF8;
+    margin-right: 10px;
+}
+
+.wayColorBox2{
+    height: 10px;
+    width: 10px;
+    background: #F57D98;
+    margin-right: 10px;
+}
+
+.wayColorBox3{
+    height: 10px;
+    width: 10px;
+    background: #53CA64;
+    margin-right: 10px;
+}
+
+.wayColorBox4{
+    height: 10px;
+    width: 10px;
+    background: #60BDFB;
+    margin-right: 10px;
+}

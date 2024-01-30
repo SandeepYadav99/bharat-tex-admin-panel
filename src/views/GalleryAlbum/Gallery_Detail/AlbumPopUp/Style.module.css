@@ -1,0 +1,109 @@
+.upperFlex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    margin-top: 15px;
+    /* margin-left: 20px; */
+  }
+  
+  .printFlex {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 30px;
+    padding-top: 10px;
+  }
+  
+  .btmBtn {
+    background-color: #29cb97 !important;
+    padding: 15px 50px !important;
+    color: white !important;
+    border-radius: 5px !important;
+  }
+  .tableCont {
+    padding: 10px 10px;
+    max-height: 200px;
+    overflow: scroll;
+  }
+  .resetWrapper {
+    display: flex;
+  }
+  .resetPasswordWrapper {
+    padding: 1.2rem;
+  }
+  .fieldWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .checkBox > label {
+    font-size: 0.75rem;
+  }
+  .checkBox {
+    display: flex;
+    align-items: center;
+  }
+  .InterviewPopUpWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* height: 366px; */
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0px 20px 80px #00000011;
+    border-radius: 10px;
+    padding: 35px 0px;
+  }
+  .newLine {
+    height: 4px;
+    width: 30px;
+    border-radius: 10px;
+    margin-left: 1px;
+    background-image: linear-gradient(265deg, #ab183d, #e56056) !important;
+  }
+  .closeWrap {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #ebedf4;
+    padding-bottom: 1.2rem;
+  }
+  .descriptionStrong {
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+  .dialogWrapper {
+    display: flex;
+    flex-direction: column;
+    padding-left: 1.2rem;
+    font-weight: 600;
+  }
+  .customSliderWrapper{
+    display: flex;
+    width: 30vw;
+  }
+  .imgWrapper > img{
+    width: 400px;
+    height: 300px;
+    border-radius: 10px;
+    width: inherit;
+  }
+
+  /* .imgWrapper > img{
+    border-radius: 10px;
+    width: inherit;
+   
+  } */
+
+  
+@media (max-width: 767px) {
+  
+  .imgWrapper > img{
+    width: 300px;
+    height: 300px;
+   
+  }
+ 
+}
+  

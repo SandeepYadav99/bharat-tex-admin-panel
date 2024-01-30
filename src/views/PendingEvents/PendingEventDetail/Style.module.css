@@ -1,0 +1,288 @@
+.outerFlex {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  padding-bottom: 30px;
+}
+.claimListWrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.newLine {
+  height: 4px;
+  width: 30px;
+  border-radius: 10px;
+  margin-left: 20px;
+  background-image: linear-gradient(265deg, #ab183d, #e56056) !important;
+}
+.btnWrapper {
+  width: 20%;
+  background-color: #ffffff;
+}
+.chapCont {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  font-weight: 500;
+  gap: 15px;
+}
+.keysWrpa{
+  margin:0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  font-weight: 500;
+  font-size: .8rem;
+  gap: 10px;
+  list-style-type: disc !important
+}
+.eventKeyWrapp{
+  display: flex;
+  flex-wrap: wrap;
+  width: 45%;
+}
+.mapWrap {
+  display: flex;
+  gap: 25px;
+}
+.PdfBtnWrapper {
+  background: #ffffff;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  padding: 1.2rem 0;
+}
+.approvedWrapper {
+  background: #ffffff;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  border-radius: 10px;
+  padding: 1.2rem 0;
+}
+.editBtn2 {
+  margin-left: 15px;
+}
+.edit {
+  color: #e92828 !important;
+  border: 2px solid #e92828 !important;
+  padding: 10px 40px !important;
+  border-radius: 30px !important;
+  font-weight: 600 !important;
+}
+.editSuccess {
+  color: #29cb97 !important;
+  border: 2px solid #29cb97 !important;
+  padding: 10px 40px !important;
+  border-radius: 30px !important;
+  font-weight: 600 !important;
+}
+.pdfBtnShared {
+  background: #ffffff;
+  width: 100%;
+  height: 8%;
+  position: absolute;
+  bottom: 0px;
+}
+.createBtn {
+  background-color: #29cb97 !important;
+  color: #ffffff !important;
+  padding: 12px 35px !important;
+  font-size: 0.8rem !important;
+  border-radius: 30px !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}
+.btnApproveWrapper {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-right: 15px;
+}
+.heading {
+  font-size: 0.8rem;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+.plainPaper {
+  border-radius: 10px;
+  padding: 1.2rem;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0px 20px 80px #00000011;
+}
+.newContainer {
+  font-size: 0.7rem;
+}
+.commentWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.commentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.7rem;
+}
+.commentDate {
+  font-weight: 600;
+}
+.commentwrap {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.hyperlinkText {
+  color: #2896e9;
+  text-decoration-line: underline;
+  cursor: pointer;
+}
+.heading221 {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.mainFlex {
+  display: flex;
+  /*align-items: center;*/
+}
+
+.vertical {
+  border-left: 1px dashed #b8c5d3;
+  max-height: 100px;
+  flex: 0.3;
+}
+
+.key {
+  color: #818181;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.key221 {
+  margin-top: 15px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  /* color: #818181; */
+  font-weight: 500;
+  margin-bottom: 7px;
+}
+.value {
+  font-weight: 600;
+  width: 180px;
+  color: black;
+  display: inline-block;
+}
+
+.newContainer {
+  font-size: 0.7rem;
+}
+
+.left {
+  flex: 1.4;
+}
+.chap {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.87rem;
+  font-weight: 500;
+  gap: 10px;
+}
+.gallery {
+  display: flex;
+  gap: 10px;
+  font-size: 0.8rem;
+}
+.right {
+  flex: 1;
+}
+
+.horizontal {
+  border-bottom: 1px dashed #b8c5d3;
+  margin-top: 15px;
+  margin-bottom: 22px;
+}
+
+.posted {
+  font-size: 0.7rem;
+  margin-left: 10px;
+}
+.statusContainer {
+  display: flex;
+  justify-content: space-between;
+}
+.editBtn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.editFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.statusFlex {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btnCont {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.detailFlex {
+  display: flex;
+}
+
+.info {
+  margin-left: 10px;
+}
+.formDetailWrapper {
+  margin-top: 20px;
+}
+.prcReportWrap {
+  margin-top: 10px;
+  display: flex;
+  border-top: 1px solid #b8c5d3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.list {
+  color: #818181;
+}
+.totalWrap {
+  width: 100%;
+  height: 50px;
+  background: #f5f7fb 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-weight: 600;
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+.inner {
+  margin-left: 20px;
+}
+.inner > span {
+  margin-left: 10px;
+  color: #2896e9;
+}
+.otherWrap {
+  margin: 10px 0;
+}
+.verti {
+  border: 1px solid #b8c5d3;
+  margin: 10px 0;
+}

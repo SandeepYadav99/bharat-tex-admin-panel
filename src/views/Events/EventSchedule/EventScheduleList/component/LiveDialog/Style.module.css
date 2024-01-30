@@ -1,0 +1,50 @@
+.InterviewPopUpWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* height: 366px; */
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 20px 80px #00000011;
+  border-radius: 10px;
+  padding: 35px 25px;
+}
+.closeWrap {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.loginSignupText {
+  text-align: left;
+}
+.headingText {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: black;
+  font-size: 18px;
+  margin-bottom: 2px;
+  /*font-family: CircularStd-Bold;*/
+}
+.newLine {
+  height: 5px;
+  width: 30px;
+  border-radius: 10px;
+  text-align: center;
+  margin: auto;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+}
+.confirmedWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+.createBtn {
+  background-color: #29cb97 !important;
+  color: #ffffff !important;
+  padding: 12px 35px !important;
+  font-size: 0.8rem !important;
+  border-radius: 30px !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}

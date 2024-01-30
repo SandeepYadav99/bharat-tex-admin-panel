@@ -1,0 +1,49 @@
+.container {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+}
+.profileContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+.profileDetails {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+}
+.profileDescription {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.description_subContainer {
+  display: flex;
+  gap: 20px;
+  font-size: 12px;
+}
+.description_key {
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+}
+.description_value {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.status_description {
+  border: 1px solid #20c997;
+  color: #20c997;
+  padding: 1px;
+  padding-left: 12px;
+  width: fit-content;
+  border-radius: 10px;
+  padding-right: 12px;
+}
+.QRCode_Container{
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}

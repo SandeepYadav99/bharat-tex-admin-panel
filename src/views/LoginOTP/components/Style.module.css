@@ -1,0 +1,62 @@
+.login{
+    color: white !important;
+    background-color: #1cb496 !important;
+    padding: 12px 70px !important;
+    min-width: 240px !important;
+    font-size: 14px !important;
+    border-radius: 0px !important;
+    font-family: 'Philosopher', sans-serif;
+    /*font-family: Avenir;*/
+}
+
+
+.inputContainer {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.inputFields {
+    width: 50px;
+    text-align: center;
+}
+.inputFields input {
+    text-align: center;
+}
+
+.bottomText {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 60px;
+    font-size: 0.8rem;
+    padding-top: 10px;
+}
+.receive{
+    margin-right: 5px;
+    font-family: 'Philosopher', sans-serif;
+}
+
+.innerText {
+    font-family: 'Philosopher', sans-serif;
+}
+.resendText {
+    color: #1cb496 !important;
+    font-weight: 500 !important;
+    text-decoration: underline !important;
+    font-size: 0.8rem !important;
+    font-family: 'Philosopher', sans-serif;
+}
+
+.bottomButton{
+    box-shadow: 1px 1px 4px 0 rgba(46,61,73,.2);
+    background-color: #1BBD73 !important;
+    margin-bottom: 10px !important;
+}
+
+.verifyText {
+    padding:10px 15px !important;
+    width:100%;
+    font-size: 18px;
+    color: white;
+    text-align: center;
+}
+

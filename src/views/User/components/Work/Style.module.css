@@ -1,0 +1,61 @@
+.mainContainer {
+    padding: 10px;
+}
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.headerContainer .title {
+    font-size: 1rem;
+}
+.bottomLine {
+    opacity: 0.4;
+    color: grey;
+    margin-bottom: 5px;
+}
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.firstCellFlex {
+    display: flex;
+    align-items: center;
+}
+.firstCellFlex img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.firstCellInfo {
+    margin-left: 10px;
+}
+.headerFlex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.userForm{
+    margin: 0 30%;
+}
+
+.saveButton{
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.mgrContainer{
+    display: flex;
+    align-items: center;
+}
+
+.mgrImg{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+}

@@ -1,0 +1,100 @@
+.upperFlex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  margin-top: 15px;
+  /* margin-left: 20px; */
+}
+
+.printFlex {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 30px;
+  padding-top: 10px;
+}
+
+.btmBtn {
+  background-color: #29cb97 !important;
+  padding: 15px 50px !important;
+  color: white !important;
+  border-radius: 5px !important;
+}
+.tableCont {
+  padding: 10px 10px;
+  max-height: 200px;
+  overflow: scroll;
+}
+.resetWrapper {
+  display: flex;
+}
+.resetPasswordWrapper {
+  padding: 1.2rem;
+}
+.fieldWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+.checkBox > label {
+  font-size: 0.75rem;
+}
+.checkBox {
+  display: flex;
+  align-items: center;
+}
+.newLine {
+  height: 5px;
+  width: 30px;
+  border-radius: 10px;
+  text-align: center;
+  margin: auto;
+  background-image: linear-gradient(265deg, #7467f0, #2896e9) !important;
+}
+.heading {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+.headingWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.875rem;
+}
+.des {
+  margin-top: 15px;
+}
+.cleckboxWrapper {
+  margin-top: 20px;
+  display: flex;
+  font-size: 0.75rem;
+}
+.createBtn {
+  background-color: #29cb97 !important;
+  color: #ffffff !important;
+  padding: 12px 35px !important;
+  font-size: 0.8rem !important;
+  border-radius: 30px !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}
+.disabledCreatebtn {
+  background-color: #bec0bf !important;
+  color: #ffffff !important;
+  padding: 12px 35px !important;
+  font-size: 0.8rem !important;
+  border-radius: 30px !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}
+.checkBox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #161616;
+}
+.checkBox > input {
+  cursor: pointer;
+}

@@ -1,0 +1,129 @@
+.RequestShortlistWrapper {
+  width: 100%;
+  padding-bottom: 15px;
+  /* display: flex; */
+  /* position: fixed;
+  bottom: 0; */
+  /* height: 142px; */
+  /* padding: 25px 30px; */
+  border-top: 1px solid #00000029;
+  /* UI Properties */
+  background: #ffffff 0% 0% no-repeat padding-box;
+  /* box-shadow: 0px 3px 6px #00000029; */
+  /* opacity: 1; */
+}
+.edit {
+  color: #29cb97 !important;
+  border: 2px solid #29cb97 !important;
+  padding: 10px 40px !important;
+  border-radius: 30px !important;
+  font-weight: 600 !important;
+}
+.disabledBtnReject{
+    color: #615f5f !important;
+    border: 2px solid #615f5f !important;
+    padding: 10px 40px !important;
+    border-radius: 30px !important;
+    font-weight: 600 !important;
+}
+.editBtn2 {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  align-items: center;
+  gap: 30px;
+}
+.createBtn {
+  background-color: #29cb97 !important;
+  color: #ffffff !important;
+  padding: 12px 35px !important;
+  font-size: 0.8rem !important;
+  border-radius: 30px !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}
+.disabledCreatebtn{
+    background-color: #bec0bf !important;
+    color: #ffffff !important;
+    padding: 12px 35px !important;
+    font-size: 0.8rem !important;
+    border-radius: 30px !important;
+    text-transform: uppercase !important;
+    font-weight: 600 !important;
+}
+.confirmedWrapper{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.SlidebtnWrapper2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 10px;
+}
+.heading3 {
+  font-weight: 600;
+}
+.stickbottom {
+  position: relative;
+  bottom: 0;
+  /*padding-top: 1.2rem;*/
+  width: 100%;
+}
+.loginSignupText {
+  text-align: left;
+}
+.headingText {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: black;
+  font-size: 28px;
+  margin-bottom: 2px;
+  /*font-family: CircularStd-Bold;*/
+}
+.newLine {
+  height: 5px;
+  width: 30px;
+  border-radius: 10px;
+  text-align: center;
+  margin: auto;
+  background-image: linear-gradient(265deg, #AB183D, #E56056 ) !important;
+}
+.InterviewPopUpWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* height: 366px; */
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 20px 80px #00000011;
+  border-radius: 10px;
+  padding: 35px 25px;
+}
+.closeWrap {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.descriptionStrong{
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+.mainContainer {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+}
+@media (max-width:1500px){
+  .RequestShortlistWrapper {
+    width: 55vw;
+  }
+}
+@media (max-width:767px){
+  .RequestShortlistWrapper {
+    width: 94vw;
+  }
+}

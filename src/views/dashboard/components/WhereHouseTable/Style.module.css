@@ -1,0 +1,19 @@
+.newLine{
+    height: 3px;
+    width: 30px;
+    border-radius: 10px;
+    margin-left: 1px;
+    background-image: linear-gradient(265deg, #ab183d, #e56056) !important;
+
+}
+
+.titles{
+    font-weight: 600;
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+}
+.hyperlinkText{
+    color: #2896E9;
+    text-decoration-line: underline;
+    cursor: pointer;
+  }

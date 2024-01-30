@@ -1,0 +1,40 @@
+.parent{
+    display: grid;
+    padding-top: 20px;
+    align-items: space-between;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.image{
+   display: flex;
+   justify-content: center;
+}
+
+.imageHeight{
+    width:90%;
+    height:250px;
+}
+
+.details{
+    display: grid;
+    grid-template-columns: 50% 50%;
+   align-items: center;
+}
+.divider{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-left: 15%;  
+}
+.token{
+    padding-left: 7%;
+}
+.spanDecoration{
+    font-size: 14px;
+}

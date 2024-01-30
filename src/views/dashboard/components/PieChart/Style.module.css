@@ -1,0 +1,88 @@
+.paperContainer{
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgb(0 0 0 / 15%);
+    margin-bottom: 20px;
+    font-size: 0.8rem;
+}
+
+.upperContainer{
+    display: flex;
+}
+
+.barChart{
+    flex: 1;
+}
+
+.upperFlex{
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    padding: 1.2rem;
+    border-bottom: 1px solid #ededed;;
+}
+
+.upperLogisticsFlex{
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    padding: 1.2rem;
+}
+
+.rightInfo{
+    border-left: 1px solid #ededed;
+    font-size: 0.7rem;
+}
+
+.colorFlex{
+    display: flex;
+    justify-content: space-between;
+    /*border-bottom: 1px solid #ededed;*/
+    padding: 10px 20px
+}
+
+.infoFlex{
+    display: flex;
+    align-items: center;
+}
+
+.colorBox{
+    height: 10px;
+    width: 10px;
+    background: #F57D7D;
+    margin-right: 10px;
+}
+
+.allFlex{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px
+}
+
+
+
+
+.logColorBox{
+    height: 10px;
+    width: 10px;
+    background: #7DF585;
+    margin-right: 10px;
+}
+
+.logColorBox2{
+    height: 10px;
+    width: 10px;
+    background: #7D98F5;
+    margin-right: 10px;
+}
+.logColorBox3{
+    height: 10px;
+    width: 10px;
+    background: #F57D7D;
+    margin-right: 10px;
+}
+
+.logValue{
+    margin-top: 10px;
+    display: inline-block;
+}

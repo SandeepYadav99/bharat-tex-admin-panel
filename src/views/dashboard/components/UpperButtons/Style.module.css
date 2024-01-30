@@ -1,0 +1,41 @@
+.upperFlex{
+    display: flex;
+    align-items: center;
+}
+
+.innerFlex{
+    display: flex;
+}
+
+.selected{
+    color: #F7A728 !important;
+    font-size: 0.7rem !important;
+}
+
+.notSelected{
+    font-size: 0.7rem !important;
+}
+
+.title{
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+.whiteBg{
+    border-radius: 10px;
+    padding: 0.7rem;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 2px 6px 8px rgb(0 0 0 / 15%);
+    display: flex;
+    justify-content: space-between;
+    min-height: 55px;
+}
+
+.warehouse{
+    flex: 0.3;
+}
+
+.refresh{
+    color: darkblue !important;
+}

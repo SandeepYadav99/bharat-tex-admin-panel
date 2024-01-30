@@ -1,0 +1,292 @@
+.outerFlex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 30px;
+}
+
+.newLine {
+  height: 4px;
+  width: 30px;
+  border-radius: 10px;
+  margin-left: 1px;
+  background-image: linear-gradient(265deg, #ab183d, #e56056) !important;
+}
+
+.imgCont {
+  display: flex;
+  flex-direction: column;
+}
+
+.plainPaper {
+  border-radius: 10px;
+  padding: 1.2rem;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0px 20px 80px #00000011;
+}
+
+.lower {
+  display: flex;
+  gap: 10px;
+}
+
+.logoImg {
+  width: 145px;
+  aspect-ratio: 2/1;
+  border-radius: 10px;
+}
+
+.event {
+  margin: 20px 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.title {
+  margin: 10px 0px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.bngImg {
+  width: 60px;
+  aspect-ratio: 2/1;
+  border-radius: 2px;
+  height: 70px;
+}
+
+.HeaderWrap {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+
+.space {
+  margin: 25px 0;
+}
+
+.heading {
+  font-size: 0.8rem;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.mainFlex {
+  display: flex;
+  /*align-items: center;*/
+}
+
+.vertical {
+  /* border-left: 1px dashed #b8c5d3; */
+  max-height: 100px;
+  flex: 0.3;
+}
+
+.vertLine {
+  border: 1px solid #b8c5d3;
+  margin: 30px 0;
+}
+
+.key {
+  color: #818181;
+  font-weight: 500;
+  margin-bottom: 7px;
+}
+
+.keylower {
+  color: #818181;
+  font-weight: 500;
+  margin-bottom: 7px;
+  display: flex;
+  gap: 50px;
+}
+
+.hyperlinkText {
+  color: #ab183d;
+  text-decoration-line: underline;
+  cursor: pointer;
+}
+
+.key21 {
+  color: #818181;
+  font-weight: 500;
+  margin-top: 50px;
+  margin-bottom: 7px;
+}
+
+.value {
+  font-weight: 600;
+  width: 150px;
+  color: black;
+  display: inline-block;
+}
+
+.valueNew {
+  font-weight: 600;
+  color: black;
+  /* display: inline-block; */
+  white-space: nowrap;
+}
+
+.newContainer {
+  font-size: 0.7rem;
+}
+
+.left {
+  flex: 1.4;
+}
+
+.left221 {
+  flex: 1.4;
+  display: flex;
+  gap: 15px;
+}
+
+.claimimg {
+  width: 50px;
+  aspect-ratio: 1/1;
+}
+
+.right {
+  /*margin-left: 60px;*/
+  flex: 1;
+}
+
+.horizontal {
+  border-bottom: 1px dashed #b8c5d3;
+  margin-top: 15px;
+  margin-bottom: 22px;
+}
+
+.posted {
+  font-size: 0.7rem;
+  margin-left: 10px;
+}
+
+.editBtn {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.edit {
+  color: #29cb97 !important;
+  border: 2px solid #29cb97 !important;
+  padding: 10px 40px !important;
+  border-radius: 30px !important;
+  font-weight: 600 !important;
+}
+
+.editFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.statusFlex {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btnCont {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.createBtn {
+  background-color: #29cb97 !important;
+  color: #ffffff !important;
+  padding: 12px 35px !important;
+  font-size: 0.8rem !important;
+  border-radius: 30px !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+}
+
+.addBtn {
+  color: #2896e9 !important;
+  font-weight: 600 !important;
+  font-size: 0.7rem !important;
+  margin-left: 60px !important;
+}
+
+.detailFlex {
+  display: flex;
+}
+
+.info {
+  margin-left: 10px;
+}
+
+
+.galleryImageWrapper {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 20px 80px #00000011;
+  border-radius: 10px;
+  padding: 1.2rem;
+}
+
+.imageWrapper2 {
+  margin-top: 1.2rem;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.imgdimesion {
+  border-radius: 10px;
+  width: 300px;
+  height: 200px;
+  /* max-width: 200px;
+  max-height: 400px; */
+  cursor: pointer;
+}
+
+.headingWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .employeeInducationWrapper {
+    padding: 0.8rem;
+  }
+
+  .content {
+    min-width: auto !important;
+    width: 100%;
+  }
+
+  .contentWrapper {
+    flex-direction: column;
+  }
+
+  .imageWrapper img {
+    width: 100%;
+    height: auto;
+  }
+
+  .imgdimesion {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.alignInOneRow {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+@media only screen and (max-width:769px) {
+  .galleryImageWrapper {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .imageWrapper{
+    width:100% !important;
+  }
+  
+}
