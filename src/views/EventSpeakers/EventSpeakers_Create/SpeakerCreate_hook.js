@@ -13,6 +13,7 @@ import constants from "../../../config/constants";
 
 
 function useSpeakerCreateHook({ location }) {
+  const [speaker,setSpeaker] = useState(false);
   const initialForm = {
     s_image: "",
     s_name: "",
@@ -187,6 +188,7 @@ function useSpeakerCreateHook({ location }) {
     isSubmitting,
     images,
     setImage,
+    speaker,
   };
 }
 

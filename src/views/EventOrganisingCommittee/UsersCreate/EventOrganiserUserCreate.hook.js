@@ -13,11 +13,8 @@ import { useParams } from "react-router";
 import { serviceGetList } from "../../../services/index.services";
 
 const initialForm = {
-  name: "",
-  description: "",
   image: "",
   company: "",
-  designation: "",
   priority: "",
   user: null,
 };
@@ -42,12 +39,9 @@ const useEventOrganiserUserCreate = ({ location }) => {
         if (!res.error) {
           const data = res?.data;
           setForm({
-            ...form,
-            name: data?.name,
-            description: data?.description,
+            ...form,          
             company: data?.company,
             priority: data?.priority,
-            designation: data?.designation,
           });
           setImage(data?.image);
         } else {

@@ -122,35 +122,10 @@ const EventOrganiserUserCreate = ({ location }) => {
             />
           </div>
           <div className={styles.lowerWrap}>
-            <div className={"formFlex"}>
-              <div className={"formGroup"}>
-                {UserField}
-                <div>
-                  <button
-                    className={styles.manuallyText}
-                    onClick={handleManualClick}
-                  >
-                    {isEnterManually
-                      ? "Search By User Phone"
-                      : "Enter User Manually"}
-                  </button>
-                </div>
-              </div>
-            </div>
+         
 
             <div className={"formFlex"}>
-              <div className={"formGroup"}>
-                <CustomTextField
-                  label={"Designation"}
-                  value={form?.designation}
-                  onTextChange={(text) => {
-                    changeTextData(text, "designation");
-                  }}
-                  onBlur={() => {
-                    onBlurHandler("designation");
-                  }}
-                />
-              </div>
+             
               <div className={"formGroup"}>
                 <CustomTextField
                   label={"Company"}
@@ -166,18 +141,7 @@ const EventOrganiserUserCreate = ({ location }) => {
             </div>
 
             <div className={"formFlex"}>
-              <div className={"formGroup"}>
-                <CustomTextField
-                  label={"Description"}
-                  value={form?.description}
-                  onTextChange={(text) => {
-                    changeTextData(text, "description");
-                  }}
-                  onBlur={() => {
-                    onBlurHandler("description");
-                  }}
-                />
-              </div>
+             
               <div className={"formGroup"}>
                 <CustomTextField
                   isError={errorData?.priority}
