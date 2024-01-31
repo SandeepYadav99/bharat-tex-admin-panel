@@ -29,9 +29,7 @@ const UserProfile = () => {
           <div className={styles.newLine} />{" "}
         </div>
       </div>
-      <div className={styles.topNavBar}>
-        <TopNavBar data={0} />
-      </div>
+  
       <div>
         <Paper
           className={styles.paperContainer}

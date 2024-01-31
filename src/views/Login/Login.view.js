@@ -122,7 +122,7 @@ class LoginView extends Component {
             <div className={styles.signContainer}>
               <div className={styles.logoImg}>
                 <img
-                  src={require("../../assets/img/credai_logo@2x.png")}
+                  src={require("../../assets/img/Bharat_tax_logo.png")}
                   className={styles.sky}
                 />
               </div>
@@ -167,7 +167,7 @@ class LoginView extends Component {
                       Login
                     </ButtonBase>
                   </div>
-                  <div className={styles.otpWrap}>
+                  {/* <div className={styles.otpWrap}>
                     <div className={styles.bottomSignup}>
                       <ButtonBase
                         onClick={this._handleForgotPassword}
@@ -176,7 +176,7 @@ class LoginView extends Component {
                         Login with OTP
                       </ButtonBase>
                     </div>
-                  </div>
+                  </div> */}
                 </>
               </form>
             </div>
