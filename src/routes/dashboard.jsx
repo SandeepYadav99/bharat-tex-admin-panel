@@ -73,11 +73,14 @@ import ReportedFeed from "../views/ReportedFeed/ReportedFeed";
 import PollResult from "../views/PollResults/PollResult";
 import BusinessCreate from "../views/BusinessGreeting/BusinessCreate/BusinessCreate.view";
 import BusinessDetail from "../views/BusinessGreeting/BusinessDetail/BusinessDetail.view";
+import ProductGroupList from "../views/ProductGroup/List/List.component.js";
 const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
 const KnowledgeCenter = lazy(()=>import("../views/KnowledgeCenter/KnowledgeCenter.view"));
 const knowledgeCreate = lazy(()=>import("../views/KnowledgeCenter/Create/Create.view"));
 const knowledgeList = lazy(()=>import("../views/KnowledgeCenter/CountryList/List.view"));
 const knowledgeStampCreate = lazy(()=>import("../views/KnowledgeCenter/CountryList/CreateStamp/Stamp.js"));
+const ProductCategory = lazy(()=>import("../views/ProductCategory/List/List.component.js"));
+const ProductCategoryCreate = lazy(()=>import("../views/ProductCategory/Create/Create.component.js"))
 
 
 const Roles = Constants.ROLES;
@@ -703,7 +706,50 @@ const dashboardRoutes = [
     path: `${RouteName.KNOWLEDGE_CENTER_STAMP_CREATE}/:id`,
     component: knowledgeStampCreate,
     is_protect: true,
-  }
+  },
+   {
+    path: `${RouteName.PRODUCT_CATEGORY}`,
+    sidebarName: "Product Category",
+    navbarName: "Product Category",
+    icon: PeopleOutlined,
+    component: ProductCategory,
+    is_sidebar: true,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.PRODUCT_CATEGORY_CREATE}`,
+    icon: PeopleOutlined,
+    component: ProductCategoryCreate,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.PRODUCT_CATEGORY_CREATE}:id`,
+    icon: PeopleOutlined,
+    component: ProductCategoryCreate,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.PRODUCT_GROUP}`,
+    sidebarName: "Product Group",
+    navbarName: "Product Group",
+    icon: PeopleOutlined,
+    component: ProductGroupList,
+    is_sidebar: true,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.PRODUCT_GROUP_CREATE}`,
+    icon: PeopleOutlined,
+    component: ProductCategoryCreate,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.PRODUCT_GROUP_CREATE}:id`,
+    icon: PeopleOutlined,
+    component: ProductCategoryCreate,
+    is_protect: true,
+  },
+
 ];
 
 export default dashboardRoutes;

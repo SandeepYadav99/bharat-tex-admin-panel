@@ -136,4 +136,9 @@ export default {
   KNOWLEDGE_CENTER_STAMP_CREATE:"/stamp/create",
   KNOWLEDGE_CENTER_STAMP_UPDATE:"/stamp/update",
 
+  PRODUCT_CATEGORY:"/product/category",
+  PRODUCT_CATEGORY_CREATE:"/product/category/create/",
+  
+  PRODUCT_GROUP:"/product/group",
+  PRODUCT_GROUP_CREATE:"/product/group/create/",
 };
