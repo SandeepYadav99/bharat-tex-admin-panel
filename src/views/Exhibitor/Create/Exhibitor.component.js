@@ -7,7 +7,7 @@ import history from "../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import File from "../../../components/FileComponent/FileComponent.component";
 import CustomAutoComplete from "../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
-import useEventOrganiserUserCreate from "./EventOrganiserUserCreate.hook";
+import useExhibitorCreate from "./Exhibitor.hook";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EventOrganiserUserCreate = ({ location }) => {
+const ExhibitorCreate = ({ location }) => {
   const {
     form,
     errorData,
@@ -34,7 +34,7 @@ const EventOrganiserUserCreate = ({ location }) => {
     image,
     handleManualClick,
     isEnterManually,
-  } = useEventOrganiserUserCreate({ location });
+  } = useExhibitorCreate({ location });
 
   const classes = useStyles();
   
@@ -87,7 +87,7 @@ const EventOrganiserUserCreate = ({ location }) => {
           <ButtonBase onClick={() => history.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />{" "}
             <span>
-              <b>{id ? "Update" : "Add"} Organising User</b>
+              <b>{id ? "Update" : "Add"}Exhibitor</b>
             </span>
           </ButtonBase>
           <div className={styles.newLine} />
@@ -97,7 +97,7 @@ const EventOrganiserUserCreate = ({ location }) => {
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
-            <div className={"heading"}>User Details</div>
+            <div className={"heading"}>Exhibitor Details</div>
           </h4>
         </div>
         <div className={styles.cont}>
@@ -174,4 +174,4 @@ const EventOrganiserUserCreate = ({ location }) => {
   );
 };
 
-export default EventOrganiserUserCreate;
+export default ExhibitorCreate;

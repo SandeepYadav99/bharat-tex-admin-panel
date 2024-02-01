@@ -21,6 +21,7 @@ function EventSpeakerCreateView({ location }) {
     descriptionRef,
     images,
     setImage,
+    speaker,
   } = useSpeakerCreateHook({ location });
 
   return (
@@ -145,6 +146,12 @@ function EventSpeakerCreateView({ location }) {
         </div>
       </div>
       <div className={"plainPaper"}>
+        <div style={{ display: "flex", marginTop: "10px", gap: "10px" }}>
+          <input type="checkbox" value={speaker} />{" "}
+          <span>
+            <b>Is Moderator</b>
+          </span>
+        </div>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
             <div className={"heading"}>Status</div>

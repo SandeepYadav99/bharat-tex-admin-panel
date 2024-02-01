@@ -19,7 +19,7 @@ const initialForm = {
   user: null,
 };
 
-const useEventOrganiserUserCreate = ({ location }) => {
+const useExhibitorCreate = ({ location }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -233,4 +233,4 @@ const useEventOrganiserUserCreate = ({ location }) => {
   };
 };
 
-export default useEventOrganiserUserCreate;
+export default useExhibitorCreate;

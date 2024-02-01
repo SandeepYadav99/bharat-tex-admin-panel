@@ -14,6 +14,7 @@ import File from "../../../components/FileComponent/FileComponent.component";
 import CustomSwitch from "../../../components/FormFields/CustomSwitch";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import CountryInputField from "../../../components/CountryInputField/CountryInputField.js";
+
 function EventSponsorCreate({ location }) {
   const {
     form,
@@ -97,20 +98,6 @@ function EventSponsorCreate({ location }) {
             <div className={"formFlex"}>
               <div className={"formGroup"}>
                 <CustomTextField
-                  isError={errorData?.email}
-                  errorText={errorData?.email}
-                  label={"Email"}
-                  value={form?.email}
-                  onTextChange={(text) => {
-                    changeTextData(text, "email");
-                  }}
-                  onBlur={() => {
-                    onBlurHandler("email");
-                  }}
-                />
-              </div>
-              <div className={"formGroup"}>
-                <CustomTextField
                   isError={errorData?.web_url}
                   errorText={errorData?.web_url}
                   label={"Web URL"}
@@ -163,24 +150,7 @@ function EventSponsorCreate({ location }) {
             </div>
           </div>
         </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              isError={errorData?.product}
-              errorText={errorData?.product}
-              label={"Sponsor Product"}
-              value={form?.product}
-              onTextChange={(text) => {
-                changeTextData(text, "product");
-              }}
-              onBlur={() => {
-                onBlurHandler("product");
-              }}
-              multiline
-              rows={3}
-            />
-          </div>
-        </div>
+      
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
