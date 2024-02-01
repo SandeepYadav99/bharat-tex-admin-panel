@@ -57,7 +57,7 @@ const ProductList = ({}) => {
         key: "S.No",
         label: "S no",
         sortable: true,
-        render: (value, all) => <div>{all?.email}</div>,
+        render: (value, all) => <div>{all?.sr_no}</div>,
       },
 
       {
