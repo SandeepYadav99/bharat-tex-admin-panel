@@ -64,7 +64,7 @@ const ProductList = ({}) => {
         key: "name",
         label: "Name",
         sortable: true,
-        render: (temp, all) => <div>{all.contact}</div>,
+        render: (temp, all) => <div>{all.name}</div>,
       },
       {
         key: "status",

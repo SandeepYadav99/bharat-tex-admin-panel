@@ -1,15 +1,21 @@
-import { useCallback, useEffect,  useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import Constants from "../../../config/constants";
-import { serviceCreateProductCategory, serviceGetProductCategoryDetails, serviceUpdateProductCategory } from "../../../services/ProductCategory.service";
+import {
+  serviceCreateProductCategory,
+  serviceGetProductCategoryDetails,
+  serviceUpdateProductCategory,
+} from "../../../services/ProductCategory.service";
+import historyUtils from "../../../libs/history.utils";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 const initialForm = {
   name: "",
-
+  status: true,
 };
 
-const useProductCategory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
+const useProductCategory = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
   const [errorData, setErrorData] = useState({});
@@ -17,12 +23,14 @@ const useProductCategory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
   const [form, setForm] = useState({ ...initialForm });
   const [isEdit, setIsEdit] = useState(false);
   const includeRef = useRef(null);
+  const { id: empId } = useParams();
 
   useEffect(() => {
     if (empId) {
       serviceGetProductCategoryDetails({ id: empId }).then((res) => {
         if (!res.error) {
-          const data = res?.data?.details;
+          const data = res?.data;
+          console.log(data, "Data ");
           setForm({
             ...form,
             name: data?.name,
@@ -35,19 +43,15 @@ const useProductCategory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
     }
   }, [empId]);
 
-  useEffect(() => {
-    if (!isSidePanel) {
-      handleReset();
-    }
-  }, [isSidePanel]);
+  // useEffect(() => {
+  //   if (!isSidePanel) {
+  //     handleReset();
+  //   }
+  // }, [isSidePanel]);
 
- 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = [
-      "name",
-     
-    ];
+    let required = ["name"];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -57,7 +61,6 @@ const useProductCategory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
       } else if (["code"].indexOf(val) < 0) {
         delete errors[val];
       }
-      
     });
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
@@ -70,17 +73,19 @@ const useProductCategory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-   
-    
+      const payloadData = {
+        name: form?.name,
+        status: form?.status ? "ACTIVE" : "INACTIVE",
+      };
       let req;
       if (empId) {
-        req = serviceUpdateProductCategory({ ...form, id: empId ? empId : "" });
+        req = serviceUpdateProductCategory({ ...payloadData, id: empId });
       } else {
-        req = serviceCreateProductCategory({});
+        req = serviceCreateProductCategory(payloadData);
       }
       req.then((res) => {
         if (!res.error) {
-          handleToggleSidePannel();
+          historyUtils.goBack();
           // window.location.reload();
         } else {
           SnackbarUtils.error(res.message);
@@ -113,9 +118,7 @@ const useProductCategory = ({ handleToggleSidePannel, isSidePanel, empId }) => {
       let shouldRemoveError = true;
       const t = { ...form };
       if (fieldName === "name") {
-        
-          t[fieldName] = text;
-     
+        t[fieldName] = text;
       } else {
         t[fieldName] = text;
       }
