@@ -7,10 +7,8 @@ import styles from "./Style.module.css";
 import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
-// import StatusPill from "../../../components/Status/StatusPill.component";
 import useList from "./List.hook.js";
 import StatusPill from "../../../components/Status/StatusPill.component";
-import ProductCategoryView from "../Create/Create.component.js";
 import { Link } from "react-router-dom";
 import RouteName from "../../../routes/Route.name";
 
@@ -39,7 +37,7 @@ const ProductList = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.App_User);
+  } = useSelector((state) => state.productCategory);
 
   const UpperInfo = useCallback((obj) => {
     if (obj) {
