@@ -40,12 +40,7 @@ const useList = ({}) => {
 
   const handleDataSave = useCallback(
     (data, type) => {
-      // this.props.actionChangeStatus({...data, type: type});
-      // if (type == "CREATE") {
-      //   dispatch(actionCreateAppUser(data));
-      // } else {
-      //   dispatch(actionUpdateAppUser(data));
-      // }
+    
       setSidePanel((e) => !e);
       setEditData(null);
     },
@@ -121,8 +116,9 @@ const useList = ({}) => {
 
   const handleEdit = useCallback(
     (data) => {
-      setEditData(data);
-      setSidePanel((e) => !e);
+      // setEditData(data);
+      // setSidePanel((e) => !e);
+      historyUtils.push(RouteName.PRODUCT_CATEGORY_CREATE + data?.id)
     },
     [setEditData, setSidePanel]
   );
@@ -179,8 +175,10 @@ const useList = ({}) => {
     configFilter,
     handleCreate,
     handleToggleSidePannel,
-    handleCreateFed
+    handleCreateFed,
+    editCategory:handleEdit
   };
 };
 
 export default useList;
+

@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 const initialForm = {
   name: "",
-  status: true,
+  status: false,
 };
 
 const useProductCategory = ({}) => {
@@ -42,12 +42,6 @@ const useProductCategory = ({}) => {
       });
     }
   }, [empId]);
-
-  // useEffect(() => {
-  //   if (!isSidePanel) {
-  //     handleReset();
-  //   }
-  // }, [isSidePanel]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -118,7 +112,7 @@ const useProductCategory = ({}) => {
       let shouldRemoveError = true;
       const t = { ...form };
       if (fieldName === "name") {
-        t[fieldName] = text;
+        t[fieldName] = text?.replace(/^\s+/, "");
       } else {
         t[fieldName] = text;
       }

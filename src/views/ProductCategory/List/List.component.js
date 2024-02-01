@@ -1,16 +1,15 @@
-import React, { Component, useCallback, useEffect, useMemo } from "react";
-import { IconButton, MenuItem, ButtonBase } from "@material-ui/core";
+import React, {  useCallback,  useMemo } from "react";
+import { IconButton,  ButtonBase } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import PageBox from "../../../components/PageBox/PageBox.component";
-import { Add, Edit, InfoOutlined } from "@material-ui/icons";
+import { Add,  InfoOutlined } from "@material-ui/icons";
 import styles from "./Style.module.css";
 import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import useList from "./List.hook.js";
 import StatusPill from "../../../components/Status/StatusPill.component";
-import { Link } from "react-router-dom";
-import RouteName from "../../../routes/Route.name";
+
 
 const ProductList = ({}) => {
   const {
@@ -20,15 +19,10 @@ const ProductList = ({}) => {
     handleEdit,
     handleFilterDataChange,
     handleSearchValueChange,
-    handleSideToggle,
     handleViewDetails,
-    editData,
-    isSidePanel,
-    handleCreate,
     isCalling,
     configFilter,
-    warehouses,
-    handleToggleSidePannel,
+    editCategory,
     handleCreateFed,
   } = useList({});
 
@@ -64,28 +58,29 @@ const ProductList = ({}) => {
         key: "name",
         label: "Name",
         sortable: true,
-        render: (temp, all) => <div>{all.name}</div>,
+        render: (temp, all) => <div>{all?.name}</div>,
       },
       {
         key: "status",
         label: "STATUS",
         sortable: true,
-        render: (temp, all) => <div>{<StatusPill status={all.status} />}</div>,
+        render: (temp, all) => <div>{<StatusPill status={all?.status} />}</div>,
       },
       {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
           <div>
-            <Link to={RouteName.PRODUCT_CATEGORY_CREATE + all.id}>
+            <div>
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
                 disabled={isCalling}
+                onClick={()=>{editCategory(all)}}
               >
                 <InfoOutlined fontSize={"small"} />
               </IconButton>
-            </Link>
+            </div>
           </div>
         ),
       },

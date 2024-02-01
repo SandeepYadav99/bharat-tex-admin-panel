@@ -74,6 +74,7 @@ import PollResult from "../views/PollResults/PollResult";
 import BusinessCreate from "../views/BusinessGreeting/BusinessCreate/BusinessCreate.view";
 import BusinessDetail from "../views/BusinessGreeting/BusinessDetail/BusinessDetail.view";
 import ProductGroupList from "../views/ProductGroup/List/List.component.js";
+import ProductGroupView from "../views/ProductGroup/Create/Create.component.js";
 const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
 const KnowledgeCenter = lazy(()=>import("../views/KnowledgeCenter/KnowledgeCenter.view"));
 const knowledgeCreate = lazy(()=>import("../views/KnowledgeCenter/Create/Create.view"));
@@ -742,13 +743,13 @@ const dashboardRoutes = [
   {
     path: `${RouteName.PRODUCT_GROUP_CREATE}`,
     icon: PeopleOutlined,
-    component: ProductCategoryCreate,
+    component: ProductGroupView,
     is_protect: true,
   },
   {
     path: `${RouteName.PRODUCT_GROUP_CREATE}:id`,
     icon: PeopleOutlined,
-    component: ProductCategoryCreate,
+    component: ProductGroupView,
     is_protect: true,
   },
   {
