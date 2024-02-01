@@ -56,56 +56,17 @@ const ProductGroupList = ({}) => {
   const tableStructure = useMemo(() => {
     return [
       {
-        key: "name",
-        label: "user",
-        sortable: false,
-        render: (temp, all) => (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyItems: "center",
-            }}
-          >
-            <img
-              src={all?.image}
-              alt="image"
-              style={{ height: "30px", width: "30px", borderRadius: "100%" }}
-            />
-            {all?.name}
-          </div>
-        ),
-      },
-      {
-        key: "email",
-        label: "email",
+        key: "S.No",
+        label: "S no",
         sortable: true,
         render: (value, all) => <div>{all?.email}</div>,
       },
 
       {
-        key: "contact",
-        label: "PHONE NUMBER",
+        key: "name",
+        label: "Name",
         sortable: true,
         render: (temp, all) => <div>{all.contact}</div>,
-      },
-      {
-        key: "company",
-        label: "COMPANY",
-        sortable: true,
-        render: (temp, all) => <div>{all.company_name}</div>,
-      },
-      {
-        key: "memberuser",
-        label: "is Member User",
-        sortable: true,
-        render: (temp, all) => <div>{all.is_member ? "Yes" : "No"}</div>,
-      },
-      {
-        key: "flagged",
-        label: "is Flagged",
-        sortable: true,
-        render: (temp, all) => <div>{all.is_flagged ? "Yes" : "No"}</div>,
       },
       {
         key: "status",
@@ -118,7 +79,7 @@ const ProductGroupList = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            <Link to={RouteName.PRODUCT_GROUP_CREATE + all.id}>
+            <Link to={RouteName.PRODUCT_CATEGORY_CREATE + all.id}>
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"

@@ -81,7 +81,8 @@ const knowledgeList = lazy(()=>import("../views/KnowledgeCenter/CountryList/List
 const knowledgeStampCreate = lazy(()=>import("../views/KnowledgeCenter/CountryList/CreateStamp/Stamp.js"));
 const ProductCategory = lazy(()=>import("../views/ProductCategory/List/List.component.js"));
 const ProductCategoryCreate = lazy(()=>import("../views/ProductCategory/Create/Create.component.js"));
-const Exhibitor = lazy(()=>import("../views/Exhibitor/Create/Exhibitor.component.js"));
+const ExhibitorList = lazy(()=>import("../views/Exhibitor/List/Exhibitor.js"));
+const ExhibitorCreate = lazy(()=>import("../views/Exhibitor/Create/Exhibitor.component.js"));
 
 
 const Roles = Constants.ROLES;
@@ -751,12 +752,19 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-    path: `${RouteName.EXHIBITOR}`,
+    path: `${RouteName.EXHIBITOR_LIST}`,
     sidebarName: "Exhibitor",
     navbarName: "Exhibitor",
     icon: PeopleOutlined,
-    component: Exhibitor,
+    component: ExhibitorList,
     is_sidebar: true,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.EXHIBITOR_CREATE}`,
+    icon: PeopleOutlined,
+    component: ExhibitorCreate,
+    is_sidebar: false,
     is_protect: true,
   },
 

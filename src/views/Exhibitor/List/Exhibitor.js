@@ -8,13 +8,12 @@ import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 // import StatusPill from "../../../components/Status/StatusPill.component";
-import useList from "./List.hook.js";
 import StatusPill from "../../../components/Status/StatusPill.component";
-import ProductCategoryView from "../Create/Create.component.js";
 import { Link } from "react-router-dom";
+import useExhibitorList from "./Exhibitor.hook.js";
 import RouteName from "../../../routes/Route.name";
 
-const ProductList = ({}) => {
+const ExhibitorList = ({}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -32,7 +31,7 @@ const ProductList = ({}) => {
     warehouses,
     handleToggleSidePannel,
     handleCreateFed,
-  } = useList({});
+  } = useExhibitorList({});
 
   const {
     data,
@@ -45,7 +44,7 @@ const ProductList = ({}) => {
     if (obj) {
       return (
         <div className={styles.InfoWrap}>
-          <div>Add Admin Users</div>
+          <div>Exhibitor List</div>
           <div className={styles.newLine}></div>
         </div>
       );
@@ -56,15 +55,22 @@ const ProductList = ({}) => {
   const tableStructure = useMemo(() => {
     return [
       {
-        key: "S.No",
-        label: "S no",
+        key:"company",
+        label: "Company Name",
         sortable: true,
         render: (value, all) => <div>{all?.email}</div>,
       },
 
       {
-        key: "name",
-        label: "Name",
+        key: "group",
+        label: "Product Group",
+        sortable: true,
+        render: (temp, all) => <div>{all.contact}</div>,
+      },
+
+      {
+        key: "category",
+        label: "Product Category",
         sortable: true,
         render: (temp, all) => <div>{all.contact}</div>,
       },
@@ -125,7 +131,7 @@ const ProductList = ({}) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Product Category</span>
+            <span className={styles.title}>Exhibition List</span>
             <div className={styles.newLine} />
           </div>
           <div className={styles.BtnWrapper}>
@@ -157,4 +163,4 @@ const ProductList = ({}) => {
   );
 };
 
-export default ProductList;
+export default ExhibitorList;

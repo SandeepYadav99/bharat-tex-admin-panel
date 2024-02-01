@@ -44,16 +44,21 @@ const ProductCategoryView = ({
     showPasswordCurrent,
     setShowPasswordCurrent,
   } = useProductCategory({ handleToggleSidePannel, isSidePanel, empId });
+
   const classes = useStyles();
+
   return (
     <div className={"plainPaper"}>
+      <div>
+        <span className={styles.title}>Product Category</span>
+      </div>
       <div className={styles.departmentWrap}>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.name}
               errorText={errorData?.name}
-              label={"Full Name"}
+              label={"Name"}
               value={form?.name}
               onTextChange={(text) => {
                 changeTextData(text, "name");
@@ -64,85 +69,7 @@ const ProductCategoryView = ({
             />
           </div>
         </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <div className={"formGroup"}>
-              <CustomTextField
-                type="number"
-                isError={errorData?.contact}
-                errorText={errorData?.contact}
-                label={"Contact"}
-                value={form?.contact}
-                onTextChange={(text) => {
-                  changeTextData(text, "contact");
-                }}
-                onBlur={() => {
-                  onBlurHandler("contact");
-                }}
-              />
-            </div>
-          </div>
-          <div className={"formGroup"}>
-            <CustomTextField
-              type={showPasswordCurrent ? "text" : "password"}
-              label={"Password"}
-              value={form?.password}
-              onTextChange={(text) => {
-                changeTextData(text, "password");
-              }}
-              isError={errorData?.password}
-              errorText={errorData?.password}
-              onBlur={() => {
-                onBlurHandler("password");
-              }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={() =>
-                        setShowPasswordCurrent(!showPasswordCurrent)
-                      }
-                    >
-                      {showPasswordCurrent ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </div>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              isError={errorData?.email}
-              errorText={errorData?.email}
-              label={"Email"}
-              value={form?.email}
-              onTextChange={(text) => {
-                changeTextData(text, "email");
-              }}
-              onBlur={() => {
-                onBlurHandler("email");
-              }}
-            />
-          </div>
-          <div className={"formGroup"}>
-            <CustomSelectField
-              isError={errorData?.role}
-              errorText={errorData?.role}
-              label={"ROLE"}
-              value={form?.role}
-              handleChange={(value) => {
-                changeTextData(value, "role");
-              }}
-            >
-              <MenuItem value="GENERAL">GENERAL</MenuItem>
-              <MenuItem value="CHAPTER_ADMIN">CHAPTER ADMIN</MenuItem>
-              <MenuItem value="EVENT_MANAGER">EVENT MANAGER</MenuItem>
-            </CustomSelectField>
-          </div>
-        </div>
+
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
             <div className={"heading"}>Status</div>
