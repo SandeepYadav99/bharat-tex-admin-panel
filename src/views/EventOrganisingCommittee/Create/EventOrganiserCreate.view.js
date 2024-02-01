@@ -59,23 +59,6 @@ const EventOrganiserCreateView = ({ handleToggleSidePannel, isSidePanel, data })
             </div>
         </div>
       <div className={"formFlex"}>
-        <div className={"formGroup"}>
-            <CustomTextField
-                isError={errorData?.type}
-                errorText={errorData?.type}
-                label={"Type"}
-                value={form?.type}
-                onTextChange={(text) => {
-                    changeTextData(text, "type");
-                }}
-                onBlur={() => {
-                    onBlurHandler("type");
-                }}
-            />
-
-        </div>
-      </div>
-      <div className={"formFlex"}>
 
         <div className={"formGroup"}>
             <CustomTextField

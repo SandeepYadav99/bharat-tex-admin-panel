@@ -1,78 +1,103 @@
-import { useCallback, useEffect, useState } from "react";
-import { isAlphaNumChars, isNum, isSpace } from "../../../libs/RegexUtils";
-import useDebounce from "../../../hooks/DebounceHook";
-import LogUtils from "../../../libs/LogUtils";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  serviceCreateEventOrganiserUser,
-  serviceGetEventOrganiserUserDetails,
-  serviceUpdateEventOrganiserUser,
-} from "../../../services/EventOrganiserUser.service";
+  isAlpha,
+  isAlphaNum,
+  isAlphaNumChars,
+  isEmail,
+  isNum,
+  isSpace,
+} from "../../../libs/RegexUtils";
+import useDebounce from "../../../hooks/DebounceHook";
 import historyUtils from "../../../libs/history.utils";
+import {
+  serviceAdminUserCheck,
+  serviceCreateAdminUser,
+  serviceGetAdminUserDetails,
+  serviceUpdateAdminUser,
+} from "../../../services/AdminUser.service";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
-import { useParams } from "react-router";
-import { serviceGetList } from "../../../services/index.services";
+import Constants from "../../../config/constants";
+import RouteName from "../../../routes/Route.name";
 
 const initialForm = {
-  image: "",
-  company: "",
-  priority: "",
-  user: null,
+  name: "",
+  // country_code: "91",
+  contact: "",
+  email: "",
+  password: "",
+  type: "ADMIN",
+  role:"",
+  status: true,
+  // image: null,
 };
 
-const useEventOrganiserUserCreate = ({ location }) => {
+const useProductGroup = ({ handleToggleSidePannel, isSidePanel, empId }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [image, setImage] = useState("");
   const [form, setForm] = useState({ ...initialForm });
   const [isEdit, setIsEdit] = useState(false);
-  const [isEnterManually, setIsEnterManually] = useState(false);
-
-  const { id } = useParams();
-  const [listData, setListData] = useState({
-    USERS: [],
-  });
-
+  const includeRef = useRef(null);
+  const codeDebouncer = useDebounce(form?.code, 500);
   useEffect(() => {
-    if (id) {
-      serviceGetEventOrganiserUserDetails({ id: id }).then((res) => {
+    if (empId) {
+      serviceGetAdminUserDetails({ id: empId }).then((res) => {
         if (!res.error) {
-          const data = res?.data;
+          const data = res?.data?.details;
           setForm({
-            ...form,          
-            company: data?.company,
-            priority: data?.priority,
+            ...form,
+            name: data?.name,
+            status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
           });
-          setImage(data?.image);
         } else {
           SnackbarUtils.error(res?.message);
-          historyUtils.goBack();
         }
       });
     }
-  }, [id]);
+  }, [empId]);
 
   useEffect(() => {
-    serviceGetList(["USERS"]).then((res) => {
-      if (!res.error) {
-        setListData(res.data);
+    if (!isSidePanel) {
+      handleReset();
+    }
+  }, [isSidePanel]);
+
+  const checkCodeValidation = useCallback(() => {
+    serviceAdminUserCheck({ code: form?.code, id: empId ? empId : "" }).then(
+      (res) => {
+        if (!res.error) {
+          const errors = JSON.parse(JSON.stringify(errorData));
+          if (res.data.is_exists) {
+            errors["code"] = "AdminUser Code Exists";
+            setErrorData(errors);
+          } else {
+            delete errors.code;
+            setErrorData(errors);
+          }
+        }
       }
-    });
-  }, []);
+    );
+  }, [errorData, setErrorData, form?.code]);
+
+  useEffect(() => {
+    if (codeDebouncer) {
+      checkCodeValidation();
+    }
+  }, [codeDebouncer]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["priority"];
-    if (!id) {
-      required.push("image");
-    }
-    if (isEnterManually) {
-      required.push("name");
-      delete errors["user"];
-    } else {
-      required.push("user");
-      delete errors["name"];
-    }
+    let required = [
+      "name",
+      // "country_code",
+      "contact",
+      "email",
+      "password",
+      // "type",
+      "role"
+      // "image",
+    ];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -82,6 +107,9 @@ const useEventOrganiserUserCreate = ({ location }) => {
       } else if (["code"].indexOf(val) < 0) {
         delete errors[val];
       }
+      if (form?.email && !isEmail(form?.email)) {
+        errors["email"] = true;
+      }
     });
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
@@ -89,66 +117,38 @@ const useEventOrganiserUserCreate = ({ location }) => {
       }
     });
     return errors;
-  }, [form, errorData, isEnterManually, id, setIsEnterManually]);
+  }, [form, errorData]);
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (["image", "status", "name", "user"].indexOf(key) < 0 && form[key]) {
+        if (key === "status") {
+          fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
+        } else if (key === "contact") {
+          fd.append(key, `91 ${form?.contact}`);
+        } else {
           fd.append(key, form[key]);
         }
       });
-      if (form?.image) {
-        fd.append("image", form?.image);
-      }
-      if (id) {
-        fd.append("id", id);
-      }
-      fd.append("organising_id", location?.state?.organising_id);
-      fd.append("event_id", location?.state?.organising_id);
-      fd.append("status", "ACTIVE");
-
-      if(!form?.designation){
-        fd.append("designation"," ")
-      }
-     
-
-      if (isEnterManually) {
-        fd.append("name", form?.name);
-      } else {
-        fd.append("name", form?.user?.name);
-        fd.append("user_id", form?.user?.id);
-      }
-
       let req;
-
-      if (id) {
-        req = serviceUpdateEventOrganiserUser;
+      if (empId) {
+        req = serviceUpdateAdminUser({ ...form, id: empId ? empId : "" });
       } else {
-        req = serviceCreateEventOrganiserUser;
+        req = serviceCreateAdminUser(fd);
       }
-
-      req(fd).then((res) => {
-        LogUtils.log("response", res);
+      req.then((res) => {
         if (!res.error) {
-          historyUtils.goBack();
+          handleToggleSidePannel();
+          window.location.reload();
         } else {
           SnackbarUtils.error(res.message);
         }
         setIsSubmitting(false);
       });
     }
-  }, [
-    form,
-    isSubmitting,
-    setIsSubmitting,
-    id,
-    location,
-    isEnterManually,
-    setIsEnterManually,
-  ]);
+  }, [form, isSubmitting, setIsSubmitting, empId]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -157,7 +157,7 @@ const useEventOrganiserUserCreate = ({ location }) => {
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, form]);
+  }, [checkFormValidation, setErrorData, form, includeRef.current]);
 
   const removeError = useCallback(
     (title) => {
@@ -176,15 +176,15 @@ const useEventOrganiserUserCreate = ({ location }) => {
         if (!text || (isAlphaNumChars(text) && text.toString().length <= 30)) {
           t[fieldName] = text;
         }
-      } else if (fieldName === "priority") {
-        if (!text || isNum(text)) {
-          t[fieldName] = text;
-        }
       } else if (fieldName === "code") {
         if (!text || (!isSpace(text) && isAlphaNumChars(text))) {
           t[fieldName] = text.toUpperCase();
         }
         shouldRemoveError = false;
+      } else if (fieldName === "contact") {
+        if (text >= 0 && text?.length <= 10) {
+          t[fieldName] = text;
+        }
       } else {
         t[fieldName] = text;
       }
@@ -200,18 +200,14 @@ const useEventOrganiserUserCreate = ({ location }) => {
         changeTextData(form?.[type].trim(), type);
       }
     },
-    [changeTextData]
+    [changeTextData, checkCodeValidation]
   );
 
   const handleDelete = useCallback(() => {}, []);
 
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
-  }, [form, setForm]);
-
-  const handleManualClick = useCallback(() => {
-    setIsEnterManually((e) => !e);
-  }, [setIsEnterManually]);
+  }, [form]);
 
   return {
     form,
@@ -224,13 +220,12 @@ const useEventOrganiserUserCreate = ({ location }) => {
     errorData,
     isEdit,
     handleDelete,
+    includeRef,
     handleReset,
-    id,
-    listData,
-    image,
-    handleManualClick,
-    isEnterManually,
+    empId,
+    showPasswordCurrent,
+    setShowPasswordCurrent,
   };
 };
 
-export default useEventOrganiserUserCreate;
+export default useProductGroup;

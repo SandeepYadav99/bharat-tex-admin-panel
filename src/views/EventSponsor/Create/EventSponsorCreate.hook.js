@@ -26,8 +26,6 @@ function useEventSponsorCreate({ location }) {
     web_url: "",
     img_url: "",
     priority: "",
-    email: "",
-    product: "",
     contact: "",
     type: "",
     twitter: "",
@@ -106,9 +104,7 @@ function useEventSponsorCreate({ location }) {
     let required = [
       "name",
       "web_url",
-      // "img_url",
       "priority",
-      "email",
       "contact",
       "type",
     ];

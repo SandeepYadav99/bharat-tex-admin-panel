@@ -27,7 +27,6 @@ import {useDispatch} from "react-redux";
 
 const initialForm = {
   title: "",
-  type: "",
   priority: "",
 };
 
@@ -51,7 +50,6 @@ const useEventOrganiserCreate = ({ handleToggleSidePannel, isSidePanel, data }) 
     if (data) {
       setForm({
         ...initialForm,
-        type: data?.type,
         title: data?.title,
         priority: data?.priority,
       });
@@ -63,13 +61,12 @@ const useEventOrganiserCreate = ({ handleToggleSidePannel, isSidePanel, data }) 
     const errors = { ...errorData };
     let required = [
       "title",
-      "type",
       "priority",
     ];
 
     required.forEach((val) => {
       if (
-        !form?.["title"] || !form?.["type"] ||
+        !form?.["title"] ||
         (Array.isArray(form?.[val]) && form?.[val].length === 0)
       ) {
         errors[val] = true;
@@ -127,7 +124,7 @@ const useEventOrganiserCreate = ({ handleToggleSidePannel, isSidePanel, data }) 
       const temp = JSON.parse(JSON.stringify(errorData));
       temp[title] = false;
 
-      temp[type] = false;
+     
       setErrorData(temp);
     },
     [setErrorData, errorData]
@@ -151,8 +148,6 @@ const useEventOrganiserCreate = ({ handleToggleSidePannel, isSidePanel, data }) 
           t[fieldName] = text.toUpperCase();
         }
         shouldRemoveError = false;
-      } else if (fieldName === 'type') {
-        t['type'] = text;
       } else {
         t[fieldName] = text;
       }
