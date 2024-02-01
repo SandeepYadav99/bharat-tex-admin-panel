@@ -59,7 +59,7 @@ function EventBannerCreate({ location }) {
               }}
             >
               <MenuItem value="BANNER">BANNER</MenuItem>
-              {/* <MenuItem value="FEMALE">Female</MenuItem> */}
+              <MenuItem value="PARTNER">PARTNER</MenuItem>
             </CustomSelectField>
           </div>
           <div className={"formGroup"}>

@@ -187,7 +187,7 @@ const dashboardRoutes = [
     component: AdminUserList,
     is_sidebar: true,
     is_protect: true,
-    roles: [Roles.GENERAL],
+    roles: [Roles.ADMIN],
   },
   {
     path: `${RouteName.APP}`,
@@ -197,7 +197,7 @@ const dashboardRoutes = [
     component: AppUserList,
     is_sidebar: true,
     is_protect: true,
-    roles: [Roles.GENERAL],
+    roles: [Roles.ADMIN],
   },
   // {
   //   path: `${RouteName.MEMBERS}`,
@@ -246,7 +246,7 @@ const dashboardRoutes = [
     component: Album_List,
     is_sidebar: true,
     is_protect: true,
-    roles: [Roles.GENERAL, Roles.CHAPTER_ADMIN],
+    roles: [ Roles.ADMIN],
   },
   {
     path: `${RouteName.ALBUMS_CREATE}`,
@@ -293,7 +293,7 @@ const dashboardRoutes = [
     component: NotificationList,
     is_sidebar: true,
     is_protect: true,
-    roles: [Roles.GENERAL],
+    roles: [Roles.ADMIN],
   },
   {
     path: `${RouteName.NOTIFICATION_CREATE}`,
@@ -315,7 +315,7 @@ const dashboardRoutes = [
     component: EventList,
     is_sidebar: true,
     is_protect: true,
-    roles: [Roles.GENERAL, Roles.EVENT_MANAGER,Roles.CHAPTER_ADMIN],
+    roles: [Roles.ADMIN],
   },
   {
     path: `${RouteName.EVENTS_SCEDULE}:id`,
