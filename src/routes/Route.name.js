@@ -141,4 +141,6 @@ export default {
   
   PRODUCT_GROUP:"/product/group",
   PRODUCT_GROUP_CREATE:"/product/group/create/",
+
+  EXHIBITOR:"/exhibitor"
 };
