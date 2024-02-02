@@ -1,13 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { isAlphaNumChars, isNum, isSpace } from "../../../libs/RegexUtils";
-import useDebounce from "../../../hooks/DebounceHook";
-import LogUtils from "../../../libs/LogUtils";
-import {
-  serviceCreateEventOrganiserUser,
-  serviceGetEventOrganiserUserDetails,
-  serviceUpdateEventOrganiserUser,
-} from "../../../services/EventOrganiserUser.service";
-import historyUtils from "../../../libs/history.utils";
+
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { useParams } from "react-router";
 import {
@@ -16,7 +8,9 @@ import {
   serviceUpdateExhibitorList,
   serviceUpdateExhibitors,
   serviceExhibitorsList,
+  serviceGetProductList,
 } from "../../../services/Exhibitor.service";
+import historyUtils from "../../../libs/history.utils";
 
 const initialForm = {
   company_logo: "",
@@ -48,6 +42,7 @@ const initialForm = {
   company_description: "",
   status: true,
   country_code: "",
+  secondary_perosn_name: "",
 };
 
 const useExhibitorCreate = ({ location }) => {
@@ -56,6 +51,7 @@ const useExhibitorCreate = ({ location }) => {
   const [form, setForm] = useState({ ...initialForm });
   const [selectImages, setSelectImages] = useState([]);
   const [checked, setChecked] = useState(false);
+  const [productListData, setProductListData] = useState([])
   const [listData, setListData] = useState({
     PRODUCT_GROUP: [],
     PRODUCT_CATEGORY: [],
@@ -68,6 +64,15 @@ const useExhibitorCreate = ({ location }) => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    serviceGetProductList().then((res) => {
+      if (!res.error) {
+        setProductListData(res.data)
+      }
+    })
+  }, [])
+
 
   const params = useParams();
 
@@ -93,6 +98,12 @@ const useExhibitorCreate = ({ location }) => {
       "country_code"
     ];
     required.forEach((val) => {
+      if(form?.product_categories?.length === 0){
+        errors["product_categories"] = true;
+      }
+      if(form?.product_groups?.length === 0){
+        errors["product_groups"] = true;
+      }
       if (!form?.[val]) {
         errors[val] = true;
       }
@@ -158,7 +169,7 @@ const useExhibitorCreate = ({ location }) => {
     }
     req.then((res) => {
       if (!res.error) {
-        window.location.reload();
+        historyUtils.goBack();
       } else {
         SnackbarUtils.error(res.message);
       }
@@ -189,6 +200,23 @@ const useExhibitorCreate = ({ location }) => {
       const t = { ...form };
       if (fieldName) {
         t[fieldName] = text;
+      }
+      else if (fieldName === "products") {
+        const newValues = text?.filter((item) => item.trim() !== "");
+        const uniqueValues = text
+          ? newValues?.filter(
+            (item, index, self) =>
+              self.findIndex(
+                (t) => t.toLowerCase() === item.toLowerCase()
+              ) === index
+          )
+          : [];
+
+        if (uniqueValues.length <= 2) {
+          t[fieldName] = uniqueValues;
+        } else {
+          SnackbarUtils.error("Maximum 2 Task category");
+        }
       }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
@@ -231,6 +259,7 @@ const useExhibitorCreate = ({ location }) => {
     handleCheckedData,
     checked,
     listData,
+    productListData,
   };
 };
 

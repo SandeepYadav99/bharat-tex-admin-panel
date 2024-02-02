@@ -38,12 +38,11 @@ const ExhibitorCreate = () => {
     handleCheckedData,
     checked,
     handleSubmit,
-    listData,
+    listData, productListData,
   } = useExhibitorCreate({});
 
-  const listDataTwo = [{ name: "Hello" }];
+  console.log(errorData,"errorData is here")
 
-  console.log(CountryCode,"countryCode is here where are you ??")
 
   return (
     <div className={styles.container}>
@@ -120,6 +119,7 @@ const ExhibitorCreate = () => {
               options={listData ? listData?.PRODUCT_GROUP : []}
               getOptionLabel={(option) => option.name}
               defaultValue={form?.product_groups}
+              error={errorData?.product_groups}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -142,6 +142,7 @@ const ExhibitorCreate = () => {
               options={listData ? listData?.PRODUCT_CATEGORY : []}
               getOptionLabel={(option) => option.name}
               defaultValue={form?.product_categories}
+              error={errorData?.product_categories}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -154,36 +155,37 @@ const ExhibitorCreate = () => {
           </div>
         </div>
         <div className={"formFlex"}>
-            <div className={"formGroup"}>
-              <Autocomplete
-                multiple
-                rows={6}
-                id="tags-outlined"
-                onChange={(e, value) => {
-                  changeTextData(value, "products");
-                }}
-                // options={categoryLists}
-                value={form?.products}
-                freeSolo
-                selectOnFocus={false}
-                renderTags={(value, getTagProps) =>
-                  value.map((option, index) => (
-                    <Chip
-                      variant="outlined"
-                      label={option}
-                      {...getTagProps({ index })}
-                    /> // disabled={option.length < 2}
-                  ))
-                }
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
+          <div className={"formGroup"}>
+            <Autocomplete
+              multiple
+              rows={6}
+              id="tags-outlined"
+              onChange={(e, value) => {
+                changeTextData(value, "products");
+              }}
+              options={productListData}
+              value={form?.products}
+              freeSolo
+              selectOnFocus={false}
+              error={errorData?.products}
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                  <Chip
                     variant="outlined"
-                    label="Product"
-                    error={errorData?.products}
-                  />
-                )}
-              />
+                    label={option}
+                    {...getTagProps({ index })}
+                  /> // disabled={option.length < 2}
+                ))
+              }
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="Product"
+                  error={errorData?.products}
+                />
+              )}
+            />
           </div>
         </div>
         <div className={"formFlex"}>
@@ -341,6 +343,22 @@ const ExhibitorCreate = () => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              label={"Secondary Person Name"}
+              value={form?.secondary_perosn_name}
+              onTextChange={(text) => {
+                changeTextData(text, "secondary_perosn_name");
+              }}
+              onBlur={() => {
+                onBlurHandler("secondary_perosn_name");
+              }}
+            />
+          </div>
+          <div className={"formGroup"}>
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
               isError={errorData?.secondary_email}
               errorText={errorData?.secondary_email}
               label={"Secondary Email"}
@@ -371,7 +389,7 @@ const ExhibitorCreate = () => {
         <div className={"formFlex"}>
           <div className={"formGroup"} id={styles.oneLineView}>
             <div id={styles.countryCode}>
-          <CustomSelectField
+              <CustomSelectField
                 isError={errorData?.country_code}
                 errorText={errorData?.country_code}
                 label={"Country Code"}
@@ -381,14 +399,14 @@ const ExhibitorCreate = () => {
                 }}
               >
                 {
-                  CountryCode?.map((val)=>{
-                    return(
+                  CountryCode?.map((val) => {
+                    return (
                       <MenuItem value={val?.dial_code} key={val.code}>{val?.dial_code}</MenuItem>
                     )
                   })
                 }
-            </CustomSelectField>
-            </div> 
+              </CustomSelectField>
+            </div>
             <CustomTextField
               isError={errorData?.phone_number}
               errorText={errorData?.phone_number}
@@ -555,6 +573,7 @@ const ExhibitorCreate = () => {
           <div className={"formGroup"}>
             <MultiFile
               multiDef={selectImages ? selectImages : []}
+              max_count="5"
               multiple
               max_size={1 * 1024 * 1024}
               type={["jpeg", "jpg", "png"]}
@@ -566,10 +585,10 @@ const ExhibitorCreate = () => {
               value={form?.gallery_images}
               placeholder={"Gallery"}
               onChange={(file) => {
-                if (file) {
-                  changeTextData(file, "gallery_images");
+                    changeTextData(file, "gallery_images");
+          
                 }
-              }}
+              }
               DefChange={(img) => {
                 if (img) {
                   renderImages(img);
