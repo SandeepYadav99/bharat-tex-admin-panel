@@ -1,37 +1,21 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-  isAlpha,
-  isAlphaNum,
-  isAlphaNumChars,
-  isEmail,
-  isNum,
-  isSpace,
-} from "../../../libs/RegexUtils";
-import useDebounce from "../../../hooks/DebounceHook";
-import historyUtils from "../../../libs/history.utils";
-import {
-  serviceAdminUserCheck,
-  serviceCreateAdminUser,
-  serviceGetAdminUserDetails,
-  serviceUpdateAdminUser,
-} from "../../../services/AdminUser.service";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { isEmail } from "../../../libs/RegexUtils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import Constants from "../../../config/constants";
-import RouteName from "../../../routes/Route.name";
+import {
+  serviceCreateProductGroup,
+  serviceGetProductGroupDetails,
+  serviceUpdateProductGroup,
+} from "../../../services/ProductGroup.service";
+import historyUtils from "../../../libs/history.utils";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 const initialForm = {
   name: "",
-  // country_code: "91",
-  contact: "",
-  email: "",
-  password: "",
-  type: "ADMIN",
-  role:"",
-  status: true,
-  // image: null,
+  status: false,
 };
 
-const useProductGroup = ({ handleToggleSidePannel, isSidePanel, empId }) => {
+const useProductGroup = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
   const [errorData, setErrorData] = useState({});
@@ -39,12 +23,12 @@ const useProductGroup = ({ handleToggleSidePannel, isSidePanel, empId }) => {
   const [form, setForm] = useState({ ...initialForm });
   const [isEdit, setIsEdit] = useState(false);
   const includeRef = useRef(null);
-  const codeDebouncer = useDebounce(form?.code, 500);
+  const { id: empId } = useParams();
   useEffect(() => {
     if (empId) {
-      serviceGetAdminUserDetails({ id: empId }).then((res) => {
+      serviceGetProductGroupDetails({ id: empId }).then((res) => {
         if (!res.error) {
-          const data = res?.data?.details;
+          const data = res?.data;
           setForm({
             ...form,
             name: data?.name,
@@ -57,47 +41,15 @@ const useProductGroup = ({ handleToggleSidePannel, isSidePanel, empId }) => {
     }
   }, [empId]);
 
-  useEffect(() => {
-    if (!isSidePanel) {
-      handleReset();
-    }
-  }, [isSidePanel]);
-
-  const checkCodeValidation = useCallback(() => {
-    serviceAdminUserCheck({ code: form?.code, id: empId ? empId : "" }).then(
-      (res) => {
-        if (!res.error) {
-          const errors = JSON.parse(JSON.stringify(errorData));
-          if (res.data.is_exists) {
-            errors["code"] = "AdminUser Code Exists";
-            setErrorData(errors);
-          } else {
-            delete errors.code;
-            setErrorData(errors);
-          }
-        }
-      }
-    );
-  }, [errorData, setErrorData, form?.code]);
-
-  useEffect(() => {
-    if (codeDebouncer) {
-      checkCodeValidation();
-    }
-  }, [codeDebouncer]);
+  // useEffect(() => {
+  //   if (!isSidePanel) {
+  //     handleReset();
+  //   }
+  // }, [isSidePanel]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = [
-      "name",
-      // "country_code",
-      "contact",
-      "email",
-      "password",
-      // "type",
-      "role"
-      // "image",
-    ];
+    let required = ["name"];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -122,26 +74,20 @@ const useProductGroup = ({ handleToggleSidePannel, isSidePanel, empId }) => {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      const fd = new FormData();
-      Object.keys(form).forEach((key) => {
-        if (key === "status") {
-          fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
-        } else if (key === "contact") {
-          fd.append(key, `91 ${form?.contact}`);
-        } else {
-          fd.append(key, form[key]);
-        }
-      });
+      const payloadData = {
+        name: form?.name,
+        status: form?.status ? "ACTIVE" : "INACTIVE",
+      };
       let req;
       if (empId) {
-        req = serviceUpdateAdminUser({ ...form, id: empId ? empId : "" });
+        req = serviceUpdateProductGroup({ ...payloadData, id: empId });
       } else {
-        req = serviceCreateAdminUser(fd);
+        req = serviceCreateProductGroup(payloadData);
       }
       req.then((res) => {
         if (!res.error) {
-          handleToggleSidePannel();
-          window.location.reload();
+          historyUtils.goBack();
+          // window.location.reload();
         } else {
           SnackbarUtils.error(res.message);
         }
@@ -173,18 +119,7 @@ const useProductGroup = ({ handleToggleSidePannel, isSidePanel, empId }) => {
       let shouldRemoveError = true;
       const t = { ...form };
       if (fieldName === "name") {
-        if (!text || (isAlphaNumChars(text) && text.toString().length <= 30)) {
-          t[fieldName] = text;
-        }
-      } else if (fieldName === "code") {
-        if (!text || (!isSpace(text) && isAlphaNumChars(text))) {
-          t[fieldName] = text.toUpperCase();
-        }
-        shouldRemoveError = false;
-      } else if (fieldName === "contact") {
-        if (text >= 0 && text?.length <= 10) {
-          t[fieldName] = text;
-        }
+        t[fieldName] = text?.replace(/^\s+/, "");
       } else {
         t[fieldName] = text;
       }
@@ -200,7 +135,7 @@ const useProductGroup = ({ handleToggleSidePannel, isSidePanel, empId }) => {
         changeTextData(form?.[type].trim(), type);
       }
     },
-    [changeTextData, checkCodeValidation]
+    [changeTextData]
   );
 
   const handleDelete = useCallback(() => {}, []);

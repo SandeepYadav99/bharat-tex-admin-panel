@@ -23,13 +23,14 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import  { Visibility, VisibilityOff } from '@material-ui/icons';
 import Cascader from "../components/FormFields/Cascader/Cascader";
 
-export const renderTextField = ({input, label, meta: {touched, error}, ...custom}) => (
+export const renderTextField = ({input, label,variant, meta: {touched, error}, ...custom}) => (
     <TextField
         error={(touched && error) ? true : false}
         {...input}
         {...custom}
         label={label}
         helperText={touched && error}
+        variant={variant}
     />
     // <TextField
     //     {...input}

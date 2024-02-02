@@ -21,6 +21,7 @@ function useSpeakerCreateHook({ location }) {
     s_company: "",
     s_designation: "",
     s_status: true,
+    is_moderator:true,
   };
   const { id } = useParams();
   const eventId = location?.state?.event_id;
@@ -48,6 +49,7 @@ function useSpeakerCreateHook({ location }) {
             s_company: data?.s_company,
             s_designation: data?.s_designation,
             s_status: data?.s_status === constants.GENERAL_STATUS.ACTIVE,
+            // is_moderator
           });
           setImage(data?.s_image);
         } else {
@@ -127,8 +129,8 @@ function useSpeakerCreateHook({ location }) {
           }
         }
 
-        fd.append("s_status", form.s_status ? "ACTIVE" : "INACTIVE");
-
+        fd.append("s_status", form.s_status ? "ACTIVE" : "INACTIVE");// is_moderator
+        fd.append("is_moderator", form.is_moderator ? "ACTIVE" : "INACTIVE");// is_moderator
         if (form?.s_image) {
           fd.append("s_image", form?.s_image);
         }

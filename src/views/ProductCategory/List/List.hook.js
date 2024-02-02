@@ -1,15 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import {
-  actionCreateAppUser,
-  actionDeleteAppUser,
-  actionFetchAppUser,
-  actionSetPageAppUser,
-  actionUpdateAppUser,
-} from "../../../actions/AppUser.action";
+
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
 import LogUtils from "../../../libs/LogUtils";
+import { actionFetchProductCategory, actionSetPageProductCategory } from "../../../actions/ProductCategory.action";
 
 const useList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -22,15 +17,15 @@ const useList = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.App_User);
+  } = useSelector((state) => state.productCategory);
 
   useEffect(() => {
-    // dispatch(actionFetchAppUser());
+    // dispatch(actionFetchProductCategory());
   }, []);
 
   useEffect(() => {
     dispatch(
-      actionFetchAppUser(1, {}, {
+      actionFetchProductCategory(1, {}, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
@@ -40,17 +35,12 @@ const useList = ({}) => {
 
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    dispatch(actionSetPageAppUser(type));
+    dispatch(actionSetPageProductCategory(type));
   }, []);
 
   const handleDataSave = useCallback(
     (data, type) => {
-      // this.props.actionChangeStatus({...data, type: type});
-      if (type == "CREATE") {
-        dispatch(actionCreateAppUser(data));
-      } else {
-        dispatch(actionUpdateAppUser(data));
-      }
+    
       setSidePanel((e) => !e);
       setEditData(null);
     },
@@ -67,7 +57,7 @@ const useList = ({}) => {
       console.log("_queryFilter", key, value);
       // dispatch(actionSetPageAppUserRequests(1));
       dispatch(
-        actionFetchAppUser(1, sortingData, {
+        actionFetchProductCategory(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
@@ -96,9 +86,9 @@ const useList = ({}) => {
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      dispatch(actionSetPageAppUser(1));
+      dispatch(actionSetPageProductCategory(1));
       dispatch(
-        actionFetchAppUser(
+        actionFetchProductCategory(
           1,
           { row, order },
           {
@@ -117,7 +107,7 @@ const useList = ({}) => {
 
   const handleDelete = useCallback(
     (id) => {
-      dispatch(actionDeleteAppUser(id));
+      // dispatch(actionDeleteProductCategory(id));
       setSidePanel(false);
       setEditData(null);
     },
@@ -126,8 +116,9 @@ const useList = ({}) => {
 
   const handleEdit = useCallback(
     (data) => {
-      setEditData(data);
-      setSidePanel((e) => !e);
+      // setEditData(data);
+      // setSidePanel((e) => !e);
+      historyUtils.push(RouteName.PRODUCT_CATEGORY_CREATE + data?.id)
     },
     [setEditData, setSidePanel]
   );
@@ -184,8 +175,10 @@ const useList = ({}) => {
     configFilter,
     handleCreate,
     handleToggleSidePannel,
-    handleCreateFed
+    handleCreateFed,
+    editCategory:handleEdit
   };
 };
 
 export default useList;
+

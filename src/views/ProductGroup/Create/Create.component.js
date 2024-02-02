@@ -1,20 +1,19 @@
-import React, { useMemo } from "react";
+import React from "react";
 import {
-  Button,
+
   ButtonBase,
   CircularProgress,
-  IconButton,
-  InputAdornment,
-  MenuItem,
+
 } from "@material-ui/core";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
-import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 
 import CustomSwitch from "../../../components/FormFields/CustomSwitch";
 import useProductGroup from "./Create.hook";
-import { Visibility, VisibilityOff } from "@material-ui/icons";
+import historyUtils from "../../../libs/history.utils";
+import { ArrowBackIos } from "@material-ui/icons";
+
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -31,20 +30,24 @@ const ProductGroupView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
     form,
     errorData,
     isSubmitting,
-    isLoading,
+   
     handleSubmit,
-    removeError,
+   
     onBlurHandler,
     changeTextData,
-    id,
-    showPasswordCurrent,
-    setShowPasswordCurrent,
+  
   } = useProductGroup({ handleToggleSidePannel, isSidePanel, empId });
   const classes = useStyles();
   return (
     <div className={"plainPaper"}>
       <div>
-        <span className={styles.title}>Product Group</span>
+      <ButtonBase onClick={() => historyUtils.goBack()}>
+          <ArrowBackIos fontSize={"small"} />{" "}
+          <span>
+          <span className={styles.title}>Product Group</span>
+          </span>
+        </ButtonBase>
+       
       </div>
       <div className={styles.departmentWrap}>
         <div className={"formFlex"}>

@@ -403,6 +403,7 @@ export default {
     CHAPTER_ADMIN: 'CHAPTER_ADMIN',
     EVENT_MANAGER: 'EVENT_MANAGER',
     OTHERS:"OTHERS",
+    ADMIN:"ADMIN"
   },
   LOG_ENABLED: true,
   WARNING_ENABLED: true,

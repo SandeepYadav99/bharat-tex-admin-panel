@@ -10,6 +10,7 @@ import {
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
 import LogUtils from "../../../libs/LogUtils";
+import { actionFetchProductGroup, actionSetPageProductGroup } from "../../../actions/ProductGroup.action";
 
 const useList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -22,7 +23,7 @@ const useList = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.App_User);
+  } = useSelector((state) => state.productGroups);
 
   useEffect(() => {
     // dispatch(actionFetchAppUser());
@@ -30,7 +31,7 @@ const useList = ({}) => {
 
   useEffect(() => {
     dispatch(
-      actionFetchAppUser(1, {}, {
+      actionFetchProductGroup(1, {}, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
@@ -40,17 +41,17 @@ const useList = ({}) => {
 
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    dispatch(actionSetPageAppUser(type));
+    dispatch(actionSetPageProductGroup(type));
   }, []);
 
   const handleDataSave = useCallback(
     (data, type) => {
       // this.props.actionChangeStatus({...data, type: type});
-      if (type == "CREATE") {
-        dispatch(actionCreateAppUser(data));
-      } else {
-        dispatch(actionUpdateAppUser(data));
-      }
+      // if (type == "CREATE") {
+      //   dispatch(actionCreateAppUser(data));
+      // } else {
+      //   dispatch(actionUpdateAppUser(data));
+      // }
       setSidePanel((e) => !e);
       setEditData(null);
     },
@@ -67,7 +68,7 @@ const useList = ({}) => {
       console.log("_queryFilter", key, value);
       // dispatch(actionSetPageAppUserRequests(1));
       dispatch(
-        actionFetchAppUser(1, sortingData, {
+        actionFetchProductGroup(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
@@ -96,9 +97,9 @@ const useList = ({}) => {
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      dispatch(actionSetPageAppUser(1));
+      dispatch(actionSetPageProductGroup(1));
       dispatch(
-        actionFetchAppUser(
+        actionFetchProductGroup(
           1,
           { row, order },
           {
@@ -117,7 +118,7 @@ const useList = ({}) => {
 
   const handleDelete = useCallback(
     (id) => {
-      dispatch(actionDeleteAppUser(id));
+      // dispatch(actionDeleteProductGroup(id));
       setSidePanel(false);
       setEditData(null);
     },
@@ -126,8 +127,9 @@ const useList = ({}) => {
 
   const handleEdit = useCallback(
     (data) => {
-      setEditData(data);
-      setSidePanel((e) => !e);
+      // setEditData(data);
+      // setSidePanel((e) => !e);
+      historyUtils.push(`${RouteName.PRODUCT_GROUP_CREATE}${data?.id}`)
     },
     [setEditData, setSidePanel]
   );
