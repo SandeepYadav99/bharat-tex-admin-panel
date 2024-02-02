@@ -7,6 +7,7 @@ import {
   renderCountryContact,
   renderOutlinedPasswordField,
   renderOutlinedTextField,
+  renderTextField,
 } from "../../libs/redux-material.utils";
 import { Button, withStyles, ButtonBase } from "@material-ui/core";
 import { serviceLoginUser } from "../../services/index.services";
@@ -19,16 +20,17 @@ import SnackbarUtils from "../../libs/SnackbarUtils";
 
 const validate = (values) => {
   const errors = {};
-  const requiredFields = ["contact", "password"];
+  const requiredFields = ["email", "password"];
 
   requiredFields.forEach((field) => {
     if (!values[field]) {
       errors[field] = "Required";
     }
   });
-  // if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-  //     errors.email = 'Invalid email address'
-  // }
+  if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+      errors.email = 'Invalid email address'
+  }
+ 
   return errors;
 };
 
@@ -90,9 +92,10 @@ class LoginView extends Component {
   }
 
   _handleSubmit(data) {
-    const modifiedContact = data?.contact.replace(/[+-]/g, '')
-    data.contact = modifiedContact
+    const modifiedContact = data?.email.replace(/[+-]/g, '')
+    data.email = modifiedContact
     // history.push(`/`);
+  
     serviceLoginUser(data).then((val) => {
       if (!val.error) {
         this.props.actionLoginUser(val.data, this.state.is_checked);
@@ -122,7 +125,7 @@ class LoginView extends Component {
             <div className={styles.signContainer}>
               <div className={styles.logoImg}>
                 <img
-                  src={require("../../assets/img/credai_logo@2x.png")}
+                  src={require("../../assets/img/Bharat_tax_logo.png")}
                   className={styles.sky}
                 />
               </div>
@@ -130,26 +133,27 @@ class LoginView extends Component {
               <div className={styles.newLine} />
               <br />
               <div className={styles.des}>
-                Enter your phone number & password to login
+              Enter your email ID to login
               </div>
               <br />
               <form onSubmit={handleSubmit(this._handleSubmit)}>
                 <>
                   <div>
-                    {/* <Field
+                  <Field
                       fullWidth={true}
+                      name="email"
+                      component={renderTextField}
+                      label="E-Mail"
                       margin={"dense"}
-                      name="contact"
-                      component={renderOutlinedTextField}
-                      label="Employee ID"
-                    /> */}
-                    <Field
+                      variant="outlined"
+                    />
+                    {/* <Field
                       fullWidth={true}
                       margin={"dense"}
                       name="contact"
                       component={renderCountryContact}
                       label="Phone Number"
-                    />
+                    /> */}
                   </div>
                   <br />
                   <div>
@@ -167,7 +171,7 @@ class LoginView extends Component {
                       Login
                     </ButtonBase>
                   </div>
-                  <div className={styles.otpWrap}>
+                  {/* <div className={styles.otpWrap}>
                     <div className={styles.bottomSignup}>
                       <ButtonBase
                         onClick={this._handleForgotPassword}
@@ -176,7 +180,7 @@ class LoginView extends Component {
                         Login with OTP
                       </ButtonBase>
                     </div>
-                  </div>
+                  </div> */}
                 </>
               </form>
             </div>

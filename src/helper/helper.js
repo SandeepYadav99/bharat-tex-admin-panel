@@ -319,12 +319,12 @@ export const EventData = [
     image: sponsor,
     url: RouteName.EVENT_SPONSOR,
   },
-  {
-    key: "poll",
-    name: "Polls",
-    image: polls,
-    url: RouteName.EVENT_POLLS,
-  },
+  // {
+  //   key: "poll",
+  //   name: "Polls",
+  //   image: polls,
+  //   url: RouteName.EVENT_POLLS,
+  // },
   {
     key: "analytics",
     name: "Analytics",

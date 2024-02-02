@@ -14,7 +14,8 @@ import CustomSelectField from "../../../components/FormFields/SelectField/Select
 
 import CustomSwitch from "../../../components/FormFields/CustomSwitch";
 import useProductCategory from "./Create.hook";
-import { Visibility, VisibilityOff } from "@material-ui/icons";
+import { ArrowBackIos, Visibility, VisibilityOff } from "@material-ui/icons";
+import historyUtils from "../../../libs/history.utils";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -50,7 +51,12 @@ const ProductCategoryView = ({
   return (
     <div className={"plainPaper"}>
       <div>
-        <span className={styles.title}>Product Category</span>
+        <ButtonBase onClick={() => historyUtils.goBack()}>
+          <ArrowBackIos fontSize={"small"} />{" "}
+          <span>
+            <span className={styles.title}>Product Category</span>
+          </span>
+        </ButtonBase>
       </div>
       <div className={styles.departmentWrap}>
         <div className={"formFlex"}>

@@ -74,6 +74,7 @@ import PollResult from "../views/PollResults/PollResult";
 import BusinessCreate from "../views/BusinessGreeting/BusinessCreate/BusinessCreate.view";
 import BusinessDetail from "../views/BusinessGreeting/BusinessDetail/BusinessDetail.view";
 import ProductGroupList from "../views/ProductGroup/List/List.component.js";
+import ProductGroupView from "../views/ProductGroup/Create/Create.component.js";
 const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
 const KnowledgeCenter = lazy(()=>import("../views/KnowledgeCenter/KnowledgeCenter.view"));
 const knowledgeCreate = lazy(()=>import("../views/KnowledgeCenter/Create/Create.view"));
@@ -192,7 +193,7 @@ const dashboardRoutes = [
     component: AdminUserList,
     is_sidebar: true,
     is_protect: true,
-    roles: [Roles.GENERAL],
+    roles: [Roles.ADMIN],
   },
   {
     path: `${RouteName.APP}`,
@@ -202,7 +203,7 @@ const dashboardRoutes = [
     component: AppUserList,
     is_sidebar: true,
     is_protect: true,
-    roles: [Roles.GENERAL],
+    roles: [Roles.ADMIN],
   },
   // {
   //   path: `${RouteName.MEMBERS}`,
@@ -251,7 +252,7 @@ const dashboardRoutes = [
     component: Album_List,
     is_sidebar: true,
     is_protect: true,
-    roles: [Roles.GENERAL, Roles.CHAPTER_ADMIN],
+    roles: [ Roles.ADMIN],
   },
   {
     path: `${RouteName.ALBUMS_CREATE}`,
@@ -298,7 +299,7 @@ const dashboardRoutes = [
     component: NotificationList,
     is_sidebar: true,
     is_protect: true,
-    roles: [Roles.GENERAL],
+    roles: [Roles.ADMIN],
   },
   {
     path: `${RouteName.NOTIFICATION_CREATE}`,
@@ -320,7 +321,7 @@ const dashboardRoutes = [
     component: EventList,
     is_sidebar: true,
     is_protect: true,
-    roles: [Roles.GENERAL, Roles.EVENT_MANAGER,Roles.CHAPTER_ADMIN],
+    roles: [Roles.ADMIN],
   },
   {
     path: `${RouteName.EVENTS_SCEDULE}:id`,
@@ -742,13 +743,13 @@ const dashboardRoutes = [
   {
     path: `${RouteName.PRODUCT_GROUP_CREATE}`,
     icon: PeopleOutlined,
-    component: ProductCategoryCreate,
+    component: ProductGroupView,
     is_protect: true,
   },
   {
     path: `${RouteName.PRODUCT_GROUP_CREATE}:id`,
     icon: PeopleOutlined,
-    component: ProductCategoryCreate,
+    component: ProductGroupView,
     is_protect: true,
   },
   {

@@ -208,15 +208,15 @@ const GalleryAlbumCreate = () => {
                 control={<Radio />}
                 label="Events"
               />
-              <FormControlLabel
+              {/* <FormControlLabel
                 style={{ marginLeft: "20px" }}
                 value="chapters"
                 control={<Radio />}
                 label=" Chapters"
-              />
+              /> */}
             </RadioGroup>
           </div>
-          {role === "GENERAL" ? (
+          {/* {role === "GENERAL" ? ( */}
             <div className={"formFlex"}>
               <div className={"formGroup"}>
                 {selectRelated === "events" && (
@@ -239,8 +239,8 @@ const GalleryAlbumCreate = () => {
                   />
                 )}
 
-                {selectRelated === "chapters" && (
-                  <Autocomplete
+                {/* {selectRelated === "chapters" && ( */}
+                  {/* <Autocomplete
                     // multiple
                     // error={form?.related_chapter_id}
                     id="tags-outlined-chapters" // Use a different id for clarity
@@ -257,15 +257,15 @@ const GalleryAlbumCreate = () => {
                         label="Choose Chapter"
                         error={errorData?.related_chapter_id}
                       />
-                    )}
-                  />
-                )}
+                    )} */}
+                  {/* /> */}
+                {/* )} */}
               </div>
             </div>
-          ) : (
+          {/* ) : ( */}
             <div className={"formFlex"}>
               <div className={"formGroup"}>
-                {selectRelated === "events" && (
+                {/* {selectRelated === "events" && (
                   <Autocomplete
                     id="tags-outlined"
                     onChange={(e, value) => {
@@ -283,9 +283,9 @@ const GalleryAlbumCreate = () => {
                       />
                     )}
                   />
-                )}
+                )} */}
 
-                {selectRelated === "chapters" && (
+                {/* {selectRelated === "chapters" && (
                   <Autocomplete
                     // multiple
                     // error={form?.related_chapter_id}
@@ -305,13 +305,13 @@ const GalleryAlbumCreate = () => {
                       />
                     )}
                   />
-                )}
+                )} */}
               </div>
             </div>
-          )}
+          {/* )} */}
         </div>
 
-        <div className={""}>
+        {/* <div className={""}>
           <div className={"headerFlex"}>
             <h4 className={"infoTitle"}>
               <div className={"heading"}>Visible To</div>
@@ -400,7 +400,7 @@ const GalleryAlbumCreate = () => {
               )}
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className={"plainPaper"}>

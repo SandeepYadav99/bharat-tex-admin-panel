@@ -168,7 +168,17 @@ function EventSpeakerCreateView({ location }) {
             />
           </div>
         </div>
-
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomSwitch
+              value={form?.is_moderator}
+              handleChange={() => {
+                changeTextData(!form?.is_moderator, "is_moderator");
+              }}
+              label={`Moderator`}
+            />
+          </div>
+        </div>
         <div className={styles.btnWrappepr}>
           <ButtonBase
             disabled={isSubmitting ? true : false}
