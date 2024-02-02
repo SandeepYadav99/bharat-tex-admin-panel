@@ -359,7 +359,7 @@ export const EventData = [
     key: "testimonial",
     name: "Testimonial",
     image: event,
-    url: RouteName.TESTIMONIAL,
+    url: RouteName.EVENT_TESTIMONIAL,
   },
   // {
   //   key: "networking",

@@ -326,10 +326,8 @@ const dashboardRoutes = [
     roles: [Roles.ADMIN],
   },
   {
-    path: `${RouteName.EVENT_TESTIMONIAL}`,
-    icon: PeopleOutlined,
-    sidebarName: "Testimonial",
-    navbarName: "Testimonial",
+    path: `${RouteName.EVENT_TESTIMONIAL}:id`,
+   
     component: TestimonialList,
     is_protect: true,
     is_sidebar: false,
