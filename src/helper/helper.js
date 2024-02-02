@@ -355,6 +355,12 @@ export const EventData = [
     image: event,
     url: RouteName.INFOR_CENTER,
   },
+  {
+    key: "exhibitor",
+    name: "Exhibitor",
+    image: event,
+    url: RouteName.EXHIBITOR_LIST,
+  },
   // {F
   //   key: "networking",
   //   name: "Information Center",
