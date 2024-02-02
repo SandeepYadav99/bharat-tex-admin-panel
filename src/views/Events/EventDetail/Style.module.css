@@ -317,11 +317,12 @@
   border-left: 1px solid #b8c5d3;
   /* margin: 10px 0; */
 }
-.keysWrpa{
+.keysWrap{
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
 }
+
 .eventKeyWrapp{
   flex: 1;
   display: flex;

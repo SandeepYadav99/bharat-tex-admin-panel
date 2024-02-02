@@ -37,9 +37,12 @@ const ExhibitorCreate = () => {
     handleCheckedData,
     checked,
     handleSubmit,
+    listData,
   } = useExhibitorCreate({});
 
-  const listData = [{ name: "Hello", label: "Hello" }];
+
+  const listDataTwo =[{ name: "Hello" }];
+
 
 
   return (
@@ -61,11 +64,11 @@ const ExhibitorCreate = () => {
               accept={"image/*"}
               label="Please Upload Image"
               show_image={true}
-              error={errorData?.image}
-              value={form?.image}
+              error={errorData?.company_logo}
+              value={form?.company_logo}
               onChange={(file) => {
                 if (file) {
-                  changeTextData(file, "image");
+                  changeTextData(file, "company_logo");
                 }
               }}
             />
@@ -110,19 +113,19 @@ const ExhibitorCreate = () => {
               multiple
               id="tags-outlined"
               onChange={(e, value) => {
-                changeTextData(value, "product_group");
+                changeTextData(value, "product_groups");
               }}
-              value={form?.product_group}
+              value={form?.product_groups}
               // id="tags-standard"
-              options={listData ? listData : []}
+              options={listData ? listData?.PRODUCT_GROUP : []}
               getOptionLabel={(option) => option.name}
-              defaultValue={form?.product_group}
+              defaultValue={form?.product_groups}
               renderInput={(params) => (
                 <TextField
                   {...params}
                   variant="outlined"
                   label="Product Group"
-                  error={errorData?.product_group}
+                  error={errorData?.product_groups}
                 />
               )}
             />
@@ -132,19 +135,19 @@ const ExhibitorCreate = () => {
               multiple
               id="tags-outlined"
               onChange={(e, value) => {
-                changeTextData(value, "product_category");
+                changeTextData(value, "product_categories");
               }}
-              value={form?.product_category}
+              value={form?.product_categories}
               // id="tags-standard"
-              options={listData ? listData : []}
+              options={listData ? listData?.PRODUCT_CATEGORY : []}
               getOptionLabel={(option) => option.name}
-              defaultValue={form?.product_category}
+              defaultValue={form?.product_categories}
               renderInput={(params) => (
                 <TextField
                   {...params}
                   variant="outlined"
                   label="Product Category"
-                  error={errorData?.product_category}
+                  error={errorData?.product_categories}
                 />
               )}
             />
@@ -156,19 +159,18 @@ const ExhibitorCreate = () => {
               multiple
               id="tags-outlined"
               onChange={(e, value) => {
-                changeTextData(value, "product");
+                changeTextData(value, "products");
               }}
-              value={form?.product}
-              // id="tags-standard"
-              options={listData ? listData : []}
+              value={form?.products}
+              options={listDataTwo ? listDataTwo : []}
               getOptionLabel={(option) => option.name}
-              defaultValue={form?.product}
+              defaultValue={form?.products}
               renderInput={(params) => (
                 <TextField
                   {...params}
                   variant="outlined"
-                  label="Product Group"
-                  error={errorData?.product}
+                  label="Product"
+                  error={errorData?.products}
                   multiline
                   rows={3}
                 />
@@ -505,7 +507,7 @@ const ExhibitorCreate = () => {
           <div className={"formGroup"}>
             <MultiFile
               multiDef={selectImages ? selectImages : []}
-              multiple
+              // multiple
               max_size={5 * 1024 * 1024}
               type={["jpeg", "jpg", "png"]}
               fullWidth={true}
@@ -537,12 +539,12 @@ const ExhibitorCreate = () => {
               name="od1"
               label="Gallery"
               accept={"image/*"}
-              error={errorData?.gallery}
-              value={form?.gallery}
+              error={errorData?.gallery_images}
+              value={form?.gallery_images}
               placeholder={"Gallery"}
               onChange={(file) => {
                 if (file) {
-                  changeTextData(file, "gallery");
+                  changeTextData(file, "gallery_images");
                 }
               }}
               DefChange={(img) => {

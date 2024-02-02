@@ -18,7 +18,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
 import sidebarStyle from "../../assets/jss/material-dashboard-react/sidebarStyle.jsx";
-import logoImg from "../../assets/img/credai_logo@2x.png"
+import logoImg from "../../assets/img/Bharat_tax_logo.png"
 
 
 class CustomListItem extends React.Component {

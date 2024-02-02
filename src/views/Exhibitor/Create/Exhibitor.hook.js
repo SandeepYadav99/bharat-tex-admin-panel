@@ -10,35 +10,41 @@ import {
 import historyUtils from "../../../libs/history.utils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { useParams } from "react-router";
-import { serviceCreateExhibitorList, serviceCreateExhibitors, serviceUpdateExhibitorList, serviceUpdateExhibitors } from "../../../services/Exhibitor.service";
+import {
+  serviceCreateExhibitorList,
+  serviceCreateExhibitors,
+  serviceUpdateExhibitorList,
+  serviceUpdateExhibitors,
+  serviceExhibitorsList,
+} from "../../../services/Exhibitor.service";
 
 const initialForm = {
-  image: "",
+  company_logo: "",
   company_name: "",
   brand: "",
-  product_group: [],
-  product_category: [],
-  product: [],
+  product_groups: [],
+  product_categories: [],
+  products: [],
   event_venue: "",
   booth_number: "",
   zone: "",
   partner_type: "",
-  primary_email: "",
+  primary_email: "test@gmail.com",
   password: "",
-  secondary_email: "",
+  secondary_email: "test@gmail.com2",
   secondary_password: "",
   comapany_person_name: "",
   designation: "",
   phone_number: "",
   alternate_number: "",
   address: "",
-  website: "",
-  instagram: "",
-  facebook: "",
-  linkdin: "",
-  twitter: "",
+  website: "https://chat.openai.com/",
+  instagram: "https://chat.openai.com/ins",
+  facebook: "https://chat.openai.com/fb",
+  linkdin: "https://chat.openai.com/link",
+  twitter: "https://chat.openai.com/twi",
   company_brochure: "",
-  gallery: "",
+  gallery_images: "",
   company_description: "",
   status: false,
 };
@@ -49,6 +55,18 @@ const useExhibitorCreate = ({ location }) => {
   const [form, setForm] = useState({ ...initialForm });
   const [selectImages, setSelectImages] = useState([]);
   const [checked, setChecked] = useState(false);
+  const [listData, setListData] = useState({
+    PRODUCT_GROUP: [],
+    PRODUCT_CATEGORY: [],
+  });
+
+  useEffect(() => {
+    serviceExhibitorsList({list:["PRODUCT_CATEGORY", "PRODUCT_GROUP"]}).then((res) => {
+      if (!res.error) {
+        setListData(res.data);
+      }
+    });
+  }, []);
 
   const params = useParams();
 
@@ -62,8 +80,8 @@ const useExhibitorCreate = ({ location }) => {
     const errors = { ...errorData };
     let required = [
       "company_name",
-      "product_group",
-      "product_category",
+      "product_groups",
+      "product_categories",
       "event_venue",
       "primary_email",
       "password",
@@ -85,34 +103,65 @@ const useExhibitorCreate = ({ location }) => {
     return errors;
   }, [form, errorData]);
 
-  const submitToServer = useCallback(() => { 
-      const fd = new FormData();
-      Object.keys(form).forEach((key) => {
+  const submitToServer = useCallback(() => {
+    const fd = new FormData();
+    const productlist = form?.products?.map((val) => val?.name)
+    Object.keys(form).forEach((key) => {
+      if (
+        key !== "company_logo" &&
+        key !== "gallery_images" &&
+        key !== "company_brochure"
+      ) {
         if (key === "status") {
           fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
-        }
-         if(key==="phone_number"){
-           fd.append(key,`91 ${form?.phone_number}`)
-         }
-         else{
-          fd.append(key,form[key])
-         }
-      })
-      let req;
-
-      if (empId) {
-        req = serviceUpdateExhibitors({ ...form, id: empId ? empId : "" });
-      } else {
-        req = serviceCreateExhibitors(fd);
-      }
-      req.then((res) => {
-        if (!res.error) {
-          window.location.reload();
+        } else if (key === "related_to") {
+          fd.append(key, JSON.stringify(form[key]));
+        } else if (
+          key === "products" ||
+          key === "product_categories" ||
+          key === "product_groups"
+        ) {
+          if (key === "products") {
+            fd.append(key, JSON.stringify(productlist))
+          }
+          else {
+            fd.append(key, JSON.stringify(form[key]));
+          }
+        } else if (key === "phone_number") {
+          fd.append(key, `91 ${form?.phone_number}`);
         } else {
-          SnackbarUtils.error(res.message);
+          fd.append(key, form[key]);
         }
+      }
+    });
+    if (form?.company_logo) {
+      fd.append("company_logo", form?.company_logo);
+    }
+    if (form?.gallery_images?.length > 0) {
+      form?.gallery_images?.forEach((item) => {
+        fd.append("gallery_images", item);
       });
-  }, []);
+    }
+    if (form?.company_brochure?.length > 0) {
+      form?.company_brochure?.forEach((item) => {
+        fd.append("company_brochure", item);
+      });
+    }
+    let req;
+
+    if (empId) {
+      req = serviceUpdateExhibitors({ ...form, id: empId ? empId : "" });
+    } else {
+      req = serviceCreateExhibitors(fd);
+    }
+    req.then((res) => {
+      if (!res.error) {
+        window.location.reload();
+      } else {
+        SnackbarUtils.error(res.message);
+      }
+    });
+  }, [form, errorData]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -120,7 +169,6 @@ const useExhibitorCreate = ({ location }) => {
       setErrorData(errors);
       return true;
     }
-    alert(form);
     submitToServer();
   }, [checkFormValidation, setErrorData, form]);
 
@@ -165,7 +213,6 @@ const useExhibitorCreate = ({ location }) => {
     setSelectImages([...image]);
   };
 
-
   return {
     form,
     changeTextData,
@@ -181,6 +228,7 @@ const useExhibitorCreate = ({ location }) => {
     renderImages,
     handleCheckedData,
     checked,
+    listData,
   };
 };
 

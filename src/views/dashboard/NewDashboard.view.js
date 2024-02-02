@@ -41,7 +41,7 @@ const NewDashboard = () => {
               <div>
                 <div className={styles.number}>{data?.city}</div>
                 <div className={styles.prcStatus} style={{ color: "#818181" }}>
-                City Associations
+                Exhibitors
                 </div>
               </div>
             </div>
@@ -57,12 +57,12 @@ const NewDashboard = () => {
               <div>
                 <div className={styles.number}>{data?.state}</div>
                 <div className={styles.prcStatus} style={{ color: "#818181" }}>
-                State Federations
+                App Users 
                 </div>
               </div>
             </div>
           </div>
-          <div className={styles.plainPaper}>
+          {/* <div className={styles.plainPaper}>
             <div className={styles.whiteFlex}>
               <div className={styles.imgBox}>
                 <img
@@ -77,16 +77,16 @@ const NewDashboard = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
-        <div className={styles.tableFlex21}>
+        {/* <div className={styles.tableFlex21}>
         <div className={styles.lhsPending}>
           <PendingMemberRequest data={data}/>
         </div>
         <div className={styles.rhsInterview}>
           <PendingEventUserRequest data={data}/>
         </div>
-      </div>
+      </div> */}
       </div>
     </div>
   );

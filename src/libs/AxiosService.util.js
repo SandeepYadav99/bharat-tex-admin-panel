@@ -139,7 +139,7 @@ export async function formDataRequestWithoutAuthentication(url, formData) {
   try {
     const tempRequest = await axios({
       method: "post",
-      url: `${"http://91.205.173.97:8591/api/"}${url}`,
+      url: `${"http://91.205.173.97:8593/api/"}${url}`,
       data: formData,
     });
     if (tempRequest.status === 200) {
