@@ -75,6 +75,8 @@ import BusinessCreate from "../views/BusinessGreeting/BusinessCreate/BusinessCre
 import BusinessDetail from "../views/BusinessGreeting/BusinessDetail/BusinessDetail.view";
 import ProductGroupList from "../views/ProductGroup/List/List.component.js";
 import ProductGroupView from "../views/ProductGroup/Create/Create.component.js";
+import TestimonialList from "../views/Testimonials/List/TestimonialList.js";
+import TestimonialCreate from "../views/Testimonials/Create/TestimonialCreate";
 const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
 const KnowledgeCenter = lazy(()=>import("../views/KnowledgeCenter/KnowledgeCenter.view"));
 const knowledgeCreate = lazy(()=>import("../views/KnowledgeCenter/Create/Create.view"));
@@ -750,6 +752,27 @@ const dashboardRoutes = [
     path: `${RouteName.PRODUCT_GROUP_UPDATE}:id`,
     icon: PeopleOutlined,
     component: ProductGroupView,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.TESTIMONIAL}`,
+    icon: PeopleOutlined,
+    sidebarName: "Testimonial",
+    navbarName: "Testimonial",
+    component: TestimonialList,
+    is_protect: true,
+    is_sidebar: true,
+  },
+  {
+    path: `${RouteName.TESTIMONIAL_CREATE}`,
+    icon: PeopleOutlined,
+    component: TestimonialCreate,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.TESTIMONIAL_UPDATE}:id`,
+    icon: PeopleOutlined,
+    component: TestimonialCreate,
     is_protect: true,
   },
   {

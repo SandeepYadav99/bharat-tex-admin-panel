@@ -2,7 +2,7 @@ import React, {  useCallback,  useMemo } from "react";
 import { IconButton,  ButtonBase } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import PageBox from "../../../components/PageBox/PageBox.component";
-import { Add,  InfoOutlined } from "@material-ui/icons";
+import { Add,  BorderColor,  InfoOutlined } from "@material-ui/icons";
 import styles from "./Style.module.css";
 import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
@@ -78,7 +78,7 @@ const ProductList = ({}) => {
                 disabled={isCalling}
                 onClick={()=>{editCategory(all)}}
               >
-                <InfoOutlined fontSize={"small"} />
+                <BorderColor fontSize={"small"} color="action"/>
               </IconButton>
             </div>
           </div>
