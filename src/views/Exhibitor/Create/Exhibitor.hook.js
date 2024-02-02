@@ -85,33 +85,33 @@ const useExhibitorCreate = ({ location }) => {
     return errors;
   }, [form, errorData]);
 
-  const submitToServer = useCallback(() => { 
-      const fd = new FormData();
-      Object.keys(form).forEach((key) => {
-        if (key === "status") {
-          fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
-        }
-         if(key==="phone_number"){
-           fd.append(key,`91 ${form?.phone_number}`)
-         }
-         else{
-          fd.append(key,form[key])
-         }
-      })
-      let req;
-
-      if (empId) {
-        req = serviceUpdateExhibitors({ ...form, id: empId ? empId : "" });
-      } else {
-        req = serviceCreateExhibitors(fd);
+  const submitToServer = useCallback(() => {
+    const fd = new FormData();
+    Object.keys(form).forEach((key) => {
+      if (key === "status") {
+        fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
       }
-      req.then((res) => {
-        if (!res.error) {
-          window.location.reload();
-        } else {
-          SnackbarUtils.error(res.message);
-        }
-      });
+      else if (key === "phone_number") {
+        fd.append(key, `91 ${form?.phone_number}`)
+      }
+      else {
+        fd.append(key, form[key])
+      }
+    })
+    let req;
+
+    if (empId) {
+      req = serviceUpdateExhibitors({ ...form, id: empId ? empId : "" });
+    } else {
+      req = serviceCreateExhibitors(fd);
+    }
+    req.then((res) => {
+      if (!res.error) {
+        window.location.reload();
+      } else {
+        SnackbarUtils.error(res.message);
+      }
+    });
   }, []);
 
   const handleSubmit = useCallback(async () => {
@@ -120,7 +120,6 @@ const useExhibitorCreate = ({ location }) => {
       setErrorData(errors);
       return true;
     }
-    alert(form);
     submitToServer();
   }, [checkFormValidation, setErrorData, form]);
 
