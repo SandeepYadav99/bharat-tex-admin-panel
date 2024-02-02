@@ -10,77 +10,71 @@ import {
 import historyUtils from "../../../libs/history.utils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { useParams } from "react-router";
-import { serviceGetList } from "../../../services/index.services";
+import { serviceCreateExhibitorList, serviceCreateExhibitors, serviceUpdateExhibitorList, serviceUpdateExhibitors } from "../../../services/Exhibitor.service";
 
 const initialForm = {
   image: "",
-  company: "",
-  priority: "",
-  user: null,
+  company_name: "",
+  brand: "",
+  product_group: [],
+  product_category: [],
+  product: [],
+  event_venue: "",
+  booth_number: "",
+  zone: "",
+  partner_type: "",
+  primary_email: "",
+  password: "",
+  secondary_email: "",
+  secondary_password: "",
+  comapany_person_name: "",
+  designation: "",
+  phone_number: "",
+  alternate_number: "",
+  address: "",
+  website: "",
+  instagram: "",
+  facebook: "",
+  linkdin: "",
+  twitter: "",
+  company_brochure: "",
+  gallery: "",
+  company_description: "",
+  status: false,
 };
 
 const useExhibitorCreate = ({ location }) => {
-  const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [image, setImage] = useState("");
   const [form, setForm] = useState({ ...initialForm });
-  const [isEdit, setIsEdit] = useState(false);
-  const [isEnterManually, setIsEnterManually] = useState(false);
+  const [selectImages, setSelectImages] = useState([]);
+  const [checked, setChecked] = useState(false);
 
-  const { id } = useParams();
-  const [listData, setListData] = useState({
-    USERS: [],
-  });
+  const params = useParams();
 
-  useEffect(() => {
-    if (id) {
-      serviceGetEventOrganiserUserDetails({ id: id }).then((res) => {
-        if (!res.error) {
-          const data = res?.data;
-          setForm({
-            ...form,          
-            company: data?.company,
-            priority: data?.priority,
-          });
-          setImage(data?.image);
-        } else {
-          SnackbarUtils.error(res?.message);
-          historyUtils.goBack();
-        }
-      });
-    }
-  }, [id]);
+  const empId = params?.id;
 
-  useEffect(() => {
-    serviceGetList(["USERS"]).then((res) => {
-      if (!res.error) {
-        setListData(res.data);
-      }
-    });
-  }, []);
+  const handleCheckedData = () => {
+    setChecked(() => !checked);
+  };
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["priority"];
-    if (!id) {
-      required.push("image");
-    }
-    if (isEnterManually) {
-      required.push("name");
-      delete errors["user"];
-    } else {
-      required.push("user");
-      delete errors["name"];
-    }
+    let required = [
+      "company_name",
+      "product_group",
+      "product_category",
+      "event_venue",
+      "primary_email",
+      "password",
+      "comapany_person_name",
+      "designation",
+      "phone_number",
+      "address",
+    ];
     required.forEach((val) => {
-      if (
-        !form?.[val] ||
-        (Array.isArray(form?.[val]) && form?.[val].length === 0)
-      ) {
+      if (!form?.[val]) {
         errors[val] = true;
-      } else if (["code"].indexOf(val) < 0) {
-        delete errors[val];
       }
     });
     Object.keys(errors).forEach((key) => {
@@ -89,66 +83,36 @@ const useExhibitorCreate = ({ location }) => {
       }
     });
     return errors;
-  }, [form, errorData, isEnterManually, id, setIsEnterManually]);
+  }, [form, errorData]);
 
-  const submitToServer = useCallback(() => {
-    if (!isSubmitting) {
-      setIsSubmitting(true);
+  const submitToServer = useCallback(() => { 
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (["image", "status", "name", "user"].indexOf(key) < 0 && form[key]) {
-          fd.append(key, form[key]);
+        if (key === "status") {
+          fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
         }
-      });
-      if (form?.image) {
-        fd.append("image", form?.image);
-      }
-      if (id) {
-        fd.append("id", id);
-      }
-      fd.append("organising_id", location?.state?.organising_id);
-      fd.append("event_id", location?.state?.organising_id);
-      fd.append("status", "ACTIVE");
-
-      if(!form?.designation){
-        fd.append("designation"," ")
-      }
-     
-
-      if (isEnterManually) {
-        fd.append("name", form?.name);
-      } else {
-        fd.append("name", form?.user?.name);
-        fd.append("user_id", form?.user?.id);
-      }
-
+         if(key==="phone_number"){
+           fd.append(key,`91 ${form?.phone_number}`)
+         }
+         else{
+          fd.append(key,form[key])
+         }
+      })
       let req;
 
-      if (id) {
-        req = serviceUpdateEventOrganiserUser;
+      if (empId) {
+        req = serviceUpdateExhibitors({ ...form, id: empId ? empId : "" });
       } else {
-        req = serviceCreateEventOrganiserUser;
+        req = serviceCreateExhibitors(fd);
       }
-
-      req(fd).then((res) => {
-        LogUtils.log("response", res);
+      req.then((res) => {
         if (!res.error) {
-          historyUtils.goBack();
+          window.location.reload();
         } else {
           SnackbarUtils.error(res.message);
         }
-        setIsSubmitting(false);
       });
-    }
-  }, [
-    form,
-    isSubmitting,
-    setIsSubmitting,
-    id,
-    location,
-    isEnterManually,
-    setIsEnterManually,
-  ]);
+  }, []);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -156,6 +120,7 @@ const useExhibitorCreate = ({ location }) => {
       setErrorData(errors);
       return true;
     }
+    alert(form);
     submitToServer();
   }, [checkFormValidation, setErrorData, form]);
 
@@ -172,20 +137,7 @@ const useExhibitorCreate = ({ location }) => {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName === "name") {
-        if (!text || (isAlphaNumChars(text) && text.toString().length <= 30)) {
-          t[fieldName] = text;
-        }
-      } else if (fieldName === "priority") {
-        if (!text || isNum(text)) {
-          t[fieldName] = text;
-        }
-      } else if (fieldName === "code") {
-        if (!text || (!isSpace(text) && isAlphaNumChars(text))) {
-          t[fieldName] = text.toUpperCase();
-        }
-        shouldRemoveError = false;
-      } else {
+      if (fieldName) {
         t[fieldName] = text;
       }
       setForm(t);
@@ -203,15 +155,16 @@ const useExhibitorCreate = ({ location }) => {
     [changeTextData]
   );
 
-  const handleDelete = useCallback(() => {}, []);
+  const handleDelete = useCallback(() => { }, []);
 
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
   }, [form, setForm]);
 
-  const handleManualClick = useCallback(() => {
-    setIsEnterManually((e) => !e);
-  }, [setIsEnterManually]);
+  const renderImages = (image) => {
+    setSelectImages([...image]);
+  };
+
 
   return {
     form,
@@ -219,17 +172,15 @@ const useExhibitorCreate = ({ location }) => {
     onBlurHandler,
     removeError,
     handleSubmit,
-    isLoading,
-    isSubmitting,
     errorData,
-    isEdit,
     handleDelete,
     handleReset,
-    id,
-    listData,
     image,
-    handleManualClick,
-    isEnterManually,
+    selectImages,
+    setSelectImages,
+    renderImages,
+    handleCheckedData,
+    checked,
   };
 };
 

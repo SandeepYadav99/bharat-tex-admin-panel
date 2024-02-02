@@ -46,6 +46,7 @@ import PollResult from "./PollResult.reducer";
 import BusinessGreetingReducer from "./BusinessGreeting.reducer";
 import KnowledgeCenter from './KnowledgeCenter.reducer';
 import KnowledgeCenterStamp from './KnowledgeCenterStamp.reducer';
+import ExhibitorReducer from "./Exhibitor.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -95,6 +96,7 @@ const rootReducer = combineReducers({
   Business_Greeting:BusinessGreetingReducer,
   Knowledge_Center:KnowledgeCenter,
   Knowledge_Center_Stamp:KnowledgeCenterStamp,
+  Exhibitor:ExhibitorReducer,
 });
 
 export default rootReducer;
