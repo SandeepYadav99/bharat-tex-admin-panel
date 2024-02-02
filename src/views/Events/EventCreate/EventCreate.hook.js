@@ -71,6 +71,8 @@ function useEventCreate() {
     event_participants: true,
     event_schedule: true,
     about_event: true,
+    exhibitor:false,
+    testimonial:false,
     event_organizing_committee: false,
     event_speakers: true,
     event_gallery: false,

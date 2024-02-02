@@ -46,7 +46,8 @@ const initialForm = {
   company_brochure: "",
   gallery_images: "",
   company_description: "",
-  status: false,
+  status: true,
+  country_code: "",
 };
 
 const useExhibitorCreate = ({ location }) => {
@@ -61,7 +62,7 @@ const useExhibitorCreate = ({ location }) => {
   });
 
   useEffect(() => {
-    serviceExhibitorsList({list:["PRODUCT_CATEGORY", "PRODUCT_GROUP"]}).then((res) => {
+    serviceExhibitorsList({ list: ["PRODUCT_CATEGORY", "PRODUCT_GROUP"] }).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -89,6 +90,7 @@ const useExhibitorCreate = ({ location }) => {
       "designation",
       "phone_number",
       "address",
+      "country_code"
     ];
     required.forEach((val) => {
       if (!form?.[val]) {
@@ -128,7 +130,7 @@ const useExhibitorCreate = ({ location }) => {
             fd.append(key, JSON.stringify(form[key]));
           }
         } else if (key === "phone_number") {
-          fd.append(key, `91 ${form?.phone_number}`);
+          fd.append(key, `${form?.country_code} ${form?.phone_number}`);
         } else {
           fd.append(key, form[key]);
         }

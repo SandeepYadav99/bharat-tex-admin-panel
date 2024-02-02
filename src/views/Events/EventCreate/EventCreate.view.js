@@ -590,6 +590,33 @@ function EventCreate() {
               checked={feature?.information_center}
             />
           </div>
+          <div className={"formGroup"}>
+            <CustomCheckbox
+              // disabled={true}
+              color={"primary"}
+              handleChange={(text) => {
+                changeFeatureData(
+                  !feature?.exhibitor,
+                  "exhibitor"
+                );
+              }}
+              label={"Exhibitor"}
+              checked={feature?.exhibitor}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeFeatureData(
+                  !feature?.testimonial,
+                  "testimonial"
+                );
+              }}
+              label={"testimonial"}
+              checked={feature?.testimonial}
+            />
+          </div>
           <div className={"formGroup"}></div>
         </div>
       </div>

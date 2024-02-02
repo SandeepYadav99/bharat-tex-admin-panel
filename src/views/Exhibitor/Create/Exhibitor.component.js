@@ -15,6 +15,7 @@ import CustomSelectField from "../../../components/FormFields/SelectField/Select
 import Chip from "@material-ui/core/Chip";
 import { Autocomplete } from "@material-ui/lab";
 import CustomSwitch from "../../../components/FormFields/CustomSwitch";
+import CountryCode from "../../../assets/country_code.json";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -40,10 +41,9 @@ const ExhibitorCreate = () => {
     listData,
   } = useExhibitorCreate({});
 
+  const listDataTwo = [{ name: "Hello" }];
 
-  const listDataTwo =[{ name: "Hello" }];
-
-
+  console.log(CountryCode,"countryCode is here where are you ??")
 
   return (
     <div className={styles.container}>
@@ -154,28 +154,36 @@ const ExhibitorCreate = () => {
           </div>
         </div>
         <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <Autocomplete
-              multiple
-              id="tags-outlined"
-              onChange={(e, value) => {
-                changeTextData(value, "products");
-              }}
-              value={form?.products}
-              options={listDataTwo ? listDataTwo : []}
-              getOptionLabel={(option) => option.name}
-              defaultValue={form?.products}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  variant="outlined"
-                  label="Product"
-                  error={errorData?.products}
-                  multiline
-                  rows={3}
-                />
-              )}
-            />
+            <div className={"formGroup"}>
+              <Autocomplete
+                multiple
+                rows={6}
+                id="tags-outlined"
+                onChange={(e, value) => {
+                  changeTextData(value, "products");
+                }}
+                // options={categoryLists}
+                value={form?.products}
+                freeSolo
+                selectOnFocus={false}
+                renderTags={(value, getTagProps) =>
+                  value.map((option, index) => (
+                    <Chip
+                      variant="outlined"
+                      label={option}
+                      {...getTagProps({ index })}
+                    /> // disabled={option.length < 2}
+                  ))
+                }
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    label="Product"
+                    error={errorData?.products}
+                  />
+                )}
+              />
           </div>
         </div>
         <div className={"formFlex"}>
@@ -361,7 +369,26 @@ const ExhibitorCreate = () => {
           </div>
         </div>
         <div className={"formFlex"}>
-          <div className={"formGroup"}>
+          <div className={"formGroup"} id={styles.oneLineView}>
+            <div id={styles.countryCode}>
+          <CustomSelectField
+                isError={errorData?.country_code}
+                errorText={errorData?.country_code}
+                label={"Country Code"}
+                value={form?.country_code}
+                handleChange={(value) => {
+                  changeTextData(value, "country_code");
+                }}
+              >
+                {
+                  CountryCode?.map((val)=>{
+                    return(
+                      <MenuItem value={val?.dial_code} key={val.code}>{val?.dial_code}</MenuItem>
+                    )
+                  })
+                }
+            </CustomSelectField>
+            </div> 
             <CustomTextField
               isError={errorData?.phone_number}
               errorText={errorData?.phone_number}
@@ -505,29 +532,25 @@ const ExhibitorCreate = () => {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <MultiFile
-              multiDef={selectImages ? selectImages : []}
-              // multiple
-              max_size={5 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
-              fullWidth={true}
-              name="od1"
-              label="Upload Multiple Image"
-              accept={"image/*"}
-              error={errorData?.company_brochure}
-              value={form?.company_brochure}
-              placeholder={"Company Brochure"}
-              onChange={(file) => {
-                if (file) {
-                  changeTextData(file, "company_brochure");
-                }
-              }}
-              DefChange={(img) => {
-                if (img) {
-                  renderImages(img);
-                }
-              }}
-            />
+            <div className={"formGroup"}>
+              <File
+                max_size={10 * 1024 * 1024}
+                type={["pdf", "docx"]}
+                fullWidth={true}
+                name="od1"
+                label="Upload File"
+                accept={"application/pdf,application/msword"}
+                error={errorData?.company_brochure}
+                isError={errorData?.company_brochure}
+                value={form?.company_brochure}
+                placeholder={"Company Brochure"}
+                onChange={(file) => {
+                  if (file) {
+                    changeTextData(file, "company_brochure");
+                  }
+                }}
+              />
+            </div>
           </div>
           <div className={"formGroup"}>
             <MultiFile
@@ -573,13 +596,13 @@ const ExhibitorCreate = () => {
         </div>
       </div>
       <div className={"plainPaper"}>
-      <CustomSwitch
-            value={form?.status}
-            handleChange={() => {
-              changeTextData(!form?.status, "status");
-            }}
-            label={`Active`}
-          />
+        <CustomSwitch
+          value={form?.status}
+          handleChange={() => {
+            changeTextData(!form?.status, "status");
+          }}
+          label={`Active`}
+        />
         <div className={styles.btnWrappepr}>
           <ButtonBase
             type={"button"}
