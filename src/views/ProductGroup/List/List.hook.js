@@ -129,7 +129,7 @@ const useList = ({}) => {
     (data) => {
       // setEditData(data);
       // setSidePanel((e) => !e);
-      historyUtils.push(`${RouteName.PRODUCT_GROUP_CREATE}${data?.id}`)
+      historyUtils.push(`${RouteName.PRODUCT_GROUP_UPDATE}${data?.id}`)
     },
     [setEditData, setSidePanel]
   );

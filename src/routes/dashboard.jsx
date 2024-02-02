@@ -726,7 +726,7 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-    path: `${RouteName.PRODUCT_CATEGORY_CREATE}:id`,
+    path: `${RouteName.PRODUCT_CATEGORY_UPDATE}:id`,
     icon: PeopleOutlined,
     component: ProductCategoryCreate,
     is_protect: true,
@@ -747,7 +747,7 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-    path: `${RouteName.PRODUCT_GROUP_CREATE}:id`,
+    path: `${RouteName.PRODUCT_GROUP_UPDATE}:id`,
     icon: PeopleOutlined,
     component: ProductGroupView,
     is_protect: true,

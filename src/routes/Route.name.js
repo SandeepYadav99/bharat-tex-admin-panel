@@ -138,9 +138,11 @@ export default {
 
   PRODUCT_CATEGORY:"/product/category",
   PRODUCT_CATEGORY_CREATE:"/product/category/create/",
-  
+  PRODUCT_CATEGORY_UPDATE:"/product/category/update/",
+
   PRODUCT_GROUP:"/product/group",
   PRODUCT_GROUP_CREATE:"/product/group/create/",
+  PRODUCT_GROUP_UPDATE:"/product/group/update/",
 
   EXHIBITOR_LIST:"/exhibitor/list",
   EXHIBITOR_CREATE:"/exhibitor/list/create",
