@@ -765,6 +765,13 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
   },
+  {
+    path: `${RouteName.EXHIBITOR_CREATE}:id`,
+    icon: PeopleOutlined,
+    component: ExhibitorCreate,
+    is_sidebar: false,
+    is_protect: true,
+  },
 
 ];
 

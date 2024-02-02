@@ -3,12 +3,11 @@ import { useCallback, useEffect, useState } from "react";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { useParams } from "react-router";
 import {
-  serviceCreateExhibitorList,
   serviceCreateExhibitors,
-  serviceUpdateExhibitorList,
   serviceUpdateExhibitors,
   serviceExhibitorsList,
   serviceGetProductList,
+  serviceGetExhibitorsDetails,
 } from "../../../services/Exhibitor.service";
 import historyUtils from "../../../libs/history.utils";
 
@@ -73,7 +72,6 @@ const useExhibitorCreate = ({ location }) => {
     })
   }, [])
 
-
   const params = useParams();
 
   const empId = params?.id;
@@ -81,6 +79,33 @@ const useExhibitorCreate = ({ location }) => {
   const handleCheckedData = () => {
     setChecked(() => !checked);
   };
+
+
+  useEffect(() => {
+    if (empId) {
+      serviceGetExhibitorsDetails({ id: empId }).then((res) => {
+        if (!res.error) {
+          const data = res?.data?.details;
+          setForm({
+            ...form,
+            company_name: data?.company_name,
+            product_groups: data?.product_groups,
+            product_categories: data?.product_categories,
+            event_venue: data?.event_venue,
+            primary_email: data?.primary_email,
+            password: data?.password,
+            comapany_person_name: data?.comapany_person_name,
+            designation: data?.designation,
+            phone_number: data?.phone_number,
+            address: data?.address,
+            country_code: data?.country_code,
+          });
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+      });
+    }
+  }, [empId]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -98,10 +123,10 @@ const useExhibitorCreate = ({ location }) => {
       "country_code"
     ];
     required.forEach((val) => {
-      if(form?.product_categories?.length === 0){
+      if (form?.product_categories?.length === 0) {
         errors["product_categories"] = true;
       }
-      if(form?.product_groups?.length === 0){
+      if (form?.product_groups?.length === 0) {
         errors["product_groups"] = true;
       }
       if (!form?.[val]) {

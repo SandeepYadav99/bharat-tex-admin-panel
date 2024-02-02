@@ -144,5 +144,5 @@ export default {
   PRODUCT_GROUP_CREATE:"/product/group/create/",
 
   EXHIBITOR_LIST:"/exhibitor/",
-  EXHIBITOR_CREATE:"/exhibitor/list/create",
+  EXHIBITOR_CREATE:"/exhibitor/list/create/",
 };

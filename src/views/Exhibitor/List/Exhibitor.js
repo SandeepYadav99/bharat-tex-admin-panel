@@ -12,6 +12,7 @@ import StatusPill from "../../../components/Status/StatusPill.component";
 import { Link } from "react-router-dom";
 import useExhibitorList from "./Exhibitor.hook.js";
 import RouteName from "../../../routes/Route.name";
+import historyUtils from "../../../libs/history.utils.js";
 
 const ExhibitorList = ({}) => {
   const {
@@ -100,7 +101,7 @@ const ExhibitorList = ({}) => {
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-             
+              onClick={()=> historyUtils.push(`${RouteName.EXHIBITOR_CREATE}`+ all?.id)}
             >
               <Edit fontSize={"small"} />
             </IconButton>
