@@ -15,6 +15,7 @@ import {
   serviceCreateExhibitors,
   serviceUpdateExhibitorList,
   serviceUpdateExhibitors,
+  serviceExhibitorsList,
 } from "../../../services/Exhibitor.service";
 
 const initialForm = {
@@ -54,6 +55,18 @@ const useExhibitorCreate = ({ location }) => {
   const [form, setForm] = useState({ ...initialForm });
   const [selectImages, setSelectImages] = useState([]);
   const [checked, setChecked] = useState(false);
+  const [listData, setListData] = useState({
+    PRODUCT_GROUP: [],
+    PRODUCT_CATEGORY: [],
+  });
+
+  useEffect(() => {
+    serviceExhibitorsList({list:["PRODUCT_CATEGORY", "PRODUCT_GROUP"]}).then((res) => {
+      if (!res.error) {
+        setListData(res.data);
+      }
+    });
+  }, []);
 
   const params = useParams();
 
@@ -89,10 +102,10 @@ const useExhibitorCreate = ({ location }) => {
     });
     return errors;
   }, [form, errorData]);
-  console.log("form2", form);
+
   const submitToServer = useCallback(() => {
-    console.log("form", form);
     const fd = new FormData();
+    const productlist = form?.products?.map((val) => val?.name)
     Object.keys(form).forEach((key) => {
       if (
         key !== "company_logo" &&
@@ -108,7 +121,12 @@ const useExhibitorCreate = ({ location }) => {
           key === "product_categories" ||
           key === "product_groups"
         ) {
-          fd.append(key, JSON.stringify(form[key]));
+          if (key === "products") {
+            fd.append(key, JSON.stringify(productlist))
+          }
+          else {
+            fd.append(key, JSON.stringify(form[key]));
+          }
         } else if (key === "phone_number") {
           fd.append(key, `91 ${form?.phone_number}`);
         } else {
@@ -185,7 +203,7 @@ const useExhibitorCreate = ({ location }) => {
     [changeTextData]
   );
 
-  const handleDelete = useCallback(() => {}, []);
+  const handleDelete = useCallback(() => { }, []);
 
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
@@ -210,6 +228,7 @@ const useExhibitorCreate = ({ location }) => {
     renderImages,
     handleCheckedData,
     checked,
+    listData,
   };
 };
 

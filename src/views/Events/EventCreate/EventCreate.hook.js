@@ -186,7 +186,7 @@ function useEventCreate() {
   }, [codeDebouncer]);
 
   useEffect(() => {
-    serviceGetList(["ADMIN", "CHAPTERS", "EVENTS","ADMIN_CHAPTERS","ADMIN_EVENTS"]).then((res) => {
+    serviceGetList(["PRODUCT_CATEGORY","PRODUCT_GROUP"]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }

@@ -18,5 +18,8 @@ export async function serviceDeleteExhibitors(params) {
   return await postRequest("exhibitors", params);
 }
 
+export async  function serviceExhibitorsList(params) {
+  return await postRequest("list", params);
+}
 
 

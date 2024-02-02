@@ -37,9 +37,12 @@ const ExhibitorCreate = () => {
     handleCheckedData,
     checked,
     handleSubmit,
+    listData,
   } = useExhibitorCreate({});
 
-  const listData = [{ name: "Hello", label: "Hello" }];
+
+  const listDataTwo =[{ name: "Hello" }];
+
 
 
   return (
@@ -114,7 +117,7 @@ const ExhibitorCreate = () => {
               }}
               value={form?.product_groups}
               // id="tags-standard"
-              options={listData ? listData : []}
+              options={listData ? listData?.PRODUCT_GROUP : []}
               getOptionLabel={(option) => option.name}
               defaultValue={form?.product_groups}
               renderInput={(params) => (
@@ -136,7 +139,7 @@ const ExhibitorCreate = () => {
               }}
               value={form?.product_categories}
               // id="tags-standard"
-              options={listData ? listData : []}
+              options={listData ? listData?.PRODUCT_CATEGORY : []}
               getOptionLabel={(option) => option.name}
               defaultValue={form?.product_categories}
               renderInput={(params) => (
@@ -159,15 +162,14 @@ const ExhibitorCreate = () => {
                 changeTextData(value, "products");
               }}
               value={form?.products}
-              // id="tags-standard"
-              options={listData ? listData : []}
+              options={listDataTwo ? listDataTwo : []}
               getOptionLabel={(option) => option.name}
               defaultValue={form?.products}
               renderInput={(params) => (
                 <TextField
                   {...params}
                   variant="outlined"
-                  label="Product Group"
+                  label="Product"
                   error={errorData?.products}
                   multiline
                   rows={3}
