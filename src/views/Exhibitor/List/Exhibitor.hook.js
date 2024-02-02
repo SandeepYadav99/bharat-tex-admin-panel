@@ -25,7 +25,6 @@ const useExhibitorList = ({}) => {
   } = useSelector((state) => state.App_User);
 
   useEffect(() => {
-    // dispatch(actionFetchAppUser());
   }, []);
 
   useEffect(() => {
@@ -45,7 +44,6 @@ const useExhibitorList = ({}) => {
 
   const handleDataSave = useCallback(
     (data, type) => {
-      // this.props.actionChangeStatus({...data, type: type});
       if (type == "CREATE") {
         dispatch(actionCreateAppUser(data));
       } else {
