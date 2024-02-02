@@ -20,12 +20,12 @@ const TestimonialList = ({}) => {
     handleEdit,
     handleFilterDataChange,
     handleSearchValueChange,
-  
+
     handleViewDetails,
-   
+
     isCalling,
     configFilter,
-  
+
     handleCreateFed,
   } = useTestimonialList({});
 
@@ -34,9 +34,7 @@ const TestimonialList = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.productGroups);
-
- 
+  } = useSelector((state) => state.testimonial);
 
   const tableStructure = useMemo(() => {
     return [
@@ -44,7 +42,16 @@ const TestimonialList = ({}) => {
         key: "image",
         label: "Image",
         sortable: true,
-        render: (value, all) => <div>{all?.image}</div>,
+        render: (value, all) => (
+          <div style={{ width: "50px", height: "50px", overflow: "hidden" }}>
+            <img
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              src={all?.image}
+              alt=""
+            
+            />
+          </div>
+        ),
       },
 
       {
@@ -53,7 +60,7 @@ const TestimonialList = ({}) => {
         sortable: true,
         render: (temp, all) => <div>{all?.name}</div>,
       },
-      
+
       {
         key: "priority",
         label: "Priority",
@@ -76,9 +83,9 @@ const TestimonialList = ({}) => {
                 className={"tableActionBtn"}
                 color="secondary"
                 disabled={isCalling}
-                onClick={()=>handleEdit(all)}
+                onClick={() => handleEdit(all)}
               >
-                   <BorderColor fontSize={"small"} color="action"/>
+                <BorderColor fontSize={"small"} color="action" />
               </IconButton>
             </div>
           </div>

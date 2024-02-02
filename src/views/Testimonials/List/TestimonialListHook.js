@@ -10,7 +10,8 @@ import {
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
 import LogUtils from "../../../libs/LogUtils";
-import { actionFetchProductGroup, actionSetPageProductGroup } from "../../../actions/ProductGroup.action";
+
+import { actionFetchTestimonial, actionSetPageTestimonial ,} from "../../../actions/Testimonial.action";
 
 const useTestimonialList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -23,7 +24,7 @@ const useTestimonialList = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.productGroups);
+  } = useSelector((state) => state.testimonial);
 
   useEffect(() => {
     // dispatch(actionFetchAppUser());
@@ -31,7 +32,7 @@ const useTestimonialList = ({}) => {
 
   useEffect(() => {
     dispatch(
-      actionFetchProductGroup(1, {}, {
+      actionFetchTestimonial(1, {}, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
@@ -41,7 +42,7 @@ const useTestimonialList = ({}) => {
 
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    dispatch(actionSetPageProductGroup(type));
+    dispatch(actionSetPageTestimonial(type));
   }, []);
 
   const handleDataSave = useCallback(
@@ -68,7 +69,7 @@ const useTestimonialList = ({}) => {
       console.log("_queryFilter", key, value);
       // dispatch(actionSetPageAppUserRequests(1));
       dispatch(
-        actionFetchProductGroup(1, sortingData, {
+        actionFetchTestimonial(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
@@ -97,9 +98,9 @@ const useTestimonialList = ({}) => {
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      dispatch(actionSetPageProductGroup(1));
+      dispatch(actionSetPageTestimonial(1));
       dispatch(
-        actionFetchProductGroup(
+        actionFetchTestimonial(
           1,
           { row, order },
           {

@@ -21,17 +21,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TestimonialCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
+const TestimonialCreate = ({ handleToggleSidePannel, isSidePanel }) => {
   const {
     form,
     errorData,
     isSubmitting,
-
+    image,
     handleSubmit,
-
+    empId,
     onBlurHandler,
     changeTextData,
-  } = useTestimonialCreate({ handleToggleSidePannel, isSidePanel, empId });
+  } = useTestimonialCreate({ handleToggleSidePannel, isSidePanel });
   const classes = useStyles();
   return (
     <div>
@@ -57,7 +57,7 @@ const TestimonialCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
               show_image={true}
               error={errorData?.image}
               value={form?.image}
-              // default_image={thumbnail ? thumbnail : null}
+               default_image={image ? image : null}
               onChange={(file) => {
                 if (file) {
                   changeTextData(file, "image");
@@ -119,6 +119,7 @@ const TestimonialCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                     isError={errorData?.priorty}
                     errorText={errorData?.priorty}
                     label={"Priorty"}
+                    type={"number"}
                     value={form?.priorty}
                     onTextChange={(text) => {
                       changeTextData(text, "priorty");
@@ -180,7 +181,7 @@ const TestimonialCreate = ({ handleToggleSidePannel, isSidePanel, empId }) => {
               ) : empId ? (
                 "Update"
               ) : (
-                "Create"
+                "ADD"
               )}
             </ButtonBase>
           </div>
