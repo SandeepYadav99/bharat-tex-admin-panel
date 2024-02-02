@@ -100,7 +100,8 @@ const rootReducer = combineReducers({
   Knowledge_Center_Stamp:KnowledgeCenterStamp,
   // Product Category 2/01/2024
   productCategory:ProductCategoryReducer,
-  productGroups:ProductGroupReducer
+  productGroups:ProductGroupReducer,
+  Exhibitor:ExhibitorReducer
 });
 
 export default rootReducer;

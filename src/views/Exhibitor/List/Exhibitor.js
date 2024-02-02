@@ -38,7 +38,7 @@ const ExhibitorList = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.App_User);
+  } = useSelector((state) => state.Exhibitor);
 
   const UpperInfo = useCallback((obj) => {
     if (obj) {
