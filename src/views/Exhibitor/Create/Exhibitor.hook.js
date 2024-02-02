@@ -10,7 +10,7 @@ import {
 import historyUtils from "../../../libs/history.utils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { useParams } from "react-router";
-import { serviceGetList } from "../../../services/index.services";
+import { serviceCreateExhibitorList, serviceCreateExhibitors, serviceUpdateExhibitorList, serviceUpdateExhibitors } from "../../../services/Exhibitor.service";
 
 const initialForm = {
   image: "",
@@ -37,30 +37,82 @@ const initialForm = {
   facebook: "",
   linkdin: "",
   twitter: "",
-  company_brochure:"",
-  gallery:"",
-  company_description:"",
-  status:false,
+  company_brochure: "",
+  gallery: "",
+  company_description: "",
+  status: false,
 };
 
 const useExhibitorCreate = ({ location }) => {
   const [errorData, setErrorData] = useState({});
   const [image, setImage] = useState("");
   const [form, setForm] = useState({ ...initialForm });
-  const [selectImages,setSelectImages] = useState([]);
-  const [checked,setChecked] = useState(false);
+  const [selectImages, setSelectImages] = useState([]);
+  const [checked, setChecked] = useState(false);
 
+  const params = useParams();
 
-  const handleCheckedData =()=>{
-    setChecked(()=> !checked)
-  }
+  const empId = params?.id;
+
+  const handleCheckedData = () => {
+    setChecked(() => !checked);
+  };
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = [""];
+    let required = [
+      "company_name",
+      "product_group",
+      "product_category",
+      "event_venue",
+      "primary_email",
+      "password",
+      "comapany_person_name",
+      "designation",
+      "phone_number",
+      "address",
+    ];
+    required.forEach((val) => {
+      if (!form?.[val]) {
+        errors[val] = true;
+      }
+    });
+    Object.keys(errors).forEach((key) => {
+      if (!errors[key]) {
+        delete errors[key];
+      }
+    });
+    return errors;
   }, [form, errorData]);
 
-  const submitToServer = useCallback(() => {}, []);
+  const submitToServer = useCallback(() => { 
+      const fd = new FormData();
+      Object.keys(form).forEach((key) => {
+        if (key === "status") {
+          fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
+        }
+         if(key==="phone_number"){
+           fd.append(key,`91 ${form?.phone_number}`)
+         }
+         else{
+          fd.append(key,form[key])
+         }
+      })
+      let req;
+
+      if (empId) {
+        req = serviceUpdateExhibitors({ ...form, id: empId ? empId : "" });
+      } else {
+        req = serviceCreateExhibitors(fd);
+      }
+      req.then((res) => {
+        if (!res.error) {
+          window.location.reload();
+        } else {
+          SnackbarUtils.error(res.message);
+        }
+      });
+  }, []);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -68,6 +120,7 @@ const useExhibitorCreate = ({ location }) => {
       setErrorData(errors);
       return true;
     }
+    alert(form);
     submitToServer();
   }, [checkFormValidation, setErrorData, form]);
 
@@ -84,8 +137,8 @@ const useExhibitorCreate = ({ location }) => {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName ) {
-          t[fieldName] = text;
+      if (fieldName) {
+        t[fieldName] = text;
       }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
@@ -102,7 +155,7 @@ const useExhibitorCreate = ({ location }) => {
     [changeTextData]
   );
 
-  const handleDelete = useCallback(() => {}, []);
+  const handleDelete = useCallback(() => { }, []);
 
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
@@ -111,7 +164,6 @@ const useExhibitorCreate = ({ location }) => {
   const renderImages = (image) => {
     setSelectImages([...image]);
   };
-
 
 
   return {

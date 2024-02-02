@@ -38,7 +38,6 @@ function EventDetail() {
     return null;
   }, []);
 
-  console.log(featureValue,"featureValue is here ")
 
   return (
     <div className={styles.claimListWrapper}>

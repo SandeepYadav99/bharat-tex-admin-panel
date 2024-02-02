@@ -13,15 +13,7 @@ import {
     CREATE_DATA,
     UPDATE_DATA,
     DELETE_ITEM,
-    PROFILE_DETAILS,
-    APP_USER_FEED_POST,
-    APP_USER_COMMENT,
-    APP_USER_ASSOCIATE_CHAPTERS,
-    APP_USER_FEED_DELETE,
-    APP_USER_FEED_COMMENT_DELETE,
-    APP_USER_COMMENTS_BY_FEEDS,
-    APP_USER_COMMENTS_INFO,
-  } from "../actions/AppUser.action";
+  } from "../actions/Notification.action";
   import Constants from "../config/constants";
   
   function mapPresetPRequest(all, pageId) {
@@ -42,8 +34,8 @@ import {
     data: [],
     currentPage: 0,
     serverPage: 0,
-    query: null, 
-    query_data: null, 
+    query: null, // search text data
+    query_data: null, // popover filter data change
     sorting_data: { row: null, order: null },
     is_fetching: false,
   };
@@ -66,7 +58,7 @@ import {
           newAll = [...state.all, ...newData];
         }
         const tableData = mapPresetPRequest(newAll, state.currentPage);
-        return { ...state, all: newAll, data: tableData, is_fetching: false }; 
+        return { ...state, all: newAll, data: tableData, is_fetching: false }; // { ...state , all: newAll, data: tableData, serverPage: 1, currentPage: 1 };
       }
       case SET_SORTING: {
         return { ...state, sorting_data: action.payload };
@@ -81,7 +73,11 @@ import {
               return true;
             }
           });
-          
+          // const newState = state.all.map((val) => {
+          //     if (val.id == action.payload.id) {
+          //         return { ...val, status: action.payload.status == 'SUSPEND' ? 'SUSPEND' : 'ACTIVE' };
+          //     } return { ...val };
+          // });
           const tableData = mapPresetPRequest(prevState, state.currentPage);
           return { ...state, all: prevState, data: tableData };
         }
@@ -106,7 +102,11 @@ import {
               return true;
             }
           });
-          
+          // const newState = state.all.map((val) => {
+          //     if (val.id == action.payload.id) {
+          //         return { ...val, status: action.payload.status == 'SUSPEND' ? 'SUSPEND' : 'ACTIVE' };
+          //     } return { ...val };
+          // });
           if (tIndex != null) {
             prevState[tIndex] = action.payload;
           }
@@ -137,7 +137,14 @@ import {
         }
         return state;
       }
-      
+      // case NEX: {
+      //     const tableData = mapPresetPRequest(state.all, state.currentPage + 1);
+      //     return { ...state, data: tableData, currentPage: (state.currentPage + 1) };
+      // }
+      // case PREV_PREQUESTS: {
+      //     const tableData = mapPresetPRequest(state.all, state.currentPage - 1);
+      //     return { ...state, data: tableData, currentPage: (state.currentPage - 1) };
+      // }
       case CHANGE_PAGE: {
         const tempPage = action.payload;
         const tableData = mapPresetPRequest(state.all, tempPage);
@@ -166,31 +173,6 @@ import {
       }
       case SET_SERVER_PAGE: {
         return { ...state, serverPage: action.payload };
-      }
-      case PROFILE_DETAILS: {
-        return { ...state, data: action.payload };
-      }
-      case APP_USER_FEED_POST:{
-        return {...state,profileFeeds:action.payload};
-      }
-      case APP_USER_COMMENT :{
-        return{...state,comment:action.payload};
-      }
-      case APP_USER_ASSOCIATE_CHAPTERS:{
-        return{...state,associateChapters:action.payload};
-      }
-      case APP_USER_FEED_DELETE:{
-        return{...state,data:action.payload};
-      }
-      case APP_USER_FEED_COMMENT_DELETE:{
-        return{...state,data:action.payload};
-  
-      }
-      case APP_USER_COMMENTS_BY_FEEDS:{
-        return{...state,postComment:action.payload};
-      }
-      case APP_USER_COMMENTS_INFO :{
-        return {...state,commentInfo:action.payload}
       }
       default: {
         return state;

@@ -1,17 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  actionCreateAppUser,
-  actionDeleteAppUser,
-  actionFetchAppUser,
-  actionSetPageAppUser,
-  actionUpdateAppUser,
-} from "../../../actions/AppUser.action";
+  actionCreateExhibitors,
+  actionDeleteExhibitors,
+  actionFetchExhibitors,
+  actionSetPageExhibitors,
+  actionUpdateExhibitors,
+} from "../../../actions/Exhibitor.action";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
 import LogUtils from "../../../libs/LogUtils";
 
-const useExhibitorList = ({}) => {
+const useExhibitorList = ({ }) => {
   const [isSidePanel, setSidePanel] = useState(false);
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
@@ -22,14 +22,14 @@ const useExhibitorList = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.App_User);
+  } = useSelector((state) => state.Exhibitor);
 
   useEffect(() => {
   }, []);
 
   useEffect(() => {
     dispatch(
-      actionFetchAppUser(1, {}, {
+      actionFetchExhibitors(1, {}, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
@@ -39,15 +39,15 @@ const useExhibitorList = ({}) => {
 
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    dispatch(actionSetPageAppUser(type));
+    dispatch(actionSetPageExhibitors(type));
   }, []);
 
   const handleDataSave = useCallback(
     (data, type) => {
       if (type == "CREATE") {
-        dispatch(actionCreateAppUser(data));
+        dispatch(actionCreateExhibitors(data));
       } else {
-        dispatch(actionUpdateAppUser(data));
+        dispatch(actionUpdateExhibitors(data));
       }
       setSidePanel((e) => !e);
       setEditData(null);
@@ -57,20 +57,20 @@ const useExhibitorList = ({}) => {
 
   const handleCreateFed = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.EXHIBITOR_CREATE}`); 
+    historyUtils.push(`${RouteName.EXHIBITOR_CREATE}`);
   }, []);
 
   const queryFilter = useCallback(
     (key, value) => {
       console.log("_queryFilter", key, value);
-      // dispatch(actionSetPageAppUserRequests(1));
+      // dispatch(actionSetPageExhibitorsRequests(1));
       dispatch(
-        actionFetchAppUser(1, sortingData, {
+        actionFetchExhibitors(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
       );
-      // dispatch(actionFetchAppUser(1, sortingData))
+      // dispatch(actionFetchExhibitors(1, sortingData))
     },
     [sortingData, query, queryData]
   );
@@ -94,9 +94,9 @@ const useExhibitorList = ({}) => {
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      dispatch(actionSetPageAppUser(1));
+      dispatch(actionSetPageExhibitors(1));
       dispatch(
-        actionFetchAppUser(
+        actionFetchExhibitors(
           1,
           { row, order },
           {
@@ -115,7 +115,7 @@ const useExhibitorList = ({}) => {
 
   const handleDelete = useCallback(
     (id) => {
-      dispatch(actionDeleteAppUser(id));
+      dispatch(actionDeleteExhibitors(id));
       setSidePanel(false);
       setEditData(null);
     },

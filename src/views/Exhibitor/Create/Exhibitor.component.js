@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ExhibitorCreate = ({ subdepartments }) => {
+const ExhibitorCreate = () => {
   const {
     errorData,
     form,
@@ -41,7 +41,7 @@ const ExhibitorCreate = ({ subdepartments }) => {
 
   const listData = [{ name: "Hello", label: "Hello" }];
 
- 
+
   return (
     <div className={styles.container}>
       <div className={"plainPaper"}>
@@ -82,6 +82,7 @@ const ExhibitorCreate = ({ subdepartments }) => {
                   onBlur={() => {
                     onBlurHandler("company_name");
                   }}
+                  error={errorData?.company_name}
                 />
               </div>
             </div>

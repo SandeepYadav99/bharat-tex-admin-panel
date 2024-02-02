@@ -12,7 +12,7 @@ export default {
   is_development: (process.env.NODE_ENV === 'development' || !isProduction),
   TIME_ZONE: -(tempDate.getTimezoneOffset() / 60),
   DEFAULT_TIME_FORMAT: "DD-MM-YYYY, HH:mm",
-  APP_NAME: "CREDAI National - Admin",
+  APP_NAME: "Bharat Tex - Admin",
   DEFAULT_APP_URL: apiUrl,
   SOCKET_URL: socketUrl,
   // DEFAULT_APP_URL: 'http://35.154.147.169:5055/api/',
