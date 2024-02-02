@@ -22,6 +22,8 @@ const initialForm = {
   end_time: "",
   speakers: [],
   status: true,
+  category:"",
+  moderator:""
 };
 
 const useEventScheduleHook = ({

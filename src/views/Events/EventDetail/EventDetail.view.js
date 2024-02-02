@@ -36,7 +36,7 @@ function EventDetail() {
     }
     return null;
   }, []);
-
+console.log(employeeDetail)
   return (
     <div className={styles.claimListWrapper}>
       <div className={styles.outerFlex}>

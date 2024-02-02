@@ -62,7 +62,7 @@ function useEventDetail() {
       let filteredValue = eventKeys.filter(
         (item) => feature[item?.key] !== undefined && feature[item?.key]
       );
-      console.log(employeeDetail?.features);
+      console.log(employeeDetail);
       setfeatureValue(filteredValue);
     }
   }, [id, employeeDetail]);

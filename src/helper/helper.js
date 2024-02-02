@@ -356,7 +356,7 @@ export const EventData = [
     url: RouteName.INFOR_CENTER,
   },
   {
-    key: "testimonials",
+    key: "testimonial",
     name: "Testimonial",
     image: event,
     url: RouteName.TESTIMONIAL,
