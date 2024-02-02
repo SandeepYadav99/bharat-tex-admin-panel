@@ -41,9 +41,6 @@ const ExhibitorCreate = () => {
     listData, productListData,
   } = useExhibitorCreate({});
 
-  console.log(errorData,"errorData is here")
-
-
   return (
     <div className={styles.container}>
       <div className={"plainPaper"}>
