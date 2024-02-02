@@ -140,6 +140,12 @@ const useTestimonialCreate = ({}) => {
       const t = { ...form };
       if (fieldName === "name") {
         t[fieldName] = text?.replace(/^\s+/, "");
+      }else if (fieldName === "company") {
+        t[fieldName] = text?.replace(/^\s+/, "");
+      }else if (fieldName === "designaion") {
+        t[fieldName] = text?.replace(/^\s+/, "");
+      }else if (fieldName === "text") {
+        t[fieldName] = text?.replace(/^\s+/, "");
       } else {
         t[fieldName] = text;
       }
