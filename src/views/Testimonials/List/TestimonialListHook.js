@@ -10,9 +10,10 @@ import {
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
 import LogUtils from "../../../libs/LogUtils";
-import { actionFetchProductGroup, actionSetPageProductGroup } from "../../../actions/ProductGroup.action";
 
-const useList = ({}) => {
+import { actionFetchTestimonial, actionSetPageTestimonial ,} from "../../../actions/Testimonial.action";
+
+const useTestimonialList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
@@ -23,7 +24,7 @@ const useList = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.productGroups);
+  } = useSelector((state) => state.testimonial);
 
   useEffect(() => {
     // dispatch(actionFetchAppUser());
@@ -31,7 +32,7 @@ const useList = ({}) => {
 
   useEffect(() => {
     dispatch(
-      actionFetchProductGroup(1, {}, {
+      actionFetchTestimonial(1, {}, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
       })
@@ -41,7 +42,7 @@ const useList = ({}) => {
 
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    dispatch(actionSetPageProductGroup(type));
+    dispatch(actionSetPageTestimonial(type));
   }, []);
 
   const handleDataSave = useCallback(
@@ -60,7 +61,7 @@ const useList = ({}) => {
 
   const handleCreateFed = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.PRODUCT_GROUP_CREATE}`); 
+    historyUtils.push(`${RouteName.TESTIMONIAL_CREATE}`); 
   }, []);
 
   const queryFilter = useCallback(
@@ -68,7 +69,7 @@ const useList = ({}) => {
       console.log("_queryFilter", key, value);
       // dispatch(actionSetPageAppUserRequests(1));
       dispatch(
-        actionFetchProductGroup(1, sortingData, {
+        actionFetchTestimonial(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
@@ -97,9 +98,9 @@ const useList = ({}) => {
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      dispatch(actionSetPageProductGroup(1));
+      dispatch(actionSetPageTestimonial(1));
       dispatch(
-        actionFetchProductGroup(
+        actionFetchTestimonial(
           1,
           { row, order },
           {
@@ -129,7 +130,7 @@ const useList = ({}) => {
     (data) => {
       // setEditData(data);
       // setSidePanel((e) => !e);
-      historyUtils.push(`${RouteName.PRODUCT_GROUP_UPDATE}${data?.id}`)
+      historyUtils.push(`${RouteName.TESTIMONIAL_UPDATE}${data?.id}`)
     },
     [setEditData, setSidePanel]
   );
@@ -155,7 +156,7 @@ const useList = ({}) => {
 
 
   const handleCreate = useCallback(() => {
-    historyUtils.push(RouteName.LOCATIONS_CREATE);
+    historyUtils.push(RouteName.TESTIMONIAL_CREATE);
   }, []);
 
   const configFilter = useMemo(() => {
@@ -190,4 +191,4 @@ const useList = ({}) => {
   };
 };
 
-export default useList;
+export default useTestimonialList;

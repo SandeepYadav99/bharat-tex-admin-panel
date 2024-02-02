@@ -49,6 +49,7 @@ import KnowledgeCenterStamp from './KnowledgeCenterStamp.reducer';
 import ExhibitorReducer from "./Exhibitor.reducer";
 import ProductCategoryReducer from "./ProductCategory.reducer";
 import ProductGroupReducer from "./ProductGroup.reducer";
+import TestimonialReducer from "./Testimonial.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -101,7 +102,8 @@ const rootReducer = combineReducers({
   // Product Category 2/01/2024
   productCategory:ProductCategoryReducer,
   productGroups:ProductGroupReducer,
-  Exhibitor:ExhibitorReducer
+  Exhibitor:ExhibitorReducer,
+  testimonial:TestimonialReducer
 });
 
 export default rootReducer;

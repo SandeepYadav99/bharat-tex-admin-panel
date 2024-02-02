@@ -9,31 +9,48 @@ import {
 } from "../../../services/ProductGroup.service";
 import historyUtils from "../../../libs/history.utils";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  serviceCreateTestimonial,
+  serviceGetTestimonialDetails,
+  serviceUpdateTestimonial,
+} from "../../../services/Testimonial.service";
 
 const initialForm = {
+  image: "",
   name: "",
+  designaion: "",
+  company: "",
+  priorty: "",
+  text: "",
   status: true,
 };
 
-const useProductGroup = ({}) => {
+const useTestimonialCreate = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
   const [errorData, setErrorData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
   const [isEdit, setIsEdit] = useState(false);
+  const [image, setImage] = useState("");
   const includeRef = useRef(null);
   const { id: empId } = useParams();
   useEffect(() => {
     if (empId) {
-      serviceGetProductGroupDetails({ id: empId }).then((res) => {
+      serviceGetTestimonialDetails({ id: empId }).then((res) => {
         if (!res.error) {
-          const data = res?.data;
+          const data = res?.data?.details;
+
           setForm({
             ...form,
             name: data?.name,
+            designaion: data?.designation,
+            company: data?.company,
+            priorty: data?.priority,
+            text: data?.text,
             status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
           });
+          setImage(data?.image);
         } else {
           SnackbarUtils.error(res?.message);
         }
@@ -49,7 +66,7 @@ const useProductGroup = ({}) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["name"];
+    let required = ["name", "priorty"];
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -58,9 +75,6 @@ const useProductGroup = ({}) => {
         errors[val] = true;
       } else if (["code"].indexOf(val) < 0) {
         delete errors[val];
-      }
-      if (form?.email && !isEmail(form?.email)) {
-        errors["email"] = true;
       }
     });
     Object.keys(errors).forEach((key) => {
@@ -74,15 +88,21 @@ const useProductGroup = ({}) => {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      const payloadData = {
-        name: form?.name,
-        status: form?.status ? "ACTIVE" : "INACTIVE",
-      };
+      const formData = new FormData();
+      formData.append("name", form?.name);
+      formData.append("image", form?.image);
+      formData.append("designation", form?.designaion);
+      formData.append("company", form?.company);
+      formData.append("priority", form?.priorty);
+      formData.append("text", form?.text);
+      formData.append("status", form?.status ? "ACTIVE" : "INACTIVE");
       let req;
       if (empId) {
-        req = serviceUpdateProductGroup({ ...payloadData, id: empId });
+        // formData.append("event_id", empId);
+        formData.append("id", empId);
+        req = serviceUpdateTestimonial(formData);
       } else {
-        req = serviceCreateProductGroup(payloadData);
+        req = serviceCreateTestimonial(formData);
       }
       req.then((res) => {
         if (!res.error) {
@@ -119,6 +139,12 @@ const useProductGroup = ({}) => {
       let shouldRemoveError = true;
       const t = { ...form };
       if (fieldName === "name") {
+        t[fieldName] = text?.replace(/^\s+/, "");
+      }else if (fieldName === "company") {
+        t[fieldName] = text?.replace(/^\s+/, "");
+      }else if (fieldName === "designaion") {
+        t[fieldName] = text?.replace(/^\s+/, "");
+      }else if (fieldName === "text") {
         t[fieldName] = text?.replace(/^\s+/, "");
       } else {
         t[fieldName] = text;
@@ -160,7 +186,8 @@ const useProductGroup = ({}) => {
     empId,
     showPasswordCurrent,
     setShowPasswordCurrent,
+    image,
   };
 };
 
-export default useProductGroup;
+export default useTestimonialCreate;
