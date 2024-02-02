@@ -71,6 +71,8 @@ function useEventCreate() {
     event_participants: true,
     event_schedule: true,
     about_event: true,
+    exhibitor:false,
+    testimonial:false,
     event_organizing_committee: false,
     event_speakers: true,
     event_gallery: false,
@@ -287,7 +289,8 @@ function useEventCreate() {
         t[fieldName] = text.filter((item, index, self) => {
           return index === self.findIndex((i) => i.id === item.id);
         });
-      } else {
+      }
+       else {
         t[fieldName] = text;
       }
       setForm(t);

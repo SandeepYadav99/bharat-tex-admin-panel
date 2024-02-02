@@ -27,3 +27,11 @@
   text-transform: uppercase !important;
   font-weight: 600 !important;
 }
+#countryCode{
+  width:250px !important;
+}
+
+#oneLineView{
+  display: flex !important;
+  gap:10px;
+}

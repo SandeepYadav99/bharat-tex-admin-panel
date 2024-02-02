@@ -1,13 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { isAlphaNumChars, isNum, isSpace } from "../../../libs/RegexUtils";
-import useDebounce from "../../../hooks/DebounceHook";
-import LogUtils from "../../../libs/LogUtils";
-import {
-  serviceCreateEventOrganiserUser,
-  serviceGetEventOrganiserUserDetails,
-  serviceUpdateEventOrganiserUser,
-} from "../../../services/EventOrganiserUser.service";
-import historyUtils from "../../../libs/history.utils";
+
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { useParams } from "react-router";
 import {
@@ -16,7 +8,9 @@ import {
   serviceUpdateExhibitorList,
   serviceUpdateExhibitors,
   serviceExhibitorsList,
+  serviceGetProductList,
 } from "../../../services/Exhibitor.service";
+import historyUtils from "../../../libs/history.utils";
 
 const initialForm = {
   company_logo: "",
@@ -29,24 +23,26 @@ const initialForm = {
   booth_number: "",
   zone: "",
   partner_type: "",
-  primary_email: "test@gmail.com",
+  primary_email: "",
   password: "",
-  secondary_email: "test@gmail.com2",
+  secondary_email: "",
   secondary_password: "",
   comapany_person_name: "",
   designation: "",
   phone_number: "",
   alternate_number: "",
   address: "",
-  website: "https://chat.openai.com/",
-  instagram: "https://chat.openai.com/ins",
-  facebook: "https://chat.openai.com/fb",
-  linkdin: "https://chat.openai.com/link",
-  twitter: "https://chat.openai.com/twi",
+  website: "",
+  instagram: "",
+  facebook: "",
+  linkdin: "",
+  twitter: "",
   company_brochure: "",
   gallery_images: "",
   company_description: "",
-  status: false,
+  status: true,
+  country_code: "",
+  secondary_perosn_name: "",
 };
 
 const useExhibitorCreate = ({ location }) => {
@@ -55,18 +51,28 @@ const useExhibitorCreate = ({ location }) => {
   const [form, setForm] = useState({ ...initialForm });
   const [selectImages, setSelectImages] = useState([]);
   const [checked, setChecked] = useState(false);
+  const [productListData, setProductListData] = useState([])
   const [listData, setListData] = useState({
     PRODUCT_GROUP: [],
     PRODUCT_CATEGORY: [],
   });
 
   useEffect(() => {
-    serviceExhibitorsList({list:["PRODUCT_CATEGORY", "PRODUCT_GROUP"]}).then((res) => {
+    serviceExhibitorsList({ list: ["PRODUCT_CATEGORY", "PRODUCT_GROUP"] }).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
     });
   }, []);
+
+  useEffect(() => {
+    serviceGetProductList().then((res) => {
+      if (!res.error) {
+        setProductListData(res.data)
+      }
+    })
+  }, [])
+
 
   const params = useParams();
 
@@ -89,8 +95,15 @@ const useExhibitorCreate = ({ location }) => {
       "designation",
       "phone_number",
       "address",
+      "country_code"
     ];
     required.forEach((val) => {
+      if(form?.product_categories?.length === 0){
+        errors["product_categories"] = true;
+      }
+      if(form?.product_groups?.length === 0){
+        errors["product_groups"] = true;
+      }
       if (!form?.[val]) {
         errors[val] = true;
       }
@@ -128,7 +141,7 @@ const useExhibitorCreate = ({ location }) => {
             fd.append(key, JSON.stringify(form[key]));
           }
         } else if (key === "phone_number") {
-          fd.append(key, `91 ${form?.phone_number}`);
+          fd.append(key, `${form?.country_code} ${form?.phone_number}`);
         } else {
           fd.append(key, form[key]);
         }
@@ -156,7 +169,7 @@ const useExhibitorCreate = ({ location }) => {
     }
     req.then((res) => {
       if (!res.error) {
-        window.location.reload();
+        historyUtils.goBack();
       } else {
         SnackbarUtils.error(res.message);
       }
@@ -187,6 +200,23 @@ const useExhibitorCreate = ({ location }) => {
       const t = { ...form };
       if (fieldName) {
         t[fieldName] = text;
+      }
+      else if (fieldName === "products") {
+        const newValues = text?.filter((item) => item.trim() !== "");
+        const uniqueValues = text
+          ? newValues?.filter(
+            (item, index, self) =>
+              self.findIndex(
+                (t) => t.toLowerCase() === item.toLowerCase()
+              ) === index
+          )
+          : [];
+
+        if (uniqueValues.length <= 2) {
+          t[fieldName] = uniqueValues;
+        } else {
+          SnackbarUtils.error("Maximum 2 Task category");
+        }
       }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
@@ -229,6 +259,7 @@ const useExhibitorCreate = ({ location }) => {
     handleCheckedData,
     checked,
     listData,
+    productListData,
   };
 };
 
