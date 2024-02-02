@@ -131,6 +131,7 @@ export default {
   KNOWLEDGE_CENTER_CREATE:"/knowledge-center/create",
   KNOWLEDGE_CENTER_UPDATE:"/knowledge-center/update",
   
+  
   /*Stamp Center is here*/
   KNOWLEDGE_CENTER_LIST:"/knowledge-center/list",
   KNOWLEDGE_CENTER_STAMP_CREATE:"/stamp/create",
