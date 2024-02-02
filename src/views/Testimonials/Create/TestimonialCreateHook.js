@@ -22,7 +22,7 @@ const initialForm = {
   company: "",
   priorty: "",
   text: "",
-  status: false,
+  status: true,
 };
 
 const useTestimonialCreate = ({}) => {
@@ -46,7 +46,7 @@ const useTestimonialCreate = ({}) => {
             name: data?.name,
             designaion: data?.designation,
             company: data?.company,
-            priorty: data?.priorty,
+            priorty: data?.priority,
             text: data?.text,
             status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
           });
@@ -93,7 +93,7 @@ const useTestimonialCreate = ({}) => {
       formData.append("image", form?.image);
       formData.append("designation", form?.designaion);
       formData.append("company", form?.company);
-      // formData.append("priorty", form?.priorty);
+      formData.append("priority", form?.priorty);
       formData.append("text", form?.text);
       formData.append("status", form?.status ? "ACTIVE" : "INACTIVE");
       let req;

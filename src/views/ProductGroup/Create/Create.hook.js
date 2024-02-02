@@ -12,7 +12,7 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 const initialForm = {
   name: "",
-  status: false,
+  status: true,
 };
 
 const useProductGroup = ({}) => {

@@ -43,9 +43,9 @@ const TestimonialList = ({}) => {
         label: "Image",
         sortable: true,
         render: (value, all) => (
-          <div style={{ width: "50px", height: "50px", overflow: "hidden" }}>
+          <div style={{ width: "100px", height: "60px", overflow: "hidden" }}>
             <img
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              style={{ width: "100%", height: "100%", borderRadius:"5px"}}
               src={all?.image}
               alt=""
             
