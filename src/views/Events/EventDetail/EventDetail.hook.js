@@ -142,6 +142,11 @@ function useEventDetail() {
     historyUtils.push(`${RouteName.EVENTS_UPDATE}${id}`); //+data.id
   }, [id]);
 
+  const handleViewEventsPush = useCallback((data)=>{
+    LogUtils.log("data", data);
+    historyUtils.push(`${RouteName.EXHIBITOR_LIST}`); 
+  })
+
   
   return {
     id,
@@ -153,6 +158,7 @@ function useEventDetail() {
     featureValue,
     handleViewEvents,
     editMasterEvent,
+    handleViewEventsPush,
   };
 }
 

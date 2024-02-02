@@ -46,6 +46,7 @@ import PollResult from "./PollResult.reducer";
 import BusinessGreetingReducer from "./BusinessGreeting.reducer";
 import KnowledgeCenter from './KnowledgeCenter.reducer';
 import KnowledgeCenterStamp from './KnowledgeCenterStamp.reducer';
+import ExhibitorReducer from "./Exhibitor.reducer";
 import ProductCategoryReducer from "./ProductCategory.reducer";
 import ProductGroupReducer from "./ProductGroup.reducer";
 
@@ -99,7 +100,8 @@ const rootReducer = combineReducers({
   Knowledge_Center_Stamp:KnowledgeCenterStamp,
   // Product Category 2/01/2024
   productCategory:ProductCategoryReducer,
-  productGroups:ProductGroupReducer
+  productGroups:ProductGroupReducer,
+  Exhibitor:ExhibitorReducer
 });
 
 export default rootReducer;

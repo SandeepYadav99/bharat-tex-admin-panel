@@ -10,77 +10,89 @@ import {
 import historyUtils from "../../../libs/history.utils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { useParams } from "react-router";
-import { serviceGetList } from "../../../services/index.services";
+import {
+  serviceCreateExhibitorList,
+  serviceCreateExhibitors,
+  serviceUpdateExhibitorList,
+  serviceUpdateExhibitors,
+  serviceExhibitorsList,
+} from "../../../services/Exhibitor.service";
 
 const initialForm = {
-  image: "",
-  company: "",
-  priority: "",
-  user: null,
+  company_logo: "",
+  company_name: "",
+  brand: "",
+  product_groups: [],
+  product_categories: [],
+  products: [],
+  event_venue: "",
+  booth_number: "",
+  zone: "",
+  partner_type: "",
+  primary_email: "test@gmail.com",
+  password: "",
+  secondary_email: "test@gmail.com2",
+  secondary_password: "",
+  comapany_person_name: "",
+  designation: "",
+  phone_number: "",
+  alternate_number: "",
+  address: "",
+  website: "https://chat.openai.com/",
+  instagram: "https://chat.openai.com/ins",
+  facebook: "https://chat.openai.com/fb",
+  linkdin: "https://chat.openai.com/link",
+  twitter: "https://chat.openai.com/twi",
+  company_brochure: "",
+  gallery_images: "",
+  company_description: "",
+  status: false,
 };
 
 const useExhibitorCreate = ({ location }) => {
-  const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [image, setImage] = useState("");
   const [form, setForm] = useState({ ...initialForm });
-  const [isEdit, setIsEdit] = useState(false);
-  const [isEnterManually, setIsEnterManually] = useState(false);
-
-  const { id } = useParams();
+  const [selectImages, setSelectImages] = useState([]);
+  const [checked, setChecked] = useState(false);
   const [listData, setListData] = useState({
-    USERS: [],
+    PRODUCT_GROUP: [],
+    PRODUCT_CATEGORY: [],
   });
 
   useEffect(() => {
-    if (id) {
-      serviceGetEventOrganiserUserDetails({ id: id }).then((res) => {
-        if (!res.error) {
-          const data = res?.data;
-          setForm({
-            ...form,          
-            company: data?.company,
-            priority: data?.priority,
-          });
-          setImage(data?.image);
-        } else {
-          SnackbarUtils.error(res?.message);
-          historyUtils.goBack();
-        }
-      });
-    }
-  }, [id]);
-
-  useEffect(() => {
-    serviceGetList(["USERS"]).then((res) => {
+    serviceExhibitorsList({list:["PRODUCT_CATEGORY", "PRODUCT_GROUP"]}).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
     });
   }, []);
 
+  const params = useParams();
+
+  const empId = params?.id;
+
+  const handleCheckedData = () => {
+    setChecked(() => !checked);
+  };
+
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["priority"];
-    if (!id) {
-      required.push("image");
-    }
-    if (isEnterManually) {
-      required.push("name");
-      delete errors["user"];
-    } else {
-      required.push("user");
-      delete errors["name"];
-    }
+    let required = [
+      "company_name",
+      "product_groups",
+      "product_categories",
+      "event_venue",
+      "primary_email",
+      "password",
+      "comapany_person_name",
+      "designation",
+      "phone_number",
+      "address",
+    ];
     required.forEach((val) => {
-      if (
-        !form?.[val] ||
-        (Array.isArray(form?.[val]) && form?.[val].length === 0)
-      ) {
+      if (!form?.[val]) {
         errors[val] = true;
-      } else if (["code"].indexOf(val) < 0) {
-        delete errors[val];
       }
     });
     Object.keys(errors).forEach((key) => {
@@ -89,66 +101,67 @@ const useExhibitorCreate = ({ location }) => {
       }
     });
     return errors;
-  }, [form, errorData, isEnterManually, id, setIsEnterManually]);
+  }, [form, errorData]);
 
   const submitToServer = useCallback(() => {
-    if (!isSubmitting) {
-      setIsSubmitting(true);
-      const fd = new FormData();
-      Object.keys(form).forEach((key) => {
-        if (["image", "status", "name", "user"].indexOf(key) < 0 && form[key]) {
+    const fd = new FormData();
+    const productlist = form?.products?.map((val) => val?.name)
+    Object.keys(form).forEach((key) => {
+      if (
+        key !== "company_logo" &&
+        key !== "gallery_images" &&
+        key !== "company_brochure"
+      ) {
+        if (key === "status") {
+          fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
+        } else if (key === "related_to") {
+          fd.append(key, JSON.stringify(form[key]));
+        } else if (
+          key === "products" ||
+          key === "product_categories" ||
+          key === "product_groups"
+        ) {
+          if (key === "products") {
+            fd.append(key, JSON.stringify(productlist))
+          }
+          else {
+            fd.append(key, JSON.stringify(form[key]));
+          }
+        } else if (key === "phone_number") {
+          fd.append(key, `91 ${form?.phone_number}`);
+        } else {
           fd.append(key, form[key]);
         }
-      });
-      if (form?.image) {
-        fd.append("image", form?.image);
       }
-      if (id) {
-        fd.append("id", id);
-      }
-      fd.append("organising_id", location?.state?.organising_id);
-      fd.append("event_id", location?.state?.organising_id);
-      fd.append("status", "ACTIVE");
-
-      if(!form?.designation){
-        fd.append("designation"," ")
-      }
-     
-
-      if (isEnterManually) {
-        fd.append("name", form?.name);
-      } else {
-        fd.append("name", form?.user?.name);
-        fd.append("user_id", form?.user?.id);
-      }
-
-      let req;
-
-      if (id) {
-        req = serviceUpdateEventOrganiserUser;
-      } else {
-        req = serviceCreateEventOrganiserUser;
-      }
-
-      req(fd).then((res) => {
-        LogUtils.log("response", res);
-        if (!res.error) {
-          historyUtils.goBack();
-        } else {
-          SnackbarUtils.error(res.message);
-        }
-        setIsSubmitting(false);
+    });
+    if (form?.company_logo) {
+      fd.append("company_logo", form?.company_logo);
+    }
+    if (form?.gallery_images?.length > 0) {
+      form?.gallery_images?.forEach((item) => {
+        fd.append("gallery_images", item);
       });
     }
-  }, [
-    form,
-    isSubmitting,
-    setIsSubmitting,
-    id,
-    location,
-    isEnterManually,
-    setIsEnterManually,
-  ]);
+    if (form?.company_brochure?.length > 0) {
+      form?.company_brochure?.forEach((item) => {
+        fd.append("company_brochure", item);
+      });
+    }
+    let req;
+
+    if (empId) {
+      req = serviceUpdateExhibitors({ ...form, id: empId ? empId : "" });
+    } else {
+      req = serviceCreateExhibitors(fd);
+    }
+    req.then((res) => {
+      if (!res.error) {
+        window.location.reload();
+      } else {
+        SnackbarUtils.error(res.message);
+      }
+    });
+  }, [form, errorData]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -172,20 +185,7 @@ const useExhibitorCreate = ({ location }) => {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName === "name") {
-        if (!text || (isAlphaNumChars(text) && text.toString().length <= 30)) {
-          t[fieldName] = text;
-        }
-      } else if (fieldName === "priority") {
-        if (!text || isNum(text)) {
-          t[fieldName] = text;
-        }
-      } else if (fieldName === "code") {
-        if (!text || (!isSpace(text) && isAlphaNumChars(text))) {
-          t[fieldName] = text.toUpperCase();
-        }
-        shouldRemoveError = false;
-      } else {
+      if (fieldName) {
         t[fieldName] = text;
       }
       setForm(t);
@@ -203,15 +203,15 @@ const useExhibitorCreate = ({ location }) => {
     [changeTextData]
   );
 
-  const handleDelete = useCallback(() => {}, []);
+  const handleDelete = useCallback(() => { }, []);
 
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
   }, [form, setForm]);
 
-  const handleManualClick = useCallback(() => {
-    setIsEnterManually((e) => !e);
-  }, [setIsEnterManually]);
+  const renderImages = (image) => {
+    setSelectImages([...image]);
+  };
 
   return {
     form,
@@ -219,17 +219,16 @@ const useExhibitorCreate = ({ location }) => {
     onBlurHandler,
     removeError,
     handleSubmit,
-    isLoading,
-    isSubmitting,
     errorData,
-    isEdit,
     handleDelete,
     handleReset,
-    id,
-    listData,
     image,
-    handleManualClick,
-    isEnterManually,
+    selectImages,
+    setSelectImages,
+    renderImages,
+    handleCheckedData,
+    checked,
+    listData,
   };
 };
 
