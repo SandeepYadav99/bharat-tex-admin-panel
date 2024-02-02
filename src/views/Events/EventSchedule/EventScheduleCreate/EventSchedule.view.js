@@ -153,6 +153,50 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
               />
           </div>
         </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.category}
+              errorText={errorData?.category}
+              label={"Category" }
+              value={form?.category}
+              handleChange={(value) => {
+                changeTextData(value, "category");
+              }}
+            >
+              <MenuItem value="ROUNDTABLES">Roundtables</MenuItem>
+              <MenuItem value="PANNEL_DISCUSSION">Panel Discussions</MenuItem>
+              <MenuItem value="MASTERCLASS">Masterclass</MenuItem> 
+              <MenuItem value="COUNTRY_REGIONAL_SESSION">Country / Regional Session</MenuItem> 
+              <MenuItem value="STATE_SESSION">State Sessions</MenuItem> 
+            </CustomSelectField>
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+              <Autocomplete
+                  multiple
+                  id="tags-outlined"
+                  onChange={(e, value) => {
+                      changeTextData(value, "moderator");
+                  }}
+                  value={form?.moderator}
+                  // id="tags-standard"
+                  options={listData?.SPEAKERS ? listData?.SPEAKERS : []}
+                  getOptionLabel={(option) => option.label}
+                  defaultValue={form?.moderator}
+                  renderInput={(params) => (
+                      <TextField
+                          {...params}
+                          variant="outlined"
+                          label="Moderator"
+                          error={errorData?.moderator}
+                      />
+                  )}
+              />
+          </div>
+        </div>
+      
       <div className={"headerFlex"}>
         <h4 className={"infoTitle"}>
           <div className={"heading"}>Status</div>

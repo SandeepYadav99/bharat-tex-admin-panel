@@ -130,7 +130,7 @@ function useSpeakerCreateHook({ location }) {
         }
 
         fd.append("s_status", form.s_status ? "ACTIVE" : "INACTIVE");// is_moderator
-        fd.append("is_moderator", form.is_moderator ? "ACTIVE" : "INACTIVE");// is_moderator
+        // fd.append("is_moderator", form.is_moderator ? "ACTIVE" : "INACTIVE");// is_moderator
         if (form?.s_image) {
           fd.append("s_image", form?.s_image);
         }

@@ -130,8 +130,8 @@ const TestimonialList = ({}) => {
           </div>
           <div className={styles.BtnWrapper}>
             <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
-              <Add fontSize={"small"} />
               Add
+              <Add fontSize={"small"} />
             </ButtonBase>
           </div>
         </div>

@@ -59,10 +59,11 @@ function useEventDetail() {
   useEffect(() => {
     if (employeeDetail && eventKeys?.length > 0) {
       const feature = { ...employeeDetail?.features };
+   
       let filteredValue = eventKeys.filter(
         (item) => feature[item?.key] !== undefined && feature[item?.key]
       );
-      console.log(employeeDetail?.features);
+      console.log(employeeDetail.testimonial);
       setfeatureValue(filteredValue);
     }
   }, [id, employeeDetail]);

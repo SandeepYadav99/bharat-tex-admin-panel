@@ -22,6 +22,8 @@ const initialForm = {
   end_time: "",
   speakers: [],
   status: true,
+  category:"",
+  moderator:[]
 };
 
 const useEventScheduleHook = ({
@@ -55,8 +57,12 @@ const useEventScheduleHook = ({
       serviceGetEventScheduleDetails({ id: empId }).then((res) => {
         if (!res.error) {
           const data = res?.data;
-          console.log("data", data, data?.speakers);
+         
           const modifiedSpeaker = data?.speakers?.map((item) => ({
+            id: item?.s_id,
+            label: item?.s_name,
+          }));
+          const modifiedModerator =data?.moderator?.map((item) => ({
             id: item?.s_id,
             label: item?.s_name,
           }));
@@ -68,6 +74,7 @@ const useEventScheduleHook = ({
             start_time: data?.start_date_time,
             end_time: data?.end_date_time,
             speakers: modifiedSpeaker,
+            moderator:modifiedModerator,
             status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
           });
         } else {
@@ -136,12 +143,13 @@ const useEventScheduleHook = ({
       req({
         ...form,
         speakers: form?.speakers?.map((val) => val.id),
+        moderator:form?.moderator?.map((val) => val.id),
         event_id: id,
         status: form?.status ? "ACTIVE" : "INACTIVE",
       }).then((res) => {
         if (!res.error) {
           handleToggleSidePannel();
-          window.location.reload();
+          // window.location.reload();
         } else {
           SnackbarUtils.error(res.message);
         }
