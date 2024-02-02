@@ -17,6 +17,7 @@ const useExhibitorList = ({ }) => {
   const [editData, setEditData] = useState(null);
   const dispatch = useDispatch();
   const isMountRef = useRef(false);
+  
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,

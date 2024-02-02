@@ -40,6 +40,9 @@ const ExhibitorList = ({}) => {
     is_fetching: isFetching,
   } = useSelector((state) => state.Exhibitor);
 
+
+  console.log(data,"data is here where are you ??")
+
   const UpperInfo = useCallback((obj) => {
     if (obj) {
       return (
@@ -58,14 +61,14 @@ const ExhibitorList = ({}) => {
         key:"company",
         label: "Company Name",
         sortable: true,
-        render: (value, all) => <div>{all?.email}</div>,
+        render: (value, all) => <div>{all?.company_name}</div>,
       },
 
       {
         key: "group",
         label: "Product Group",
         sortable: true,
-        render: (temp, all) => <div>{all.contact}</div>,
+        render: (temp, all) => <div>{all.product_groups[0]?.name}</div>,
       },
 
       {
