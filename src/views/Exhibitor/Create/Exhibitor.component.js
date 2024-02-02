@@ -15,6 +15,7 @@ import CustomSelectField from "../../../components/FormFields/SelectField/Select
 import Chip from "@material-ui/core/Chip";
 import { Autocomplete } from "@material-ui/lab";
 import CustomSwitch from "../../../components/FormFields/CustomSwitch";
+import CountryCode from "../../../assets/country_code.json";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -37,13 +38,8 @@ const ExhibitorCreate = () => {
     handleCheckedData,
     checked,
     handleSubmit,
-    listData,
+    listData, productListData,
   } = useExhibitorCreate({});
-
-
-  const listDataTwo =[{ name: "Hello" }];
-
-
 
   return (
     <div className={styles.container}>
@@ -120,6 +116,7 @@ const ExhibitorCreate = () => {
               options={listData ? listData?.PRODUCT_GROUP : []}
               getOptionLabel={(option) => option.name}
               defaultValue={form?.product_groups}
+              error={errorData?.product_groups}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -142,6 +139,7 @@ const ExhibitorCreate = () => {
               options={listData ? listData?.PRODUCT_CATEGORY : []}
               getOptionLabel={(option) => option.name}
               defaultValue={form?.product_categories}
+              error={errorData?.product_categories}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -157,22 +155,31 @@ const ExhibitorCreate = () => {
           <div className={"formGroup"}>
             <Autocomplete
               multiple
+              rows={6}
               id="tags-outlined"
               onChange={(e, value) => {
                 changeTextData(value, "products");
               }}
+              options={productListData}
               value={form?.products}
-              options={listDataTwo ? listDataTwo : []}
-              getOptionLabel={(option) => option.name}
-              defaultValue={form?.products}
+              freeSolo
+              selectOnFocus={false}
+              error={errorData?.products}
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                  <Chip
+                    variant="outlined"
+                    label={option}
+                    {...getTagProps({ index })}
+                  /> // disabled={option.length < 2}
+                ))
+              }
               renderInput={(params) => (
                 <TextField
                   {...params}
                   variant="outlined"
                   label="Product"
                   error={errorData?.products}
-                  multiline
-                  rows={3}
                 />
               )}
             />
@@ -333,6 +340,22 @@ const ExhibitorCreate = () => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
+              label={"Secondary Person Name"}
+              value={form?.secondary_perosn_name}
+              onTextChange={(text) => {
+                changeTextData(text, "secondary_perosn_name");
+              }}
+              onBlur={() => {
+                onBlurHandler("secondary_perosn_name");
+              }}
+            />
+          </div>
+          <div className={"formGroup"}>
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
               isError={errorData?.secondary_email}
               errorText={errorData?.secondary_email}
               label={"Secondary Email"}
@@ -361,7 +384,26 @@ const ExhibitorCreate = () => {
           </div>
         </div>
         <div className={"formFlex"}>
-          <div className={"formGroup"}>
+          <div className={"formGroup"} id={styles.oneLineView}>
+            <div id={styles.countryCode}>
+              <CustomSelectField
+                isError={errorData?.country_code}
+                errorText={errorData?.country_code}
+                label={"Country Code"}
+                value={form?.country_code}
+                handleChange={(value) => {
+                  changeTextData(value, "country_code");
+                }}
+              >
+                {
+                  CountryCode?.map((val) => {
+                    return (
+                      <MenuItem value={val?.dial_code} key={val.code}>{val?.dial_code}</MenuItem>
+                    )
+                  })
+                }
+              </CustomSelectField>
+            </div>
             <CustomTextField
               isError={errorData?.phone_number}
               errorText={errorData?.phone_number}
@@ -505,33 +547,30 @@ const ExhibitorCreate = () => {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <MultiFile
-              multiDef={selectImages ? selectImages : []}
-              // multiple
-              max_size={5 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
-              fullWidth={true}
-              name="od1"
-              label="Upload Multiple Image"
-              accept={"image/*"}
-              error={errorData?.company_brochure}
-              value={form?.company_brochure}
-              placeholder={"Company Brochure"}
-              onChange={(file) => {
-                if (file) {
-                  changeTextData(file, "company_brochure");
-                }
-              }}
-              DefChange={(img) => {
-                if (img) {
-                  renderImages(img);
-                }
-              }}
-            />
+            <div className={"formGroup"}>
+              <File
+                max_size={10 * 1024 * 1024}
+                type={["pdf", "docx"]}
+                fullWidth={true}
+                name="od1"
+                label="Upload File"
+                accept={"application/pdf,application/msword"}
+                error={errorData?.company_brochure}
+                isError={errorData?.company_brochure}
+                value={form?.company_brochure}
+                placeholder={"Company Brochure"}
+                onChange={(file) => {
+                  if (file) {
+                    changeTextData(file, "company_brochure");
+                  }
+                }}
+              />
+            </div>
           </div>
           <div className={"formGroup"}>
             <MultiFile
               multiDef={selectImages ? selectImages : []}
+              max_count="5"
               multiple
               max_size={1 * 1024 * 1024}
               type={["jpeg", "jpg", "png"]}
@@ -543,10 +582,10 @@ const ExhibitorCreate = () => {
               value={form?.gallery_images}
               placeholder={"Gallery"}
               onChange={(file) => {
-                if (file) {
-                  changeTextData(file, "gallery_images");
+                    changeTextData(file, "gallery_images");
+          
                 }
-              }}
+              }
               DefChange={(img) => {
                 if (img) {
                   renderImages(img);
@@ -573,13 +612,13 @@ const ExhibitorCreate = () => {
         </div>
       </div>
       <div className={"plainPaper"}>
-      <CustomSwitch
-            value={form?.status}
-            handleChange={() => {
-              changeTextData(!form?.status, "status");
-            }}
-            label={`Active`}
-          />
+        <CustomSwitch
+          value={form?.status}
+          handleChange={() => {
+            changeTextData(!form?.status, "status");
+          }}
+          label={`Active`}
+        />
         <div className={styles.btnWrappepr}>
           <ButtonBase
             type={"button"}

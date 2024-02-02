@@ -41,7 +41,6 @@ const ExhibitorList = ({}) => {
   } = useSelector((state) => state.Exhibitor);
 
 
-  console.log(data,"data is here where are you ??")
 
   const UpperInfo = useCallback((obj) => {
     if (obj) {
@@ -97,6 +96,14 @@ const ExhibitorList = ({}) => {
                 <InfoOutlined fontSize={"small"} />
               </IconButton>
             </Link>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+             
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
           </div>
         ),
       },

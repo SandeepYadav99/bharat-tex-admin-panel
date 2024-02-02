@@ -22,4 +22,9 @@ export async  function serviceExhibitorsList(params) {
   return await postRequest("list", params);
 }
 
+export async function serviceGetProductList(){
+  return await postRequest("product/group/tages")
+}
+
+
 

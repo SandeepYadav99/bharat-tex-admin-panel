@@ -6,7 +6,6 @@ import axios from "axios";
 import Constants from "../config/constants";
 import store from "../store";
 import { actionLogoutUser } from "../actions/auth_index.action";
-import LogUtils from "./LogUtils";
 
 export async function postRequest(url, params) {
   try {
@@ -143,7 +142,6 @@ export async function formDataRequestWithoutAuthentication(url, formData) {
       data: formData,
     });
     if (tempRequest.status === 200) {
-      console.log(tempRequest.data);
       if (tempRequest.data.response_code === 1) {
         return {
           error: false,
