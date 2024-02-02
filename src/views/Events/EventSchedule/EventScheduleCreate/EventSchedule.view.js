@@ -165,10 +165,10 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
               }}
             >
               <MenuItem value="ROUNDTABLES">Roundtables</MenuItem>
-              <MenuItem value="PANEL_DISCUSSIONS">Panel Discussions</MenuItem>
+              <MenuItem value="PANNEL_DISCUSSION">Panel Discussions</MenuItem>
               <MenuItem value="MASTERCLASS">Masterclass</MenuItem> 
               <MenuItem value="COUNTRY_REGIONAL_SESSION">Country / Regional Session</MenuItem> 
-              <MenuItem value="STATE_SESSIONS">State Sessions</MenuItem> 
+              <MenuItem value="STATE_SESSION">State Sessions</MenuItem> 
             </CustomSelectField>
           </div>
         </div>
