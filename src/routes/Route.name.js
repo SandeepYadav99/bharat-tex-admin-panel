@@ -146,7 +146,7 @@ export default {
 
   EXHIBITOR_LIST:"/exhibitor/list",
   EXHIBITOR_CREATE:"/exhibitor/list/create",
-  TESTIMONIAL:"/testimonial", 
+  EVENT_TESTIMONIAL:"/testimonial/", 
   TESTIMONIAL_CREATE:"/testimonial/create",
   TESTIMONIAL_UPDATE:"/testimonial/update/",
 };
