@@ -26,11 +26,11 @@ const initialForm = {
   password: "",
   secondary_email: "",
   secondary_password: "",
-  comapany_person_name: "",
-  designation: "",
-  phone_number: "",
-  alternate_number: "",
-  address: "",
+  company_perosn_name: "",
+  conatct_person_designation: "",
+  primary_conatct_number: "",
+  other_conatct_number: "",
+  company_address: "",
   website: "",
   instagram: "",
   facebook: "",
@@ -94,10 +94,10 @@ const useExhibitorCreate = ({ location }) => {
             event_venue: data?.event_venue,
             primary_email: data?.primary_email,
             password: data?.password,
-            comapany_person_name: data?.comapany_person_name,
-            designation: data?.designation,
-            phone_number: data?.phone_number,
-            address: data?.address,
+            company_perosn_name: data?.company_perosn_name,
+            conatct_person_designation: data?.conatct_person_designation,
+            primary_conatct_number: data?.primary_conatct_number,
+            company_address: data?.company_address,
             country_code: data?.country_code,
           });
         } else {
@@ -116,10 +116,10 @@ const useExhibitorCreate = ({ location }) => {
       "event_venue",
       "primary_email",
       "password",
-      "comapany_person_name",
-      "designation",
-      "phone_number",
-      "address",
+      "company_perosn_name",
+      "conatct_person_designation",
+      "primary_conatct_number",
+      "company_address",
       "country_code"
     ];
     required.forEach((val) => {
@@ -165,8 +165,8 @@ const useExhibitorCreate = ({ location }) => {
           else {
             fd.append(key, JSON.stringify(form[key]));
           }
-        } else if (key === "phone_number") {
-          fd.append(key, `${form?.country_code} ${form?.phone_number}`);
+        } else if (key === "primary_conatct_number") {
+          fd.append(key, `${form?.primary_conatct_number}`);
         } else {
           fd.append(key, form[key]);
         }
@@ -188,7 +188,8 @@ const useExhibitorCreate = ({ location }) => {
     let req;
 
     if (empId) {
-      req = serviceUpdateExhibitors({ ...form, id: empId ? empId : "" });
+      fd.append("id",empId)
+      req = serviceUpdateExhibitors(fd);
     } else {
       req = serviceCreateExhibitors(fd);
     }

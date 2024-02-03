@@ -280,29 +280,29 @@ const ExhibitorCreate = () => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.comapany_person_name}
-              errorText={errorData?.comapany_person_name}
+              isError={errorData?.company_perosn_name}
+              errorText={errorData?.company_perosn_name}
               label={"Company Person Name"}
-              value={form?.comapany_person_name}
+              value={form?.company_perosn_name}
               onTextChange={(text) => {
-                changeTextData(text, "comapany_person_name");
+                changeTextData(text, "company_perosn_name");
               }}
               onBlur={() => {
-                onBlurHandler("comapany_person_name");
+                onBlurHandler("company_perosn_name");
               }}
             />
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.designation}
-              errorText={errorData?.designation}
+              isError={errorData?.conatct_person_designation}
+              errorText={errorData?.conatct_person_designation}
               label={"Designation"}
-              value={form?.designation}
+              value={form?.conatct_person_designation}
               onTextChange={(text) => {
-                changeTextData(text, "designation");
+                changeTextData(text, "conatct_person_designation");
               }}
               onBlur={() => {
-                onBlurHandler("designation");
+                onBlurHandler("conatct_person_designation");
               }}
             />
           </div>
@@ -405,29 +405,29 @@ const ExhibitorCreate = () => {
               </CustomSelectField>
             </div>
             <CustomTextField
-              isError={errorData?.phone_number}
-              errorText={errorData?.phone_number}
+              isError={errorData?.primary_conatct_number}
+              errorText={errorData?.primary_conatct_number}
               label={"Phone"}
-              value={form?.phone_number}
+              value={form?.primary_conatct_number}
               onTextChange={(text) => {
-                changeTextData(text, "phone_number");
+                changeTextData(text, "primary_conatct_number");
               }}
               onBlur={() => {
-                onBlurHandler("phone_number");
+                onBlurHandler("primary_conatct_number");
               }}
             />
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.alternate_number}
-              errorText={errorData?.alternate_number}
+              isError={errorData?.other_conatct_number}
+              errorText={errorData?.other_conatct_number}
               label={"Alternate Number"}
-              value={form?.alternate_number}
+              value={form?.other_conatct_number}
               onTextChange={(text) => {
-                changeTextData(text, "alternate_number");
+                changeTextData(text, "other_conatct_number");
               }}
               onBlur={() => {
-                onBlurHandler("alternate_number");
+                onBlurHandler("other_conatct_number");
               }}
             />
           </div>
@@ -435,15 +435,15 @@ const ExhibitorCreate = () => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.address}
-              errorText={errorData?.address}
+              isError={errorData?.company_address}
+              errorText={errorData?.company_address}
               label={"Address"}
-              value={form?.address}
+              value={form?.company_address}
               onTextChange={(text) => {
-                changeTextData(text, "address");
+                changeTextData(text, "company_address");
               }}
               onBlur={() => {
-                onBlurHandler("address");
+                onBlurHandler("company_address");
               }}
             />
           </div>
