@@ -225,13 +225,13 @@ const ExhibitorCreate = () => {
                 changeTextData(value, "zone_tag");
               }}
             >
-              <MenuItem value="FIBRE_YARNS">FIBRE & YARNS</MenuItem>
+              <MenuItem value="FIBERS_YARNS">FIBRE & YARNS</MenuItem>
               <MenuItem value="FABRICS">FABRICS</MenuItem>
               <MenuItem value="APPAREL_FASHION">APPAREL & FASHION</MenuItem>
-              <MenuItem value="HOME_FASHION">HOME TEXTILE</MenuItem>
+              <MenuItem value="HOME_TEXTILE">HOME TEXTILE</MenuItem>
               <MenuItem value="HANDLOOM">HANDLOOM</MenuItem>
               <MenuItem value="TECHNICAL_TEXTILE">TECHNICAL TEXTILE</MenuItem>
-              <MenuItem value="HANDICRAFT_CARPET">HANDICRAFT & CARPET</MenuItem>
+              <MenuItem value="HANDICRAFTS_CARPETS">HANDICRAFT & CARPET</MenuItem>
               <MenuItem value="INTELLIGENT_MANUFACTURING">INTELLIGENT MANUFACTURING</MenuItem>
             </CustomSelectField>
           </div>
