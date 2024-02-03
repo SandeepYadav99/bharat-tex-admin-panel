@@ -142,15 +142,7 @@ const ExhibitorDetail = () => {
                 <div className={styles.thirdPaper}>
                     <b>Product Category </b>
                     <div>
-                        Welcome to 12angel designe world, where innovation converges with
-                        the dynamic textile industry. as a pioneering force in the textile
-                        sector, we specialize in crafting an array of high-quality clothing
-                        for women, men, and children. our core mission is to exceed our
-                        customers' expectations, whether through unique and stylish designs
-                        or cost-efficient solutions. with a steadfast commitment to
-                        punctuality, we ensure timely deliveries to our valued clientele.
-                        our dedicated team of experts relentlessly strives for
-                        cost-effective excellence and premium product quality.
+                        {detail?.details?.company_description}
                     </div>
                     <b>Gallery Images</b>
                 </div>

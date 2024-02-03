@@ -111,6 +111,8 @@ const useExhibitorCreate = ({ location }) => {
             secondary_perosn_name:data?.secondary_perosn_name,
             company_description:data?.company_description,
             brand_name:data?.brand_name,
+            secondary_email:data?.secondary_email,
+            other_conatct_number:data?.other_conatct_number,
           });
         } else {
           SnackbarUtils.error(res?.message);
