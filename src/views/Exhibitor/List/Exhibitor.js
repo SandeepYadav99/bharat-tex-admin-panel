@@ -88,15 +88,14 @@ const ExhibitorList = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            <Link to={RouteName.PRODUCT_CATEGORY_CREATE + all.id}>
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
                 disabled={isCalling}
+                onClick={()=>historyUtils.push(`${RouteName.EXHIBITOR_DETAILS}`+all?.id)}
               >
                 <InfoOutlined fontSize={"small"} />
               </IconButton>
-            </Link>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"

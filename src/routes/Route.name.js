@@ -145,4 +145,5 @@ export default {
 
   EXHIBITOR_LIST:"/exhibitor/",
   EXHIBITOR_CREATE:"/exhibitor/list/create/",
+  EXHIBITOR_DETAILS:"/exhibitor/detail/"
 };

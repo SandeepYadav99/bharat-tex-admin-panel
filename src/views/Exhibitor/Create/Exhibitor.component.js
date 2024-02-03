@@ -38,7 +38,8 @@ const ExhibitorCreate = () => {
     handleCheckedData,
     checked,
     handleSubmit,
-    listData, productListData,
+    listData,
+    productListData,
   } = useExhibitorCreate({});
 
   return (
@@ -88,15 +89,15 @@ const ExhibitorCreate = () => {
             <div className={"formFlex"}>
               <div className={"formGroup"}>
                 <CustomTextField
-                  isError={errorData?.brand}
-                  errorText={errorData?.brand}
+                  isError={errorData?.brand_name}
+                  errorText={errorData?.brand_name}
                   label={"Brand"}
-                  value={form?.brand}
+                  value={form?.brand_name}
                   onTextChange={(text) => {
-                    changeTextData(text, "brand");
+                    changeTextData(text, "brand_name");
                   }}
                   onBlur={() => {
-                    onBlurHandler("brand");
+                    onBlurHandler("brand_name");
                   }}
                 />
               </div>
@@ -203,12 +204,12 @@ const ExhibitorCreate = () => {
           <div className={"formGroup"}>
             <CustomTextField
               label={"Booth Number"}
-              value={form?.booth_number}
+              value={form?.event_stall}
               onTextChange={(text) => {
-                changeTextData(text, "booth_number");
+                changeTextData(text, "event_stall");
               }}
               onBlur={() => {
-                onBlurHandler("booth_number");
+                onBlurHandler("event_stall");
               }}
             />
           </div>
@@ -216,21 +217,22 @@ const ExhibitorCreate = () => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomSelectField
-              isError={errorData?.zone}
-              errorText={errorData?.zone}
+              isError={errorData?.zone_tag}
+              errorText={errorData?.zone_tag}
               label={"Zone"}
-              value={form?.zone}
+              value={form?.zone_tag}
               handleChange={(value) => {
-                changeTextData(value, "zone");
+                changeTextData(value, "zone_tag");
               }}
             >
-              <MenuItem value="FIBRE">FIBRE & YARNS</MenuItem>
+              <MenuItem value="FIBRE_YARNS">FIBRE & YARNS</MenuItem>
               <MenuItem value="FABRICS">FABRICS</MenuItem>
-              <MenuItem value="APPAREL">APPAREL & FASHION</MenuItem>
-              <MenuItem value="HOME">HOME TEXTILE</MenuItem>
+              <MenuItem value="APPAREL_FASHION">APPAREL & FASHION</MenuItem>
+              <MenuItem value="HOME_FASHION">HOME TEXTILE</MenuItem>
               <MenuItem value="HANDLOOM">HANDLOOM</MenuItem>
-              <MenuItem value="HANDICRAFT">HANDICRAFT & CARPET</MenuItem>
-              <MenuItem value="INTELLIGENT">INTELLIGENT MANUFACTURING</MenuItem>
+              <MenuItem value="TECHNICAL_TEXTILE">TECHNICAL TEXTILE</MenuItem>
+              <MenuItem value="HANDICRAFT_CARPET">HANDICRAFT & CARPET</MenuItem>
+              <MenuItem value="INTELLIGENT_MANUFACTURING">INTELLIGENT MANUFACTURING</MenuItem>
             </CustomSelectField>
           </div>
           <div className={"formGroup"}></div>
@@ -251,12 +253,12 @@ const ExhibitorCreate = () => {
           <div className={"formGroup"}>
             {checked && (
               <CustomSelectField
-                isError={errorData?.partner_type}
-                errorText={errorData?.partner_type}
+                isError={errorData?.partner_tag}
+                errorText={errorData?.partner_tag}
                 label={"Partner Type"}
-                value={form?.partner_type}
+                value={form?.partner_tag}
                 handleChange={(value) => {
-                  changeTextData(value, "partner_type");
+                  changeTextData(value, "partner_tag");
                 }}
               >
                 <MenuItem value="PLATINUM">Platinum Partner</MenuItem>
@@ -350,8 +352,7 @@ const ExhibitorCreate = () => {
               }}
             />
           </div>
-          <div className={"formGroup"}>
-          </div>
+          <div className={"formGroup"}></div>
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
@@ -395,13 +396,13 @@ const ExhibitorCreate = () => {
                   changeTextData(value, "country_code");
                 }}
               >
-                {
-                  CountryCode?.map((val) => {
-                    return (
-                      <MenuItem value={val?.dial_code} key={val.code}>{val?.dial_code}</MenuItem>
-                    )
-                  })
-                }
+                {CountryCode?.map((val) => {
+                  return (
+                    <MenuItem value={val?.dial_code} key={val.code}>
+                      {val?.dial_code}
+                    </MenuItem>
+                  );
+                })}
               </CustomSelectField>
             </div>
             <CustomTextField
@@ -465,29 +466,29 @@ const ExhibitorCreate = () => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.instagram}
-              errorText={errorData?.instagram}
+              isError={errorData?.instagram_link}
+              errorText={errorData?.instagram_link}
               label={"Instagram"}
-              value={form?.instagram}
+              value={form?.instagram_link}
               onTextChange={(text) => {
-                changeTextData(text, "instagram");
+                changeTextData(text, "instagram_link");
               }}
               onBlur={() => {
-                onBlurHandler("instagram");
+                onBlurHandler("instagram_link");
               }}
             />
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.facebook}
-              errorText={errorData?.facebook}
-              label={"Facebook"}
-              value={form?.facebook}
+              isError={errorData?.facebook_link}
+              errorText={errorData?.facebook_link}
+              label={"facebook"}
+              value={form?.facebook_link}
               onTextChange={(text) => {
-                changeTextData(text, "facebook");
+                changeTextData(text, "facebook_link");
               }}
               onBlur={() => {
-                onBlurHandler("facebook");
+                onBlurHandler("facebook_link");
               }}
             />
           </div>
@@ -495,29 +496,29 @@ const ExhibitorCreate = () => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.linkdin}
-              errorText={errorData?.linkdin}
-              label={"Linkdin"}
-              value={form?.linkdin}
+              isError={errorData?.linkedin_link}
+              errorText={errorData?.linkedin_link}
+              label={"linkedin"}
+              value={form?.linkedin_link}
               onTextChange={(text) => {
-                changeTextData(text, "linkdin");
+                changeTextData(text, "linkedin_link");
               }}
               onBlur={() => {
-                onBlurHandler("linkdin");
+                onBlurHandler("linkedin_link");
               }}
             />
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.twitter}
-              errorText={errorData?.twitter}
+              isError={errorData?.twitter_link}
+              errorText={errorData?.twitter_link}
               label={"Twitter"}
-              value={form?.twitter}
+              value={form?.twitter_link}
               onTextChange={(text) => {
-                changeTextData(text, "twitter");
+                changeTextData(text, "twitter_link");
               }}
               onBlur={() => {
-                onBlurHandler("twitter");
+                onBlurHandler("twitter_link");
               }}
             />
           </div>
@@ -525,15 +526,15 @@ const ExhibitorCreate = () => {
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.youtube}
-              errorText={errorData?.youtube}
-              label={"Youtube"}
-              value={form?.youtube}
+              isError={errorData?.youtube_link}
+              errorText={errorData?.youtube_link}
+              label={"youtube"}
+              value={form?.youtube_link}
               onTextChange={(text) => {
-                changeTextData(text, "youtube");
+                changeTextData(text, "youtube_link");
               }}
               onBlur={() => {
-                onBlurHandler("youtube");
+                onBlurHandler("youtube_link");
               }}
             />
           </div>
@@ -582,10 +583,8 @@ const ExhibitorCreate = () => {
               value={form?.gallery_images}
               placeholder={"Gallery"}
               onChange={(file) => {
-                    changeTextData(file, "gallery_images");
-          
-                }
-              }
+                changeTextData(file, "gallery_images");
+              }}
               DefChange={(img) => {
                 if (img) {
                   renderImages(img);
@@ -596,15 +595,15 @@ const ExhibitorCreate = () => {
         </div>
         <div className={"formGroup"}>
           <CustomTextField
-            isError={errorData?.description}
-            errorText={errorData?.description}
+            isError={errorData?.company_description}
+            errorText={errorData?.company_description}
             label={"Description"}
-            value={form?.description}
+            value={form?.company_description}
             onTextChange={(text) => {
-              changeTextData(text, "description");
+              changeTextData(text, "company_description");
             }}
             onBlur={() => {
-              onBlurHandler("description");
+              onBlurHandler("company_description");
             }}
             multiline
             rows={3}
