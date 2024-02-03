@@ -71,14 +71,17 @@ const EventOrganiserUserList = ({}) => {
         key: "name",
         label: "NAME",
         sortable: false,
-        render: (temp, all) => <div>{all?.name}</div>,
+        render: (temp, all) => <div>  <div className={styles.firstCellFlex}>
+        <img src={all?.image} alt="" className={styles.driverImgCont} />
+        {all?.s_name}
+      </div></div>,
       },
-      {
-        key: "designation",
-        label: "DESIGNATION",
-        sortable: true,
-        render: (value, all) => <div>{all?.designation}</div>,
-      },
+      // {
+      //   key: "designation",
+      //   label: "DESIGNATION",
+      //   sortable: true,
+      //   render: (value, all) => <div>{all?.designation}</div>,
+      // },
 
       {
         key: "company",
@@ -86,12 +89,12 @@ const EventOrganiserUserList = ({}) => {
         sortable: true,
         render: (temp, all) => <div>{all?.company}</div>,
       },
-      {
-        key: "description",
-        label: "DESCRIPTION",
-        sortable: true,
-        render: (temp, all) => <div>{all?.description}</div>,
-      },
+      // {
+      //   key: "description",
+      //   label: "DESCRIPTION",
+      //   sortable: true,
+      //   render: (temp, all) => <div>{all?.description}</div>,
+      // },
       {
         key: "priority",
         label: "PRIORITY",
