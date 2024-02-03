@@ -42,7 +42,7 @@ const initialForm = {
   status: true,
   country_code: "",
   secondary_perosn_name: "",
-  youtube_link:"",
+  youtube_link: "",
 };
 
 const useExhibitorCreate = ({ location }) => {
@@ -51,27 +51,32 @@ const useExhibitorCreate = ({ location }) => {
   const [form, setForm] = useState({ ...initialForm });
   const [selectImages, setSelectImages] = useState([]);
   const [checked, setChecked] = useState(false);
-  const [productListData, setProductListData] = useState([])
+  const [productListData, setProductListData] = useState([]);
   const [listData, setListData] = useState({
     PRODUCT_GROUP: [],
     PRODUCT_CATEGORY: [],
   });
 
+  const EventListManager = ["FIBERS_YARNS","FABRICS","APPAREL_FASHION","HOME_TEXTILE","HANDLOOM","TECHNICAL_TEXTILE","HANDICRAFTS_CARPETS","INTELLIGENT_MANUFACTURING"]
+
+
   useEffect(() => {
-    serviceExhibitorsList({ list: ["PRODUCT_CATEGORY", "PRODUCT_GROUP"] }).then((res) => {
-      if (!res.error) {
-        setListData(res.data);
+    serviceExhibitorsList({ list: ["PRODUCT_CATEGORY", "PRODUCT_GROUP"] }).then(
+      (res) => {
+        if (!res.error) {
+          setListData(res.data);
+        }
       }
-    });
+    );
   }, []);
 
   useEffect(() => {
     serviceGetProductList().then((res) => {
       if (!res.error) {
-        setProductListData(res.data)
+        setProductListData(res.data);
       }
-    })
-  }, [])
+    });
+  }, []);
 
   const params = useParams();
 
@@ -80,7 +85,6 @@ const useExhibitorCreate = ({ location }) => {
   const handleCheckedData = () => {
     setChecked(() => !checked);
   };
-
 
   useEffect(() => {
     if (empId) {
@@ -100,19 +104,19 @@ const useExhibitorCreate = ({ location }) => {
             primary_conatct_number: data?.primary_conatct_number,
             company_address: data?.company_address,
             country_code: data?.country_code,
-            instagram_link:data?.instagram_link,
-            youtube_link:data?.youtube_link,
-            linkedin_link:data?.linkedin_link,
-            facebook_link:data?.facebook_link,
-            twitter_link:data?.twitter_link,
-            zone_tag:data?.zone_tag,
-            event_stall:data?.event_stall,
-            website:data?.website,
-            secondary_perosn_name:data?.secondary_perosn_name,
-            company_description:data?.company_description,
-            brand_name:data?.brand_name,
-            secondary_email:data?.secondary_email,
-            other_conatct_number:data?.other_conatct_number,
+            instagram_link: data?.instagram_link,
+            youtube_link: data?.youtube_link,
+            linkedin_link: data?.linkedin_link,
+            facebook_link: data?.facebook_link,
+            twitter_link: data?.twitter_link,
+            zone_tag: data?.zone_tag,
+            event_stall: data?.event_stall,
+            website: data?.website,
+            secondary_perosn_name: data?.secondary_perosn_name,
+            company_description: data?.company_description,
+            brand_name: data?.brand_name,
+            secondary_email: data?.secondary_email,
+            other_conatct_number: data?.other_conatct_number,
           });
         } else {
           SnackbarUtils.error(res?.message);
@@ -134,7 +138,7 @@ const useExhibitorCreate = ({ location }) => {
       "conatct_person_designation",
       "primary_conatct_number",
       "company_address",
-      "country_code"
+      "country_code",
     ];
     required.forEach((val) => {
       if (form?.product_categories?.length === 0) {
@@ -155,9 +159,10 @@ const useExhibitorCreate = ({ location }) => {
     return errors;
   }, [form, errorData]);
 
+
   const submitToServer = useCallback(() => {
     const fd = new FormData();
-    const productlist = form?.products?.map((val) => val?.name)
+
     Object.keys(form).forEach((key) => {
       if (
         key !== "company_logo" &&
@@ -171,10 +176,14 @@ const useExhibitorCreate = ({ location }) => {
         } else if (
           key === "products" ||
           key === "product_categories" ||
-          key === "product_groups"
+          key === "product_groups" || 
+          key === "zone_tag"
         ) {
           if (key === "products") {
-            fd.append(key, JSON.stringify(productlist))
+            fd.append(key, JSON.stringify(form?.products));
+          } 
+          else if(key === "zone_tag"){
+            fd.append(key, JSON.stringify(form?.zone_tag));
           }
           else {
             fd.append(key, JSON.stringify(form[key]));
@@ -202,7 +211,7 @@ const useExhibitorCreate = ({ location }) => {
     let req;
 
     if (empId) {
-      fd.append("id",empId)
+      fd.append("id", empId);
       req = serviceUpdateExhibitors(fd);
     } else {
       req = serviceCreateExhibitors(fd);
@@ -240,16 +249,15 @@ const useExhibitorCreate = ({ location }) => {
       const t = { ...form };
       if (fieldName) {
         t[fieldName] = text;
-      }
-      else if (fieldName === "products") {
+      } else if (fieldName === "products") {
         const newValues = text?.filter((item) => item.trim() !== "");
         const uniqueValues = text
           ? newValues?.filter(
-            (item, index, self) =>
-              self.findIndex(
-                (t) => t.toLowerCase() === item.toLowerCase()
-              ) === index
-          )
+              (item, index, self) =>
+                self.findIndex(
+                  (t) => t.toLowerCase() === item.toLowerCase()
+                ) === index
+            )
           : [];
 
         if (uniqueValues.length <= 2) {
@@ -273,7 +281,7 @@ const useExhibitorCreate = ({ location }) => {
     [changeTextData]
   );
 
-  const handleDelete = useCallback(() => { }, []);
+  const handleDelete = useCallback(() => {}, []);
 
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
@@ -300,6 +308,7 @@ const useExhibitorCreate = ({ location }) => {
     checked,
     listData,
     productListData,
+    EventListManager,
   };
 };
 

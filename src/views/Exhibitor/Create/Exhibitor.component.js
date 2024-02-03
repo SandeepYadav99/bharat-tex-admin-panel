@@ -40,6 +40,7 @@ const ExhibitorCreate = () => {
     handleSubmit,
     listData,
     productListData,
+    EventListManager,
   } = useExhibitorCreate({});
 
   return (
@@ -216,24 +217,36 @@ const ExhibitorCreate = () => {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-            <CustomSelectField
-              isError={errorData?.zone_tag}
-              errorText={errorData?.zone_tag}
-              label={"Zone"}
-              value={form?.zone_tag}
-              handleChange={(value) => {
+          <Autocomplete
+              multiple
+              rows={6}
+              id="tags-outlined"
+              onChange={(e, value) => {
                 changeTextData(value, "zone_tag");
               }}
-            >
-              <MenuItem value="FIBERS_YARNS">FIBRE & YARNS</MenuItem>
-              <MenuItem value="FABRICS">FABRICS</MenuItem>
-              <MenuItem value="APPAREL_FASHION">APPAREL & FASHION</MenuItem>
-              <MenuItem value="HOME_TEXTILE">HOME TEXTILE</MenuItem>
-              <MenuItem value="HANDLOOM">HANDLOOM</MenuItem>
-              <MenuItem value="TECHNICAL_TEXTILE">TECHNICAL TEXTILE</MenuItem>
-              <MenuItem value="HANDICRAFTS_CARPETS">HANDICRAFT & CARPET</MenuItem>
-              <MenuItem value="INTELLIGENT_MANUFACTURING">INTELLIGENT MANUFACTURING</MenuItem>
-            </CustomSelectField>
+              options={EventListManager}
+              value={form?.zone_tag}
+              freeSolo
+              selectOnFocus={false}
+              error={errorData?.zone_tag}
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                  <Chip
+                    variant="outlined"
+                    label={option}
+                    {...getTagProps({ index })}
+                  /> // disabled={option.length < 2}
+                ))
+              }
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="Zone"
+                  error={errorData?.zone_tag}
+                />
+              )}
+            />
           </div>
           <div className={"formGroup"}></div>
         </div>
