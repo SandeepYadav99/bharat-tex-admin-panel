@@ -41,6 +41,7 @@ const ExhibitorCreate = () => {
     listData,
     productListData,
     EventListManager,
+    image
   } = useExhibitorCreate({});
 
   return (
@@ -60,6 +61,7 @@ const ExhibitorCreate = () => {
               fullWidth={true}
               name="document"
               accept={"image/*"}
+              default_image={image ? image : null}
               label="Please Upload Image"
               show_image={true}
               error={errorData?.company_logo}
@@ -224,7 +226,7 @@ const ExhibitorCreate = () => {
               onChange={(e, value) => {
                 changeTextData(value, "zone_tag");
               }}
-              options={EventListManager}
+              options={EventListManager ? EventListManager : []}
               value={form?.zone_tag}
               freeSolo
               selectOnFocus={false}
@@ -258,13 +260,13 @@ const ExhibitorCreate = () => {
           >
             <input
               type="checkbox"
-              value={checked}
-              onChange={handleCheckedData}
+              value={form?.is_partner}
+              onChange={()=>changeTextData(!form?.is_partner,"is_partner")}
             />
             <span>This is A featured Partner Exhibitor</span>
           </div>
           <div className={"formGroup"}>
-            {checked && (
+            {form?.is_partner && (
               <CustomSelectField
                 isError={errorData?.partner_tag}
                 errorText={errorData?.partner_tag}

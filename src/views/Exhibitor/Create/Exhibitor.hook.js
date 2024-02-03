@@ -20,7 +20,7 @@ const initialForm = {
   products: [],
   event_venue: "",
   event_stall: "",
-  zone_tag: "",
+  zone_tag: [],
   partner_tag: "",
   primary_email: "",
   password: "",
@@ -43,11 +43,12 @@ const initialForm = {
   country_code: "",
   secondary_perosn_name: "",
   youtube_link: "",
+  is_partner:false
 };
 
 const useExhibitorCreate = ({ location }) => {
   const [errorData, setErrorData] = useState({});
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [form, setForm] = useState({ ...initialForm });
   const [selectImages, setSelectImages] = useState([]);
   const [checked, setChecked] = useState(false);
@@ -91,8 +92,11 @@ const useExhibitorCreate = ({ location }) => {
       serviceGetExhibitorsDetails({ id: empId }).then((res) => {
         if (!res.error) {
           const data = res?.data?.details;
+          setSelectImages(data?.gallery_images)
+          setImage(data?.company_logo)
           setForm({
             ...form,
+            products:data?.products,
             company_name: data?.company_name,
             product_groups: data?.product_groups,
             product_categories: data?.product_categories,
@@ -140,6 +144,11 @@ const useExhibitorCreate = ({ location }) => {
       "company_address",
       "country_code",
     ];
+    if(form?.is_partner){
+      required.push("partner_tag")
+    }else{
+      delete errors["partner_tag"]
+    }
     required.forEach((val) => {
       if (form?.product_categories?.length === 0) {
         errors["product_categories"] = true;
@@ -203,6 +212,9 @@ const useExhibitorCreate = ({ location }) => {
         fd.append("gallery_images", item);
       });
     }
+    if (selectImages?.length > 0) {
+      fd.append("remote_images", JSON.stringify(selectImages));
+    }
     if (form?.company_brochure?.length > 0) {
       form?.company_brochure?.forEach((item) => {
         fd.append("company_brochure", item);
@@ -223,7 +235,7 @@ const useExhibitorCreate = ({ location }) => {
         SnackbarUtils.error(res.message);
       }
     });
-  }, [form, errorData]);
+  }, [form, errorData,selectImages]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -232,7 +244,7 @@ const useExhibitorCreate = ({ location }) => {
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, form]);
+  }, [checkFormValidation, setErrorData, form,selectImages]);
 
   const removeError = useCallback(
     (title) => {
@@ -309,6 +321,7 @@ const useExhibitorCreate = ({ location }) => {
     listData,
     productListData,
     EventListManager,
+    image
   };
 };
 
