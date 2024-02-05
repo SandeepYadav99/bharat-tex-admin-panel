@@ -76,12 +76,12 @@ const EventOrganiserList = ({}) => {
         sortable: false,
         render: (temp, all) => <div>{all?.title}</div>,
       },
-      {
-        key: "type",
-        label: "TYPE",
-        sortable: true,
-        render: (value, all) => <div>{all?.type}</div>,
-      },
+      // {
+      //   key: "type",
+      //   label: "TYPE",
+      //   sortable: true,
+      //   render: (value, all) => <div>{all?.type}</div>,
+      // },
 
       {
         key: "priority",

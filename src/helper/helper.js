@@ -279,7 +279,7 @@ export const EventData = [
   },
   {
     key: "event_organizing_committee",
-    name: "Event Organizing Committee",
+    name: " Organizing",
     image: organ,
     url: RouteName.EVENT_ORGANISERS,
   },
@@ -291,19 +291,19 @@ export const EventData = [
   },
   {
     key: "event_speakers",
-    name: "Event Speakers",
+    name: "Speakers",
     image: speaker,
     url: RouteName.EVENTS_SPEAKERS_LIST,
   },
   {
     key: "event_gallery",
-    name: "Event Gallery",
+    name: "Gallery",
     image: gallery,
     url: RouteName.EVENT_GALLERY,
   },
   {
     key: "city_guide",
-    name: "City Guide",
+    name: " Venue Guide ",
     image: guide,
     url: RouteName.EVENT_CITYGUIDE,
   },
@@ -315,7 +315,7 @@ export const EventData = [
   },
   {
     key: "sponsors",
-    name: "Sponsors",
+    name: "Partners",
     image: sponsor,
     url: RouteName.EVENT_SPONSOR,
   },

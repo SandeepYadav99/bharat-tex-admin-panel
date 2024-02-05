@@ -2,7 +2,7 @@ import React, { Component, useCallback, useEffect, useMemo } from "react";
 import { IconButton, MenuItem, ButtonBase } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import PageBox from "../../../components/PageBox/PageBox.component";
-import { Add, BorderColor, Edit, InfoOutlined } from "@material-ui/icons";
+import { Add, ArrowBackIos, BorderColor, Edit, InfoOutlined } from "@material-ui/icons";
 import styles from "./Style.module.css";
 import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
@@ -11,6 +11,7 @@ import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
 
 import useTestimonialList from "./TestimonialListHook.js";
+import historyUtils from "../../../libs/history.utils.js";
 
 const TestimonialList = ({}) => {
   const {
@@ -125,8 +126,14 @@ const TestimonialList = ({}) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Testimonials</span>
+          <ButtonBase onClick={() => historyUtils.goBack()}>
+          <ArrowBackIos fontSize={"small"} />{" "}
+          <span>
+          <span className={styles.title}>Testimonials</span>
             <div className={styles.newLine} />
+          </span>
+        </ButtonBase>
+         
           </div>
           <div className={styles.BtnWrapper}>
             <ButtonBase onClick={handleCreateFed} className={"createBtn"}>

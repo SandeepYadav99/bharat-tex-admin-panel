@@ -16,7 +16,7 @@ const initialForm = {
   image: "",
   company: "",
   priority: "",
-  user: null,
+  // user: null,
 };
 
 const useEventOrganiserUserCreate = ({ location }) => {
@@ -66,13 +66,13 @@ const useEventOrganiserUserCreate = ({ location }) => {
     if (!id) {
       required.push("image");
     }
-    if (isEnterManually) {
-      required.push("name");
-      delete errors["user"];
-    } else {
-      required.push("user");
-      delete errors["name"];
-    }
+    // if (isEnterManually) {
+    //   required.push("name");
+    //   delete errors["user"];
+    // } else {
+    //   required.push("user");
+    //   delete errors["name"];
+    // }
     required.forEach((val) => {
       if (
         !form?.[val] ||
@@ -96,31 +96,31 @@ const useEventOrganiserUserCreate = ({ location }) => {
       setIsSubmitting(true);
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (["image", "status", "name", "user"].indexOf(key) < 0 && form[key]) {
+        if (["image", "status", "name"].indexOf(key) < 0 && form[key]) { // , "user"
           fd.append(key, form[key]);
         }
       });
       if (form?.image) {
         fd.append("image", form?.image);
       }
-      if (id) {
-        fd.append("id", id);
-      }
-      fd.append("organising_id", location?.state?.organising_id);
-      fd.append("event_id", location?.state?.organising_id);
-      fd.append("status", "ACTIVE");
+      // if (id) {
+      //   fd.append("id", id);
+      // }
+      // fd.append("organising_id", location?.state?.organising_id);
+      // fd.append("event_id", location?.state?.organising_id);
+      // fd.append("status", "ACTIVE");
 
-      if(!form?.designation){
-        fd.append("designation"," ")
-      }
+      // if(!form?.designation){
+      //   fd.append("designation"," ")
+      // }
      
 
-      if (isEnterManually) {
-        fd.append("name", form?.name);
-      } else {
-        fd.append("name", form?.user?.name);
-        fd.append("user_id", form?.user?.id);
-      }
+      // if (isEnterManually) {
+      //   fd.append("name", form?.name);
+      // } else {
+      //   fd.append("name", form?.user?.name);
+      //   fd.append("user_id", form?.user?.id);
+      // }
 
       let req;
 
@@ -156,7 +156,7 @@ const useEventOrganiserUserCreate = ({ location }) => {
       setErrorData(errors);
       return true;
     }
-    submitToServer();
+   await submitToServer();
   }, [checkFormValidation, setErrorData, form]);
 
   const removeError = useCallback(
