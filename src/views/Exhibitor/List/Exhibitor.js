@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import useExhibitorList from "./Exhibitor.hook.js";
 import RouteName from "../../../routes/Route.name";
 import historyUtils from "../../../libs/history.utils.js";
+import {capitalizeFirstLetter} from "../../../hooks/CapsLetter.js";
 
 const ExhibitorList = ({}) => {
   const {
@@ -72,10 +73,10 @@ const ExhibitorList = ({}) => {
       },
 
       {
-        key: "category",
-        label: "Product Category",
+        key: "partner_type",
+        label: "Partner Type",
         sortable: true,
-        render: (temp, all) => <div>{all.contact}</div>,
+        render: (temp, all) => <div>{capitalizeFirstLetter(all?.partner_tag)}</div>,
       },
       {
         key: "status",
@@ -108,7 +109,7 @@ const ExhibitorList = ({}) => {
         ),
       },
     ];
-  }, [handleViewDetails, handleEdit, isCalling]);
+  }, [handleViewDetails, handleEdit, isCalling, capitalizeFirstLetter]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {

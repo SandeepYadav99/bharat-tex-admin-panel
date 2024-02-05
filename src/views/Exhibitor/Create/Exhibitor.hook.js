@@ -139,7 +139,7 @@ const useExhibitorCreate = ({ location }) => {
       "product_categories",
       "event_venue",
       "primary_email",
-      "password",
+      // "password",
       "company_perosn_name",
       "conatct_person_designation",
       "primary_conatct_number",
@@ -150,6 +150,9 @@ const useExhibitorCreate = ({ location }) => {
       required.push("partner_tag")
     }else{
       delete errors["partner_tag"]
+    }
+    if(!empId){
+      required.push("password")
     }
     required.forEach((val) => {
       if (form?.product_categories?.length === 0) {
