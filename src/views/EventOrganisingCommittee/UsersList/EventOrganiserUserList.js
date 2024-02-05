@@ -68,8 +68,8 @@ const EventOrganiserUserList = ({}) => {
   const tableStructure = useMemo(() => {
     return [
       {
-        key: "name",
-        label: "NAME",
+        key: "image",
+        label: "IMAGE",
         sortable: false,
         render: (temp, all) => <div>  <div className={styles.firstCellFlex}>
         <img src={all?.image} alt="" className={styles.driverImgCont} />

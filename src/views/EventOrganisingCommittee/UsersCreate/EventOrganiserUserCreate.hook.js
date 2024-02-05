@@ -39,19 +39,19 @@ const useEventOrganiserUserCreate = ({ location }) => {
         if (!res.error) {
           const data = res?.data;
           setForm({
-            ...form,          
+            ...form,
             company: data?.company,
             priority: data?.priority,
           });
           setImage(data?.image);
         } else {
-          SnackbarUtils.error(res?.message);
-          historyUtils.goBack();
+          // SnackbarUtils.error(res?.message);
+          // historyUtils.goBack();
         }
       });
     }
   }, [id]);
-
+  console.log(location, "Loaction");
   useEffect(() => {
     serviceGetList(["USERS"]).then((res) => {
       if (!res.error) {
@@ -96,24 +96,24 @@ const useEventOrganiserUserCreate = ({ location }) => {
       setIsSubmitting(true);
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (["image", "status", "name"].indexOf(key) < 0 && form[key]) { // , "user"
+        if (["image", "status"].indexOf(key) < 0 && form[key]) {
+          // , "user", "name"
           fd.append(key, form[key]);
         }
       });
       if (form?.image) {
         fd.append("image", form?.image);
       }
-      // if (id) {
-      //   fd.append("id", id);
-      // }
-      // fd.append("organising_id", location?.state?.organising_id);
-      // fd.append("event_id", location?.state?.organising_id);
-      // fd.append("status", "ACTIVE");
+      if (id) {
+        fd.append("id", id);
+      }
+      fd.append("organising_id", location?.state?.organising_id);
+      fd.append("event_id", location?.state?.organising_id);
+      fd.append("name", "ACTIVE");
 
       // if(!form?.designation){
       //   fd.append("designation"," ")
       // }
-     
 
       // if (isEnterManually) {
       //   fd.append("name", form?.name);
@@ -156,7 +156,7 @@ const useEventOrganiserUserCreate = ({ location }) => {
       setErrorData(errors);
       return true;
     }
-   await submitToServer();
+    await submitToServer();
   }, [checkFormValidation, setErrorData, form]);
 
   const removeError = useCallback(
