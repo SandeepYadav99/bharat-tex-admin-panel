@@ -83,7 +83,7 @@ function EventDetail() {
               <div className={styles.timetitle}>SET TIMER</div>
             </div>
           </div>
-          <div className={styles.timerWrap}>
+          {/* <div className={styles.timerWrap}>
             <div className={styles.uerr}>
               <span className={styles.heading2}>Polls</span>
               <div className={styles.SwitchWrap}>
@@ -97,8 +97,8 @@ function EventDetail() {
                 />
               </div>
             </div>
-          </div>
-          <div className={styles.timerWrap}>
+          </div> */}
+          {/* <div className={styles.timerWrap}>
             <div className={styles.uerr}>
               <span className={styles.heading2}>Polls Result</span>
               <div className={styles.SwitchWrap}>
@@ -112,8 +112,8 @@ function EventDetail() {
                 />
               </div>
             </div>
-          </div>
-          <div className={styles.timerWrap}>
+          </div> */}
+          {/* <div className={styles.timerWrap}>
             <div className={styles.uerr}>
               <span className={styles.heading2}>Event Registration</span>
               <div className={styles.SwitchWrap}>
@@ -130,7 +130,7 @@ function EventDetail() {
                 />
               </div>
             </div>
-          </div>
+          </div> */}
           {employeeDetail?.status !== "PENDING" &&
             employeeDetail?.status !== "INDRAFT" && (
               <div className={styles.timerWrap}>
