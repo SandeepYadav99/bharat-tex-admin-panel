@@ -16,6 +16,9 @@ import Chip from "@material-ui/core/Chip";
 import { Autocomplete } from "@material-ui/lab";
 import CustomSwitch from "../../../components/FormFields/CustomSwitch";
 import CountryCode from "../../../assets/country_code.json";
+import { ArrowBackIos } from "@material-ui/icons";
+import historyUtils from "../../../libs/history.utils";
+import { isSubmitting } from "redux-form";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -41,17 +44,29 @@ const ExhibitorCreate = () => {
     listData,
     productListData,
     EventListManager,
-    image
+    image,
+    empId
   } = useExhibitorCreate({});
 
   return (
     <div className={styles.container}>
       <div className={"plainPaper"}>
-        <div className={"headerFlex"}>
+        {/* <div }>
           <h4 className={"infoTitle"}>
             <div className={"heading"}>Add Exhibitor</div>
           </h4>
+        </div> */}
+        <div className={styles.outerFlex}>
+        <div className={"headerFlex"}>
+          <ButtonBase onClick={() => historyUtils.goBack()}>
+            <ArrowBackIos fontSize={"small"} />
+            <span className={"capitalize"}>
+            <div className={"heading"}><b> {empId ? "Edit Exhibitor" : "Add Exhibitor"}</b> </div>
+            </span>
+          </ButtonBase>
+          <div className={styles.newLine} />
         </div>
+      </div>
         <div className={styles.cont}>
           <div>
             <File
@@ -117,7 +132,7 @@ const ExhibitorCreate = () => {
                 changeTextData(value, "product_groups");
               }}
               value={form?.product_groups}
-              // id="tags-standard"
+            
               options={listData ? listData?.PRODUCT_GROUP : []}
               getOptionLabel={(option) => option.name}
               defaultValue={form?.product_groups}
@@ -639,9 +654,14 @@ const ExhibitorCreate = () => {
           <ButtonBase
             type={"button"}
             className={styles.createBtn}
-            onClick={() => handleSubmit()}
+            onClick={ handleSubmit}
           >
-            Add
+             {/* {isSubmitting ? (
+              <CircularProgress color="success" size="20px" />
+            ) : ( */}
+               Add
+            {/* )} */}
+           
           </ButtonBase>
         </div>
       </div>

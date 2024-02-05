@@ -50,6 +50,7 @@ const initialForm = {
 const useExhibitorCreate = ({ location }) => {
   const [errorData, setErrorData] = useState({});
   const [image, setImage] = useState(null);
+  const [isSubmitting, setIsSubmitting]=useState(false)
   const [form, setForm] = useState({ ...initialForm });
   const [selectImages, setSelectImages] = useState([]);
   const [checked, setChecked] = useState(false);
@@ -175,8 +176,14 @@ const useExhibitorCreate = ({ location }) => {
     return errors;
   }, [form, errorData]);
 
-
-  const submitToServer = useCallback(() => {
+console.log(form, errorData, "Erro")
+  const submitToServer = useCallback(async() => {
+    if (isSubmitting) {
+      return;
+    }
+  
+    setIsSubmitting(true);
+  
     const fd = new FormData();
 
     Object.keys(form).forEach((key) => {
@@ -239,8 +246,10 @@ const useExhibitorCreate = ({ location }) => {
       if (!res.error) {
         historyUtils.goBack();
       } else {
+     
         SnackbarUtils.error(res.message);
       }
+      setIsSubmitting(false)
     });
   }, [form, errorData,selectImages]);
 
@@ -248,9 +257,9 @@ const useExhibitorCreate = ({ location }) => {
     const errors = checkFormValidation();
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
-      return true;
+       return true;
     }
-    submitToServer();
+   await submitToServer();
   }, [checkFormValidation, setErrorData, form,selectImages]);
 
   const removeError = useCallback(
@@ -290,6 +299,8 @@ const useExhibitorCreate = ({ location }) => {
         } else {
           SnackbarUtils.error("Maximum 2 Task category");
         }
+      }else if(fieldName){
+        t[fieldName] = text;
       }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
@@ -334,7 +345,8 @@ const useExhibitorCreate = ({ location }) => {
     listData,
     productListData,
     EventListManager,
-    image
+    image,
+    empId
   };
 };
 
