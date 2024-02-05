@@ -207,7 +207,7 @@ const EventSponsor = ({}) => {
 
           <div className={styles.rightFlex}>
             <ButtonBase onClick={handlesponsorType} className={styles.download}>
-              MANAGE SPONSOR TYPE
+              MANAGE PRTNER TYPE
             </ButtonBase>
             <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
               Add new

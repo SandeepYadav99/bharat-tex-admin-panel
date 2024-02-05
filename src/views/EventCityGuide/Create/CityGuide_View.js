@@ -42,7 +42,7 @@ const CityGuidView = ({ location }) => {
           <ButtonBase onClick={() => history.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <span className={"capitalize"}>
-              {id ? <b>Edit city guide section</b> : <b>Add City Guide Section</b>}
+              {id ? <b>Edit venue guide section</b> : <b>Add venue guide Section</b>}
               
             </span>
           </ButtonBase>
@@ -52,7 +52,7 @@ const CityGuidView = ({ location }) => {
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
-            <div className={"heading"}>City Guide Section Details</div>
+            <div className={"heading"}>Venue Guide Section Details</div>
           </h4>
         </div>
         <div className={styles.cont}>

@@ -187,7 +187,7 @@ const EventList = ({}) => {
           <ButtonBase onClick={() => historyUtils.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <div>
-              <span className={styles.title}>City Guide</span>
+              <span className={styles.title}>Venue Guide</span>
               <div className={styles.newLine} />
             </div>
           </ButtonBase>
