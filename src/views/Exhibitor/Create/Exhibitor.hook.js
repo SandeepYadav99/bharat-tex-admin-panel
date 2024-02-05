@@ -123,6 +123,7 @@ const useExhibitorCreate = ({ location }) => {
             brand_name: data?.brand_name,
             secondary_email: data?.secondary_email,
             other_conatct_number: data?.other_conatct_number,
+            partner_tag:data?.partner_tag
           });
         } else {
           SnackbarUtils.error(res?.message);
