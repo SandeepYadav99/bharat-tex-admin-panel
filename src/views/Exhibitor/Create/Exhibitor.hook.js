@@ -10,6 +10,7 @@ import {
   serviceGetExhibitorsDetails,
 } from "../../../services/Exhibitor.service";
 import historyUtils from "../../../libs/history.utils";
+import { isEmail } from "../../../libs/RegexUtils";
 
 const initialForm = {
   company_logo: "",
@@ -160,6 +161,12 @@ const useExhibitorCreate = ({ location }) => {
         errors[val] = true;
       }
     });
+    if(form?.primary_email && !isEmail(form?.primary_email)){
+      errors["primary_email"]="Invalid email address "
+    }
+    if(form?.secondary_email && !isEmail(form?.secondary_email)){
+      errors["secondary_email"]="Invalid email address "
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -259,7 +266,13 @@ const useExhibitorCreate = ({ location }) => {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName) {
+      if (fieldName=== "company_name") {
+        t[fieldName] = text;
+      }else if(fieldName=== "primary_email"){
+        t[fieldName] = text;
+      }else if(fieldName=== "primary_email"){
+        t[fieldName] = text;
+      }else if(fieldName=== "secondary_email"){
         t[fieldName] = text;
       } else if (fieldName === "products") {
         const newValues = text?.filter((item) => item.trim() !== "");
