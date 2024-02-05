@@ -1,86 +1,163 @@
 import { useCallback, useEffect, useState } from "react";
-import { isAlphaNumChars, isNum, isSpace } from "../../../libs/RegexUtils";
-import useDebounce from "../../../hooks/DebounceHook";
-import LogUtils from "../../../libs/LogUtils";
-import {
-  serviceCreateEventOrganiserUser,
-  serviceGetEventOrganiserUserDetails,
-  serviceUpdateEventOrganiserUser,
-} from "../../../services/EventOrganiserUser.service";
-import historyUtils from "../../../libs/history.utils";
+
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { useParams } from "react-router";
-import { serviceGetList } from "../../../services/index.services";
+import {
+  serviceCreateExhibitors,
+  serviceUpdateExhibitors,
+  serviceExhibitorsList,
+  serviceGetProductList,
+  serviceGetExhibitorsDetails,
+} from "../../../services/Exhibitor.service";
+import historyUtils from "../../../libs/history.utils";
 
 const initialForm = {
-  image: "",
-  company: "",
-  priority: "",
-  user: null,
+  company_logo: "",
+  company_name: "",
+  brand_name: "",
+  product_groups: [],
+  product_categories: [],
+  products: [],
+  event_venue: "",
+  event_stall: "",
+  zone_tag: [],
+  partner_tag: "",
+  primary_email: "",
+  password: "",
+  secondary_email: "",
+  secondary_password: "",
+  company_perosn_name: "",
+  conatct_person_designation: "",
+  primary_conatct_number: "",
+  other_conatct_number: "",
+  company_address: "",
+  website: "",
+  instagram_link: "",
+  facebook_link: "",
+  linkedin_link: "",
+  twitter_link: "",
+  company_brochure: "",
+  gallery_images: "",
+  company_description: "",
+  status: true,
+  country_code: "",
+  secondary_perosn_name: "",
+  youtube_link: "",
+  is_partner:false
 };
 
 const useExhibitorCreate = ({ location }) => {
-  const [isLoading, setIsLoading] = useState(false);
   const [errorData, setErrorData] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [form, setForm] = useState({ ...initialForm });
-  const [isEdit, setIsEdit] = useState(false);
-  const [isEnterManually, setIsEnterManually] = useState(false);
-
-  const { id } = useParams();
+  const [selectImages, setSelectImages] = useState([]);
+  const [checked, setChecked] = useState(false);
+  const [productListData, setProductListData] = useState([]);
   const [listData, setListData] = useState({
-    USERS: [],
+    PRODUCT_GROUP: [],
+    PRODUCT_CATEGORY: [],
   });
 
-  useEffect(() => {
-    if (id) {
-      serviceGetEventOrganiserUserDetails({ id: id }).then((res) => {
-        if (!res.error) {
-          const data = res?.data;
-          setForm({
-            ...form,          
-            company: data?.company,
-            priority: data?.priority,
-          });
-          setImage(data?.image);
-        } else {
-          SnackbarUtils.error(res?.message);
-          historyUtils.goBack();
-        }
-      });
-    }
-  }, [id]);
+  const EventListManager = ["FIBERS_YARNS","FABRICS","APPAREL_FASHION","HOME_TEXTILE","HANDLOOM","TECHNICAL_TEXTILE","HANDICRAFTS_CARPETS","INTELLIGENT_MANUFACTURING"]
+
 
   useEffect(() => {
-    serviceGetList(["USERS"]).then((res) => {
+    serviceExhibitorsList({ list: ["PRODUCT_CATEGORY", "PRODUCT_GROUP"] }).then(
+      (res) => {
+        if (!res.error) {
+          setListData(res.data);
+        }
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    serviceGetProductList().then((res) => {
       if (!res.error) {
-        setListData(res.data);
+        setProductListData(res.data);
       }
     });
   }, []);
 
+  const params = useParams();
+
+  const empId = params?.id;
+
+  const handleCheckedData = () => {
+    setChecked(() => !checked);
+  };
+
+  useEffect(() => {
+    if (empId) {
+      serviceGetExhibitorsDetails({ id: empId }).then((res) => {
+        if (!res.error) {
+          const data = res?.data?.details;
+          setSelectImages(data?.gallery_images)
+          setImage(data?.company_logo)
+          setForm({
+            ...form,
+            products:data?.products,
+            company_name: data?.company_name,
+            product_groups: data?.product_groups,
+            product_categories: data?.product_categories,
+            event_venue: data?.event_venue,
+            primary_email: data?.primary_email,
+            password: data?.password,
+            company_perosn_name: data?.company_perosn_name,
+            conatct_person_designation: data?.conatct_person_designation,
+            primary_conatct_number: data?.primary_conatct_number,
+            company_address: data?.company_address,
+            country_code: data?.country_code,
+            instagram_link: data?.instagram_link,
+            youtube_link: data?.youtube_link,
+            linkedin_link: data?.linkedin_link,
+            facebook_link: data?.facebook_link,
+            twitter_link: data?.twitter_link,
+            zone_tag: data?.zone_tag,
+            event_stall: data?.event_stall,
+            website: data?.website,
+            secondary_perosn_name: data?.secondary_perosn_name,
+            company_description: data?.company_description,
+            brand_name: data?.brand_name,
+            secondary_email: data?.secondary_email,
+            other_conatct_number: data?.other_conatct_number,
+          });
+        } else {
+          SnackbarUtils.error(res?.message);
+        }
+      });
+    }
+  }, [empId]);
+
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["priority"];
-    if (!id) {
-      required.push("image");
-    }
-    if (isEnterManually) {
-      required.push("name");
-      delete errors["user"];
-    } else {
-      required.push("user");
-      delete errors["name"];
+    let required = [
+      "company_name",
+      "product_groups",
+      "product_categories",
+      "event_venue",
+      "primary_email",
+      "password",
+      "company_perosn_name",
+      "conatct_person_designation",
+      "primary_conatct_number",
+      "company_address",
+      "country_code",
+    ];
+    if(form?.is_partner){
+      required.push("partner_tag")
+    }else{
+      delete errors["partner_tag"]
     }
     required.forEach((val) => {
-      if (
-        !form?.[val] ||
-        (Array.isArray(form?.[val]) && form?.[val].length === 0)
-      ) {
+      if (form?.product_categories?.length === 0) {
+        errors["product_categories"] = true;
+      }
+      if (form?.product_groups?.length === 0) {
+        errors["product_groups"] = true;
+      }
+      if (!form?.[val]) {
         errors[val] = true;
-      } else if (["code"].indexOf(val) < 0) {
-        delete errors[val];
       }
     });
     Object.keys(errors).forEach((key) => {
@@ -89,66 +166,76 @@ const useExhibitorCreate = ({ location }) => {
       }
     });
     return errors;
-  }, [form, errorData, isEnterManually, id, setIsEnterManually]);
+  }, [form, errorData]);
+
 
   const submitToServer = useCallback(() => {
-    if (!isSubmitting) {
-      setIsSubmitting(true);
-      const fd = new FormData();
-      Object.keys(form).forEach((key) => {
-        if (["image", "status", "name", "user"].indexOf(key) < 0 && form[key]) {
+    const fd = new FormData();
+
+    Object.keys(form).forEach((key) => {
+      if (
+        key !== "company_logo" &&
+        key !== "gallery_images" &&
+        key !== "company_brochure"
+      ) {
+        if (key === "status") {
+          fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
+        } else if (key === "related_to") {
+          fd.append(key, JSON.stringify(form[key]));
+        } else if (
+          key === "products" ||
+          key === "product_categories" ||
+          key === "product_groups" || 
+          key === "zone_tag"
+        ) {
+          if (key === "products") {
+            fd.append(key, JSON.stringify(form?.products));
+          } 
+          else if(key === "zone_tag"){
+            fd.append(key, JSON.stringify(form?.zone_tag));
+          }
+          else {
+            fd.append(key, JSON.stringify(form[key]));
+          }
+        } else if (key === "primary_conatct_number") {
+          fd.append(key, `${form?.primary_conatct_number}`);
+        } else {
           fd.append(key, form[key]);
         }
-      });
-      if (form?.image) {
-        fd.append("image", form?.image);
       }
-      if (id) {
-        fd.append("id", id);
-      }
-      fd.append("organising_id", location?.state?.organising_id);
-      fd.append("event_id", location?.state?.organising_id);
-      fd.append("status", "ACTIVE");
-
-      if(!form?.designation){
-        fd.append("designation"," ")
-      }
-     
-
-      if (isEnterManually) {
-        fd.append("name", form?.name);
-      } else {
-        fd.append("name", form?.user?.name);
-        fd.append("user_id", form?.user?.id);
-      }
-
-      let req;
-
-      if (id) {
-        req = serviceUpdateEventOrganiserUser;
-      } else {
-        req = serviceCreateEventOrganiserUser;
-      }
-
-      req(fd).then((res) => {
-        LogUtils.log("response", res);
-        if (!res.error) {
-          historyUtils.goBack();
-        } else {
-          SnackbarUtils.error(res.message);
-        }
-        setIsSubmitting(false);
+    });
+    if (form?.company_logo) {
+      fd.append("company_logo", form?.company_logo);
+    }
+    if (form?.gallery_images?.length > 0) {
+      form?.gallery_images?.forEach((item) => {
+        fd.append("gallery_images", item);
       });
     }
-  }, [
-    form,
-    isSubmitting,
-    setIsSubmitting,
-    id,
-    location,
-    isEnterManually,
-    setIsEnterManually,
-  ]);
+    if (selectImages?.length > 0) {
+      fd.append("remote_images", JSON.stringify(selectImages));
+    }
+    if (form?.company_brochure?.length > 0) {
+      form?.company_brochure?.forEach((item) => {
+        fd.append("company_brochure", item);
+      });
+    }
+    let req;
+
+    if (empId) {
+      fd.append("id", empId);
+      req = serviceUpdateExhibitors(fd);
+    } else {
+      req = serviceCreateExhibitors(fd);
+    }
+    req.then((res) => {
+      if (!res.error) {
+        historyUtils.goBack();
+      } else {
+        SnackbarUtils.error(res.message);
+      }
+    });
+  }, [form, errorData,selectImages]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -157,7 +244,7 @@ const useExhibitorCreate = ({ location }) => {
       return true;
     }
     submitToServer();
-  }, [checkFormValidation, setErrorData, form]);
+  }, [checkFormValidation, setErrorData, form,selectImages]);
 
   const removeError = useCallback(
     (title) => {
@@ -172,21 +259,24 @@ const useExhibitorCreate = ({ location }) => {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName === "name") {
-        if (!text || (isAlphaNumChars(text) && text.toString().length <= 30)) {
-          t[fieldName] = text;
-        }
-      } else if (fieldName === "priority") {
-        if (!text || isNum(text)) {
-          t[fieldName] = text;
-        }
-      } else if (fieldName === "code") {
-        if (!text || (!isSpace(text) && isAlphaNumChars(text))) {
-          t[fieldName] = text.toUpperCase();
-        }
-        shouldRemoveError = false;
-      } else {
+      if (fieldName) {
         t[fieldName] = text;
+      } else if (fieldName === "products") {
+        const newValues = text?.filter((item) => item.trim() !== "");
+        const uniqueValues = text
+          ? newValues?.filter(
+              (item, index, self) =>
+                self.findIndex(
+                  (t) => t.toLowerCase() === item.toLowerCase()
+                ) === index
+            )
+          : [];
+
+        if (uniqueValues.length <= 2) {
+          t[fieldName] = uniqueValues;
+        } else {
+          SnackbarUtils.error("Maximum 2 Task category");
+        }
       }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
@@ -209,9 +299,9 @@ const useExhibitorCreate = ({ location }) => {
     setForm({ ...initialForm });
   }, [form, setForm]);
 
-  const handleManualClick = useCallback(() => {
-    setIsEnterManually((e) => !e);
-  }, [setIsEnterManually]);
+  const renderImages = (image) => {
+    setSelectImages([...image]);
+  };
 
   return {
     form,
@@ -219,17 +309,19 @@ const useExhibitorCreate = ({ location }) => {
     onBlurHandler,
     removeError,
     handleSubmit,
-    isLoading,
-    isSubmitting,
     errorData,
-    isEdit,
     handleDelete,
     handleReset,
-    id,
-    listData,
     image,
-    handleManualClick,
-    isEnterManually,
+    selectImages,
+    setSelectImages,
+    renderImages,
+    handleCheckedData,
+    checked,
+    listData,
+    productListData,
+    EventListManager,
+    image
   };
 };
 

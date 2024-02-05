@@ -23,6 +23,7 @@ function EventDetail() {
     featureValue,
     handleViewEvents,
     editMasterEvent,
+    handleViewEventsPush,
   } = useEventDetail({});
   
   const UpperInfo = useCallback((obj) => {
@@ -36,7 +37,7 @@ function EventDetail() {
     }
     return null;
   }, []);
-console.log(employeeDetail)
+
   return (
     <div className={styles.claimListWrapper}>
       <div className={styles.outerFlex}>

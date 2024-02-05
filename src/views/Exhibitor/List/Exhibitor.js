@@ -12,6 +12,7 @@ import StatusPill from "../../../components/Status/StatusPill.component";
 import { Link } from "react-router-dom";
 import useExhibitorList from "./Exhibitor.hook.js";
 import RouteName from "../../../routes/Route.name";
+import historyUtils from "../../../libs/history.utils.js";
 
 const ExhibitorList = ({}) => {
   const {
@@ -38,7 +39,9 @@ const ExhibitorList = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.App_User);
+  } = useSelector((state) => state.Exhibitor);
+
+
 
   const UpperInfo = useCallback((obj) => {
     if (obj) {
@@ -58,14 +61,14 @@ const ExhibitorList = ({}) => {
         key:"company",
         label: "Company Name",
         sortable: true,
-        render: (value, all) => <div>{all?.email}</div>,
+        render: (value, all) => <div>{all?.company_name}</div>,
       },
 
       {
         key: "group",
         label: "Product Group",
         sortable: true,
-        render: (temp, all) => <div>{all.contact}</div>,
+        render: (temp, all) => <div>{all.product_groups[0]?.name}</div>,
       },
 
       {
@@ -85,15 +88,22 @@ const ExhibitorList = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-            <Link to={RouteName.PRODUCT_CATEGORY_CREATE + all.id}>
               <IconButton
                 className={"tableActionBtn"}
                 color="secondary"
                 disabled={isCalling}
+                onClick={()=>historyUtils.push(`${RouteName.EXHIBITOR_DETAILS}`+all?.id)}
               >
                 <InfoOutlined fontSize={"small"} />
               </IconButton>
-            </Link>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={()=> historyUtils.push(`${RouteName.EXHIBITOR_CREATE}`+ all?.id)}
+            >
+              <Edit fontSize={"small"} />
+            </IconButton>
           </div>
         ),
       },

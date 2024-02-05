@@ -131,6 +131,7 @@ export default {
   KNOWLEDGE_CENTER_CREATE:"/knowledge-center/create",
   KNOWLEDGE_CENTER_UPDATE:"/knowledge-center/update",
   
+  
   /*Stamp Center is here*/
   KNOWLEDGE_CENTER_LIST:"/knowledge-center/list",
   KNOWLEDGE_CENTER_STAMP_CREATE:"/stamp/create",
@@ -149,4 +150,7 @@ export default {
   EVENT_TESTIMONIAL:"/event/testimonial/", 
   TESTIMONIAL_CREATE:"/testimonial/create",
   TESTIMONIAL_UPDATE:"/testimonial/update/",
+  EXHIBITOR_LIST:"/exhibitor/",
+  EXHIBITOR_CREATE:"/exhibitor/list/create/",
+  EXHIBITOR_DETAILS:"/exhibitor/detail/"
 };

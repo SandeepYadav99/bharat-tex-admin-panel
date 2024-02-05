@@ -1,13 +1,21 @@
 import React, { useMemo } from "react";
-import { ButtonBase } from "@material-ui/core";
+import {
+  ButtonBase,
+  CircularProgress,
+  MenuItem,
+  TextField,
+} from "@material-ui/core";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
-import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
-import history from "../../../libs/history.utils";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import File from "../../../components/FileComponent/FileComponent.component";
-import CustomAutoComplete from "../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import useExhibitorCreate from "./Exhibitor.hook";
+import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
+import MultiFile from "../../GalleryAlbum/Create/Component/FileComponent/FileMultiComponent.component";
+import File from "../../../components/FileComponent/FileComponent.component";
+import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
+import Chip from "@material-ui/core/Chip";
+import { Autocomplete } from "@material-ui/lab";
+import CustomSwitch from "../../../components/FormFields/CustomSwitch";
+import CountryCode from "../../../assets/country_code.json";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -15,89 +23,33 @@ const useStyles = makeStyles((theme) => ({
   },
   deleteBtn: {
     color: "red",
-    // borderBottom: '1px solid red'
   },
 }));
 
-const ExhibitorCreate = ({ location }) => {
+const ExhibitorCreate = () => {
   const {
-    form,
     errorData,
-    isSubmitting,
-    isLoading,
-    handleSubmit,
-    removeError,
-    onBlurHandler,
+    form,
     changeTextData,
-    id,
+    onBlurHandler,
+    selectImages,
+    setSelectImages,
+    renderImages,
+    handleCheckedData,
+    checked,
+    handleSubmit,
     listData,
-    image,
-    handleManualClick,
-    isEnterManually,
-  } = useExhibitorCreate({ location });
-
-  const classes = useStyles();
-  
-  const UserField = useMemo(() => {
-    if (isEnterManually) {
-      return (
-        <CustomTextField
-          isError={errorData?.name}
-          errorText={errorData?.name}
-          label={"Username"}
-          value={form?.name}
-          onTextChange={(text) => {
-            changeTextData(text, "name");
-          }}
-          onBlur={() => {
-            onBlurHandler("name");
-          }}
-        />
-      );
-    }
-    return (
-      <CustomAutoComplete
-        disabled={form?.user_id && form?.is_auto}
-        autoCompleteProps={{
-          freeSolo: true,
-          getOptionLabel: (option) => option?.label || "",
-        }}
-        dataset={listData?.USERS ? listData?.USERS : []}
-        datasetKey={"label"}
-        onTextChange={(text, value) => {
-          if (typeof text === "string") {
-            changeTextData({ name: text }, "user");
-          } else {
-            changeTextData(text, "user");
-          }
-        }}
-        variant={"outlined"}
-        label={"User"}
-        name={"user"}
-        isError={errorData?.user}
-        value={form?.user}
-      />
-    );
-  }, [isEnterManually, form, changeTextData, listData, errorData]);
+    productListData,
+    EventListManager,
+    image
+  } = useExhibitorCreate({});
 
   return (
-    <div>
-      <div className={styles.outerFlex}>
-        <div>
-          <ButtonBase onClick={() => history.goBack()}>
-            <ArrowBackIosIcon fontSize={"small"} />{" "}
-            <span>
-              <b>{id ? "Update" : "Add"}Exhibitor</b>
-            </span>
-          </ButtonBase>
-          <div className={styles.newLine} />
-        </div>
-      </div>
-
+    <div className={styles.container}>
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
-            <div className={"heading"}>Exhibitor Details</div>
+            <div className={"heading"}>Add Exhibitor</div>
           </h4>
         </div>
         <div className={styles.cont}>
@@ -109,64 +61,585 @@ const ExhibitorCreate = ({ location }) => {
               fullWidth={true}
               name="document"
               accept={"image/*"}
+              default_image={image ? image : null}
               label="Please Upload Image"
               show_image={true}
-              error={errorData?.image}
-              value={form?.image}
-              default_image={image ? image : null}
+              error={errorData?.company_logo}
+              value={form?.company_logo}
               onChange={(file) => {
                 if (file) {
-                  changeTextData(file, "image");
+                  changeTextData(file, "company_logo");
                 }
               }}
             />
           </div>
           <div className={styles.lowerWrap}>
-         
-
             <div className={"formFlex"}>
-             
               <div className={"formGroup"}>
                 <CustomTextField
-                  label={"Company"}
-                  value={form?.company}
+                  label={"Company Name"}
+                  value={form?.company_name}
                   onTextChange={(text) => {
-                    changeTextData(text, "company");
+                    changeTextData(text, "company_name");
                   }}
                   onBlur={() => {
-                    onBlurHandler("company");
+                    onBlurHandler("company_name");
                   }}
+                  error={errorData?.company_name}
                 />
               </div>
             </div>
-
             <div className={"formFlex"}>
-             
               <div className={"formGroup"}>
                 <CustomTextField
-                  isError={errorData?.priority}
-                  errorText={errorData?.priority}
-                  label={"Priority"}
-                  value={form?.priority}
+                  isError={errorData?.brand_name}
+                  errorText={errorData?.brand_name}
+                  label={"Brand"}
+                  value={form?.brand_name}
                   onTextChange={(text) => {
-                    changeTextData(text, "priority");
+                    changeTextData(text, "brand_name");
                   }}
                   onBlur={() => {
-                    onBlurHandler("priority");
+                    onBlurHandler("brand_name");
                   }}
                 />
               </div>
             </div>
           </div>
         </div>
-        <div className={styles.btnCont}>
-          <ButtonBase
-            disabled={isSubmitting}
-            type={"button"}
-            onClick={handleSubmit}
-            className={styles.createBtn}
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <Autocomplete
+              multiple
+              id="tags-outlined"
+              onChange={(e, value) => {
+                changeTextData(value, "product_groups");
+              }}
+              value={form?.product_groups}
+              // id="tags-standard"
+              options={listData ? listData?.PRODUCT_GROUP : []}
+              getOptionLabel={(option) => option.name}
+              defaultValue={form?.product_groups}
+              error={errorData?.product_groups}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="Product Group"
+                  error={errorData?.product_groups}
+                />
+              )}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <Autocomplete
+              multiple
+              id="tags-outlined"
+              onChange={(e, value) => {
+                changeTextData(value, "product_categories");
+              }}
+              value={form?.product_categories}
+              // id="tags-standard"
+              options={listData ? listData?.PRODUCT_CATEGORY : []}
+              getOptionLabel={(option) => option.name}
+              defaultValue={form?.product_categories}
+              error={errorData?.product_categories}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="Product Category"
+                  error={errorData?.product_categories}
+                />
+              )}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <Autocomplete
+              multiple
+              rows={6}
+              id="tags-outlined"
+              onChange={(e, value) => {
+                changeTextData(value, "products");
+              }}
+              options={productListData}
+              value={form?.products}
+              freeSolo
+              selectOnFocus={false}
+              error={errorData?.products}
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                  <Chip
+                    variant="outlined"
+                    label={option}
+                    {...getTagProps({ index })}
+                  /> // disabled={option.length < 2}
+                ))
+              }
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="Product"
+                  error={errorData?.products}
+                />
+              )}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.event_venue}
+              errorText={errorData?.event_venue}
+              label={"Event Venue"}
+              value={form?.event_venue}
+              handleChange={(value) => {
+                changeTextData(value, "event_venue");
+              }}
+            >
+              <MenuItem value="BHARAT_MANDAPAM">BHARAT MANDAPAM</MenuItem>
+              <MenuItem value="YASHOBHOOMI">YASHOBHOOMI</MenuItem>
+            </CustomSelectField>
+          </div>
+          <div className={"formGroup"}>
+            <CustomTextField
+              label={"Booth Number"}
+              value={form?.event_stall}
+              onTextChange={(text) => {
+                changeTextData(text, "event_stall");
+              }}
+              onBlur={() => {
+                onBlurHandler("event_stall");
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+          <Autocomplete
+              multiple
+              rows={6}
+              id="tags-outlined"
+              onChange={(e, value) => {
+                changeTextData(value, "zone_tag");
+              }}
+              options={EventListManager ? EventListManager : []}
+              value={form?.zone_tag}
+              freeSolo
+              selectOnFocus={false}
+              error={errorData?.zone_tag}
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                  <Chip
+                    variant="outlined"
+                    label={option}
+                    {...getTagProps({ index })}
+                  /> // disabled={option.length < 2}
+                ))
+              }
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label="Zone"
+                  error={errorData?.zone_tag}
+                />
+              )}
+            />
+          </div>
+          <div className={"formGroup"}></div>
+        </div>
+        <div className={"formFlex"}></div>
+        <div className={"formFlex"}>
+          <div
+            style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}
+            className={"formGroup"}
           >
-            {id ? "UPDATE" : "Add"}
+            <input
+              type="checkbox"
+              value={form?.is_partner}
+              onChange={()=>changeTextData(!form?.is_partner,"is_partner")}
+            />
+            <span>This is A featured Partner Exhibitor</span>
+          </div>
+          <div className={"formGroup"}>
+            {form?.is_partner && (
+              <CustomSelectField
+                isError={errorData?.partner_tag}
+                errorText={errorData?.partner_tag}
+                label={"Partner Type"}
+                value={form?.partner_tag}
+                handleChange={(value) => {
+                  changeTextData(value, "partner_tag");
+                }}
+              >
+                <MenuItem value="PLATINUM">Platinum Partner</MenuItem>
+                <MenuItem value="GOLD">Gold Partner</MenuItem>
+                <MenuItem value="SILVER">Silver Partner</MenuItem>
+                <MenuItem value="FASHION">Fashion Partner</MenuItem>
+                <MenuItem value="SUSTAINIBILITY">
+                  Sustainibility Partner
+                </MenuItem>
+                <MenuItem value="ASSOCIATE">Associate Partner</MenuItem>
+              </CustomSelectField>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className={"plainPaper"}>
+        <div>
+          {" "}
+          <b>Contact Detail</b>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.company_perosn_name}
+              errorText={errorData?.company_perosn_name}
+              label={"Company Person Name"}
+              value={form?.company_perosn_name}
+              onTextChange={(text) => {
+                changeTextData(text, "company_perosn_name");
+              }}
+              onBlur={() => {
+                onBlurHandler("company_perosn_name");
+              }}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.conatct_person_designation}
+              errorText={errorData?.conatct_person_designation}
+              label={"Designation"}
+              value={form?.conatct_person_designation}
+              onTextChange={(text) => {
+                changeTextData(text, "conatct_person_designation");
+              }}
+              onBlur={() => {
+                onBlurHandler("conatct_person_designation");
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.primary_email}
+              errorText={errorData?.primary_email}
+              label={"Primary Email"}
+              value={form?.primary_email}
+              onTextChange={(text) => {
+                changeTextData(text, "primary_email");
+              }}
+              onBlur={() => {
+                onBlurHandler("primary_email");
+              }}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.password}
+              errorText={errorData?.password}
+              label={"Password"}
+              value={form?.password}
+              onTextChange={(text) => {
+                changeTextData(text, "password");
+              }}
+              onBlur={() => {
+                onBlurHandler("password");
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              label={"Secondary Person Name"}
+              value={form?.secondary_perosn_name}
+              onTextChange={(text) => {
+                changeTextData(text, "secondary_perosn_name");
+              }}
+              onBlur={() => {
+                onBlurHandler("secondary_perosn_name");
+              }}
+            />
+          </div>
+          <div className={"formGroup"}></div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.secondary_email}
+              errorText={errorData?.secondary_email}
+              label={"Secondary Email"}
+              value={form?.secondary_email}
+              onTextChange={(text) => {
+                changeTextData(text, "secondary_email");
+              }}
+              onBlur={() => {
+                onBlurHandler("secondary_email");
+              }}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.secondary_password}
+              errorText={errorData?.secondary_password}
+              label={"Passowrd"}
+              value={form?.secondary_password}
+              onTextChange={(text) => {
+                changeTextData(text, "secondary_password");
+              }}
+              onBlur={() => {
+                onBlurHandler("secondary_password");
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"} id={styles.oneLineView}>
+            <div id={styles.countryCode}>
+              <CustomSelectField
+                isError={errorData?.country_code}
+                errorText={errorData?.country_code}
+                label={"Country Code"}
+                value={form?.country_code}
+                handleChange={(value) => {
+                  changeTextData(value, "country_code");
+                }}
+              >
+                {CountryCode?.map((val) => {
+                  return (
+                    <MenuItem value={val?.dial_code} key={val.code}>
+                      {val?.dial_code}
+                    </MenuItem>
+                  );
+                })}
+              </CustomSelectField>
+            </div>
+            <CustomTextField
+              isError={errorData?.primary_conatct_number}
+              errorText={errorData?.primary_conatct_number}
+              label={"Phone"}
+              value={form?.primary_conatct_number}
+              onTextChange={(text) => {
+                changeTextData(text, "primary_conatct_number");
+              }}
+              onBlur={() => {
+                onBlurHandler("primary_conatct_number");
+              }}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.other_conatct_number}
+              errorText={errorData?.other_conatct_number}
+              label={"Alternate Number"}
+              value={form?.other_conatct_number}
+              onTextChange={(text) => {
+                changeTextData(text, "other_conatct_number");
+              }}
+              onBlur={() => {
+                onBlurHandler("other_conatct_number");
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.company_address}
+              errorText={errorData?.company_address}
+              label={"Address"}
+              value={form?.company_address}
+              onTextChange={(text) => {
+                changeTextData(text, "company_address");
+              }}
+              onBlur={() => {
+                onBlurHandler("company_address");
+              }}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.website}
+              errorText={errorData?.website}
+              label={"Website"}
+              value={form?.website}
+              onTextChange={(text) => {
+                changeTextData(text, "website");
+              }}
+              onBlur={() => {
+                onBlurHandler("website");
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.instagram_link}
+              errorText={errorData?.instagram_link}
+              label={"Instagram"}
+              value={form?.instagram_link}
+              onTextChange={(text) => {
+                changeTextData(text, "instagram_link");
+              }}
+              onBlur={() => {
+                onBlurHandler("instagram_link");
+              }}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.facebook_link}
+              errorText={errorData?.facebook_link}
+              label={"facebook"}
+              value={form?.facebook_link}
+              onTextChange={(text) => {
+                changeTextData(text, "facebook_link");
+              }}
+              onBlur={() => {
+                onBlurHandler("facebook_link");
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.linkedin_link}
+              errorText={errorData?.linkedin_link}
+              label={"linkedin"}
+              value={form?.linkedin_link}
+              onTextChange={(text) => {
+                changeTextData(text, "linkedin_link");
+              }}
+              onBlur={() => {
+                onBlurHandler("linkedin_link");
+              }}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.twitter_link}
+              errorText={errorData?.twitter_link}
+              label={"Twitter"}
+              value={form?.twitter_link}
+              onTextChange={(text) => {
+                changeTextData(text, "twitter_link");
+              }}
+              onBlur={() => {
+                onBlurHandler("twitter_link");
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.youtube_link}
+              errorText={errorData?.youtube_link}
+              label={"youtube"}
+              value={form?.youtube_link}
+              onTextChange={(text) => {
+                changeTextData(text, "youtube_link");
+              }}
+              onBlur={() => {
+                onBlurHandler("youtube_link");
+              }}
+            />
+          </div>
+          <div></div>
+        </div>
+      </div>
+      <div className={"plainPaper"}>
+        <div>
+          {" "}
+          <b>Company Info</b>{" "}
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <div className={"formGroup"}>
+              <File
+                max_size={10 * 1024 * 1024}
+                type={["pdf", "docx"]}
+                fullWidth={true}
+                name="od1"
+                label="Upload File"
+                accept={"application/pdf,application/msword"}
+                error={errorData?.company_brochure}
+                isError={errorData?.company_brochure}
+                value={form?.company_brochure}
+                placeholder={"Company Brochure"}
+                onChange={(file) => {
+                  if (file) {
+                    changeTextData(file, "company_brochure");
+                  }
+                }}
+              />
+            </div>
+          </div>
+          <div className={"formGroup"}>
+            <MultiFile
+              multiDef={selectImages ? selectImages : []}
+              max_count="5"
+              multiple
+              max_size={1 * 1024 * 1024}
+              type={["jpeg", "jpg", "png"]}
+              fullWidth={true}
+              name="od1"
+              label="Gallery"
+              accept={"image/*"}
+              error={errorData?.gallery_images}
+              value={form?.gallery_images}
+              placeholder={"Gallery"}
+              onChange={(file) => {
+                changeTextData(file, "gallery_images");
+              }}
+              DefChange={(img) => {
+                if (img) {
+                  renderImages(img);
+                }
+              }}
+            />
+          </div>
+        </div>
+        <div className={"formGroup"}>
+          <CustomTextField
+            isError={errorData?.company_description}
+            errorText={errorData?.company_description}
+            label={"Description"}
+            value={form?.company_description}
+            onTextChange={(text) => {
+              changeTextData(text, "company_description");
+            }}
+            onBlur={() => {
+              onBlurHandler("company_description");
+            }}
+            multiline
+            rows={3}
+          />
+        </div>
+      </div>
+      <div className={"plainPaper"}>
+        <CustomSwitch
+          value={form?.status}
+          handleChange={() => {
+            changeTextData(!form?.status, "status");
+          }}
+          label={`Active`}
+        />
+        <div className={styles.btnWrappepr}>
+          <ButtonBase
+            type={"button"}
+            className={styles.createBtn}
+            onClick={() => handleSubmit()}
+          >
+            Add
           </ButtonBase>
         </div>
       </div>
