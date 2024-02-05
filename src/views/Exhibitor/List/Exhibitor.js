@@ -72,6 +72,12 @@ const ExhibitorList = ({}) => {
         render: (temp, all) => <div>{all.product_groups[0]?.name}</div>,
       },
 
+      // {
+      //   key: "vanue_zone",
+      //   label: "Venue / Zone",
+      //   sortable: true,
+      //   render: (temp, all) => <div>{all?.event_venue}</div>,
+      // },
       {
         key: "partner_type",
         label: "Partner Type",
