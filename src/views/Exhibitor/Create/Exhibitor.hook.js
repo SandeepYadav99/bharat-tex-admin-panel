@@ -257,7 +257,8 @@ console.log(form, errorData, "Erro")
     const errors = checkFormValidation();
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
-       return true;
+   return true
+     
     }
    await submitToServer();
   }, [checkFormValidation, setErrorData, form,selectImages]);
