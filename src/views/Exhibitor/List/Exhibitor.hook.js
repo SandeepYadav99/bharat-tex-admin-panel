@@ -166,6 +166,10 @@ const useExhibitorList = ({ }) => {
     ];
   }, []);
 
+  // const handleUpdatePage =useCallback((all)=>{
+  //   historyUtils.push(`${RouteName.EXHIBITOR_CREATE}`+ all?.id);
+  // },[])
+
   return {
     handlePageChange,
     handleDataSave,
@@ -183,7 +187,7 @@ const useExhibitorList = ({ }) => {
     configFilter,
     handleCreate,
     handleToggleSidePannel,
-    handleCreateFed
+    handleCreateFed,
   };
 };
 

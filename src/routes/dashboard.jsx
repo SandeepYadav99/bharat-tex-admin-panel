@@ -86,6 +86,7 @@ const ProductCategory = lazy(()=>import("../views/ProductCategory/List/List.comp
 const ProductCategoryCreate = lazy(()=>import("../views/ProductCategory/Create/Create.component.js"));
 const ExhibitorList = lazy(()=>import("../views/Exhibitor/List/Exhibitor.js"));
 const ExhibitorCreate = lazy(()=>import("../views/Exhibitor/Create/Exhibitor.component.js"));
+const ExhibitionDetails = lazy(()=>import("../views/Exhibitor/List/Detail/ExhibitorDetail.js"));
 
 
 const Roles = Constants.ROLES;
@@ -801,6 +802,20 @@ const dashboardRoutes = [
     path: `${RouteName.EXHIBITOR_CREATE}`,
     icon: PeopleOutlined,
     component: ExhibitorCreate,
+    is_sidebar: false,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.EXHIBITOR_CREATE}:id`,
+    icon: PeopleOutlined,
+    component: ExhibitorCreate,
+    is_sidebar: false,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.EXHIBITOR_DETAILS}:id`,
+    icon: PeopleOutlined,
+    component: ExhibitionDetails,
     is_sidebar: false,
     is_protect: true,
   },
