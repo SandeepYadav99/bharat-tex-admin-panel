@@ -72,12 +72,23 @@ const ExhibitorList = ({}) => {
         render: (temp, all) => <div>{all.product_groups[0]?.name}</div>,
       },
 
-      // {
-      //   key: "vanue_zone",
-      //   label: "Venue / Zone",
-      //   sortable: true,
-      //   render: (temp, all) => <div>{all?.event_venue}</div>,
-      // },
+      {
+        key: "vanue",
+        label: "Venue",
+        sortable: true,
+        render: (temp, all) => <div>{capitalizeFirstLetter(all?.event_venue)}</div>,
+      },
+      {
+        key: "zone",
+        label: "Zone",
+        sortable: true,
+        render: (temp, all) => <div>   {all?.zone_tag?.map((zone, index) => (
+          <React.Fragment key={index}>
+            {index > 0 && ", "} 
+            {capitalizeFirstLetter(zone)}
+          </React.Fragment>
+        ))}</div>,
+      },
       {
         key: "partner_type",
         label: "Partner Type",
