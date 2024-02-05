@@ -103,7 +103,7 @@ const rootReducer = combineReducers({
   productCategory:ProductCategoryReducer,
   productGroups:ProductGroupReducer,
   Exhibitor:ExhibitorReducer,
-  testimonial:TestimonialReducer
+  testimonial:TestimonialReducer,
 });
 
 export default rootReducer;

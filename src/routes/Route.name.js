@@ -145,10 +145,10 @@ export default {
   PRODUCT_GROUP_CREATE:"/product/group/create/",
   PRODUCT_GROUP_UPDATE:"/product/group/update/",
 
-  EXHIBITOR_LIST:"/exhibitor/",
-  EXHIBITOR_CREATE:"/exhibitor/list/create",
   EVENT_TESTIMONIAL:"/event/testimonial/",
   TESTIMONIAL_CREATE:"/testimonial/create",
   TESTIMONIAL_UPDATE:"/testimonial/update/",
+  EXHIBITOR_LIST:"/exhibitor/",
+  EXHIBITOR_CREATE:"/exhibitor/list/create/",
   EXHIBITOR_DETAILS:"/exhibitor/detail/"
 };

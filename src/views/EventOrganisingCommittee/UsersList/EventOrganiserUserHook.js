@@ -157,7 +157,9 @@ const useEventOrganiserUserList = ({}) => {
   }, []);
 
   const handleCreate = useCallback(() => {
-    historyUtils.push(RouteName.EVENT_ORGANISER_USER_CREATE);
+    historyUtils.push(RouteName.EVENT_ORGANISER_USER_CREATE,  {
+      organising_id: id,
+    });
   }, [id]);
 
   const configFilter = useMemo(() => {

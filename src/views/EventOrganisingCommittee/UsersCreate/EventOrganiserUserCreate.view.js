@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const EventOrganiserUserCreate = ({ location }) => {
+  console.log(location, "Location")
   const {
     form,
     errorData,
@@ -37,7 +38,7 @@ const EventOrganiserUserCreate = ({ location }) => {
   } = useEventOrganiserUserCreate({ location });
 
   const classes = useStyles();
-  
+  console.log(location?.state?.organising_id, "IDDD")
   const UserField = useMemo(() => {
     if (isEnterManually) {
       return (

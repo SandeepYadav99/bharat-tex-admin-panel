@@ -152,12 +152,15 @@ const ExhibitorList = ({}) => {
           </div>
         </div>
         <div>
+          <div style={{width:"90%"}}>
+
           <FilterComponent
             is_progress={isFetching}
-            filters={configFilter}
+            filters={[]}
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
+          </div>
           <div>
             <br />
             <div style={{ width: "100%" }}>

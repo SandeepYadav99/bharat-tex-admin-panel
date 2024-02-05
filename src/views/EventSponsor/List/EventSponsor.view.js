@@ -199,7 +199,7 @@ const EventSponsor = ({}) => {
             <ButtonBase onClick={() => historyUtils.goBack()}>
               <ArrowBackIosIcon fontSize={"small"} />
               <span className={"capitalize"}>
-                <span className={styles.title}>Sponsors</span>
+                <span className={styles.title}>Partner</span>
               </span>
             </ButtonBase>
             <div className={styles.newLine} />

@@ -10,6 +10,7 @@ import {
   serviceGetExhibitorsDetails,
 } from "../../../services/Exhibitor.service";
 import historyUtils from "../../../libs/history.utils";
+import { isEmail } from "../../../libs/RegexUtils";
 
 const initialForm = {
   company_logo: "",
@@ -49,6 +50,7 @@ const initialForm = {
 const useExhibitorCreate = ({ location }) => {
   const [errorData, setErrorData] = useState({});
   const [image, setImage] = useState(null);
+  const [isSubmitting, setIsSubmitting]=useState(false)
   const [form, setForm] = useState({ ...initialForm });
   const [selectImages, setSelectImages] = useState([]);
   const [checked, setChecked] = useState(false);
@@ -160,6 +162,12 @@ const useExhibitorCreate = ({ location }) => {
         errors[val] = true;
       }
     });
+    if(form?.primary_email && !isEmail(form?.primary_email)){
+      errors["primary_email"]="Invalid email address "
+    }
+    if(form?.secondary_email && !isEmail(form?.secondary_email)){
+      errors["secondary_email"]="Invalid email address "
+    }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -168,8 +176,14 @@ const useExhibitorCreate = ({ location }) => {
     return errors;
   }, [form, errorData]);
 
-
-  const submitToServer = useCallback(() => {
+console.log(form, errorData, "Erro")
+  const submitToServer = useCallback(async() => {
+    if (isSubmitting) {
+      return;
+    }
+  
+    setIsSubmitting(true);
+  
     const fd = new FormData();
 
     Object.keys(form).forEach((key) => {
@@ -232,8 +246,10 @@ const useExhibitorCreate = ({ location }) => {
       if (!res.error) {
         historyUtils.goBack();
       } else {
+     
         SnackbarUtils.error(res.message);
       }
+      setIsSubmitting(false)
     });
   }, [form, errorData,selectImages]);
 
@@ -241,9 +257,10 @@ const useExhibitorCreate = ({ location }) => {
     const errors = checkFormValidation();
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
-      return true;
+   return true
+     
     }
-    submitToServer();
+   await submitToServer();
   }, [checkFormValidation, setErrorData, form,selectImages]);
 
   const removeError = useCallback(
@@ -259,7 +276,13 @@ const useExhibitorCreate = ({ location }) => {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName) {
+      if (fieldName=== "company_name") {
+        t[fieldName] = text;
+      }else if(fieldName=== "primary_email"){
+        t[fieldName] = text;
+      }else if(fieldName=== "primary_email"){
+        t[fieldName] = text;
+      }else if(fieldName=== "secondary_email"){
         t[fieldName] = text;
       } else if (fieldName === "products") {
         const newValues = text?.filter((item) => item.trim() !== "");
@@ -277,6 +300,8 @@ const useExhibitorCreate = ({ location }) => {
         } else {
           SnackbarUtils.error("Maximum 2 Task category");
         }
+      }else if(fieldName){
+        t[fieldName] = text;
       }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
@@ -321,7 +346,8 @@ const useExhibitorCreate = ({ location }) => {
     listData,
     productListData,
     EventListManager,
-    image
+    image,
+    empId
   };
 };
 

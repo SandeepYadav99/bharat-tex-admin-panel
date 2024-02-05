@@ -265,12 +265,12 @@ export const removeUnderScore = (value) => {
 };
 
 export const EventData = [
-  {
-    key: "event_participants",
-    name: "Event Participants",
-    image: event,
-    url: RouteName.EVENT_PARTICIPANTS,
-  },
+  // {
+  //   key: "event_participants",
+  //   name: "Event Participants",
+  //   image: event,
+  //   url: RouteName.EVENT_PARTICIPANTS,
+  // },
   {
     key: "event_schedule",
     name: "Event Schedule",
@@ -279,7 +279,7 @@ export const EventData = [
   },
   {
     key: "event_organizing_committee",
-    name: " Organizing",
+    name: "Organizers",
     image: organ,
     url: RouteName.EVENT_ORGANISERS,
   },
@@ -356,6 +356,12 @@ export const EventData = [
     url: RouteName.INFOR_CENTER,
   },
   {
+    key: "testimonial",
+    name: "Testimonial",
+    image: event,
+    url: RouteName.EVENT_TESTIMONIAL,
+  },
+   {
     key: "exhibitor",
     name: "Exhibitor",
     image: event,
