@@ -12,12 +12,14 @@ import RouteName from "../../../routes/Route.name";
 import LogUtils from "../../../libs/LogUtils";
 
 import { actionFetchTestimonial, actionSetPageTestimonial ,} from "../../../actions/Testimonial.action";
+import { useParams } from "react-router-dom";
 
 const useTestimonialList = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
   const dispatch = useDispatch();
+  const {id}=useParams()
   const isMountRef = useRef(false);
   const {
     sorting_data: sortingData,
@@ -32,9 +34,10 @@ const useTestimonialList = ({}) => {
 
   useEffect(() => {
     dispatch(
-      actionFetchTestimonial(1, {}, {
+      actionFetchTestimonial( 1, {}, {
         query: isMountRef.current ? query : null,
         query_data: isMountRef.current ? queryData : null,
+        event_id: id
       })
     );
     isMountRef.current = true;
@@ -61,8 +64,8 @@ const useTestimonialList = ({}) => {
 
   const handleCreateFed = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.TESTIMONIAL_CREATE}`); 
-  }, []);
+    historyUtils.push(RouteName.TESTIMONIAL_CREATE,{event_id:id}); 
+  }, [id]);
 
   const queryFilter = useCallback(
     (key, value) => {
@@ -130,7 +133,7 @@ const useTestimonialList = ({}) => {
     (data) => {
       // setEditData(data);
       // setSidePanel((e) => !e);
-      historyUtils.push(`${RouteName.TESTIMONIAL_UPDATE}${data?.id}`)
+      historyUtils.push(`${RouteName.TESTIMONIAL_UPDATE}${data?.id}`,{event_id:id})
     },
     [setEditData, setSidePanel]
   );

@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TestimonialCreate = ({ handleToggleSidePannel, isSidePanel }) => {
+const TestimonialCreate = ({ handleToggleSidePannel, isSidePanel , location}) => {
   const {
     form,
     errorData,
@@ -31,8 +31,9 @@ const TestimonialCreate = ({ handleToggleSidePannel, isSidePanel }) => {
     empId,
     onBlurHandler,
     changeTextData,
-  } = useTestimonialCreate({ handleToggleSidePannel, isSidePanel });
+  } = useTestimonialCreate({ handleToggleSidePannel, isSidePanel , location});
   const classes = useStyles();
+  console.log(location?.state?.event_id, "Event ID")
   return (
     <div>
       <div className={styles.actionButtoon}>
