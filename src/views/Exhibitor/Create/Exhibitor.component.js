@@ -292,14 +292,14 @@ const ExhibitorCreate = () => {
                   changeTextData(value, "partner_tag");
                 }}
               >
-                <MenuItem value="PLATINUM">Platinum Partner</MenuItem>
-                <MenuItem value="GOLD">Gold Partner</MenuItem>
-                <MenuItem value="SILVER">Silver Partner</MenuItem>
-                <MenuItem value="FASHION">Fashion Partner</MenuItem>
-                <MenuItem value="SUSTAINIBILITY">
+                <MenuItem value="PLATINUM_PARTNER">Platinum Partner</MenuItem>
+                <MenuItem value="GOLD_PARTNER">Gold Partner</MenuItem>
+                <MenuItem value="SILVER_PARTNER">Silver Partner</MenuItem>
+                <MenuItem value="FASHION_PARTNER">Fashion Partner</MenuItem>
+                <MenuItem value="SUSTAINBILITY_PARTNER">
                   Sustainibility Partner
                 </MenuItem>
-                <MenuItem value="ASSOCIATE">Associate Partner</MenuItem>
+                <MenuItem value="ASSOCIATE_PARTNER">Associate Partner</MenuItem>
               </CustomSelectField>
             )}
           </div>

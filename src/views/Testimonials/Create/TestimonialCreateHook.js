@@ -96,9 +96,9 @@ const useTestimonialCreate = ({}) => {
       formData.append("priority", form?.priorty);
       formData.append("text", form?.text);
       formData.append("status", form?.status ? "ACTIVE" : "INACTIVE");
+      formData.append("event_id", empId);
       let req;
       if (empId) {
-        // formData.append("event_id", empId);
         formData.append("id", empId);
         req = serviceUpdateTestimonial(formData);
       } else {
