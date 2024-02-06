@@ -78,7 +78,6 @@ const useEventScheduleHook = ({
             end_time: data?.end_date_time,
             speakers: modifiedSpeaker,
             moderator: modifiedModerator,
-            category:data?.category,
             status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
           });
         } else {
