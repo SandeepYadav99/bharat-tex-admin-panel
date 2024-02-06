@@ -39,6 +39,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
     handleSubmit,
     onBlurHandler,
     changeTextData,
+    
   } = useEventScheduleHook({ handleToggleSidePannel, isSidePanel, empId });
   const classes = useStyles();
 
@@ -155,6 +156,10 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                   id="tags-outlined"
                   onChange={(e, value) => {
                       changeTextData(value, "speakers");
+                      if (value.some(user => form?.moderator?.includes(user))) {
+                        // changeTextData([], "moderator");
+                        changeTextData(form.moderator.filter(user => !value.includes(user)), "moderator");
+                      }
                   }}
                   value={form?.speakers}
                   // id="tags-standard"
@@ -180,6 +185,10 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                   id="tags-outlined"
                   onChange={(e, value) => {
                       changeTextData(value, "moderator");
+                      if (value.some(user => form?.speakers?.includes(user))) {
+                        // changeTextData([], "speakers");
+                         changeTextData(form.speakers.filter(user => !value.includes(user)), "speakers");
+                      }
                   }}
                   value={form?.moderator}
                   // id="tags-standard"
