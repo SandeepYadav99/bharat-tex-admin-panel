@@ -37,7 +37,7 @@ const CityGuidContentView = () => {
           <ButtonBase onClick={() => history.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <span className={"capitalize"}>
-              <b>Add City Guid Content</b>
+              <b>Add venue guide Content</b>
             </span>
           </ButtonBase>
           <div className={styles.newLine} />
@@ -46,7 +46,7 @@ const CityGuidContentView = () => {
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
-            <div className={"heading"}>City Guid Section Details</div>
+            <div className={"heading"}>Venue Guide Section Details</div>
           </h4>
         </div>
         <div className={styles.cont}>

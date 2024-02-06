@@ -146,7 +146,7 @@ const TypeList = ({}) => {
               <ButtonBase onClick={() => history.goBack()}>
                 <ArrowBackIosIcon fontSize={"small"} />
                 <span className={"capitalize"}>
-                  <b> Sponsor Type</b>
+                  <b> Partner type</b>
                 </span>
               </ButtonBase>
               <div className={styles.newLine} />

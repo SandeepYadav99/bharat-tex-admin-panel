@@ -76,7 +76,7 @@ const CityGuidContent_List = ({ location }) => {
         render: (value, all) => (
           <div>
             <div className={styles.desData}>
-              <div dangerouslySetInnerHTML={{ __html: all?.description }}></div>
+              <div dangerouslySetInnerHTML={{ __html: all?.description }} ></div>
             </div>
           </div>
         ),

@@ -128,7 +128,7 @@ const EventOrganiserList = ({}) => {
         ),
       },
     ];
-  }, [handleViewDetails, handleEdit, isCalling]);
+  }, [handleViewDetails, handleEdit, isCalling, handleUsersClick, handleDelete]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {

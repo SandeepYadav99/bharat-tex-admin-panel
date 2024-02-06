@@ -24,7 +24,7 @@ function useTypeCreate({ location }) {
     return location?.state?.eventId;
   }, [location]);
 
-  console.log("selectedEventId", selectedEventId);
+
   useEffect(() => {
     if (id) {
       serviceGetTypeListDetails({ id: id }).then((res) => {
@@ -149,7 +149,7 @@ function useTypeCreate({ location }) {
     removeError,
     handleSubmit,
     isSubmitting,
-   
+    selectedEventId
   };
 }
 

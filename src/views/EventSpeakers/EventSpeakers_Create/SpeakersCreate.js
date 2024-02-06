@@ -22,6 +22,7 @@ function EventSpeakerCreateView({ location }) {
     images,
     setImage,
     speaker,
+    id
   } = useSpeakerCreateHook({ location });
 
   return (
@@ -31,7 +32,7 @@ function EventSpeakerCreateView({ location }) {
           <ButtonBase onClick={() => historyUtils.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <span className={"capitalize"}>
-              <b>Edit Speaker</b>
+              <b> {id ? "Edit" : "Add"} Speaker</b>
             </span>
           </ButtonBase>
           <div className={styles.newLine} />
