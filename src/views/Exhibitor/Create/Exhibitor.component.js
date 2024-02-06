@@ -220,6 +220,20 @@ const ExhibitorCreate = () => {
               <MenuItem value="YASHOBHOOMI">YASHOBHOOMI</MenuItem>
             </CustomSelectField>
           </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+          <CustomTextField
+              label={"Hall No"}
+              value={form?.hall_no}
+              onTextChange={(text) => {
+                changeTextData(text, "hall_no");
+              }}
+              onBlur={() => {
+                onBlurHandler("hall_no");
+              }}
+            />
+          </div>
           <div className={"formGroup"}>
             <CustomTextField
               label={"Booth Number"}

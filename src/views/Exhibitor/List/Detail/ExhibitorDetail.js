@@ -118,9 +118,7 @@ const ExhibitorDetail = () => {
               <div className={styles.wrappedContent}>
                 {detail?.details?.products?.length > 0
                   ? detail?.details?.products?.map((val, id) => (
-                    <span key={id}>
-                      {val}
-                    </span>
+                    <span key={id}>{val}</span>
                   ))
                   : "--"}
               </div>
@@ -128,7 +126,9 @@ const ExhibitorDetail = () => {
           </div>
         </div>
         <div className={"plainPaper"}>
-        <div style={{marginBottom:"20px"}}><b>Contact Details</b></div>
+          <div style={{ marginBottom: "20px" }}>
+            <b>Contact Details</b>
+          </div>
           <div className={styles.second}>
             <div>
               <div className={styles.headingDataType}>
@@ -139,7 +139,10 @@ const ExhibitorDetail = () => {
               </div>
               <div className={styles.headingDataType}>
                 <p className={styles.text}>Phone Number:</p>
-                {detail?.details?.country_code ? detail?.details?.country_code : ""} {"  "}
+                {detail?.details?.country_code
+                  ? detail?.details?.country_code
+                  : ""}{" "}
+                {"  "}
                 {detail?.details?.primary_conatct_number
                   ? detail?.details?.primary_conatct_number
                   : "--"}
@@ -185,8 +188,11 @@ const ExhibitorDetail = () => {
           <div className={styles.headingDataType}>
             <p className={styles.text}>Instagram:</p>{" "}
             {detail?.details?.instagram_link ? (
-
-              <a className={styles.linkDataText} href={detail?.details?.instagram_link} target="_blank">
+              <a
+                className={styles.linkDataText}
+                href={detail?.details?.instagram_link}
+                target="_blank"
+              >
                 {detail?.details?.instagram_link}
               </a>
             ) : (
@@ -196,7 +202,11 @@ const ExhibitorDetail = () => {
           <div className={styles.headingDataType}>
             <p className={styles.text}>Facebook:</p>
             {detail?.details?.facebook_link ? (
-              <a className={styles.linkDataText} href={detail?.details?.facebook_link} target="_blank">
+              <a
+                className={styles.linkDataText}
+                href={detail?.details?.facebook_link}
+                target="_blank"
+              >
                 {detail?.details?.facebook_link}
               </a>
             ) : (
@@ -206,7 +216,11 @@ const ExhibitorDetail = () => {
           <div className={styles.headingDataType}>
             <p className={styles.text}>Twitter:</p>
             {detail?.details?.twitter_link ? (
-              <a className={styles.linkDataText}  href={detail?.details?.twitter_link} target="_blank">
+              <a
+                className={styles.linkDataText}
+                href={detail?.details?.twitter_link}
+                target="_blank"
+              >
                 {detail?.details?.twitter_link}
               </a>
             ) : (
@@ -216,7 +230,11 @@ const ExhibitorDetail = () => {
           <div className={styles.headingDataType}>
             <p className={styles.text}>Youtube:</p>{" "}
             {detail?.details?.youtube_link ? (
-              <a className={styles.linkDataText} href={detail?.details?.youtube_link} target="_blank">
+              <a
+                className={styles.linkDataText}
+                href={detail?.details?.youtube_link}
+                target="_blank"
+              >
                 {detail?.details?.youtube_link}
               </a>
             ) : (
@@ -226,7 +244,11 @@ const ExhibitorDetail = () => {
           <div className={styles.headingDataType}>
             <p className={styles.text}>LinkedIn:</p>{" "}
             {detail?.details?.linkedin_link ? (
-              <a className={styles.linkDataText} href={detail?.details?.linkedin_link} target="_blank">
+              <a
+                className={styles.linkDataText}
+                href={detail?.details?.linkedin_link}
+                target="_blank"
+              >
                 {detail?.details?.linkedin_link}
               </a>
             ) : (
@@ -235,7 +257,9 @@ const ExhibitorDetail = () => {
           </div>
         </div>
         <div className={"plainPaper"}>
-          <div style={{marginBottom:"20px"}}><b>Company Details</b></div>
+          <div style={{ marginBottom: "20px" }}>
+            <b>Company Details</b>
+          </div>
           <div className={styles.thirdPaper}>
             <b>Description </b>
             <div>{detail?.details?.company_description}</div>
@@ -245,17 +269,42 @@ const ExhibitorDetail = () => {
             {detail?.details?.gallery_images.length > 0 ? (
               detail?.details?.gallery_images?.map((val) => (
                 <a href={val} target="_blank">
-                  <img src={val} alt="images" height={"100px"} width={"100px"} />
+                  <img
+                    src={val}
+                    alt="images"
+                    height={"100px"}
+                    width={"100px"}
+                  />
                 </a>
               ))
             ) : (
               <span>No Image ..</span>
             )}
           </div>
+          <div
+            style={{
+              marginBottom: "10px",
+              marginTop: "10px",
+              display: "flex",
+              justifyContent: "flex-start",
+              gap: "20px",
+            }}
+          >
+            <b style={{ fontSize: "16px" }}>Company Brochure :</b>
+            <a
+              href={detail?.details?.instagram_link}
+              target="_blank"
+              style={{ fontWeight: "600", color: "blue" }}
+            >
+              <span>View Pdf </span>
+            </a>
+          </div>
           <div className={styles.lastBlock}>
             <div className={styles.headingDataType}>
               <p className={styles.text}>Created at:</p>
-              {detail?.details?.createdAtText ? detail?.details?.createdAtText : "--"}
+              {detail?.details?.createdAtText
+                ? detail?.details?.createdAtText
+                : "--"}
             </div>
             <div className={styles.headingDataType}>
               <p className={styles.text}>Status:</p>
@@ -263,7 +312,9 @@ const ExhibitorDetail = () => {
             </div>
             <div className={styles.headingDataType}>
               <p className={styles.text}>Updated on:</p>
-              {detail?.details?.updatedAtText ? detail?.details?.updatedAtText : "--"}
+              {detail?.details?.updatedAtText
+                ? detail?.details?.updatedAtText
+                : "--"}
             </div>
           </div>
         </div>
