@@ -793,9 +793,21 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-    path: `${RouteName.EXHIBITOR_LIST}:id`,
-    navbarName: "Exhibitor",
+    path: `${RouteName.EXHIBITOR_LIST}`,
     component: ExhibitorList,
+    sidebarName: "Exhibitor",
+    navbarName: "Exhibitor",
+    is_sidebar:true,
+    icon: PeopleOutlined,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.EXHIBITOR_LIST}:id`,
+    component: ExhibitorList,
+    sidebarName: "Exhibitor",
+    navbarName: "Exhibitor",
+    is_sidebar:false,
+    icon: PeopleOutlined,
     is_protect: true,
   },
   {

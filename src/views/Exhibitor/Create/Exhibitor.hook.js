@@ -8,11 +8,11 @@ import {
   serviceExhibitorsList,
   serviceGetProductList,
   serviceGetExhibitorsDetails,
+  debounceValidationList,
 } from "../../../services/Exhibitor.service";
 import historyUtils from "../../../libs/history.utils";
 import { isEmail } from "../../../libs/RegexUtils";
 import useDebounce from "../../../hooks/DebounceHook";
-
 
 const initialForm = {
   company_logo: "",
@@ -46,13 +46,14 @@ const initialForm = {
   country_code: "",
   secondary_perosn_name: "",
   youtube_link: "",
-  is_partner:false
+  is_partner: false,
+  hall_no: "",
 };
 
 const useExhibitorCreate = ({ location }) => {
   const [errorData, setErrorData] = useState({});
   const [image, setImage] = useState(null);
-  const [isSubmitting, setIsSubmitting]=useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({ ...initialForm });
   const [selectImages, setSelectImages] = useState([]);
   const [checked, setChecked] = useState(false);
@@ -62,8 +63,16 @@ const useExhibitorCreate = ({ location }) => {
     PRODUCT_CATEGORY: [],
   });
 
-  const EventListManager = ["FIBERS_YARNS","FABRICS","APPAREL_FASHION","HOME_TEXTILE","HANDLOOM","TECHNICAL_TEXTILE","HANDICRAFTS_CARPETS","INTELLIGENT_MANUFACTURING"]
-
+  const EventListManager = [
+    "FIBERS_YARNS",
+    "FABRICS",
+    "APPAREL_FASHION",
+    "HOME_TEXTILE",
+    "HANDLOOM",
+    "TECHNICAL_TEXTILE",
+    "HANDICRAFTS_CARPETS",
+    "INTELLIGENT_MANUFACTURING",
+  ];
 
   useEffect(() => {
     serviceExhibitorsList({ list: ["PRODUCT_CATEGORY", "PRODUCT_GROUP"] }).then(
@@ -91,16 +100,20 @@ const useExhibitorCreate = ({ location }) => {
     setChecked(() => !checked);
   };
 
+  const emailDebouncer = useDebounce(form?.primary_email, 500);
+
+  const phoneDebouncer = useDebounce(form?.primary_conatct_number, 500);
+
   useEffect(() => {
     if (empId) {
       serviceGetExhibitorsDetails({ id: empId }).then((res) => {
         if (!res.error) {
           const data = res?.data?.details;
-          setSelectImages(data?.gallery_images)
-          setImage(data?.company_logo)
+          setSelectImages(data?.gallery_images);
+          setImage(data?.company_logo);
           setForm({
             ...form,
-            products:data?.products,
+            products: data?.products,
             company_name: data?.company_name,
             product_groups: data?.product_groups,
             product_categories: data?.product_categories,
@@ -125,9 +138,11 @@ const useExhibitorCreate = ({ location }) => {
             brand_name: data?.brand_name,
             secondary_email: data?.secondary_email,
             other_conatct_number: data?.other_conatct_number,
-            partner_tag:data?.partner_tag,
-            status:data?.status,
-            is_partner:data?.is_partner,
+            partner_tag: data?.partner_tag,
+            status: data?.status,
+            is_partner: data?.is_partner,
+            primary_user_id:data?.primary_user_id,
+            secondary_user_id:data?.secondary_user_id ,
           });
         } else {
           SnackbarUtils.error(res?.message);
@@ -135,6 +150,55 @@ const useExhibitorCreate = ({ location }) => {
       });
     }
   }, [empId]);
+
+
+  const checkPhoneValidation = useCallback(() => {
+    debounceValidationList({
+      contact: form?.primary_conatct_number,
+      id:form?.primary_user_id,
+    }).then((res) => {
+      if (!res.error) {
+        const errors = JSON.parse(JSON.stringify(errorData));
+        if (res?.data?.is_exists) {
+          errors["primary_conatct_number"] = "Phone Number Already Exists";
+          setErrorData(errors);
+        } else {
+          delete errors.contact;
+          setErrorData(errors);
+        }
+      }
+    });
+  }, [errorData, setErrorData,form]); 
+
+  const checkEmailValidation = useCallback(() => {
+    debounceValidationList({
+      email: form?.primary_email,
+      id:form?.primary_user_id,
+    }).then((res) => {
+      if (!res.error) {
+        const errors = JSON.parse(JSON.stringify(errorData));
+        if (res?.data?.is_exists) {
+          errors["primary_email"] = "Email Already Exists";
+          setErrorData(errors);
+        } else {
+          delete errors.email;
+          setErrorData(errors);
+        }
+      }
+    });
+  }, [errorData, setErrorData,form]);
+
+  useEffect(() => {
+    if (emailDebouncer) {
+      checkEmailValidation();
+    }
+  }, [emailDebouncer]);
+
+  useEffect(()=>{
+    if (phoneDebouncer) {
+      checkPhoneValidation();
+    }
+  },[phoneDebouncer])
 
 
   const checkFormValidation = useCallback(() => {
@@ -152,13 +216,13 @@ const useExhibitorCreate = ({ location }) => {
       "company_address",
       "country_code",
     ];
-    if(form?.is_partner){
-      required.push("partner_tag")
-    }else{
-      delete errors["partner_tag"]
+    if (form?.is_partner) {
+      required.push("partner_tag");
+    } else {
+      delete errors["partner_tag"];
     }
-    if(!empId){
-      required.push("password")
+    if (!empId) {
+      required.push("password");
     }
     required.forEach((val) => {
       if (form?.product_categories?.length === 0) {
@@ -171,11 +235,11 @@ const useExhibitorCreate = ({ location }) => {
         errors[val] = true;
       }
     });
-    if(form?.primary_email && !isEmail(form?.primary_email)){
-      errors["primary_email"]="Invalid email address "
+    if (form?.primary_email && !isEmail(form?.primary_email)) {
+      errors["primary_email"] = "Invalid email address ";
     }
-    if(form?.secondary_email && !isEmail(form?.secondary_email)){
-      errors["secondary_email"]="Invalid email address "
+    if (form?.secondary_email && !isEmail(form?.secondary_email)) {
+      errors["secondary_email"] = "Invalid email address ";
     }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
@@ -185,15 +249,12 @@ const useExhibitorCreate = ({ location }) => {
     return errors;
   }, [form, errorData]);
 
-  const submitToServer = useCallback(async() => {
+  const submitToServer = useCallback(async () => {
     if (isSubmitting) {
       return;
     }
-  
     setIsSubmitting(true);
-  
     const fd = new FormData();
-
     Object.keys(form).forEach((key) => {
       if (
         key !== "company_logo" &&
@@ -207,16 +268,14 @@ const useExhibitorCreate = ({ location }) => {
         } else if (
           key === "products" ||
           key === "product_categories" ||
-          key === "product_groups" || 
+          key === "product_groups" ||
           key === "zone_tag"
         ) {
           if (key === "products") {
             fd.append(key, JSON.stringify(form?.products));
-          } 
-          else if(key === "zone_tag"){
+          } else if (key === "zone_tag") {
             fd.append(key, JSON.stringify(form?.zone_tag));
-          }
-          else {
+          } else {
             fd.append(key, JSON.stringify(form[key]));
           }
         } else if (key === "primary_conatct_number") {
@@ -237,9 +296,7 @@ const useExhibitorCreate = ({ location }) => {
     if (selectImages?.length > 0) {
       fd.append("remote_images", JSON.stringify(selectImages));
     }
-  
     let req;
-
     if (empId) {
       fd.append("id", empId);
       req = serviceUpdateExhibitors(fd);
@@ -250,22 +307,20 @@ const useExhibitorCreate = ({ location }) => {
       if (!res.error) {
         historyUtils.goBack();
       } else {
-     
         SnackbarUtils.error(res.message);
       }
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     });
-  }, [form, errorData,selectImages]);
+  }, [form, errorData, selectImages]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
     if (Object.keys(errors).length > 0) {
       setErrorData(errors);
-   return true
-     
+      return true;
     }
-   await submitToServer();
-  }, [checkFormValidation, setErrorData, form,selectImages]);
+    await submitToServer();
+  }, [checkFormValidation, setErrorData, form, selectImages]);
 
   const removeError = useCallback(
     (title) => {
@@ -280,13 +335,13 @@ const useExhibitorCreate = ({ location }) => {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      if (fieldName=== "company_name") {
+      if (fieldName === "company_name") {
         t[fieldName] = text;
-      }else if(fieldName=== "primary_email"){
+      } else if (fieldName === "primary_email") {
         t[fieldName] = text;
-      }else if(fieldName=== "primary_email"){
+      } else if (fieldName === "primary_email") {
         t[fieldName] = text;
-      }else if(fieldName=== "secondary_email"){
+      } else if (fieldName === "secondary_email") {
         t[fieldName] = text;
       } else if (fieldName === "products") {
         const newValues = text?.filter((item) => item.trim() !== "");
@@ -304,13 +359,13 @@ const useExhibitorCreate = ({ location }) => {
         } else {
           SnackbarUtils.error("Maximum 2 products can be added");
         }
-      }else if(fieldName){
+      } else if (fieldName) {
         t[fieldName] = text;
       }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },
-    [removeError, form, setForm]
+    [removeError, form, setForm,checkEmailValidation,checkPhoneValidation]
   );
 
   const onBlurHandler = useCallback(
@@ -319,7 +374,7 @@ const useExhibitorCreate = ({ location }) => {
         changeTextData(form?.[type].trim(), type);
       }
     },
-    [changeTextData]
+    [changeTextData,checkEmailValidation,checkPhoneValidation]
   );
 
   const handleDelete = useCallback(() => {}, []);
@@ -351,7 +406,7 @@ const useExhibitorCreate = ({ location }) => {
     productListData,
     EventListManager,
     image,
-    empId
+    empId,
   };
 };
 
