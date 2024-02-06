@@ -17,7 +17,7 @@ const ExhibitorDetail = () => {
         <ArrowBackIos fontSize={"small"} />{" "}
         <span>
           <span className={styles.title}>
-            <b>Exhibition Detail</b>
+            <b>Exhibitors Detail</b>
           </span>
         </span>
       </ButtonBase>
@@ -77,8 +77,8 @@ const ExhibitorDetail = () => {
                     <div className={styles.wrappedContent}>
                       {detail?.details?.zone_tag?.length > 0
                         ? detail?.details?.zone_tag?.map((val) => (
-                            <span>{val},</span>
-                          ))
+                          <span>{val},</span>
+                        ))
                         : "--"}
                     </div>
                   </div>
@@ -117,17 +117,18 @@ const ExhibitorDetail = () => {
               <p className={styles.text}>Product:</p>
               <div className={styles.wrappedContent}>
                 {detail?.details?.products?.length > 0
-                  ? detail?.details?.products?.map((val) => (
-                      <span>
-                        {val?.name},{""}
-                      </span>
-                    ))
+                  ? detail?.details?.products?.map((val, id) => (
+                    <span key={id}>
+                      {val}
+                    </span>
+                  ))
                   : "--"}
               </div>
             </div>
           </div>
         </div>
         <div className={"plainPaper"}>
+        <div style={{marginBottom:"20px"}}><b>Contact Details</b></div>
           <div className={styles.second}>
             <div>
               <div className={styles.headingDataType}>
@@ -138,6 +139,7 @@ const ExhibitorDetail = () => {
               </div>
               <div className={styles.headingDataType}>
                 <p className={styles.text}>Phone Number:</p>
+                {detail?.details?.country_code ? detail?.details?.country_code : ""} {"  "}
                 {detail?.details?.primary_conatct_number
                   ? detail?.details?.primary_conatct_number
                   : "--"}
@@ -183,9 +185,10 @@ const ExhibitorDetail = () => {
           <div className={styles.headingDataType}>
             <p className={styles.text}>Instagram:</p>{" "}
             {detail?.details?.instagram_link ? (
-              <span className={styles.linkDataText}>
+
+              <a className={styles.linkDataText} href={detail?.details?.instagram_link} target="_blank">
                 {detail?.details?.instagram_link}
-              </span>
+              </a>
             ) : (
               "--"
             )}
@@ -193,9 +196,9 @@ const ExhibitorDetail = () => {
           <div className={styles.headingDataType}>
             <p className={styles.text}>Facebook:</p>
             {detail?.details?.facebook_link ? (
-              <span className={styles.linkDataText}>
+              <a className={styles.linkDataText} href={detail?.details?.facebook_link} target="_blank">
                 {detail?.details?.facebook_link}
-              </span>
+              </a>
             ) : (
               "--"
             )}
@@ -203,9 +206,9 @@ const ExhibitorDetail = () => {
           <div className={styles.headingDataType}>
             <p className={styles.text}>Twitter:</p>
             {detail?.details?.twitter_link ? (
-              <span className={styles.linkDataText}>
+              <a className={styles.linkDataText}  href={detail?.details?.twitter_link} target="_blank">
                 {detail?.details?.twitter_link}
-              </span>
+              </a>
             ) : (
               "--"
             )}
@@ -213,9 +216,9 @@ const ExhibitorDetail = () => {
           <div className={styles.headingDataType}>
             <p className={styles.text}>Youtube:</p>{" "}
             {detail?.details?.youtube_link ? (
-              <span className={styles.linkDataText}>
+              <a className={styles.linkDataText} href={detail?.details?.youtube_link} target="_blank">
                 {detail?.details?.youtube_link}
-              </span>
+              </a>
             ) : (
               "--"
             )}
@@ -223,15 +226,16 @@ const ExhibitorDetail = () => {
           <div className={styles.headingDataType}>
             <p className={styles.text}>LinkedIn:</p>{" "}
             {detail?.details?.linkedin_link ? (
-              <span className={styles.linkDataText}>
+              <a className={styles.linkDataText} href={detail?.details?.linkedin_link} target="_blank">
                 {detail?.details?.linkedin_link}
-              </span>
+              </a>
             ) : (
               "--"
             )}
           </div>
         </div>
         <div className={"plainPaper"}>
+          <div style={{marginBottom:"20px"}}><b>Company Details</b></div>
           <div className={styles.thirdPaper}>
             <b>Description </b>
             <div>{detail?.details?.company_description}</div>
@@ -240,7 +244,9 @@ const ExhibitorDetail = () => {
           <div className={styles.wrappedContentImage}>
             {detail?.details?.gallery_images.length > 0 ? (
               detail?.details?.gallery_images?.map((val) => (
-                <img src={val} alt="images" height={"100px"} width={"100px"} />
+                <a href={val} target="_blank">
+                  <img src={val} alt="images" height={"100px"} width={"100px"} />
+                </a>
               ))
             ) : (
               <span>No Image ..</span>

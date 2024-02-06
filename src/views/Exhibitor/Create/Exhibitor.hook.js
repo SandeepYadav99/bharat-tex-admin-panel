@@ -11,6 +11,8 @@ import {
 } from "../../../services/Exhibitor.service";
 import historyUtils from "../../../libs/history.utils";
 import { isEmail } from "../../../libs/RegexUtils";
+import useDebounce from "../../../hooks/DebounceHook";
+
 
 const initialForm = {
   company_logo: "",
@@ -133,6 +135,7 @@ const useExhibitorCreate = ({ location }) => {
       });
     }
   }, [empId]);
+
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -299,7 +302,7 @@ const useExhibitorCreate = ({ location }) => {
         if (uniqueValues.length <= 2) {
           t[fieldName] = uniqueValues;
         } else {
-          SnackbarUtils.error("Maximum 2 Task category");
+          SnackbarUtils.error("Maximum 2 products can be added");
         }
       }else if(fieldName){
         t[fieldName] = text;
