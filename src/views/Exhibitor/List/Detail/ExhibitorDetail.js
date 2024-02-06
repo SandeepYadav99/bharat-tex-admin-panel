@@ -3,6 +3,7 @@ import useExhibitorDetail from "./ExhibitorDetail.hook";
 import styles from "./Style.module.css";
 import { ArrowBackIos } from "@material-ui/icons";
 import historyUtils from "../../../../libs/history.utils";
+import defaultCompany from "../../../../assets/img/defaultCompany.jpg";
 
 const ExhibitorDetail = () => {
   const { detail } = useExhibitorDetail({});
@@ -32,8 +33,12 @@ const ExhibitorDetail = () => {
                   width={"120px"}
                 />
               ) : (
-                <div style={{ border: "1px solid black" }}>
-                  <img alt="No Image Uploaded" />
+                <div>
+                  <img
+                    alt="No Image Uploaded"
+                    src={defaultCompany}
+                    width={"120px"}
+                  />
                 </div>
               )}
             </div>
@@ -62,8 +67,8 @@ const ExhibitorDetail = () => {
                 <div style={{ height: "30px" }}> </div>
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Partner Type:</p>
-                  {detail?.details?.company_name
-                    ? detail?.details?.company_name
+                  {detail?.details?.partner_tag
+                    ? detail?.details?.partner_tag
                     : "--"}
                 </div>
                 <div className={styles.alignRow}>
@@ -72,14 +77,16 @@ const ExhibitorDetail = () => {
                     <div className={styles.wrappedContent}>
                       {detail?.details?.zone_tag?.length > 0
                         ? detail?.details?.zone_tag?.map((val) => (
-                            <span>{val}</span>
+                            <span>{val},</span>
                           ))
                         : "--"}
                     </div>
                   </div>
                   <div className={styles.headingDataType}>
                     <b>Booth:</b>
-                    {detail?.details?.zone_tag[0]}
+                    {detail?.details?.event_stall
+                      ? detail?.details?.event_stall
+                      : "--"}
                   </div>
                 </div>
               </div>
@@ -175,38 +182,58 @@ const ExhibitorDetail = () => {
           </div>
           <div className={styles.headingDataType}>
             <p className={styles.text}>Instagram:</p>{" "}
-            {detail?.details?.instagram_link
-              ? detail?.details?.instagram_link
-              : "--"}
+            {detail?.details?.instagram_link ? (
+              <span className={styles.linkDataText}>
+                {detail?.details?.instagram_link}
+              </span>
+            ) : (
+              "--"
+            )}
           </div>
           <div className={styles.headingDataType}>
             <p className={styles.text}>Facebook:</p>
-            {detail?.details?.facebook_link
-              ? detail?.details?.facebook_link
-              : "--"}
+            {detail?.details?.facebook_link ? (
+              <span className={styles.linkDataText}>
+                {detail?.details?.facebook_link}
+              </span>
+            ) : (
+              "--"
+            )}
           </div>
           <div className={styles.headingDataType}>
             <p className={styles.text}>Twitter:</p>
-            {detail?.details?.twitter_link
-              ? detail?.details?.twitter_link
-              : "--"}
+            {detail?.details?.twitter_link ? (
+              <span className={styles.linkDataText}>
+                {detail?.details?.twitter_link}
+              </span>
+            ) : (
+              "--"
+            )}
           </div>
           <div className={styles.headingDataType}>
             <p className={styles.text}>Youtube:</p>{" "}
-            {detail?.details?.youtube_link
-              ? detail?.details?.youtube_link
-              : "--"}
+            {detail?.details?.youtube_link ? (
+              <span className={styles.linkDataText}>
+                {detail?.details?.youtube_link}
+              </span>
+            ) : (
+              "--"
+            )}
           </div>
           <div className={styles.headingDataType}>
             <p className={styles.text}>LinkedIn:</p>{" "}
-            {detail?.details?.linkedin_link
-              ? detail?.details?.linkedin_link
-              : "--"}
+            {detail?.details?.linkedin_link ? (
+              <span className={styles.linkDataText}>
+                {detail?.details?.linkedin_link}
+              </span>
+            ) : (
+              "--"
+            )}
           </div>
         </div>
         <div className={"plainPaper"}>
           <div className={styles.thirdPaper}>
-            <b>Product Category </b>
+            <b>Description </b>
             <div>{detail?.details?.company_description}</div>
             <b>Gallery Images</b>
           </div>
@@ -216,21 +243,13 @@ const ExhibitorDetail = () => {
                 <img src={val} alt="images" height={"100px"} width={"100px"} />
               ))
             ) : (
-              <div
-                style={{
-                  border: "1px solid black",
-                  width: "150px",
-                  height: "150px",
-                }}
-              >
-                <img alt="No Image Uploaded" />
-              </div>
+              <span>No Image ..</span>
             )}
           </div>
           <div className={styles.lastBlock}>
             <div className={styles.headingDataType}>
               <p className={styles.text}>Created at:</p>
-              {detail?.details?.createdAt ? detail?.details?.createdAt : "--"}
+              {detail?.details?.createdAtText ? detail?.details?.createdAtText : "--"}
             </div>
             <div className={styles.headingDataType}>
               <p className={styles.text}>Status:</p>
@@ -238,7 +257,7 @@ const ExhibitorDetail = () => {
             </div>
             <div className={styles.headingDataType}>
               <p className={styles.text}>Updated on:</p>
-              {detail?.details?.updatedAt ? detail?.details?.updatedAt : "--"}
+              {detail?.details?.updatedAtText ? detail?.details?.updatedAtText : "--"}
             </div>
           </div>
         </div>

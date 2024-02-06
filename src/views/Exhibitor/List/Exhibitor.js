@@ -173,7 +173,7 @@ const ExhibitorList = ({}) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <div>
-            <span className={styles.title}>Exhibition List</span>
+            <b>Exhibition List</b>
             <div className={styles.newLine} />
           </div>
           <div className={styles.BtnWrapper}>
@@ -184,14 +184,12 @@ const ExhibitorList = ({}) => {
           </div>
         </div>
         <div>
-          <div style={{ width: "90%" }}>
-            <FilterComponent
-              is_progress={isFetching}
-              filters={[]}
-              handleSearchValueChange={handleSearchValueChange}
-              handleFilterDataChange={handleFilterDataChange}
-            />
-          </div>
+          <FilterComponent
+            is_progress={isFetching}
+            filters={configFilter}
+            handleSearchValueChange={handleSearchValueChange}
+            handleFilterDataChange={handleFilterDataChange}
+          />
           <div>
             <br />
             <div style={{ width: "100%" }}>
