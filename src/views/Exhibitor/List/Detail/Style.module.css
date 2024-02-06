@@ -63,6 +63,11 @@
 
 }
 
+.linkDataText{
+    text-decoration: underline;
+    color: blue !important;
+}
+
 @media only screen and (max-width:769px) {
     .subContainer {
         display: flex;

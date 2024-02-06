@@ -123,7 +123,9 @@ const useExhibitorCreate = ({ location }) => {
             brand_name: data?.brand_name,
             secondary_email: data?.secondary_email,
             other_conatct_number: data?.other_conatct_number,
-            partner_tag:data?.partner_tag
+            partner_tag:data?.partner_tag,
+            status:data?.status,
+            is_partner:data?.is_partner,
           });
         } else {
           SnackbarUtils.error(res?.message);
@@ -180,7 +182,6 @@ const useExhibitorCreate = ({ location }) => {
     return errors;
   }, [form, errorData]);
 
-console.log(form, errorData, "Erro")
   const submitToServer = useCallback(async() => {
     if (isSubmitting) {
       return;
@@ -233,11 +234,7 @@ console.log(form, errorData, "Erro")
     if (selectImages?.length > 0) {
       fd.append("remote_images", JSON.stringify(selectImages));
     }
-    if (form?.company_brochure?.length > 0) {
-      form?.company_brochure?.forEach((item) => {
-        fd.append("company_brochure", item);
-      });
-    }
+  
     let req;
 
     if (empId) {
