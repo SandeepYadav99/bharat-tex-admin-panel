@@ -25,7 +25,7 @@ function useEventBanner({ location }) {
   const [errorData, setErrorData] = useState({});
   const { id } = useParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const [isLinkDisabled, setIsLinkDisabled] = useState(false);
   const selectedEventId = useMemo(() => {
     return location?.state?.eventId;
   }, [location]);
@@ -184,6 +184,8 @@ function useEventBanner({ location }) {
     isSubmitting,
     image,
     setImage,
+    isLinkDisabled,
+    setIsLinkDisabled
   };
 }
 

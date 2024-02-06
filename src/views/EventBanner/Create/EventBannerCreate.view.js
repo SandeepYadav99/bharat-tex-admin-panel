@@ -27,6 +27,8 @@ function EventBannerCreate({ location }) {
     isSubmitting,
     image,
     setImage,
+    isLinkDisabled,
+    setIsLinkDisabled,
   } = useEventBannerCreate({ location });
   return (
     <div className={styles.claimListWrapper}>
@@ -56,6 +58,8 @@ function EventBannerCreate({ location }) {
               value={form?.type}
               handleChange={(value) => {
                 changeTextData(value, "type");
+
+                setIsLinkDisabled(value === "PARTNER");
               }}
             >
               <MenuItem value="BANNER">BANNER</MenuItem>
@@ -90,6 +94,7 @@ function EventBannerCreate({ location }) {
               onBlur={() => {
                 onBlurHandler("link");
               }}
+              disabled={isLinkDisabled}
             />
           </div>
         </div>
