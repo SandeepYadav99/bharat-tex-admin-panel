@@ -88,7 +88,7 @@ const EventOrganiserUserCreate = ({ location }) => {
           <ButtonBase onClick={() => history.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />{" "}
             <span>
-              <b>{id ? "Update" : "Add"} Organising User</b>
+              <b>{id ? "Update" : "Add"} User List</b>
             </span>
           </ButtonBase>
           <div className={styles.newLine} />

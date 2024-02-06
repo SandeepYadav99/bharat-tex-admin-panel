@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TestimonialCreate = ({ handleToggleSidePannel, isSidePanel }) => {
+const TestimonialCreate = ({ handleToggleSidePannel, isSidePanel , location}) => {
   const {
     form,
     errorData,
@@ -31,8 +31,9 @@ const TestimonialCreate = ({ handleToggleSidePannel, isSidePanel }) => {
     empId,
     onBlurHandler,
     changeTextData,
-  } = useTestimonialCreate({ handleToggleSidePannel, isSidePanel });
+  } = useTestimonialCreate({ handleToggleSidePannel, isSidePanel , location});
   const classes = useStyles();
+
   return (
     <div>
       <div className={styles.actionButtoon}>
@@ -43,6 +44,7 @@ const TestimonialCreate = ({ handleToggleSidePannel, isSidePanel }) => {
           </span>
         </ButtonBase>
       </div>
+      <div className={styles.gaps}/>
       <div className={"plainPaper"}>
         <div>
           <div className={styles.cont}>

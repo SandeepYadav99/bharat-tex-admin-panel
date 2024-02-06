@@ -182,4 +182,6 @@
     font-size: 0.8rem;
     font-weight: 600;
   }
-  
+  .gaps{
+    margin-bottom: 20px !important;
+  }

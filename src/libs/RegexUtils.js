@@ -9,7 +9,7 @@ const isEmail = (value) => {
 }
 
 const isAlphaNum = (value) => {
-    return /^[a-zA-Z0-9. ]*$/.test(value);
+    return /^[a-zA-Z0-9. ]*$/.test(value); // "Hello123 World."
 }
 
 const isAlphaNumChars = (value) => {

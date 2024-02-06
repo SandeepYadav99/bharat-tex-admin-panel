@@ -25,7 +25,7 @@ const initialForm = {
   status: true,
 };
 
-const useTestimonialCreate = ({}) => {
+const useTestimonialCreate = ({location}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
   const [errorData, setErrorData] = useState({});
@@ -96,7 +96,7 @@ const useTestimonialCreate = ({}) => {
       formData.append("priority", form?.priorty);
       formData.append("text", form?.text);
       formData.append("status", form?.status ? "ACTIVE" : "INACTIVE");
-      formData.append("event_id", empId);
+      formData.append("event_id", location?.state?.event_id );
       let req;
       if (empId) {
         formData.append("id", empId);

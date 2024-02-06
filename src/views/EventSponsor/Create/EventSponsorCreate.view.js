@@ -39,7 +39,7 @@ function EventSponsorCreate({ location }) {
           <ButtonBase onClick={() => history.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <span className={"capitalize"}>
-              {id ? <b>Edit Sponsor</b> : <b>Add Sponsor</b>}
+              {id ? <b>Edit Partner</b> : <b>Add Partner</b>}
             </span>
           </ButtonBase>
           <div className={styles.newLine} />
@@ -48,7 +48,7 @@ function EventSponsorCreate({ location }) {
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
-            <div className={"heading"}>Sponsor Details</div>
+            <div className={"heading"}>Partner Details</div>
           </h4>
         </div>
         <div className={styles.cont}>
