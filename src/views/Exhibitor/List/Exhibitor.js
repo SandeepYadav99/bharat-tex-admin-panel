@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import useExhibitorList from "./Exhibitor.hook.js";
 import RouteName from "../../../routes/Route.name";
 import historyUtils from "../../../libs/history.utils.js";
-import {capitalizeFirstLetter} from "../../../hooks/CapsLetter.js";
+import { capitalizeFirstLetter } from "../../../hooks/CapsLetter.js";
 
 const ExhibitorList = ({}) => {
   const {
@@ -42,8 +42,6 @@ const ExhibitorList = ({}) => {
     is_fetching: isFetching,
   } = useSelector((state) => state.Exhibitor);
 
-
-
   const UpperInfo = useCallback((obj) => {
     if (obj) {
       return (
@@ -59,7 +57,7 @@ const ExhibitorList = ({}) => {
   const tableStructure = useMemo(() => {
     return [
       {
-        key:"company",
+        key: "company",
         label: "Company Name",
         sortable: true,
         render: (value, all) => <div>{all?.company_name}</div>,
@@ -76,24 +74,36 @@ const ExhibitorList = ({}) => {
         key: "vanue",
         label: "Venue",
         sortable: true,
-        render: (temp, all) => <div>{capitalizeFirstLetter(all?.event_venue)}</div>,
+        render: (temp, all) => (
+          <div>{capitalizeFirstLetter(all?.event_venue)}</div>
+        ),
       },
       {
         key: "zone",
         label: "Zone",
         sortable: true,
-        render: (temp, all) => <div>   {all?.zone_tag?.map((zone, index) => (
-          <React.Fragment key={index}>
-            {index > 0 && ", "} 
-            {capitalizeFirstLetter(zone)}
-          </React.Fragment>
-        ))}</div>,
+        render: (temp, all) => (
+          <div>
+            {all?.zone_tag
+              ? all?.zone_tag?.map((zone, index) => (
+                  <React.Fragment key={index}>
+                    {index > 0 && ", "}
+                    {capitalizeFirstLetter(zone)}
+                  </React.Fragment>
+                ))
+              : "--"}
+          </div>
+        ),
       },
       {
         key: "partner_type",
         label: "Partner Type",
         sortable: true,
-        render: (temp, all) => <div>{capitalizeFirstLetter(all?.partner_tag)}</div>,
+        render: (temp, all) => (
+          <div>
+            {all?.partner_tag ? capitalizeFirstLetter(all?.partner_tag) : "--"}
+          </div>
+        ),
       },
       {
         key: "status",
@@ -106,19 +116,23 @@ const ExhibitorList = ({}) => {
         label: "Action",
         render: (temp, all) => (
           <div>
-              <IconButton
-                className={"tableActionBtn"}
-                color="secondary"
-                disabled={isCalling}
-                onClick={()=>historyUtils.push(`${RouteName.EXHIBITOR_DETAILS}`+all?.id)}
-              >
-                <InfoOutlined fontSize={"small"} />
-              </IconButton>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
-              onClick={()=> historyUtils.push(`${RouteName.EXHIBITOR_CREATE}`+ all?.id)}
+              onClick={() =>
+                historyUtils.push(`${RouteName.EXHIBITOR_DETAILS}` + all?.id)
+              }
+            >
+              <InfoOutlined fontSize={"small"} />
+            </IconButton>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() =>
+                historyUtils.push(`${RouteName.EXHIBITOR_CREATE}` + all?.id)
+              }
             >
               <Edit fontSize={"small"} />
             </IconButton>
@@ -170,14 +184,13 @@ const ExhibitorList = ({}) => {
           </div>
         </div>
         <div>
-          <div style={{width:"90%"}}>
-
-          <FilterComponent
-            is_progress={isFetching}
-            filters={[]}
-            handleSearchValueChange={handleSearchValueChange}
-            handleFilterDataChange={handleFilterDataChange}
-          />
+          <div style={{ width: "90%" }}>
+            <FilterComponent
+              is_progress={isFetching}
+              filters={[]}
+              handleSearchValueChange={handleSearchValueChange}
+              handleFilterDataChange={handleFilterDataChange}
+            />
           </div>
           <div>
             <br />
