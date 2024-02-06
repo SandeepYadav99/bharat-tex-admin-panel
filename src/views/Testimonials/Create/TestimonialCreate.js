@@ -33,7 +33,7 @@ const TestimonialCreate = ({ handleToggleSidePannel, isSidePanel , location}) =>
     changeTextData,
   } = useTestimonialCreate({ handleToggleSidePannel, isSidePanel , location});
   const classes = useStyles();
-  console.log(location?.state?.event_id, "Event ID")
+
   return (
     <div>
       <div className={styles.actionButtoon}>
@@ -44,6 +44,7 @@ const TestimonialCreate = ({ handleToggleSidePannel, isSidePanel , location}) =>
           </span>
         </ButtonBase>
       </div>
+      <div className={styles.gaps}/>
       <div className={"plainPaper"}>
         <div>
           <div className={styles.cont}>
