@@ -132,8 +132,8 @@ const useAlbumCreateHook = () => {
 
     const requiredFields = [
       "name",
-      "event_date",
-      "description",
+      // "event_date",
+      // "description",
       ...(id ? [] : ["thumbnail", "images"]),
     ];
 

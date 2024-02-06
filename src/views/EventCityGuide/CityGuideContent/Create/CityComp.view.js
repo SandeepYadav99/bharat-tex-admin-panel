@@ -25,7 +25,7 @@ function CityCompView({ location }) {
           <ButtonBase onClick={() => history.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <span className={"capitalize"}>
-              <b>Add City Guide Content</b>
+              <b>Add Venue guide  Content</b>
             </span>
           </ButtonBase>
           <div className={styles.newLine} />

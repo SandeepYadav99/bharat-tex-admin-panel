@@ -18,7 +18,7 @@ export async function serviceUpdateEventOrganiserSearch(params) {
   return await postRequest("events/organising/committee/autocomplete", params);
 }
 export async function serviceDeleteEventOrganiser(params) {
-  return await postRequest("events/organising/committee/delete", params);
+  return await postRequest("events/organising/committee/delete", params); // events/organising/committee/delete
 }
 
 export async function serviceGetEventOrganiser(params) {

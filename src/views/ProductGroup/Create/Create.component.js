@@ -80,7 +80,7 @@ const ProductGroupView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
               handleChange={() => {
                 changeTextData(!form?.status, "status");
               }}
-              label={`Active`}
+              label={form?.status ? `Active` :"Inactive"}
             />
           </div>
         </div>

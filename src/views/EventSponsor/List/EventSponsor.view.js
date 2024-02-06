@@ -95,12 +95,12 @@ const EventSponsor = ({}) => {
         sortable: false,
         render: (value, all) => <div>{all?.name}</div>,
       },
-      {
-        key: "email",
-        label: "email",
-        sortable: false,
-        render: (temp, all) => <div>{all?.email}</div>,
-      },
+      // {
+      //   key: "email",
+      //   label: "email",
+      //   sortable: false,
+      //   render: (temp, all) => <div>{all?.email}</div>,
+      // },
       {
         key: "image",
         label: "IMAGE",
@@ -207,7 +207,7 @@ const EventSponsor = ({}) => {
 
           <div className={styles.rightFlex}>
             <ButtonBase onClick={handlesponsorType} className={styles.download}>
-              MANAGE PRTNER TYPE
+              MANAGE PARTNER TYPE
             </ButtonBase>
             <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
               Add new

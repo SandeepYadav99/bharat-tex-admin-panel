@@ -16,6 +16,7 @@ function TypeCreate({ location }) {
     removeError,
     handleSubmit,
     isSubmitting,
+    selectedEventId
   } = useTypeCreate({ location });
   return (
     <div className={styles.claimListWrapper}>
@@ -24,7 +25,7 @@ function TypeCreate({ location }) {
           <ButtonBase onClick={() => history.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <span className={"capitalize"}>
-              <b>Add Sponsor Type</b>
+              <b> {selectedEventId ? "Add" :"Edit"} Partner type</b>
             </span>
           </ButtonBase>
           <div className={styles.newLine} />
@@ -33,7 +34,7 @@ function TypeCreate({ location }) {
       <div className={"plainPaper"}>
         <div className={"headerFlex"}>
           <h4 className={"infoTitle"}>
-            <div className={"heading"}>Sponsor Type Details</div>
+            <div className={"heading"}>Partner type Details</div>
           </h4>
         </div>
         <div className={"formFlex"}>

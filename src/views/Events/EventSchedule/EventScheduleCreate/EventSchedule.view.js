@@ -44,6 +44,25 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
 
   return (
     <div className={styles.departmentWrap}>
+       <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.category}
+              errorText={errorData?.category}
+              label={"Category" }
+              value={form?.category}
+              handleChange={(value) => {
+                changeTextData(value, "category");
+              }}
+            >
+              <MenuItem value="ROUNDTABLES">Roundtables</MenuItem>
+              <MenuItem value="PANNEL_DISCUSSION">Panel Discussions</MenuItem>
+              <MenuItem value="MASTERCLASS">Masterclass</MenuItem> 
+              <MenuItem value="COUNTRY_REGIONAL_SESSION">Country / Regional Session</MenuItem> 
+              <MenuItem value="STATE_SESSION">State Sessions</MenuItem> 
+            </CustomSelectField>
+          </div>
+        </div>
       <div className={"formFlex"}>
         <div className={"formGroup"}>
           <CustomTextField
@@ -153,25 +172,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
               />
           </div>
         </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomSelectField
-              isError={errorData?.category}
-              errorText={errorData?.category}
-              label={"Category" }
-              value={form?.category}
-              handleChange={(value) => {
-                changeTextData(value, "category");
-              }}
-            >
-              <MenuItem value="ROUNDTABLES">Roundtables</MenuItem>
-              <MenuItem value="PANNEL_DISCUSSION">Panel Discussions</MenuItem>
-              <MenuItem value="MASTERCLASS">Masterclass</MenuItem> 
-              <MenuItem value="COUNTRY_REGIONAL_SESSION">Country / Regional Session</MenuItem> 
-              <MenuItem value="STATE_SESSION">State Sessions</MenuItem> 
-            </CustomSelectField>
-          </div>
-        </div>
+       
         <div className={"formFlex"}>
           <div className={"formGroup"}>
               <Autocomplete
@@ -210,7 +211,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
             handleChange={() => {
               changeTextData(!form?.status, "status");
             }}
-            label={`Active`}
+            label={form?.status ? `Active` :"Inactive"}
           />
         </div>
       </div>
