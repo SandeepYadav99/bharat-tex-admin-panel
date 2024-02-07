@@ -139,7 +139,8 @@ const useExhibitorCreate = ({ location }) => {
             partner_tag: data?.partner_tag,
             status: data?.status,
             is_partner: data?.is_partner,
-            primary_user_id: data?.primary_user_id,
+            primary_user_id: data?.primary_user_id ? data.primary_user_id : "",
+            secondary_user_id:data?.secondary_user_id ? secondary_user_id : "",
           });
           setPdf(data?.company_brochure);
         } else {
@@ -183,7 +184,7 @@ const useExhibitorCreate = ({ location }) => {
   const checkSecondaryEmailValidation = useCallback(() => {
     debounceValidationList({
       email: form?.secondary_email,
-      id: form?.primary_user_id,
+      id: form?.secondary_user_id,
     }).then((res) => {
       if (!res.error) {
         const errors = JSON.parse(JSON.stringify(errorData));
