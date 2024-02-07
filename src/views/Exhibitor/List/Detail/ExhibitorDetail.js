@@ -100,7 +100,7 @@ const ExhibitorDetail = () => {
               <div className={styles.wrappedContent}>
                 {detail?.details?.product_groups?.map((val) => (
                   <span>
-                    {val?.name}{""}
+                    {val?.name},{""}
                   </span>
                 ))}
               </div>
@@ -110,7 +110,7 @@ const ExhibitorDetail = () => {
               <div className={styles.wrappedContent}>
                 {detail?.details?.product_categories?.map((val) => (
                   <span>
-                    {val?.name}{""}
+                    {val?.name},{""}
                   </span>
                 ))}{" "}
               </div>
@@ -120,7 +120,7 @@ const ExhibitorDetail = () => {
               <div className={styles.wrappedContent}>
                 {detail?.details?.products?.length > 0
                   ? detail?.details?.products?.map((val, id) => (
-                      <span key={id}>{val}</span>
+                      <span key={id}>{val},</span>
                     ))
                   : "--"}
               </div>
