@@ -16,7 +16,7 @@ import historyUtils from "../../../libs/history.utils.js";
 import { capitalizeFirstLetter } from "../../../hooks/CapsLetter.js";
 import { ArrowBackIos } from "@material-ui/icons";
 
-const ExhibitorList = ({ }) => {
+const ExhibitorList = ({}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -68,7 +68,13 @@ const ExhibitorList = ({ }) => {
         key: "group",
         label: "Product Group",
         sortable: true,
-        render: (temp, all) => <div>{all.product_groups?.map((val) => { return (<span>{val?.name}{" "},</span>) })}</div>,
+        render: (temp, all) => (
+          <div>
+            {all.product_groups?.map((val) => {
+              return <span>{val?.name} ,</span>;
+            })}
+          </div>
+        ),
       },
 
       {
@@ -87,11 +93,11 @@ const ExhibitorList = ({ }) => {
           <div>
             {all?.zone_tag
               ? all?.zone_tag?.map((zone, index) => (
-                <React.Fragment key={index}>
-                  {index > 0 && ", "}
-                  {capitalizeFirstLetter(zone)}
-                </React.Fragment>
-              ))
+                  <React.Fragment key={index}>
+                    {index > 0 && ", "}
+                    {capitalizeFirstLetter(zone)}
+                  </React.Fragment>
+                ))
               : "--"}
           </div>
         ),
@@ -169,6 +175,8 @@ const ExhibitorList = ({ }) => {
     currentPage,
   ]);
 
+  const { user } = useSelector((state) => state?.auth);
+
   return (
     <div>
       <PageBox>
@@ -186,12 +194,14 @@ const ExhibitorList = ({ }) => {
               <div className={styles.newLine}></div>
             </div>
           </ButtonBase>
-          <div className={styles.BtnWrapper}>
-            <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
-              Create
-              <Add fontSize={"small"} className={"plusIcon"}></Add>
-            </ButtonBase>
-          </div>
+          {user?.role === "ADMIN" && (
+            <div className={styles.BtnWrapper}>
+              <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
+                Create
+                <Add fontSize={"small"} className={"plusIcon"}></Add>
+              </ButtonBase>
+            </div>
+          )}
         </div>
         <div>
           <FilterComponent

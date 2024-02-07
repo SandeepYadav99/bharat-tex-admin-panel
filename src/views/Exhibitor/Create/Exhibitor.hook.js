@@ -13,6 +13,7 @@ import {
 import historyUtils from "../../../libs/history.utils";
 import { isEmail } from "../../../libs/RegexUtils";
 import useDebounce from "../../../hooks/DebounceHook";
+import Constants from "../../../config/constants";
 
 const initialForm = {
   company_logo: "",
@@ -139,7 +140,7 @@ const useExhibitorCreate = ({ location }) => {
             secondary_email: data?.secondary_email,
             other_conatct_number: data?.other_conatct_number,
             partner_tag: data?.partner_tag,
-            status: data?.status,
+            status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
             is_partner: data?.is_partner,
             primary_user_id: data?.primary_user_id ? data.primary_user_id : "",
           });

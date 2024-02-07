@@ -51,6 +51,7 @@ const ExhibitorCreate = () => {
   } = useExhibitorCreate({});
 
 
+  
   return (
     <div className={styles.container}>
       <div className={"plainPaper"}>
@@ -663,8 +664,7 @@ const ExhibitorCreate = () => {
       </div>
       <div className={"plainPaper"}>
         <CustomSwitch
-          value={form?.status === "ACTIVE" ? true : false}
-          checked={form?.status === "ACTIVE" ? true : false}
+          value={form?.status}
           handleChange={() => {
             changeTextData(!form?.status, "status");
           }}
