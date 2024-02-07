@@ -68,6 +68,12 @@
     color: blue !important;
 }
 
+.flexGap2Row{
+    display: flex;
+    flex-direction: column;
+    gap: 10px !important;
+}
+
 @media only screen and (max-width:769px) {
     .subContainer {
         display: flex;

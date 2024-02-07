@@ -99,18 +99,7 @@ const dashboardRoutes = [
     icon: DashboardOutlined,
     component: NewDashboard,
     is_sidebar: true,
-    roles: [Roles.ADMIN],
   },
-  // {
-  //   path: `${RouteName.CHAPTERS_MASTER}`,
-  //   sidebarName: "Chapters Master",
-  //   navbarName: "Chapters Master",
-  //   icon: PeopleOutlined,
-  //   component: MasterList,
-  //   is_sidebar: true,
-  //   is_protect: true,
-  //   roles: [Roles.CHAPTER_ADMIN,Roles.GENERAL],
-  // },
   {
     path: `${RouteName.USER_PROFILE + ":id"}`,
     component: UserProfile,

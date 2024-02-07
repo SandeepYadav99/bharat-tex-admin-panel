@@ -49,6 +49,18 @@ const initialForm = {
   youtube_link: "",
   is_partner: false,
   hall_no: "",
+  business_nature:[],
+};
+
+const featureKey = {
+  manufacturer:true,
+  sole_agent:false,
+  product_designer:false,
+  publisher:false,
+  exporter:false,
+  whole_saler:false,
+  merchants:false,
+  other:false,
 };
 
 const useExhibitorCreate = ({ location }) => {
@@ -58,6 +70,7 @@ const useExhibitorCreate = ({ location }) => {
   const [form, setForm] = useState({ ...initialForm });
   const [selectImages, setSelectImages] = useState([]);
   const [checked, setChecked] = useState(false);
+  const [feature, setFeature] = useState({ ...featureKey });
   const [productListData, setProductListData] = useState([]);
   const [listData, setListData] = useState({
     PRODUCT_GROUP: [],
@@ -95,6 +108,7 @@ const useExhibitorCreate = ({ location }) => {
     });
   }, []);
 
+
   const params = useParams();
 
   const empId = params?.id;
@@ -103,12 +117,13 @@ const useExhibitorCreate = ({ location }) => {
     setChecked(() => !checked);
   };
 
- 
+
   useEffect(() => {
     if (empId) {
       serviceGetExhibitorsDetails({ id: empId }).then((res) => {
         if (!res.error) {
           const data = res?.data?.details;
+          const { business_nature } = data;
           setSelectImages(data?.gallery_images);
           setImage(data?.company_logo);
           setSecondary(data?.secondary_user_id)
@@ -143,14 +158,18 @@ const useExhibitorCreate = ({ location }) => {
             status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
             is_partner: data?.is_partner,
             primary_user_id: data?.primary_user_id ? data.primary_user_id : "",
+            hall_no:data?.hall_no,
           });
           setPdf(data?.company_brochure);
+          setFeature({ ...feature, ...business_nature });
         } else {
           SnackbarUtils.error(res?.message);
         }
       });
     }
   }, [empId]);
+
+ 
 
   const checkPhoneValidation = useCallback(() => {
     debounceValidationList({
@@ -176,7 +195,7 @@ const useExhibitorCreate = ({ location }) => {
       if (!res.error) {
         const errors = JSON.parse(JSON.stringify(errorData));
         if (res?.data?.is_exists) {
-          errors["primary_email"] = "Email Already Exists";
+          errors["primary_email"] = "Primary Email Already Exists";
           setErrorData(errors);
         } 
       }
@@ -191,7 +210,7 @@ const useExhibitorCreate = ({ location }) => {
       if (!res.error) {
         const errors = JSON.parse(JSON.stringify(errorData));
         if (res?.data?.is_exists) {
-          errors["secondary_email"] = "Email Already Exists";
+          errors["secondary_email"] = "Secondary Email Already Exists";
           setErrorData(errors);
         }
       }
@@ -215,9 +234,6 @@ const useExhibitorCreate = ({ location }) => {
       checkSecondaryEmailValidation();
     }
   }, [form?.secondary_email]);
-
-
-
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -260,7 +276,6 @@ const useExhibitorCreate = ({ location }) => {
     if (form?.secondary_email && !isEmail(form?.secondary_email)) {
       errors["secondary_email"] = "Invalid email address ";
     }
-    
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -269,6 +284,7 @@ const useExhibitorCreate = ({ location }) => {
    
     return errors;
   }, [form, errorData]);
+
 
   const submitToServer = useCallback(async () => {
     if (isSubmitting) {
@@ -306,6 +322,8 @@ const useExhibitorCreate = ({ location }) => {
         }
       }
     });
+
+    fd.append("business_nature",JSON.stringify(feature));
 
     if (form?.company_brochure) {
       fd.append("company_brochure", form?.company_brochure);
@@ -402,6 +420,15 @@ const useExhibitorCreate = ({ location }) => {
     [changeTextData, checkEmailValidation, checkPhoneValidation]
   );
 
+  const changeFeatureData = useCallback(
+    (text, fieldName) => {
+      const t = { ...feature };
+      t[fieldName] = text;
+      setFeature(t);
+    },
+    [feature, setFeature]
+  );
+
   const handleDelete = useCallback(() => {}, []);
 
   const handleReset = useCallback(() => {
@@ -433,6 +460,8 @@ const useExhibitorCreate = ({ location }) => {
     image,
     empId,
     pdf,
+    changeFeatureData,
+    feature,
   };
 };
 

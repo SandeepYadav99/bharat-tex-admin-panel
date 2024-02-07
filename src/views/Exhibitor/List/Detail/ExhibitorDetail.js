@@ -4,7 +4,7 @@ import styles from "./Style.module.css";
 import { ArrowBackIos } from "@material-ui/icons";
 import historyUtils from "../../../../libs/history.utils";
 import defaultCompany from "../../../../assets/img/defaultCompany.jpg";
-import {removeUnderScore} from "../../../../helper/helper";
+import { removeUnderScore } from "../../../../helper/helper";
 
 const ExhibitorDetail = () => {
   const { detail } = useExhibitorDetail({});
@@ -64,32 +64,29 @@ const ExhibitorDetail = () => {
                     : "--"}
                 </div>
               </div>
-              <div>
-                <div style={{ height: "30px" }}> </div>
+              <div className={styles.flexGap2Row}>
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Partner Type:</p>
                   {detail?.details?.partner_tag
                     ? removeUnderScore(detail?.details?.partner_tag)
                     : "--"}
                 </div>
-                <div className={styles.alignRow}>
-                  <div className={styles.headingDataType}>
-                    <b>Zone:</b>
-                    <div className={styles.wrappedContent}>
-                      {detail?.details?.zone_tag?.length > 0
-                        ? detail?.details?.zone_tag?.map((val) => (
-                            <span>{val}</span>
-                          ))
-                        : "--"}
-                    </div>
-                  </div>
-                  <div className={styles.headingDataType}>
-                    <b>Booth:</b>
-                    {""}
-                    {detail?.details?.event_stall
-                      ? detail?.details?.event_stall
+                <div className={styles.headingDataType}>
+                  <p className={styles.text}>Zone:</p>
+                  <div className={styles.wrappedContent}>
+                    {detail?.details?.zone_tag?.length > 0
+                      ? detail?.details?.zone_tag?.map((val) => (
+                          <span>{val}</span>
+                        ))
                       : "--"}
                   </div>
+                </div>
+                <div className={styles.headingDataType}>
+                  <p className={styles.text}>Booth:</p>
+                  {""}
+                  {detail?.details?.event_stall
+                    ? detail?.details?.event_stall
+                    : "--"}
                 </div>
               </div>
             </div>
@@ -303,16 +300,17 @@ const ExhibitorDetail = () => {
             }}
           >
             <b style={{ fontSize: "16px" }}>Company Brochure :</b>
-            {
-              detail?.details?.company_brochure ?     <a
-              href={detail?.details?.company_brochure}
-              target="_blank"
-              style={{ fontWeight: "600", color: "blue" }}
-            >
-              <span>View Preview </span>
-            </a>:""
-            }
-        
+            {detail?.details?.company_brochure ? (
+              <a
+                href={detail?.details?.company_brochure}
+                target="_blank"
+                style={{ fontWeight: "600", color: "blue" }}
+              >
+                <span>View Preview </span>
+              </a>
+            ) : (
+              ""
+            )}
           </div>
           <div className={styles.lastBlock}>
             <div className={styles.headingDataType}>

@@ -400,7 +400,7 @@ export default {
   },
   ROLES: {
     ADMIN: 'ADMIN',
-    EXHIBITOR: 'EXHIBITOR'
+    EXHIBITOR: 'EXHIBITOR',
   },
   LOG_ENABLED: true,
   WARNING_ENABLED: true,
