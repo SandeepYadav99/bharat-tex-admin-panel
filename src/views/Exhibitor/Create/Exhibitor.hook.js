@@ -101,12 +101,7 @@ const useExhibitorCreate = ({ location }) => {
     setChecked(() => !checked);
   };
 
-  const emailDebouncer = useDebounce(form?.primary_email, 100);
-
-  const phoneDebouncer = useDebounce(form?.primary_conatct_number, 100);
-
-  const secondaryEmail = useDebounce(form?.secondary_email, 100);
-
+ 
   useEffect(() => {
     if (empId) {
       serviceGetExhibitorsDetails({ id: empId }).then((res) => {
@@ -165,10 +160,7 @@ const useExhibitorCreate = ({ location }) => {
         if (res?.data?.is_exists) {
           errors["primary_conatct_number"] = "Phone Number Already Exists";
           setErrorData(errors);
-        } else {
-          delete errors.contact;
-          setErrorData(errors);
-        }
+        } 
       }
     });
   }, [errorData, setErrorData, form]);
@@ -183,10 +175,7 @@ const useExhibitorCreate = ({ location }) => {
         if (res?.data?.is_exists) {
           errors["primary_email"] = "Email Already Exists";
           setErrorData(errors);
-        } else {
-          delete errors.email;
-          setErrorData(errors);
-        }
+        } 
       }
     });
   }, [errorData, setErrorData, form]);
@@ -201,31 +190,28 @@ const useExhibitorCreate = ({ location }) => {
         if (res?.data?.is_exists) {
           errors["secondary_email"] = "Email Already Exists";
           setErrorData(errors);
-        } else {
-          delete errors.email;
-          setErrorData(errors);
         }
       }
     });
   }, [errorData, setErrorData, form]);
 
   useEffect(() => {
-    if (emailDebouncer) {
+    if (form?.primary_email) {
       checkEmailValidation();
     }
-  }, [emailDebouncer]);
+  },[form?.primary_email]);
 
   useEffect(() => {
-    if (phoneDebouncer) {
+    if (form?.primary_conatct_number) {
       checkPhoneValidation();
     }
-  }, [phoneDebouncer]);
+  },[form?.primary_conatct_number]);
 
   useEffect(() => {
-    if (secondaryEmail) {
+    if (form?.secondary_email) {
       checkSecondaryEmailValidation();
     }
-  }, [secondaryEmail]);
+  }, [form?.secondary_email]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -241,6 +227,7 @@ const useExhibitorCreate = ({ location }) => {
       "company_address",
       "country_code",
     ];
+    
     if (form?.is_partner) {
       required.push("partner_tag");
     } else {
@@ -271,6 +258,7 @@ const useExhibitorCreate = ({ location }) => {
         delete errors[key];
       }
     });
+   
     return errors;
   }, [form, errorData]);
 

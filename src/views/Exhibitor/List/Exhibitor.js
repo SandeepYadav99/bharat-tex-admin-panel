@@ -68,7 +68,7 @@ const ExhibitorList = ({ }) => {
         key: "group",
         label: "Product Group",
         sortable: true,
-        render: (temp, all) => <div>{all.product_groups?.map((val) => { return (<span>{val?.name},</span>) })}</div>,
+        render: (temp, all) => <div>{all.product_groups?.map((val) => { return (<span>{val?.name}{" "},</span>) })}</div>,
       },
 
       {
@@ -179,7 +179,6 @@ const ExhibitorList = ({ }) => {
           >
             <div style={{ display: "flex", flexDirection: "column" }}>
               <div style={{ display: "flex", alignItems: "center" }}>
-                <ArrowBackIos fontSize={"small"} />{" "}
                 <span className={styles.title}>
                   <b>Exhibitors List</b>
                 </span>

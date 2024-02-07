@@ -368,9 +368,9 @@ const ExhibitorCreate = () => {
               onTextChange={(text) => {
                 changeTextData(text, "primary_email");
               }}
-              onBlur={() => {
-                onBlurHandler("primary_email");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("primary_email");
+              // }}
             />
           </div>
           <div className={"formGroup"}>
@@ -413,9 +413,9 @@ const ExhibitorCreate = () => {
               onTextChange={(text) => {
                 changeTextData(text, "secondary_email");
               }}
-              onBlur={() => {
-                onBlurHandler("secondary_email");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("secondary_email");
+              // }}
             />
           </div>
           <div className={"formGroup"}>
@@ -462,9 +462,9 @@ const ExhibitorCreate = () => {
               onTextChange={(text) => {
                 changeTextData(text, "primary_conatct_number");
               }}
-              onBlur={() => {
-                onBlurHandler("primary_conatct_number");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("primary_conatct_number");
+              // }}
             />
           </div>
           <div className={"formGroup"}>
