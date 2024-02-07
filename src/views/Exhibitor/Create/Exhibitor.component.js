@@ -19,6 +19,7 @@ import CountryCode from "../../../assets/country_code.json";
 import { ArrowBackIos } from "@material-ui/icons";
 import historyUtils from "../../../libs/history.utils";
 import { isSubmitting } from "redux-form";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -45,8 +46,10 @@ const ExhibitorCreate = () => {
     productListData,
     EventListManager,
     image,
-    empId
+    empId,
+    pdf,
   } = useExhibitorCreate({});
+
 
   return (
     <div className={styles.container}>
@@ -290,7 +293,8 @@ const ExhibitorCreate = () => {
           >
             <input
               type="checkbox"
-              value={form?.is_partner}
+              value={form?.is_partner }
+              checked={form?.is_partner}
               onChange={()=>changeTextData(!form?.is_partner,"is_partner")}
             />
             <span>This is A featured Partner Exhibitor</span>
@@ -364,22 +368,22 @@ const ExhibitorCreate = () => {
               onTextChange={(text) => {
                 changeTextData(text, "primary_email");
               }}
-              onBlur={() => {
-                onBlurHandler("primary_email");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("primary_email");
+              // }}
             />
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.password}
-              errorText={errorData?.password}
+              isError={errorData?.primary_password}
+              errorText={errorData?.primary_password}
               label={"Password"}
-              value={form?.password}
+              value={form?.primary_password}
               onTextChange={(text) => {
-                changeTextData(text, "password");
+                changeTextData(text, "primary_password");
               }}
               onBlur={() => {
-                onBlurHandler("password");
+                onBlurHandler("primary_password");
               }}
             />
           </div>
@@ -409,9 +413,9 @@ const ExhibitorCreate = () => {
               onTextChange={(text) => {
                 changeTextData(text, "secondary_email");
               }}
-              onBlur={() => {
-                onBlurHandler("secondary_email");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("secondary_email");
+              // }}
             />
           </div>
           <div className={"formGroup"}>
@@ -458,9 +462,9 @@ const ExhibitorCreate = () => {
               onTextChange={(text) => {
                 changeTextData(text, "primary_conatct_number");
               }}
-              onBlur={() => {
-                onBlurHandler("primary_conatct_number");
-              }}
+              // onBlur={() => {
+              //   onBlurHandler("primary_conatct_number");
+              // }}
             />
           </div>
           <div className={"formGroup"}>
@@ -596,11 +600,11 @@ const ExhibitorCreate = () => {
             <div className={"formGroup"}>
               <File
                 max_size={5 * 1024 * 1024}
-                type={["pdf", "docx", "jpeg", "jpg"]}
+                type={["pdf"]}
                 fullWidth={true}
                 name="od1"
                 label="Upload File"
-                accept={"application/pdf,application/msword, image/*"}
+                accept={"application/pdf"}
                 error={errorData?.company_brochure}
                 isError={errorData?.company_brochure}
                 value={form?.company_brochure}
@@ -610,8 +614,9 @@ const ExhibitorCreate = () => {
                     changeTextData(file, "company_brochure");
                   }
                 }}
-           
+                link={pdf}
               />
+              {console.log(pdf,"pdf")}
             </div>
           </div>
           <div className={"formGroup"}>
@@ -658,7 +663,8 @@ const ExhibitorCreate = () => {
       </div>
       <div className={"plainPaper"}>
         <CustomSwitch
-          value={form?.status}
+          value={form?.status === "ACTIVE" ? true : false}
+          checked={form?.status === "ACTIVE" ? true : false}
           handleChange={() => {
             changeTextData(!form?.status, "status");
           }}

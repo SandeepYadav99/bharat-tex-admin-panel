@@ -26,7 +26,7 @@ const initialForm = {
   zone_tag: [],
   partner_tag: "",
   primary_email: "",
-  password: "",
+  primary_password: "",
   secondary_email: "",
   secondary_password: "",
   company_perosn_name: "",
@@ -62,6 +62,7 @@ const useExhibitorCreate = ({ location }) => {
     PRODUCT_GROUP: [],
     PRODUCT_CATEGORY: [],
   });
+  const [pdf, setPdf] = useState("");
 
   const EventListManager = [
     "FIBERS_YARNS",
@@ -100,10 +101,7 @@ const useExhibitorCreate = ({ location }) => {
     setChecked(() => !checked);
   };
 
-  const emailDebouncer = useDebounce(form?.primary_email, 500);
-
-  const phoneDebouncer = useDebounce(form?.primary_conatct_number, 500);
-
+ 
   useEffect(() => {
     if (empId) {
       serviceGetExhibitorsDetails({ id: empId }).then((res) => {
@@ -119,7 +117,7 @@ const useExhibitorCreate = ({ location }) => {
             product_categories: data?.product_categories,
             event_venue: data?.event_venue,
             primary_email: data?.primary_email,
-            password: data?.password,
+            primary_password: data?.primary_password,
             company_perosn_name: data?.company_perosn_name,
             conatct_person_designation: data?.conatct_person_designation,
             primary_conatct_number: data?.primary_conatct_number,
@@ -141,9 +139,9 @@ const useExhibitorCreate = ({ location }) => {
             partner_tag: data?.partner_tag,
             status: data?.status,
             is_partner: data?.is_partner,
-            primary_user_id:data?.primary_user_id,
-            secondary_user_id:data?.secondary_user_id ,
+            primary_user_id: data?.primary_user_id,
           });
+          setPdf(data?.company_brochure);
         } else {
           SnackbarUtils.error(res?.message);
         }
@@ -151,55 +149,69 @@ const useExhibitorCreate = ({ location }) => {
     }
   }, [empId]);
 
-
   const checkPhoneValidation = useCallback(() => {
     debounceValidationList({
       contact: form?.primary_conatct_number,
-      id:form?.primary_user_id,
+      country_code: form?.country_code,
+      id: form?.primary_user_id,
     }).then((res) => {
       if (!res.error) {
         const errors = JSON.parse(JSON.stringify(errorData));
         if (res?.data?.is_exists) {
           errors["primary_conatct_number"] = "Phone Number Already Exists";
           setErrorData(errors);
-        } else {
-          delete errors.contact;
-          setErrorData(errors);
-        }
+        } 
       }
     });
-  }, [errorData, setErrorData,form]); 
+  }, [errorData, setErrorData, form]);
 
   const checkEmailValidation = useCallback(() => {
     debounceValidationList({
       email: form?.primary_email,
-      id:form?.primary_user_id,
+      id: form?.primary_user_id,
     }).then((res) => {
       if (!res.error) {
         const errors = JSON.parse(JSON.stringify(errorData));
         if (res?.data?.is_exists) {
           errors["primary_email"] = "Email Already Exists";
           setErrorData(errors);
-        } else {
-          delete errors.email;
+        } 
+      }
+    });
+  }, [errorData, setErrorData, form]);
+
+  const checkSecondaryEmailValidation = useCallback(() => {
+    debounceValidationList({
+      email: form?.secondary_email,
+      id: form?.primary_user_id,
+    }).then((res) => {
+      if (!res.error) {
+        const errors = JSON.parse(JSON.stringify(errorData));
+        if (res?.data?.is_exists) {
+          errors["secondary_email"] = "Email Already Exists";
           setErrorData(errors);
         }
       }
     });
-  }, [errorData, setErrorData,form]);
+  }, [errorData, setErrorData, form]);
 
   useEffect(() => {
-    if (emailDebouncer) {
+    if (form?.primary_email) {
       checkEmailValidation();
     }
-  }, [emailDebouncer]);
+  },[form?.primary_email]);
 
-  useEffect(()=>{
-    if (phoneDebouncer) {
+  useEffect(() => {
+    if (form?.primary_conatct_number) {
       checkPhoneValidation();
     }
-  },[phoneDebouncer])
+  },[form?.primary_conatct_number]);
 
+  useEffect(() => {
+    if (form?.secondary_email) {
+      checkSecondaryEmailValidation();
+    }
+  }, [form?.secondary_email]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -209,20 +221,20 @@ const useExhibitorCreate = ({ location }) => {
       "product_categories",
       "event_venue",
       "primary_email",
-      // "password",
       "company_perosn_name",
       "conatct_person_designation",
       "primary_conatct_number",
       "company_address",
       "country_code",
     ];
+    
     if (form?.is_partner) {
       required.push("partner_tag");
     } else {
       delete errors["partner_tag"];
     }
     if (!empId) {
-      required.push("password");
+      required.push("primary_password");
     }
     required.forEach((val) => {
       if (form?.product_categories?.length === 0) {
@@ -246,6 +258,7 @@ const useExhibitorCreate = ({ location }) => {
         delete errors[key];
       }
     });
+   
     return errors;
   }, [form, errorData]);
 
@@ -285,6 +298,10 @@ const useExhibitorCreate = ({ location }) => {
         }
       }
     });
+
+    if (form?.company_brochure) {
+      fd.append("company_brochure", form?.company_brochure);
+    }
     if (form?.company_logo) {
       fd.append("company_logo", form?.company_logo);
     }
@@ -365,7 +382,7 @@ const useExhibitorCreate = ({ location }) => {
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },
-    [removeError, form, setForm,checkEmailValidation,checkPhoneValidation]
+    [removeError, form, setForm, checkEmailValidation, checkPhoneValidation]
   );
 
   const onBlurHandler = useCallback(
@@ -374,7 +391,7 @@ const useExhibitorCreate = ({ location }) => {
         changeTextData(form?.[type].trim(), type);
       }
     },
-    [changeTextData,checkEmailValidation,checkPhoneValidation]
+    [changeTextData, checkEmailValidation, checkPhoneValidation]
   );
 
   const handleDelete = useCallback(() => {}, []);
@@ -407,6 +424,7 @@ const useExhibitorCreate = ({ location }) => {
     EventListManager,
     image,
     empId,
+    pdf,
   };
 };
 

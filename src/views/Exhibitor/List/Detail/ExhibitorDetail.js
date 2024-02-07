@@ -4,6 +4,7 @@ import styles from "./Style.module.css";
 import { ArrowBackIos } from "@material-ui/icons";
 import historyUtils from "../../../../libs/history.utils";
 import defaultCompany from "../../../../assets/img/defaultCompany.jpg";
+import {removeUnderScore} from "../../../../helper/helper";
 
 const ExhibitorDetail = () => {
   const { detail } = useExhibitorDetail({});
@@ -59,7 +60,7 @@ const ExhibitorDetail = () => {
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Venue:</p>
                   {detail?.details?.event_venue
-                    ? detail?.details?.event_venue
+                    ? removeUnderScore(detail?.details?.event_venue)
                     : "--"}
                 </div>
               </div>
@@ -68,7 +69,7 @@ const ExhibitorDetail = () => {
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Partner Type:</p>
                   {detail?.details?.partner_tag
-                    ? detail?.details?.partner_tag
+                    ? removeUnderScore(detail?.details?.partner_tag)
                     : "--"}
                 </div>
                 <div className={styles.alignRow}>
@@ -77,13 +78,14 @@ const ExhibitorDetail = () => {
                     <div className={styles.wrappedContent}>
                       {detail?.details?.zone_tag?.length > 0
                         ? detail?.details?.zone_tag?.map((val) => (
-                          <span>{val},</span>
-                        ))
+                            <span>{val}</span>
+                          ))
                         : "--"}
                     </div>
                   </div>
                   <div className={styles.headingDataType}>
                     <b>Booth:</b>
+                    {""}
                     {detail?.details?.event_stall
                       ? detail?.details?.event_stall
                       : "--"}
@@ -118,8 +120,8 @@ const ExhibitorDetail = () => {
               <div className={styles.wrappedContent}>
                 {detail?.details?.products?.length > 0
                   ? detail?.details?.products?.map((val, id) => (
-                    <span key={id}>{val}</span>
-                  ))
+                      <span key={id}>{val},</span>
+                    ))
                   : "--"}
               </div>
             </div>
@@ -149,7 +151,17 @@ const ExhibitorDetail = () => {
               </div>
               <div className={styles.headingDataType}>
                 <p className={styles.text}>Website:</p>
-                {detail?.details?.website ? detail?.details?.website : "--"}
+                {detail?.details?.website ? (
+                  <a
+                    className={styles.linkDataText}
+                    href={detail?.details?.website}
+                    target="_blank"
+                  >
+                    {detail?.details?.website}
+                  </a>
+                ) : (
+                  "--"
+                )}
               </div>
               <div className={styles.headingDataType}>
                 <p className={styles.text}>Primary Email:</p>
@@ -291,13 +303,16 @@ const ExhibitorDetail = () => {
             }}
           >
             <b style={{ fontSize: "16px" }}>Company Brochure :</b>
-            <a
-              href={detail?.details?.instagram_link}
+            {
+              detail?.details?.company_brochure ?     <a
+              href={detail?.details?.company_brochure}
               target="_blank"
               style={{ fontWeight: "600", color: "blue" }}
             >
-              <span>View Pdf </span>
-            </a>
+              <span>View Preview </span>
+            </a>:""
+            }
+        
           </div>
           <div className={styles.lastBlock}>
             <div className={styles.headingDataType}>
