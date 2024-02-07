@@ -26,7 +26,7 @@ const initialForm = {
   zone_tag: [],
   partner_tag: "",
   primary_email: "",
-  primary_password:"",
+  primary_password: "",
   secondary_email: "",
   secondary_password: "",
   company_perosn_name: "",
@@ -62,7 +62,7 @@ const useExhibitorCreate = ({ location }) => {
     PRODUCT_GROUP: [],
     PRODUCT_CATEGORY: [],
   });
-  const [pdf,setPdf] = useState("");
+  const [pdf, setPdf] = useState("");
 
   const EventListManager = [
     "FIBERS_YARNS",
@@ -105,8 +105,7 @@ const useExhibitorCreate = ({ location }) => {
 
   const phoneDebouncer = useDebounce(form?.primary_conatct_number, 100);
 
-  const secondaryEmail = useDebounce(form?.secondary_email,100);
-
+  const secondaryEmail = useDebounce(form?.secondary_email, 100);
 
   useEffect(() => {
     if (empId) {
@@ -145,7 +144,7 @@ const useExhibitorCreate = ({ location }) => {
             partner_tag: data?.partner_tag,
             status: data?.status,
             is_partner: data?.is_partner,
-            primary_user_id:data?.primary_user_id,
+            primary_user_id: data?.primary_user_id,
           });
           setPdf(data?.company_brochure);
         } else {
@@ -155,11 +154,11 @@ const useExhibitorCreate = ({ location }) => {
     }
   }, [empId]);
 
-
   const checkPhoneValidation = useCallback(() => {
     debounceValidationList({
       contact: form?.primary_conatct_number,
-      id:form?.primary_user_id,
+      country_code: form?.country_code,
+      id: form?.primary_user_id,
     }).then((res) => {
       if (!res.error) {
         const errors = JSON.parse(JSON.stringify(errorData));
@@ -172,12 +171,12 @@ const useExhibitorCreate = ({ location }) => {
         }
       }
     });
-  }, [errorData, setErrorData,form]); 
+  }, [errorData, setErrorData, form]);
 
   const checkEmailValidation = useCallback(() => {
     debounceValidationList({
       email: form?.primary_email,
-      id:form?.primary_user_id,
+      id: form?.primary_user_id,
     }).then((res) => {
       if (!res.error) {
         const errors = JSON.parse(JSON.stringify(errorData));
@@ -190,12 +189,12 @@ const useExhibitorCreate = ({ location }) => {
         }
       }
     });
-  }, [errorData, setErrorData,form]);
+  }, [errorData, setErrorData, form]);
 
   const checkSecondaryEmailValidation = useCallback(() => {
     debounceValidationList({
       email: form?.secondary_email,
-      id:form?.primary_user_id,
+      id: form?.primary_user_id,
     }).then((res) => {
       if (!res.error) {
         const errors = JSON.parse(JSON.stringify(errorData));
@@ -208,9 +207,7 @@ const useExhibitorCreate = ({ location }) => {
         }
       }
     });
-  }, [errorData, setErrorData,form]);
-
-
+  }, [errorData, setErrorData, form]);
 
   useEffect(() => {
     if (emailDebouncer) {
@@ -218,17 +215,17 @@ const useExhibitorCreate = ({ location }) => {
     }
   }, [emailDebouncer]);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (phoneDebouncer) {
       checkPhoneValidation();
     }
-  },[phoneDebouncer])
+  }, [phoneDebouncer]);
 
-  useEffect(()=>{
-    if(secondaryEmail){
-       checkSecondaryEmailValidation();
+  useEffect(() => {
+    if (secondaryEmail) {
+      checkSecondaryEmailValidation();
     }
-  },[secondaryEmail])
+  }, [secondaryEmail]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -314,8 +311,8 @@ const useExhibitorCreate = ({ location }) => {
       }
     });
 
-    if(form?.company_brochure){
-      fd.append("company_brochure",form?.company_brochure)
+    if (form?.company_brochure) {
+      fd.append("company_brochure", form?.company_brochure);
     }
     if (form?.company_logo) {
       fd.append("company_logo", form?.company_logo);
@@ -397,7 +394,7 @@ const useExhibitorCreate = ({ location }) => {
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },
-    [removeError, form, setForm,checkEmailValidation,checkPhoneValidation]
+    [removeError, form, setForm, checkEmailValidation, checkPhoneValidation]
   );
 
   const onBlurHandler = useCallback(
@@ -406,7 +403,7 @@ const useExhibitorCreate = ({ location }) => {
         changeTextData(form?.[type].trim(), type);
       }
     },
-    [changeTextData,checkEmailValidation,checkPhoneValidation]
+    [changeTextData, checkEmailValidation, checkPhoneValidation]
   );
 
   const handleDelete = useCallback(() => {}, []);
