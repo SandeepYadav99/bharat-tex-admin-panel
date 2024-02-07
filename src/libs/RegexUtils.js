@@ -5,7 +5,7 @@ const isUrl = (value) => {
 }
 
 const isEmail = (value) => {
-    return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i.test(value);
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
 const isAlphaNum = (value) => {

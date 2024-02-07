@@ -20,6 +20,7 @@ import { ArrowBackIos } from "@material-ui/icons";
 import historyUtils from "../../../libs/history.utils";
 import { isSubmitting } from "redux-form";
 import { useSelector } from "react-redux";
+import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -48,29 +49,28 @@ const ExhibitorCreate = () => {
     image,
     empId,
     pdf,
+    feature,
+    changeFeatureData,
   } = useExhibitorCreate({});
 
+  const { user } = useSelector((state) => state?.auth);
 
-  
   return (
     <div className={styles.container}>
       <div className={"plainPaper"}>
-        {/* <div }>
-          <h4 className={"infoTitle"}>
-            <div className={"heading"}>Add Exhibitor</div>
-          </h4>
-        </div> */}
         <div className={styles.outerFlex}>
-        <div className={"headerFlex"}>
-          <ButtonBase onClick={() => historyUtils.goBack()}>
-            <ArrowBackIos fontSize={"small"} />
-            <span className={"capitalize"}>
-            <div className={"heading"}><b> {empId ? "Edit Exhibitor" : "Add Exhibitor"}</b> </div>
-            </span>
-          </ButtonBase>
-          <div className={styles.newLine} />
+          <div className={"headerFlex"}>
+            <ButtonBase onClick={() => historyUtils.goBack()}>
+              <ArrowBackIos fontSize={"small"} />
+              <span className={"capitalize"}>
+                <div className={"heading"}>
+                  <b> {empId ? "Edit Exhibitor" : "Add Exhibitor"}</b>{" "}
+                </div>
+              </span>
+            </ButtonBase>
+            <div className={styles.newLine} />
+          </div>
         </div>
-      </div>
         <div className={styles.cont}>
           <div>
             <File
@@ -90,7 +90,6 @@ const ExhibitorCreate = () => {
                   changeTextData(file, "company_logo");
                 }
               }}
-           
             />
           </div>
           <div className={styles.lowerWrap}>
@@ -127,54 +126,56 @@ const ExhibitorCreate = () => {
             </div>
           </div>
         </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <Autocomplete
-              multiple
-              id="tags-outlined"
-              onChange={(e, value) => {
-                changeTextData(value, "product_groups");
-              }}
-              value={form?.product_groups}
-            
-              options={listData ? listData?.PRODUCT_GROUP : []}
-              getOptionLabel={(option) => option.name}
-              defaultValue={form?.product_groups}
-              error={errorData?.product_groups}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  variant="outlined"
-                  label="Product Group"
-                  error={errorData?.product_groups}
-                />
-              )}
-            />
+        {user?.role === "ADMIN" && (
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <Autocomplete
+                multiple
+                id="tags-outlined"
+                onChange={(e, value) => {
+                  changeTextData(value, "product_groups");
+                }}
+                value={form?.product_groups}
+                options={listData ? listData?.PRODUCT_GROUP : []}
+                getOptionLabel={(option) => option.name}
+                defaultValue={form?.product_groups}
+                error={errorData?.product_groups}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    label="Product Group"
+                    error={errorData?.product_groups}
+                  />
+                )}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <Autocomplete
+                multiple
+                id="tags-outlined"
+                onChange={(e, value) => {
+                  changeTextData(value, "product_categories");
+                }}
+                value={form?.product_categories}
+                // id="tags-standard"
+                options={listData ? listData?.PRODUCT_CATEGORY : []}
+                getOptionLabel={(option) => option.name}
+                defaultValue={form?.product_categories}
+                error={errorData?.product_categories}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    label="Product Category"
+                    error={errorData?.product_categories}
+                  />
+                )}
+              />
+            </div>
           </div>
-          <div className={"formGroup"}>
-            <Autocomplete
-              multiple
-              id="tags-outlined"
-              onChange={(e, value) => {
-                changeTextData(value, "product_categories");
-              }}
-              value={form?.product_categories}
-              // id="tags-standard"
-              options={listData ? listData?.PRODUCT_CATEGORY : []}
-              getOptionLabel={(option) => option.name}
-              defaultValue={form?.product_categories}
-              error={errorData?.product_categories}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  variant="outlined"
-                  label="Product Category"
-                  error={errorData?.product_categories}
-                />
-              )}
-            />
-          </div>
-        </div>
+        )}
+
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <Autocomplete
@@ -209,6 +210,8 @@ const ExhibitorCreate = () => {
             />
           </div>
         </div>
+        {user?.role === "ADMIN" &&
+
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomSelectField
@@ -225,9 +228,11 @@ const ExhibitorCreate = () => {
             </CustomSelectField>
           </div>
         </div>
+}
+
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-          <CustomTextField
+            <CustomTextField
               label={"Hall No"}
               value={form?.hall_no}
               onTextChange={(text) => {
@@ -253,7 +258,7 @@ const ExhibitorCreate = () => {
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
-          <Autocomplete
+            <Autocomplete
               multiple
               rows={6}
               id="tags-outlined"
@@ -294,9 +299,9 @@ const ExhibitorCreate = () => {
           >
             <input
               type="checkbox"
-              value={form?.is_partner }
+              value={form?.is_partner}
               checked={form?.is_partner}
-              onChange={()=>changeTextData(!form?.is_partner,"is_partner")}
+              onChange={() => changeTextData(!form?.is_partner, "is_partner")}
             />
             <span>This is A featured Partner Exhibitor</span>
           </div>
@@ -321,6 +326,98 @@ const ExhibitorCreate = () => {
                 <MenuItem value="ASSOCIATE_PARTNER">Associate Partner</MenuItem>
               </CustomSelectField>
             )}
+          </div>
+        </div>
+        <div>
+          <div className={"headerFlex"}>
+            <h4 className={"infoTitle"}>
+              <div className={"heading"}> Business Nature</div>
+            </h4>
+          </div>
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomCheckbox
+                color={"primary"}
+                label={"Manufacturer"}
+                checked={feature?.manufacturer}
+                handleChange={(e, value) => {
+                  changeFeatureData(!feature?.manufacturer, "manufacturer");
+                }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomCheckbox
+                color={"primary"}
+                label={"Sole Agent"}
+                checked={feature?.sole_agent}
+                handleChange={(e, value) => {
+                  changeFeatureData(!feature?.sole_agent, "sole_agent");
+                }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomCheckbox
+                color={"primary"}
+                label={"Product Designer"}
+                checked={feature?.product_designer}
+                handleChange={(e, value) => {
+                  changeFeatureData(
+                    !feature?.product_designer,
+                    "product_designer"
+                  );
+                }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomCheckbox
+                color={"primary"}
+                label={"Publisher"}
+                checked={feature?.publisher}
+                handleChange={(e, value) => {
+                  changeFeatureData(!feature?.publisher, "publisher");
+                }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomCheckbox
+                color={"primary"}
+                label={"Exporter"}
+                checked={feature?.exporter}
+                handleChange={(e, value) => {
+                  changeFeatureData(!feature?.exporter, "exporter");
+                }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomCheckbox
+                color={"primary"}
+                label={"WholeSaler"}
+                checked={feature?.whole_saler}
+                handleChange={(e, value) => {
+                  changeFeatureData(!feature?.whole_saler, "whole_saler");
+                }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomCheckbox
+                color={"primary"}
+                label={"Merchant"}
+                checked={feature?.merchants}
+                handleChange={(e, value) => {
+                  changeFeatureData(!feature?.merchants, "merchants");
+                }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomCheckbox
+                color={"primary"}
+                label={"Others"}
+                checked={feature?.other}
+                handleChange={(e, value) => {
+                  changeFeatureData(!feature?.other, "other");
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -423,7 +520,7 @@ const ExhibitorCreate = () => {
             <CustomTextField
               isError={errorData?.secondary_password}
               errorText={errorData?.secondary_password}
-              label={"Passowrd"}
+              label={"Password"}
               value={form?.secondary_password}
               onTextChange={(text) => {
                 changeTextData(text, "secondary_password");
@@ -617,7 +714,7 @@ const ExhibitorCreate = () => {
                 }}
                 link={pdf}
               />
-              {console.log(pdf,"pdf")}
+              {console.log(pdf, "pdf")}
             </div>
           </div>
           <div className={"formGroup"}>
@@ -674,14 +771,13 @@ const ExhibitorCreate = () => {
           <ButtonBase
             type={"button"}
             className={styles.createBtn}
-            onClick={ handleSubmit}
+            onClick={handleSubmit}
           >
-             {/* {isSubmitting ? (
+            {/* {isSubmitting ? (
               <CircularProgress color="success" size="20px" />
             ) : ( */}
-               Add
+            Add
             {/* )} */}
-           
           </ButtonBase>
         </div>
       </div>
