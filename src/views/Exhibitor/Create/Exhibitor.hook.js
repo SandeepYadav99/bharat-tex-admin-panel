@@ -101,9 +101,11 @@ const useExhibitorCreate = ({ location }) => {
     setChecked(() => !checked);
   };
 
-  const emailDebouncer = useDebounce(form?.primary_email, 500);
+  const emailDebouncer = useDebounce(form?.primary_email, 100);
 
-  const phoneDebouncer = useDebounce(form?.primary_conatct_number, 500);
+  const phoneDebouncer = useDebounce(form?.primary_conatct_number, 100);
+
+  const secondaryEmail = useDebounce(form?.secondary_email,100);
 
 
   useEffect(() => {
@@ -190,6 +192,26 @@ const useExhibitorCreate = ({ location }) => {
     });
   }, [errorData, setErrorData,form]);
 
+  const checkSecondaryEmailValidation = useCallback(() => {
+    debounceValidationList({
+      email: form?.secondary_email,
+      id:form?.primary_user_id,
+    }).then((res) => {
+      if (!res.error) {
+        const errors = JSON.parse(JSON.stringify(errorData));
+        if (res?.data?.is_exists) {
+          errors["secondary_email"] = "Email Already Exists";
+          setErrorData(errors);
+        } else {
+          delete errors.email;
+          setErrorData(errors);
+        }
+      }
+    });
+  }, [errorData, setErrorData,form]);
+
+
+
   useEffect(() => {
     if (emailDebouncer) {
       checkEmailValidation();
@@ -202,6 +224,11 @@ const useExhibitorCreate = ({ location }) => {
     }
   },[phoneDebouncer])
 
+  useEffect(()=>{
+    if(secondaryEmail){
+       checkSecondaryEmailValidation();
+    }
+  },[secondaryEmail])
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };

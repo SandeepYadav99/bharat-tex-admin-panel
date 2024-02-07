@@ -293,7 +293,8 @@ const ExhibitorCreate = () => {
           >
             <input
               type="checkbox"
-              value={form?.is_partner}
+              value={form?.is_partner }
+              checked={form?.is_partner}
               onChange={()=>changeTextData(!form?.is_partner,"is_partner")}
             />
             <span>This is A featured Partner Exhibitor</span>
@@ -662,7 +663,8 @@ const ExhibitorCreate = () => {
       </div>
       <div className={"plainPaper"}>
         <CustomSwitch
-          value={form?.status}
+          value={form?.status === "ACTIVE" ? true : false}
+          checked={form?.status === "ACTIVE" ? true : false}
           handleChange={() => {
             changeTextData(!form?.status, "status");
           }}

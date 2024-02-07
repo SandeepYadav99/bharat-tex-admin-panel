@@ -78,13 +78,14 @@ const ExhibitorDetail = () => {
                     <div className={styles.wrappedContent}>
                       {detail?.details?.zone_tag?.length > 0
                         ? detail?.details?.zone_tag?.map((val) => (
-                            <span>{val},</span>
+                            <span>{val}</span>
                           ))
                         : "--"}
                     </div>
                   </div>
                   <div className={styles.headingDataType}>
                     <b>Booth:</b>
+                    {""}
                     {detail?.details?.event_stall
                       ? detail?.details?.event_stall
                       : "--"}
@@ -99,7 +100,7 @@ const ExhibitorDetail = () => {
               <div className={styles.wrappedContent}>
                 {detail?.details?.product_groups?.map((val) => (
                   <span>
-                    {val?.name},{""}
+                    {val?.name}{""}
                   </span>
                 ))}
               </div>
@@ -109,7 +110,7 @@ const ExhibitorDetail = () => {
               <div className={styles.wrappedContent}>
                 {detail?.details?.product_categories?.map((val) => (
                   <span>
-                    {val?.name},{""}
+                    {val?.name}{""}
                   </span>
                 ))}{" "}
               </div>
@@ -302,13 +303,16 @@ const ExhibitorDetail = () => {
             }}
           >
             <b style={{ fontSize: "16px" }}>Company Brochure :</b>
-            <a
+            {
+              detail?.details?.company_brochure ?     <a
               href={detail?.details?.company_brochure}
               target="_blank"
               style={{ fontWeight: "600", color: "blue" }}
             >
-              <span>View Pdf </span>
-            </a>
+              <span>View Preview </span>
+            </a>:""
+            }
+        
           </div>
           <div className={styles.lastBlock}>
             <div className={styles.headingDataType}>
