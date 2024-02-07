@@ -19,6 +19,7 @@ import useNotificationCreate from "./NotificationCreate.hook";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
 import CustomDateTimePicker from "../../../components/FormFields/DatePicker/CustomDateTimePicker";
+import { RELATEDSCREENITEMS } from "../../../libs/DataRelated";
 
 function NotificationCreate() {
   const {
@@ -32,50 +33,50 @@ function NotificationCreate() {
     isSubmitting,
   } = useNotificationCreate({});
 
-  const sendToField = useMemo(() => {
-    if (form?.send_to === "CHAPTER") {
-      return (
-        <CustomSelectField
-          isError={errorData?.chapter_id}
-          errorText={errorData?.chapter_id}
-          label={"Choose Chapter"}
-          value={form?.chapter_id}
-          handleChange={(value) => {
-            changeTextData(value, "chapter_id");
-          }}
-        >
-          {listData?.CHAPTERS?.map((dT) => {
-            return (
-              <MenuItem value={dT?.id} key={dT?.id}>
-                {dT?.name}
-              </MenuItem>
-            );
-          })}
-        </CustomSelectField>
-      );
-    } else if (form?.send_to === "EVENT" && false) {
-      return (
-        <CustomSelectField
-          isError={errorData?.event_id}
-          errorText={errorData?.event_id}
-          label={"Choose Event"}
-          value={form?.event_id}
-          handleChange={(value) => {
-            changeTextData(value, "event_id");
-          }}
-        >
-          {listData?.EVENTS?.map((dT) => {
-            return (
-              <MenuItem value={dT?.id} key={dT?.id}>
-                {dT?.name}
-              </MenuItem>
-            );
-          })}
-        </CustomSelectField>
-      );
-    }
-    return null;
-  }, [form, changeTextData, errorData, listData]);
+  // const sendToField = useMemo(() => {
+  //   if (form?.send_to === "CHAPTER") {
+  //     return (
+  //       <CustomSelectField
+  //         isError={errorData?.chapter_id}
+  //         errorText={errorData?.chapter_id}
+  //         label={"Choose Exhibitors"}
+  //         value={form?.chapter_id}
+  //         handleChange={(value) => {
+  //           changeTextData(value, "chapter_id");
+  //         }}
+  //       >
+  //         {listData?.CHAPTERS?.map((dT) => {
+  //           return (
+  //             <MenuItem value={dT?.id} key={dT?.id}>
+  //               {dT?.name}
+  //             </MenuItem>
+  //           );
+  //         })}
+  //       </CustomSelectField>
+  //     );
+  //   } else if (form?.send_to === "EVENT" && false) {
+  //     return (
+  //       <CustomSelectField
+  //         isError={errorData?.event_id}
+  //         errorText={errorData?.event_id}
+  //         label={"Choose Visitors"}
+  //         value={form?.event_id}
+  //         handleChange={(value) => {
+  //           changeTextData(value, "event_id");
+  //         }}
+  //       >
+  //         {listData?.EVENTS?.map((dT) => {
+  //           return (
+  //             <MenuItem value={dT?.id} key={dT?.id}>
+  //               {dT?.name}
+  //             </MenuItem>
+  //           );
+  //         })}
+  //       </CustomSelectField>
+  //     );
+  //   }
+  //   return null;
+  // }, [form, changeTextData, errorData, listData]);
 
   const sendTimestampField = useMemo(() => {
     if (form?.send_priority === "LATER") {
@@ -150,8 +151,8 @@ function NotificationCreate() {
           </div>
         </div>
         <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomSelectField
+          {/* <div className={"formGroup"}> */}
+            {/* <CustomSelectField
               isError={errorData?.event_id}
               errorText={errorData?.event_id}
               label={"Related Event"}
@@ -170,8 +171,8 @@ function NotificationCreate() {
                   </MenuItem>
                 );
               })}
-            </CustomSelectField>
-          </div>
+            </CustomSelectField> */}
+          {/* </div> */}
           <div className={"formGroup"}>
             <CustomSelectField
               isError={errorData?.next_screen}
@@ -182,17 +183,13 @@ function NotificationCreate() {
                 changeTextData(value, "next_screen");
               }}
             >
-              <MenuItem value="SCHEDULE">SCHEDULE</MenuItem>
-              <MenuItem value="SPEAKERS">SPEAKERS</MenuItem>
-              <MenuItem value="CITY">CITY</MenuItem>
-              <MenuItem value="GUIDE">GUIDE</MenuItem>
-              <MenuItem value="SPONSORS">SPONSORS</MenuItem>
-              <MenuItem value="POLLS">POLLS</MenuItem>
-              <MenuItem value="EVENT_GENERAL_NOTIFICATION">
-                EVENT GENERAL NOTIFICATION
-              </MenuItem>
-              <MenuItem value="GENERAL">GENERAL</MenuItem>
-              <MenuItem value="POLICY">POLICY</MenuItem>
+              {RELATEDSCREENITEMS?.map((related)=>{
+                return (
+                  <MenuItem value={related?.value}>{related?.label}</MenuItem>
+
+                )
+              })}
+          
             </CustomSelectField>
           </div>
         </div>
@@ -211,17 +208,17 @@ function NotificationCreate() {
                 style={{ marginLeft: "20px" }}
                 value="CHAPTER"
                 control={<Radio />}
-                label="Chapters"
+                label="Exhibitors"
               />
               <FormControlLabel
                 style={{ marginLeft: "20px" }}
                 value="EVENT"
                 control={<Radio />}
-                label="Event"
+                label="Visitors"
               />
             </RadioGroup>
           </div>
-          <div className={"formGroup"}>{sendToField}</div>
+          {/* <div className={"formGroup"}>{sendToField}</div> */}
         </div>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
@@ -256,7 +253,7 @@ function NotificationCreate() {
             disabled={isSubmitting ? true : false}
             type={"button"}
             className={styles.createBtn}
-            onClick={() => handleSubmit()}
+            onClick={handleSubmit}
           >
             {isSubmitting ? (
               <CircularProgress color="success" size="20px" />
