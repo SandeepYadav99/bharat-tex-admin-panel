@@ -46,7 +46,8 @@ const ExhibitorCreate = () => {
     productListData,
     EventListManager,
     image,
-    empId
+    empId,
+    pdf,
   } = useExhibitorCreate({});
 
 
@@ -598,11 +599,11 @@ const ExhibitorCreate = () => {
             <div className={"formGroup"}>
               <File
                 max_size={5 * 1024 * 1024}
-                type={["pdf", "docx", "jpeg", "jpg"]}
+                type={["pdf"]}
                 fullWidth={true}
                 name="od1"
                 label="Upload File"
-                accept={"application/pdf,application/msword, image/*"}
+                accept={"application/pdf"}
                 error={errorData?.company_brochure}
                 isError={errorData?.company_brochure}
                 value={form?.company_brochure}
@@ -612,8 +613,9 @@ const ExhibitorCreate = () => {
                     changeTextData(file, "company_brochure");
                   }
                 }}
-           
+                link={pdf}
               />
+              {console.log(pdf,"pdf")}
             </div>
           </div>
           <div className={"formGroup"}>

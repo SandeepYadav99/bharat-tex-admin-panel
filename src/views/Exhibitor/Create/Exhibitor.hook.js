@@ -62,6 +62,7 @@ const useExhibitorCreate = ({ location }) => {
     PRODUCT_GROUP: [],
     PRODUCT_CATEGORY: [],
   });
+  const [pdf,setPdf] = useState("");
 
   const EventListManager = [
     "FIBERS_YARNS",
@@ -143,8 +144,8 @@ const useExhibitorCreate = ({ location }) => {
             status: data?.status,
             is_partner: data?.is_partner,
             primary_user_id:data?.primary_user_id,
-            secondary_user_id:data?.secondary_user_id ,
           });
+          setPdf(data?.company_brochure);
         } else {
           SnackbarUtils.error(res?.message);
         }
@@ -285,6 +286,10 @@ const useExhibitorCreate = ({ location }) => {
         }
       }
     });
+
+    if(form?.company_brochure){
+      fd.append("company_brochure",form?.company_brochure)
+    }
     if (form?.company_logo) {
       fd.append("company_logo", form?.company_logo);
     }
@@ -407,6 +412,7 @@ const useExhibitorCreate = ({ location }) => {
     EventListManager,
     image,
     empId,
+    pdf,
   };
 };
 

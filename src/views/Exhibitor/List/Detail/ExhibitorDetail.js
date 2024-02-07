@@ -4,6 +4,7 @@ import styles from "./Style.module.css";
 import { ArrowBackIos } from "@material-ui/icons";
 import historyUtils from "../../../../libs/history.utils";
 import defaultCompany from "../../../../assets/img/defaultCompany.jpg";
+import {removeUnderScore} from "../../../../helper/helper";
 
 const ExhibitorDetail = () => {
   const { detail } = useExhibitorDetail({});
@@ -59,7 +60,7 @@ const ExhibitorDetail = () => {
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Venue:</p>
                   {detail?.details?.event_venue
-                    ? detail?.details?.event_venue
+                    ? removeUnderScore(detail?.details?.event_venue)
                     : "--"}
                 </div>
               </div>
@@ -68,7 +69,7 @@ const ExhibitorDetail = () => {
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Partner Type:</p>
                   {detail?.details?.partner_tag
-                    ? detail?.details?.partner_tag
+                    ? removeUnderScore(detail?.details?.partner_tag)
                     : "--"}
                 </div>
                 <div className={styles.alignRow}>
@@ -302,7 +303,7 @@ const ExhibitorDetail = () => {
           >
             <b style={{ fontSize: "16px" }}>Company Brochure :</b>
             <a
-              href={detail?.details?.instagram_link}
+              href={detail?.details?.company_brochure}
               target="_blank"
               style={{ fontWeight: "600", color: "blue" }}
             >
