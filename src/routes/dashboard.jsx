@@ -99,6 +99,7 @@ const dashboardRoutes = [
     icon: DashboardOutlined,
     component: NewDashboard,
     is_sidebar: true,
+    roles: [Roles.ADMIN],
   },
   // {
   //   path: `${RouteName.CHAPTERS_MASTER}`,
@@ -728,6 +729,7 @@ const dashboardRoutes = [
     component: ProductGroupList,
     is_sidebar: true,
     is_protect: true,
+    roles: [Roles.ADMIN],
   },
    {
     path: `${RouteName.PRODUCT_CATEGORY}`,
@@ -737,6 +739,7 @@ const dashboardRoutes = [
     component: ProductCategory,
     is_sidebar: true,
     is_protect: true,
+    roles: [Roles.ADMIN],
   },
   {
     path: `${RouteName.PRODUCT_CATEGORY_CREATE}`,
