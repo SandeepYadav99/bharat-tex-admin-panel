@@ -26,7 +26,7 @@ const initialForm = {
   zone_tag: [],
   partner_tag: "",
   primary_email: "",
-  password: "",
+  primary_password:"",
   secondary_email: "",
   secondary_password: "",
   company_perosn_name: "",
@@ -104,6 +104,7 @@ const useExhibitorCreate = ({ location }) => {
 
   const phoneDebouncer = useDebounce(form?.primary_conatct_number, 500);
 
+
   useEffect(() => {
     if (empId) {
       serviceGetExhibitorsDetails({ id: empId }).then((res) => {
@@ -119,7 +120,7 @@ const useExhibitorCreate = ({ location }) => {
             product_categories: data?.product_categories,
             event_venue: data?.event_venue,
             primary_email: data?.primary_email,
-            password: data?.password,
+            primary_password: data?.primary_password,
             company_perosn_name: data?.company_perosn_name,
             conatct_person_designation: data?.conatct_person_designation,
             primary_conatct_number: data?.primary_conatct_number,
@@ -209,7 +210,6 @@ const useExhibitorCreate = ({ location }) => {
       "product_categories",
       "event_venue",
       "primary_email",
-      // "password",
       "company_perosn_name",
       "conatct_person_designation",
       "primary_conatct_number",
@@ -222,7 +222,7 @@ const useExhibitorCreate = ({ location }) => {
       delete errors["partner_tag"];
     }
     if (!empId) {
-      required.push("password");
+      required.push("primary_password");
     }
     required.forEach((val) => {
       if (form?.product_categories?.length === 0) {

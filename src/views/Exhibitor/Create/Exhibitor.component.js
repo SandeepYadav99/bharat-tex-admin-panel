@@ -19,6 +19,7 @@ import CountryCode from "../../../assets/country_code.json";
 import { ArrowBackIos } from "@material-ui/icons";
 import historyUtils from "../../../libs/history.utils";
 import { isSubmitting } from "redux-form";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -47,6 +48,7 @@ const ExhibitorCreate = () => {
     image,
     empId
   } = useExhibitorCreate({});
+
 
   return (
     <div className={styles.container}>
@@ -371,15 +373,15 @@ const ExhibitorCreate = () => {
           </div>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.password}
-              errorText={errorData?.password}
+              isError={errorData?.primary_password}
+              errorText={errorData?.primary_password}
               label={"Password"}
-              value={form?.password}
+              value={form?.primary_password}
               onTextChange={(text) => {
-                changeTextData(text, "password");
+                changeTextData(text, "primary_password");
               }}
               onBlur={() => {
-                onBlurHandler("password");
+                onBlurHandler("primary_password");
               }}
             />
           </div>

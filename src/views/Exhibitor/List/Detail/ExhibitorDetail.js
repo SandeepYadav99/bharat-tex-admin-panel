@@ -77,8 +77,8 @@ const ExhibitorDetail = () => {
                     <div className={styles.wrappedContent}>
                       {detail?.details?.zone_tag?.length > 0
                         ? detail?.details?.zone_tag?.map((val) => (
-                          <span>{val},</span>
-                        ))
+                            <span>{val},</span>
+                          ))
                         : "--"}
                     </div>
                   </div>
@@ -118,8 +118,8 @@ const ExhibitorDetail = () => {
               <div className={styles.wrappedContent}>
                 {detail?.details?.products?.length > 0
                   ? detail?.details?.products?.map((val, id) => (
-                    <span key={id}>{val}</span>
-                  ))
+                      <span key={id}>{val}</span>
+                    ))
                   : "--"}
               </div>
             </div>
@@ -149,7 +149,17 @@ const ExhibitorDetail = () => {
               </div>
               <div className={styles.headingDataType}>
                 <p className={styles.text}>Website:</p>
-                {detail?.details?.website ? detail?.details?.website : "--"}
+                {detail?.details?.website ? (
+                  <a
+                    className={styles.linkDataText}
+                    href={detail?.details?.website}
+                    target="_blank"
+                  >
+                    {detail?.details?.website}
+                  </a>
+                ) : (
+                  "--"
+                )}
               </div>
               <div className={styles.headingDataType}>
                 <p className={styles.text}>Primary Email:</p>
