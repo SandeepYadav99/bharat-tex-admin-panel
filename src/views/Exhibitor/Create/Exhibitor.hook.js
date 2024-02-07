@@ -63,6 +63,7 @@ const useExhibitorCreate = ({ location }) => {
     PRODUCT_CATEGORY: [],
   });
   const [pdf, setPdf] = useState("");
+  const [secondary,setSecondary] = useState("");
 
   const EventListManager = [
     "FIBERS_YARNS",
@@ -109,6 +110,7 @@ const useExhibitorCreate = ({ location }) => {
           const data = res?.data?.details;
           setSelectImages(data?.gallery_images);
           setImage(data?.company_logo);
+          setSecondary(data?.secondary_user_id)
           setForm({
             ...form,
             products: data?.products,
@@ -140,7 +142,6 @@ const useExhibitorCreate = ({ location }) => {
             status: data?.status,
             is_partner: data?.is_partner,
             primary_user_id: data?.primary_user_id ? data.primary_user_id : "",
-            secondary_user_id:data?.secondary_user_id ? secondary_user_id : "",
           });
           setPdf(data?.company_brochure);
         } else {
@@ -184,7 +185,7 @@ const useExhibitorCreate = ({ location }) => {
   const checkSecondaryEmailValidation = useCallback(() => {
     debounceValidationList({
       email: form?.secondary_email,
-      id: form?.secondary_user_id,
+      id: secondary ? secondary : "",
     }).then((res) => {
       if (!res.error) {
         const errors = JSON.parse(JSON.stringify(errorData));
@@ -213,6 +214,9 @@ const useExhibitorCreate = ({ location }) => {
       checkSecondaryEmailValidation();
     }
   }, [form?.secondary_email]);
+
+
+
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -251,9 +255,11 @@ const useExhibitorCreate = ({ location }) => {
     if (form?.primary_email && !isEmail(form?.primary_email)) {
       errors["primary_email"] = "Invalid email address ";
     }
+    
     if (form?.secondary_email && !isEmail(form?.secondary_email)) {
       errors["secondary_email"] = "Invalid email address ";
     }
+    
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
