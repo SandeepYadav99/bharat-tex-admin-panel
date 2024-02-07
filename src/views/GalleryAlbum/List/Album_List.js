@@ -68,7 +68,7 @@ const EventList = ({}) => {
         key: "date",
         label: "DATE",
         sortable: false,
-        render: (temp, all) => <div>{all?.eventDateText
+        render: (temp, all) => <div>{all?.eventDateText ==="Invalid date" ? "N/A" : all?.eventDateText
         }</div>,
       },
       {

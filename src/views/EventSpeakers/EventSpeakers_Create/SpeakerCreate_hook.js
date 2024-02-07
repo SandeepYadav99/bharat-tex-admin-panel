@@ -64,10 +64,10 @@ function useSpeakerCreateHook({ location }) {
     let required = [
       //  "s_image",
       "s_name",
-      // "s_description",
+     
       "s_company",
       "s_designation"
-      // "s_description",
+    
     ];
 
     // if (!id) {
