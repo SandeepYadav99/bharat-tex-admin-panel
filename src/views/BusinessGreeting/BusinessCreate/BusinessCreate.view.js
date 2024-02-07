@@ -41,8 +41,6 @@ const BusinessCreate = ({}) => {
   } = useBusinessCreate({});
   const classes = useStyles();
 
-
-
   return (
     <div>
       <div className={styles.outerFlex}>
