@@ -36,7 +36,7 @@ const useCategoryCreate = ({ location }) => {
   const handleCountryCodeChange =(e)=>{
     setCountryCode(e.target.value)
   }
-  console.log("parentId", eventId, parentId);
+
 
   useEffect(() => {
     if (id) {
@@ -87,7 +87,7 @@ const useCategoryCreate = ({ location }) => {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["name", "contact","email"];
+    let required = ["name"]; // "contact","email"
     required.forEach((val) => {
       if (
         !form?.[val] ||

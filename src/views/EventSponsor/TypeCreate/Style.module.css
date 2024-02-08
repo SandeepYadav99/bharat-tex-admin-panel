@@ -85,3 +85,8 @@
   gap: 10px;
   align-items: center;
 }
+.action_container{
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
