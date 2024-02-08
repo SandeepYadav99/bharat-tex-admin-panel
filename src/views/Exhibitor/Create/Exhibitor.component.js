@@ -99,6 +99,7 @@ const ExhibitorCreate = () => {
               </div>
               <div className={styles.wrapperContainer}>
                 <b>Featured Partner Exhibitor: {" "}</b>
+                {form?.partner_tag ? form?.partner_tag :"--"}
               </div>
             </div>
             <div className={styles.secondContainer}>

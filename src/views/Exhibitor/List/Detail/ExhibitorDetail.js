@@ -63,14 +63,6 @@ const ExhibitorDetail = () => {
                     ? removeUnderScore(detail?.details?.event_venue)
                     : "--"}
                 </div>
-              </div>
-              <div className={styles.flexGap2Row}>
-                <div className={styles.headingDataType}>
-                  <p className={styles.text}>Partner Type:</p>
-                  {detail?.details?.partner_tag
-                    ? removeUnderScore(detail?.details?.partner_tag)
-                    : "--"}
-                </div>
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Zone:</p>
                   <div className={styles.wrappedContent}>
@@ -81,12 +73,34 @@ const ExhibitorDetail = () => {
                       : "--"}
                   </div>
                 </div>
+              </div>
+              <div className={styles.flexGap2Row}>
+                <div className={styles.headingDataType}>
+                  <p className={styles.text}>Partner Type:</p>
+                  {detail?.details?.partner_tag
+                    ? removeUnderScore(detail?.details?.partner_tag)
+                    : "--"}
+                </div>
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Booth:</p>
                   {""}
                   {detail?.details?.event_stall
                     ? detail?.details?.event_stall
                     : "--"}
+                </div>
+                <div className={styles.headingDataType}>
+                  <p className={styles.text}>Hall Number:</p>
+                  {""}
+                  {detail?.details?.hall_no ? detail?.details?.hall_no : "--"}
+                </div>
+                <div className={styles.headingDataType}>
+                  <p className={styles.text}>Business Nature:</p>
+                  {""}
+                  {detail?.details?.business_nature?.length > 0
+                  ? detail?.details?.business_nature?.map((val, id) => (
+                      <span key={id}>{val},</span>
+                    ))
+                  : "--"}
                 </div>
               </div>
             </div>
