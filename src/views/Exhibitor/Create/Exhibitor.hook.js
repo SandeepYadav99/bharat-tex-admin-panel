@@ -53,7 +53,7 @@ const initialForm = {
 };
 
 const featureKey = {
-  manufacturer: true,
+  manufacturer: false,
   sole_agent: false,
   product_designer: false,
   publisher: false,
@@ -167,6 +167,24 @@ const useExhibitorCreate = ({ location }) => {
     }
   }, [empId]);
 
+  useEffect(() => {
+    setForm((prevForm) => {
+      const updatedForm = { ...prevForm };
+      Object.keys(feature).forEach((key) => {
+        if (feature[key] === true && !updatedForm.business_nature.includes(key)) {
+          updatedForm.business_nature.push(key);
+        }
+        else if(feature[key] === false){
+            const index = updatedForm.business_nature.indexOf(key);
+            if (index !== -1) {
+              updatedForm.business_nature.splice(index, 1);
+            }
+        }
+      });
+      return updatedForm;
+    });
+  },[feature]);
+
   const checkPhoneValidation = useCallback(() => {
     debounceValidationList({
       contact: form?.primary_conatct_number,
@@ -268,7 +286,10 @@ const useExhibitorCreate = ({ location }) => {
     if (form?.primary_email && !isEmail(form?.primary_email)) {
       errors["primary_email"] = "Invalid email address ";
     }
-    if (form?.secondary_email?.length > 0 && form?.primary_email === form?.secondary_email) {
+    if (
+      form?.secondary_email?.length > 0 &&
+      form?.primary_email === form?.secondary_email
+    ) {
       errors["secondary_email"] =
         "Primary Email Address & Secondary Email Address cannot be same ";
     }
@@ -326,9 +347,6 @@ const useExhibitorCreate = ({ location }) => {
         }
       }
     });
-
-    fd.append("business_nature", JSON.stringify(feature));
-
     if (form?.company_brochure) {
       fd.append("company_brochure", form?.company_brochure);
     }

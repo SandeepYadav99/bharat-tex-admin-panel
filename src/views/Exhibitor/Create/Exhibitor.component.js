@@ -388,7 +388,121 @@ const ExhibitorCreate = () => {
             </div>
           </div>
         )}
+        <br/>
+         {
+        user?.role === "ADMIN" && 
+        <div>
+          <b>Business Nature</b>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeFeatureData(
+                  !feature?.manufacturer,
+                  "manufacturer"
+                );
+              }}
+              label={"Manufacture"}
+              checked={feature?.manufacturer}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeFeatureData(
+                  !feature?.sole_agent,
+                  "sole_agent"
+                );
+              }}
+              label={"Sole Agent"}
+              checked={feature?.sole_agent}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeFeatureData(
+                  !feature?.product_designer,
+                  "product_designer"
+                );
+              }}
+              label={"Product Designer"}
+              checked={feature?.product_designer}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomCheckbox
+              color={"primary"}
+              label={"Publisher"}
+              handleChange={(text) => {
+                changeFeatureData(
+                  !feature?.publisher,
+                  "publisher"
+                );
+              }}
+              checked={feature?.publisher}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomCheckbox
+              color={"primary"}
+              label={"Exporter"}
+              handleChange={(text) => {
+                changeFeatureData(
+                  !feature?.exporter,
+                  "exporter"
+                );
+              }}
+              checked={feature?.exporter}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomCheckbox
+              color={"primary"}
+              label={"Wholesale"}
+              handleChange={(text) => {
+                changeFeatureData(
+                  !feature?.whole_saler,
+                  "whole_saler"
+                );
+              }}
+              checked={feature?.whole_saler}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomCheckbox
+              color={"primary"}
+              label={"Merchant"}
+              handleChange={(text) => {
+                changeFeatureData(
+                  !feature?.merchants,
+                  "merchants"
+                );
+              }}
+              checked={feature?.merchants}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomCheckbox
+              color={"primary"}
+              label={"Others"}
+              handleChange={(text) => {
+                changeFeatureData(
+                  !feature?.other,
+                  "other"
+                );
+              }}
+              checked={feature?.other}
+            />
+          </div>
+         </div> 
+         </div> 
+      }
       </div>
+     
       <div className={"plainPaper"}>
         <div>
           {" "}
