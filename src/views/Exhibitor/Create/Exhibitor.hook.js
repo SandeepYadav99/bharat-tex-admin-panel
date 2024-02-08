@@ -306,14 +306,12 @@ const useExhibitorCreate = ({ location }) => {
 
     return errors;
   }, [form, errorData]);
-  console.log("form", form);
   const submitToServer = useCallback(async () => {
     if (isSubmitting) {
       return;
     }
     setIsSubmitting(true);
     const fd = new FormData();
-    console.log(">>>>>",form?.business_nature)
     Object.keys(form).forEach((key) => {
       if (
         key !== "company_logo" &&
