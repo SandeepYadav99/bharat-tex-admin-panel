@@ -392,7 +392,7 @@ const ExhibitorCreate = () => {
          {
         user?.role === "ADMIN" && 
         <div>
-          <b>Business Nature</b>
+          <b>Type Of Company</b>
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomCheckbox
