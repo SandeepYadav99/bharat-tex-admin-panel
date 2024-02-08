@@ -49,6 +49,8 @@ const initialForm = {
   youtube_link: "",
   is_partner: false,
   hall_no: "",
+  other: false,
+  other_data: "",
   business_nature: [],
 };
 
@@ -60,7 +62,7 @@ const featureKey = {
   exporter: false,
   whole_saler: false,
   merchants: false,
-  other: false,
+  // other: false,
 };
 
 const useExhibitorCreate = ({ location }) => {
@@ -316,9 +318,11 @@ const useExhibitorCreate = ({ location }) => {
     const fd = new FormData();
     Object.keys(form).forEach((key) => {
       if (
-        key !== "company_logo"
+        key !== "company_logo",
         // key !== "gallery_images"
         // key !== "company_brochure"
+        key !== "other_data",
+        key !== "other"
       ) {
         if (key === "status") {
           fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
@@ -330,7 +334,15 @@ const useExhibitorCreate = ({ location }) => {
           key === "related_to" ||
           key === "business_nature"
         ) {
-          fd.append(key, JSON.stringify(form[key]));
+          if (key === "business_nature") {
+            let values = form[key];
+            if (form?.other) {
+              values.push(form?.other_data);
+            }
+            fd.append(key, JSON.stringify(values));
+          } else {
+            fd.append(key, JSON.stringify(form[key]));
+          }
         } else if (key === "partner_tag") {
           if (form?.is_partner) {
             fd.append(key, form?.partner_tag);
@@ -394,8 +406,6 @@ const useExhibitorCreate = ({ location }) => {
       let shouldRemoveError = true;
       const t = { ...form };
       if (fieldName === "company_name") {
-        t[fieldName] = text;
-      } else if (fieldName === "primary_email") {
         t[fieldName] = text;
       } else if (fieldName === "primary_email") {
         t[fieldName] = text;

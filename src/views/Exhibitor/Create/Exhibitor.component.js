@@ -469,16 +469,36 @@ const ExhibitorCreate = () => {
                   color={"primary"}
                   label={"Others"}
                   handleChange={(text) => {
-                    changeFeatureData(!feature?.other, "other");
+                    changeTextData(!form?.other, "other");
                   }}
-                  checked={feature?.other}
+                  checked={form?.other}
                 />
-            </div>
+              </div>
             </div>
           </div>
         )}
+        <div className={"formFlex"}>
+        <div className={"formGroup"}></div>
+        {
+          form?.other &&  <div className={"formGroup"}>
+          <CustomTextField
+            isError={errorData?.other_data}
+            errorText={errorData?.other_data}
+            label={"Other"}
+            value={form?.other_data}
+            onTextChange={(text) => {
+              changeTextData(text, "other_data");
+            }}
+            onBlur={() => {
+              onBlurHandler("other_data");
+            }}
+          />
+        </div>
+        }
+       
       </div>
-
+      </div>
+      
       <div className={"plainPaper"}>
         <div>
           {" "}
