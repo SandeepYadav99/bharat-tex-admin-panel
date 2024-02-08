@@ -21,6 +21,7 @@ import historyUtils from "../../../libs/history.utils";
 import { isSubmitting } from "redux-form";
 import { useSelector } from "react-redux";
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
+import { removeUnderScore } from "../../../helper/helper";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -61,16 +62,67 @@ const ExhibitorCreate = () => {
         <div className={styles.outerFlex}>
           <div className={"headerFlex"}>
             <ButtonBase onClick={() => historyUtils.goBack()}>
-              <ArrowBackIos fontSize={"small"} />
+              {user.role === "ADMIN" && <ArrowBackIos fontSize={"small"} />}
               <span className={"capitalize"}>
-                <div className={"heading"}>
-                  <b> {empId ? "Edit Exhibitor" : "Add Exhibitor"}</b>{" "}
-                </div>
+                {user.role === "ADMIN" ? (
+                  <div className={"heading"}>
+                    <b> {empId ? "Edit Exhibitor" : "Add Exhibitor"}</b>{" "}
+                  </div>
+                ) : (
+                  <div className={"heading"}>
+                    <b> Exhibitor Detail</b>{" "}
+                  </div>
+                )}
               </span>
             </ButtonBase>
             <div className={styles.newLine} />
           </div>
         </div>
+        {user.role === "EXHIBITOR" && (
+          <div className={styles.upperInfoContainer}>
+            <div className={styles.firstContainer}>
+              <div className={styles.wrapperContainer}>
+                <b>Product Group: {" "}</b>
+                {form.product_groups?.map((val) => (
+                  <span>
+                    {val?.name},{""}
+                  </span>
+                ))}
+              </div>
+              <div className={styles.wrapperContainer}>
+                <b>Event Venue : {" "}</b> {" "}
+                {form?.event_venue ? removeUnderScore(form?.event_venue) : "--"}
+              </div>
+              <div className={styles.wrapperContainer}>
+                <b>Hall Number : {" "}</b>
+                {form.hall_no ? removeUnderScore(form?.hall_no) : "--"}
+              </div>
+              <div className={styles.wrapperContainer}>
+                <b>Featured Partner Exhibitor: {" "}</b>
+              </div>
+            </div>
+            <div className={styles.secondContainer}>
+              <div className={styles.wrapperContainer}>
+                <b>Product Categories: {" "}</b>
+                {form?.product_categories?.map((val) => (
+                  <span>
+                    {val?.name},{""}
+                  </span>
+                ))}{" "}
+              </div>
+              <div className={styles.wrapperContainer}>
+                <b>Booth Number:</b>{" "}
+                {form?.event_stall ? form?.event_stall : "--"}
+              </div>
+              <div className={styles.wrapperContainer}>
+                <b>Zone:</b>
+                {form.zone_tag?.length > 0
+                  ? form.zone_tag?.map((val) => <span>{val}</span>)
+                  : "--"}
+              </div>
+            </div>
+          </div>
+        )}
         <div className={styles.cont}>
           <div>
             <File
@@ -210,130 +262,151 @@ const ExhibitorCreate = () => {
             />
           </div>
         </div>
-        {user?.role === "ADMIN" &&
-
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomSelectField
-              isError={errorData?.event_venue}
-              errorText={errorData?.event_venue}
-              label={"Event Venue"}
-              value={form?.event_venue}
-              handleChange={(value) => {
-                changeTextData(value, "event_venue");
-              }}
-            >
-              <MenuItem value="BHARAT_MANDAPAM">BHARAT MANDAPAM</MenuItem>
-              <MenuItem value="YASHOBHOOMI">YASHOBHOOMI</MenuItem>
-            </CustomSelectField>
-          </div>
-        </div>
-}
-
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              label={"Hall No"}
-              value={form?.hall_no}
-              onTextChange={(text) => {
-                changeTextData(text, "hall_no");
-              }}
-              onBlur={() => {
-                onBlurHandler("hall_no");
-              }}
-            />
-          </div>
-          <div className={"formGroup"}>
-            <CustomTextField
-              label={"Booth Number"}
-              value={form?.event_stall}
-              onTextChange={(text) => {
-                changeTextData(text, "event_stall");
-              }}
-              onBlur={() => {
-                onBlurHandler("event_stall");
-              }}
-            />
-          </div>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <Autocomplete
-              multiple
-              rows={6}
-              id="tags-outlined"
-              onChange={(e, value) => {
-                changeTextData(value, "zone_tag");
-              }}
-              options={EventListManager ? EventListManager : []}
-              value={form?.zone_tag}
-              freeSolo
-              selectOnFocus={false}
-              error={errorData?.zone_tag}
-              renderTags={(value, getTagProps) =>
-                value.map((option, index) => (
-                  <Chip
-                    variant="outlined"
-                    label={option}
-                    {...getTagProps({ index })}
-                  /> // disabled={option.length < 2}
-                ))
-              }
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  variant="outlined"
-                  label="Zone"
-                  error={errorData?.zone_tag}
-                />
-              )}
-            />
-          </div>
-          <div className={"formGroup"}></div>
-        </div>
-        <div className={"formFlex"}></div>
-        <div className={"formFlex"}>
-          <div
-            style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}
-            className={"formGroup"}
-          >
-            <input
-              type="checkbox"
-              value={form?.is_partner}
-              checked={form?.is_partner}
-              onChange={() => changeTextData(!form?.is_partner, "is_partner")}
-            />
-            <span>This is A featured Partner Exhibitor</span>
-          </div>
-          <div className={"formGroup"}>
-            {form?.is_partner && (
+        {user?.role === "ADMIN" && (
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
               <CustomSelectField
-                isError={errorData?.partner_tag}
-                errorText={errorData?.partner_tag}
-                label={"Partner Type"}
-                value={form?.partner_tag}
+                isError={errorData?.event_venue}
+                errorText={errorData?.event_venue}
+                label={"Event Venue"}
+                value={form?.event_venue}
                 handleChange={(value) => {
-                  changeTextData(value, "partner_tag");
+                  changeTextData(value, "event_venue");
                 }}
               >
-                <MenuItem value="PLATINUM_PARTNER">Platinum Partner</MenuItem>
-                <MenuItem value="GOLD_PARTNER">Gold Partner</MenuItem>
-                <MenuItem value="SILVER_PARTNER">Silver Partner</MenuItem>
-                <MenuItem value="FASHION_PARTNER">Fashion Partner</MenuItem>
-                <MenuItem value="SUSTAINBILITY_PARTNER">
-                  Sustainibility Partner
-                </MenuItem>
-                <MenuItem value="ASSOCIATE_PARTNER">Associate Partner</MenuItem>
+                <MenuItem value="BHARAT_MANDAPAM">BHARAT MANDAPAM</MenuItem>
+                <MenuItem value="YASHOBHOOMI">YASHOBHOOMI</MenuItem>
               </CustomSelectField>
-            )}
+            </div>
           </div>
-        </div>
+        )}
+        {user?.role === "ADMIN" && (
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                label={"Hall No"}
+                value={form?.hall_no}
+                onTextChange={(text) => {
+                  changeTextData(text, "hall_no");
+                }}
+                onBlur={() => {
+                  onBlurHandler("hall_no");
+                }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomTextField
+                label={"Booth Number"}
+                value={form?.event_stall}
+                onTextChange={(text) => {
+                  changeTextData(text, "event_stall");
+                }}
+                onBlur={() => {
+                  onBlurHandler("event_stall");
+                }}
+              />
+            </div>
+          </div>
+        )}
+        {user?.role === "ADMIN" && (
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <Autocomplete
+                multiple
+                rows={6}
+                id="tags-outlined"
+                onChange={(e, value) => {
+                  changeTextData(value, "zone_tag");
+                }}
+                options={EventListManager ? EventListManager : []}
+                value={form?.zone_tag}
+                freeSolo
+                selectOnFocus={false}
+                error={errorData?.zone_tag}
+                renderTags={(value, getTagProps) =>
+                  value.map((option, index) => (
+                    <Chip
+                      variant="outlined"
+                      label={option}
+                      {...getTagProps({ index })}
+                    /> // disabled={option.length < 2}
+                  ))
+                }
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    label="Zone"
+                    error={errorData?.zone_tag}
+                  />
+                )}
+              />
+            </div>
+            <div className={"formGroup"}></div>
+          </div>
+        )}
+
+        <div className={"formFlex"}></div>
+        {user?.role === "ADMIN" && (
+          <div className={"formFlex"}>
+            <div
+              style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}
+              className={"formGroup"}
+            >
+              <input
+                type="checkbox"
+                value={form?.is_partner}
+                checked={form?.is_partner}
+                onChange={() => changeTextData(!form?.is_partner, "is_partner")}
+              />
+              <span>This is A featured Partner Exhibitor</span>
+            </div>
+            <div className={"formGroup"}>
+              {form?.is_partner && (
+                <CustomSelectField
+                  isError={errorData?.partner_tag}
+                  errorText={errorData?.partner_tag}
+                  label={"Partner Type"}
+                  value={form?.partner_tag}
+                  handleChange={(value) => {
+                    changeTextData(value, "partner_tag");
+                  }}
+                >
+                  <MenuItem value="PLATINUM_PARTNER">Platinum Partner</MenuItem>
+                  <MenuItem value="GOLD_PARTNER">Gold Partner</MenuItem>
+                  <MenuItem value="SILVER_PARTNER">Silver Partner</MenuItem>
+                  <MenuItem value="FASHION_PARTNER">Fashion Partner</MenuItem>
+                  <MenuItem value="SUSTAINBILITY_PARTNER">
+                    Sustainibility Partner
+                  </MenuItem>
+                  <MenuItem value="ASSOCIATE_PARTNER">
+                    Associate Partner
+                  </MenuItem>
+                </CustomSelectField>
+              )}
+            </div>
+          </div>
+        )}
       </div>
       <div className={"plainPaper"}>
         <div>
           {" "}
           <b>Contact Detail</b>
         </div>
+        {user.role === "EXHIBITOR" && (
+          <div className={styles.contactDetail}>
+            <div>
+              <b>Primary Email Id: </b>{" "}
+              {form?.primary_email ? form?.primary_email : "--"}
+            </div>
+            <div>
+              <b>Phone Number : </b>{" "}
+              {form?.primary_conatct_number
+                ? form?.primary_conatct_number
+                : "--"}
+            </div>
+          </div>
+        )}
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
@@ -364,115 +437,170 @@ const ExhibitorCreate = () => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              isError={errorData?.primary_email}
-              errorText={errorData?.primary_email}
-              label={"Primary Email"}
-              value={form?.primary_email}
-              onTextChange={(text) => {
-                changeTextData(text, "primary_email");
-              }}
+        {user.role === "ADMIN" && (
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                isError={errorData?.primary_email}
+                errorText={errorData?.primary_email}
+                label={"Primary Email"}
+                value={form?.primary_email}
+                onTextChange={(text) => {
+                  changeTextData(text, "primary_email");
+                }}
               // onBlur={() => {
               //   onBlurHandler("primary_email");
               // }}
-            />
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomTextField
+                isError={errorData?.primary_password}
+                errorText={errorData?.primary_password}
+                label={"Password"}
+                value={form?.primary_password}
+                onTextChange={(text) => {
+                  changeTextData(text, "primary_password");
+                }}
+                onBlur={() => {
+                  onBlurHandler("primary_password");
+                }}
+              />
+            </div>
           </div>
-          <div className={"formGroup"}>
-            <CustomTextField
-              isError={errorData?.primary_password}
-              errorText={errorData?.primary_password}
-              label={"Password"}
-              value={form?.primary_password}
-              onTextChange={(text) => {
-                changeTextData(text, "primary_password");
-              }}
-              onBlur={() => {
-                onBlurHandler("primary_password");
-              }}
-            />
+        )}
+        {user.role === "ADMIN" && (
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                label={"Secondary Person Name"}
+                value={form?.secondary_perosn_name}
+                onTextChange={(text) => {
+                  changeTextData(text, "secondary_perosn_name");
+                }}
+                onBlur={() => {
+                  onBlurHandler("secondary_perosn_name");
+                }}
+              />
+            </div>
+            <div className={"formGroup"}></div>
           </div>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              label={"Secondary Person Name"}
-              value={form?.secondary_perosn_name}
-              onTextChange={(text) => {
-                changeTextData(text, "secondary_perosn_name");
-              }}
-              onBlur={() => {
-                onBlurHandler("secondary_perosn_name");
-              }}
-            />
-          </div>
-          <div className={"formGroup"}></div>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              isError={errorData?.secondary_email}
-              errorText={errorData?.secondary_email}
-              label={"Secondary Email"}
-              value={form?.secondary_email}
-              onTextChange={(text) => {
-                changeTextData(text, "secondary_email");
-              }}
+        )}
+        {user.role === "EXHIBITOR" && (
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                label={"Secondary Person Name"}
+                value={form?.secondary_perosn_name}
+                onTextChange={(text) => {
+                  changeTextData(text, "secondary_perosn_name");
+                }}
+                onBlur={() => {
+                  onBlurHandler("secondary_perosn_name");
+                }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomTextField
+                isError={errorData?.secondary_email}
+                errorText={errorData?.secondary_email}
+                label={"Secondary Email"}
+                value={form?.secondary_email}
+                onTextChange={(text) => {
+                  changeTextData(text, "secondary_email");
+                }}
               // onBlur={() => {
               //   onBlurHandler("secondary_email");
               // }}
-            />
-          </div>
-          <div className={"formGroup"}>
-            <CustomTextField
-              isError={errorData?.secondary_password}
-              errorText={errorData?.secondary_password}
-              label={"Password"}
-              value={form?.secondary_password}
-              onTextChange={(text) => {
-                changeTextData(text, "secondary_password");
-              }}
-              onBlur={() => {
-                onBlurHandler("secondary_password");
-              }}
-            />
-          </div>
-        </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"} id={styles.oneLineView}>
-            <div id={styles.countryCode}>
-              <CustomSelectField
-                isError={errorData?.country_code}
-                errorText={errorData?.country_code}
-                label={"Country Code"}
-                value={form?.country_code}
-                handleChange={(value) => {
-                  changeTextData(value, "country_code");
-                }}
-              >
-                {CountryCode?.map((val) => {
-                  return (
-                    <MenuItem value={val?.dial_code} key={val.code}>
-                      {val?.dial_code}
-                    </MenuItem>
-                  );
-                })}
-              </CustomSelectField>
+              />
             </div>
-            <CustomTextField
-              isError={errorData?.primary_conatct_number}
-              errorText={errorData?.primary_conatct_number}
-              label={"Phone"}
-              value={form?.primary_conatct_number}
-              onTextChange={(text) => {
-                changeTextData(text, "primary_conatct_number");
-              }}
+          </div>
+        )}
+        {user.role === "ADMIN" && (
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                isError={errorData?.secondary_email}
+                errorText={errorData?.secondary_email}
+                label={"Secondary Email"}
+                value={form?.secondary_email}
+                onTextChange={(text) => {
+                  changeTextData(text, "secondary_email");
+                }}
+              // onBlur={() => {
+              //   onBlurHandler("secondary_email");
+              // }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomTextField
+                isError={errorData?.secondary_password}
+                errorText={errorData?.secondary_password}
+                label={"Password"}
+                value={form?.secondary_password}
+                onTextChange={(text) => {
+                  changeTextData(text, "secondary_password");
+                }}
+                onBlur={() => {
+                  onBlurHandler("secondary_password");
+                }}
+              />
+            </div>
+          </div>
+        )}
+
+        <div className={"formFlex"}>
+          {user.role === "ADMIN" ? (
+            <div className={"formGroup"} id={styles.oneLineView}>
+              <div id={styles.countryCode}>
+                <CustomSelectField
+                  isError={errorData?.country_code}
+                  errorText={errorData?.country_code}
+                  label={"Country Code"}
+                  value={form?.country_code}
+                  handleChange={(value) => {
+                    changeTextData(value, "country_code");
+                  }}
+                >
+                  {CountryCode?.map((val) => {
+                    return (
+                      <MenuItem value={val?.dial_code} key={val.code}>
+                        {val?.dial_code}
+                      </MenuItem>
+                    );
+                  })}
+                </CustomSelectField>
+              </div>
+              <CustomTextField
+                isError={errorData?.primary_conatct_number}
+                errorText={errorData?.primary_conatct_number}
+                label={"Phone"}
+                value={form?.primary_conatct_number}
+                onTextChange={(text) => {
+                  changeTextData(text, "primary_conatct_number");
+                }}
               // onBlur={() => {
               //   onBlurHandler("primary_conatct_number");
               // }}
-            />
-          </div>
+              />
+            </div>
+          ) : (
+            <div className={"formGroup"}>
+              <CustomTextField
+                isError={errorData?.company_address}
+                errorText={errorData?.company_address}
+                label={"Address"}
+                value={form?.company_address}
+                onTextChange={(text) => {
+                  changeTextData(text, "company_address");
+                }}
+                onBlur={() => {
+                  onBlurHandler("company_address");
+                }}
+              />
+            </div>
+          )}
+
           <div className={"formGroup"}>
             <CustomTextField
               isError={errorData?.other_conatct_number}
@@ -488,36 +616,39 @@ const ExhibitorCreate = () => {
             />
           </div>
         </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomTextField
-              isError={errorData?.company_address}
-              errorText={errorData?.company_address}
-              label={"Address"}
-              value={form?.company_address}
-              onTextChange={(text) => {
-                changeTextData(text, "company_address");
-              }}
-              onBlur={() => {
-                onBlurHandler("company_address");
-              }}
-            />
+        {user.role === "ADMIN" && (
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                isError={errorData?.company_address}
+                errorText={errorData?.company_address}
+                label={"Address"}
+                value={form?.company_address}
+                onTextChange={(text) => {
+                  changeTextData(text, "company_address");
+                }}
+                onBlur={() => {
+                  onBlurHandler("company_address");
+                }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomTextField
+                isError={errorData?.website}
+                errorText={errorData?.website}
+                label={"Website"}
+                value={form?.website}
+                onTextChange={(text) => {
+                  changeTextData(text, "website");
+                }}
+                onBlur={() => {
+                  onBlurHandler("website");
+                }}
+              />
+            </div>
           </div>
-          <div className={"formGroup"}>
-            <CustomTextField
-              isError={errorData?.website}
-              errorText={errorData?.website}
-              label={"Website"}
-              value={form?.website}
-              onTextChange={(text) => {
-                changeTextData(text, "website");
-              }}
-              onBlur={() => {
-                onBlurHandler("website");
-              }}
-            />
-          </div>
-        </div>
+        )}
+
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
@@ -593,6 +724,22 @@ const ExhibitorCreate = () => {
               }}
             />
           </div>
+          {user.role === "EXHIBITOR" && (
+            <div className={"formGroup"}>
+              <CustomTextField
+                isError={errorData?.website}
+                errorText={errorData?.website}
+                label={"Website"}
+                value={form?.website}
+                onTextChange={(text) => {
+                  changeTextData(text, "website");
+                }}
+                onBlur={() => {
+                  onBlurHandler("website");
+                }}
+              />
+            </div>
+          )}
           <div></div>
         </div>
       </div>
@@ -606,11 +753,11 @@ const ExhibitorCreate = () => {
             <div className={"formGroup"}>
               <File
                 max_size={5 * 1024 * 1024}
-                type={["pdf"]}
+                type={["pdf",".jpeg",".png",".jpg"]}
                 fullWidth={true}
                 name="od1"
                 label="Upload File"
-                accept={"application/pdf"}
+                accept={"application/pdf,application/msword,image/*"}
                 error={errorData?.company_brochure}
                 isError={errorData?.company_brochure}
                 value={form?.company_brochure}
@@ -622,7 +769,6 @@ const ExhibitorCreate = () => {
                 }}
                 link={pdf}
               />
-              {console.log(pdf, "pdf")}
             </div>
           </div>
           <div className={"formGroup"}>

@@ -309,7 +309,7 @@ const ExhibitorDetail = () => {
                 <span>View Preview </span>
               </a>
             ) : (
-              ""
+              "N/A"
             )}
           </div>
           <div className={styles.lastBlock}>
