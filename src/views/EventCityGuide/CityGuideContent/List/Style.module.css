@@ -138,10 +138,10 @@
 }
 .desData {
   text-overflow: ellipsis;
-  /* overflow: hidden; */
+ overflow: hidden; 
   max-width: 350px;
   /* height: 30px; */
-  white-space: nowrap;
+  white-space: normal;
 
 }
 .desData img {
