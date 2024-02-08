@@ -35,3 +35,43 @@
   display: flex !important;
   gap:10px;
 }
+
+.upperInfoContainer{
+  display: grid;
+  grid-template-columns: 50% 50%;
+  height: 150px;
+  margin-top: 30px;
+}
+.firstContainer{
+  display: flex;
+  flex-direction: column !important;
+  width: 400px;
+  gap:10px;
+
+}
+.secondContainer{
+  display: flex;
+  flex-direction: column !important;
+  width: 400px;
+  gap:10px;
+}
+
+.upperInfoContainer >div{
+  font-size: 14px;
+}
+.contactDetail{
+  display: grid;
+  grid-template-columns: 60% 40%;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.contactDetail >div{
+  font-size: 14px;
+}
+
+.wrapperContainer{
+  display: flex;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+}
+

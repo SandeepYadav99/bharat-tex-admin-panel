@@ -49,18 +49,18 @@ const initialForm = {
   youtube_link: "",
   is_partner: false,
   hall_no: "",
-  business_nature:[],
+  business_nature: [],
 };
 
 const featureKey = {
-  manufacturer:true,
-  sole_agent:false,
-  product_designer:false,
-  publisher:false,
-  exporter:false,
-  whole_saler:false,
-  merchants:false,
-  other:false,
+  manufacturer: true,
+  sole_agent: false,
+  product_designer: false,
+  publisher: false,
+  exporter: false,
+  whole_saler: false,
+  merchants: false,
+  other: false,
 };
 
 const useExhibitorCreate = ({ location }) => {
@@ -77,7 +77,7 @@ const useExhibitorCreate = ({ location }) => {
     PRODUCT_CATEGORY: [],
   });
   const [pdf, setPdf] = useState("");
-  const [secondary,setSecondary] = useState("");
+  const [secondary, setSecondary] = useState("");
 
   const EventListManager = [
     "FIBERS_YARNS",
@@ -108,7 +108,6 @@ const useExhibitorCreate = ({ location }) => {
     });
   }, []);
 
-
   const params = useParams();
 
   const empId = params?.id;
@@ -116,7 +115,6 @@ const useExhibitorCreate = ({ location }) => {
   const handleCheckedData = () => {
     setChecked(() => !checked);
   };
-
 
   useEffect(() => {
     if (empId) {
@@ -126,7 +124,7 @@ const useExhibitorCreate = ({ location }) => {
           const { business_nature } = data;
           setSelectImages(data?.gallery_images);
           setImage(data?.company_logo);
-          setSecondary(data?.secondary_user_id)
+          setSecondary(data?.secondary_user_id);
           setForm({
             ...form,
             products: data?.products,
@@ -158,7 +156,7 @@ const useExhibitorCreate = ({ location }) => {
             status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
             is_partner: data?.is_partner,
             primary_user_id: data?.primary_user_id ? data.primary_user_id : "",
-            hall_no:data?.hall_no,
+            hall_no: data?.hall_no,
           });
           setPdf(data?.company_brochure);
           setFeature({ ...feature, ...business_nature });
@@ -168,8 +166,6 @@ const useExhibitorCreate = ({ location }) => {
       });
     }
   }, [empId]);
-
- 
 
   const checkPhoneValidation = useCallback(() => {
     debounceValidationList({
@@ -182,7 +178,7 @@ const useExhibitorCreate = ({ location }) => {
         if (res?.data?.is_exists) {
           errors["primary_conatct_number"] = "Phone Number Already Exists";
           setErrorData(errors);
-        } 
+        }
       }
     });
   }, [errorData, setErrorData, form]);
@@ -197,7 +193,7 @@ const useExhibitorCreate = ({ location }) => {
         if (res?.data?.is_exists) {
           errors["primary_email"] = "Primary Email Already Exists";
           setErrorData(errors);
-        } 
+        }
       }
     });
   }, [errorData, setErrorData, form]);
@@ -221,13 +217,13 @@ const useExhibitorCreate = ({ location }) => {
     if (form?.primary_email) {
       checkEmailValidation();
     }
-  },[form?.primary_email]);
+  }, [form?.primary_email]);
 
   useEffect(() => {
     if (form?.primary_conatct_number) {
       checkPhoneValidation();
     }
-  },[form?.primary_conatct_number]);
+  }, [form?.primary_conatct_number]);
 
   useEffect(() => {
     if (form?.secondary_email) {
@@ -249,7 +245,7 @@ const useExhibitorCreate = ({ location }) => {
       "company_address",
       "country_code",
     ];
-    
+
     if (form?.is_partner) {
       required.push("partner_tag");
     } else {
@@ -272,7 +268,10 @@ const useExhibitorCreate = ({ location }) => {
     if (form?.primary_email && !isEmail(form?.primary_email)) {
       errors["primary_email"] = "Invalid email address ";
     }
-    
+    if (form?.secondary_email?.length > 0 && form?.primary_email === form?.secondary_email) {
+      errors["secondary_email"] =
+        "Primary Email Address & Secondary Email Address cannot be same ";
+    }
     if (form?.secondary_email && !isEmail(form?.secondary_email)) {
       errors["secondary_email"] = "Invalid email address ";
     }
@@ -281,10 +280,9 @@ const useExhibitorCreate = ({ location }) => {
         delete errors[key];
       }
     });
-   
+
     return errors;
   }, [form, errorData]);
-
 
   const submitToServer = useCallback(async () => {
     if (isSubmitting) {
@@ -317,13 +315,19 @@ const useExhibitorCreate = ({ location }) => {
           }
         } else if (key === "primary_conatct_number") {
           fd.append(key, `${form?.primary_conatct_number}`);
+        } else if (key === "partner_tag") {
+          if (form?.is_partner) {
+            fd.append(key, `${form?.partner_tag}`);
+          } else {
+            fd.append(key, "");
+          }
         } else {
           fd.append(key, form[key]);
         }
       }
     });
 
-    fd.append("business_nature",JSON.stringify(feature));
+    fd.append("business_nature", JSON.stringify(feature));
 
     if (form?.company_brochure) {
       fd.append("company_brochure", form?.company_brochure);
