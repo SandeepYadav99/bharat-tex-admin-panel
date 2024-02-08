@@ -27,21 +27,21 @@ const initialForm = {
   zone_tag: [],
   partner_tag: "",
   primary_email: "",
-  primary_password: "",
+  // primary_password: "",
   secondary_email: "",
-  secondary_password: "",
+  // secondary_password: "",
   company_perosn_name: "",
   conatct_person_designation: "",
   primary_conatct_number: "",
   other_conatct_number: "",
   company_address: "",
   website: "",
-  instagram_link: "",
-  facebook_link: "",
-  linkedin_link: "",
-  twitter_link: "",
-  company_brochure: "",
-  gallery_images: "",
+  // instagram_link: "",
+  // facebook_link: "",
+  // linkedin_link: "",
+  // twitter_link: "",
+  // company_brochure: "",
+  // gallery_images: "",
   company_description: "",
   status: true,
   country_code: "",
@@ -122,7 +122,7 @@ const useExhibitorCreate = ({ location }) => {
         if (!res.error) {
           const data = res?.data?.details;
           const { business_nature } = data;
-          setSelectImages(data?.gallery_images);
+          // setSelectImages(data?.gallery_images);
           setImage(data?.company_logo);
           setSecondary(data?.secondary_user_id);
           setForm({
@@ -133,17 +133,17 @@ const useExhibitorCreate = ({ location }) => {
             product_categories: data?.product_categories,
             event_venue: data?.event_venue,
             primary_email: data?.primary_email,
-            primary_password: data?.primary_password,
+            // primary_password: data?.primary_password,
             company_perosn_name: data?.company_perosn_name,
             conatct_person_designation: data?.conatct_person_designation,
             primary_conatct_number: data?.primary_conatct_number,
             company_address: data?.company_address,
             country_code: data?.country_code,
-            instagram_link: data?.instagram_link,
-            youtube_link: data?.youtube_link,
-            linkedin_link: data?.linkedin_link,
-            facebook_link: data?.facebook_link,
-            twitter_link: data?.twitter_link,
+            // instagram_link: data?.instagram_link,
+            // youtube_link: data?.youtube_link,
+            // linkedin_link: data?.linkedin_link,
+            // facebook_link: data?.facebook_link,
+            // twitter_link: data?.twitter_link,
             zone_tag: data?.zone_tag,
             event_stall: data?.event_stall,
             website: data?.website,
@@ -158,7 +158,7 @@ const useExhibitorCreate = ({ location }) => {
             primary_user_id: data?.primary_user_id ? data.primary_user_id : "",
             hall_no: data?.hall_no,
           });
-          setPdf(data?.company_brochure);
+          // setPdf(data?.company_brochure);
           setFeature({ ...feature, ...business_nature });
         } else {
           SnackbarUtils.error(res?.message);
@@ -166,6 +166,7 @@ const useExhibitorCreate = ({ location }) => {
       });
     }
   }, [empId]);
+
 
   useEffect(() => {
     setForm((prevForm) => {
@@ -186,6 +187,7 @@ const useExhibitorCreate = ({ location }) => {
       return updatedForm;
     });
   }, [feature]);
+
 
   const checkPhoneValidation = useCallback(() => {
     debounceValidationList({
@@ -271,9 +273,9 @@ const useExhibitorCreate = ({ location }) => {
     } else {
       delete errors["partner_tag"];
     }
-    if (!empId) {
-      required.push("primary_password");
-    }
+    // if (!empId) {
+    //   required.push("primary_password");
+    // }
     required.forEach((val) => {
       if (form?.product_categories?.length === 0) {
         errors["product_categories"] = true;
@@ -314,9 +316,9 @@ const useExhibitorCreate = ({ location }) => {
     const fd = new FormData();
     Object.keys(form).forEach((key) => {
       if (
-        key !== "company_logo" &&
-        key !== "gallery_images" &&
-        key !== "company_brochure"
+        key !== "company_logo"
+        // key !== "gallery_images"
+        // key !== "company_brochure"
       ) {
         if (key === "status") {
           fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
@@ -338,17 +340,17 @@ const useExhibitorCreate = ({ location }) => {
         }
       }
     });
-    if (form?.company_brochure) {
-      fd.append("company_brochure", form?.company_brochure);
-    }
+    // if (form?.company_brochure) {
+    //   fd.append("company_brochure", form?.company_brochure);
+    // }
     if (form?.company_logo) {
       fd.append("company_logo", form?.company_logo);
     }
-    if (form?.gallery_images?.length > 0) {
-      form?.gallery_images?.forEach((item) => {
-        fd.append("gallery_images", item);
-      });
-    }
+    // if (form?.gallery_images?.length > 0) {
+    //   form?.gallery_images?.forEach((item) => {
+    //     fd.append("gallery_images", item);
+    //   });
+    // }
     if (selectImages?.length > 0) {
       fd.append("remote_images", JSON.stringify(selectImages));
     }
