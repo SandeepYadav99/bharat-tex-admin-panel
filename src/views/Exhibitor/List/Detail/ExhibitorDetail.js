@@ -94,7 +94,7 @@ const ExhibitorDetail = () => {
                   {detail?.details?.hall_no ? detail?.details?.hall_no : "--"}
                 </div>
                 <div className={styles.headingDataType}>
-                  <p className={styles.text}>Business Nature:</p>
+                  <p className={styles.text}>Type Of Company:</p>
                   {""}
                   {detail?.details?.business_nature?.length > 0
                   ? detail?.details?.business_nature?.map((val, id) => (

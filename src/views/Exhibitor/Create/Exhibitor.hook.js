@@ -171,19 +171,21 @@ const useExhibitorCreate = ({ location }) => {
     setForm((prevForm) => {
       const updatedForm = { ...prevForm };
       Object.keys(feature).forEach((key) => {
-        if (feature[key] === true && !updatedForm.business_nature.includes(key)) {
+        if (
+          feature[key] === true &&
+          !updatedForm.business_nature.includes(key)
+        ) {
           updatedForm.business_nature.push(key);
-        }
-        else if(feature[key] === false){
-            const index = updatedForm.business_nature.indexOf(key);
-            if (index !== -1) {
-              updatedForm.business_nature.splice(index, 1);
-            }
+        } else if (feature[key] === false) {
+          const index = updatedForm.business_nature.indexOf(key);
+          if (index !== -1) {
+            updatedForm.business_nature.splice(index, 1);
+          }
         }
       });
       return updatedForm;
     });
-  },[feature]);
+  }, [feature]);
 
   const checkPhoneValidation = useCallback(() => {
     debounceValidationList({
@@ -304,7 +306,6 @@ const useExhibitorCreate = ({ location }) => {
 
     return errors;
   }, [form, errorData]);
-
   const submitToServer = useCallback(async () => {
     if (isSubmitting) {
       return;
@@ -319,28 +320,18 @@ const useExhibitorCreate = ({ location }) => {
       ) {
         if (key === "status") {
           fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
-        } else if (key === "related_to") {
-          fd.append(key, JSON.stringify(form[key]));
         } else if (
           key === "products" ||
           key === "product_categories" ||
           key === "product_groups" ||
-          key === "zone_tag"
+          key === "zone_tag" ||
+          key === "related_to" ||
+          key === "business_nature"
         ) {
-          if (key === "products") {
-            fd.append(key, JSON.stringify(form?.products));
-          } else if (key === "zone_tag") {
-            fd.append(key, JSON.stringify(form?.zone_tag));
-          } else {
-            fd.append(key, JSON.stringify(form[key]));
-          }
-        } else if (key === "primary_conatct_number") {
-          fd.append(key, `${form?.primary_conatct_number}`);
+          fd.append(key, JSON.stringify(form[key]));
         } else if (key === "partner_tag") {
           if (form?.is_partner) {
-            fd.append(key, `${form?.partner_tag}`);
-          } else {
-            fd.append(key, "");
+            fd.append(key, form?.partner_tag);
           }
         } else {
           fd.append(key, form[key]);
