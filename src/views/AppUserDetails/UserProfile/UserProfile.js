@@ -33,7 +33,7 @@ const UserProfile = () => {
       <div>
         <Paper
           className={styles.paperContainer}
-          style={{ height: "100px", padding: "20px" }}
+          style={{ height: "auto", padding: "20px" }}
         >
           <div><b>Personal Information</b></div>
           <UserProfileView id={params?.id} />
