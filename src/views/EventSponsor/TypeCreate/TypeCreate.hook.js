@@ -17,7 +17,7 @@ function useTypeCreate({ location }) {
     priority: "",
     type: "",
     status: true,
-    event_id: "",
+    // event_id: "",
   };
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
@@ -99,15 +99,15 @@ function useTypeCreate({ location }) {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      if (selectedEventId) {
-        form.event_id = selectedEventId;
-      }
+      // if (selectedEventId) {
+      //   form.event_id = selectedEventId;
+      // }
       form.status = form?.status ? "ACTIVE" : "INACTIVE";
       let req;
       if (id) {
         req = serviceUpdateTypeList({ ...form });
       } else {
-        req = serviceCreateTypeList({ ...form });
+        req = serviceCreateTypeList({ ...form ,event_id:selectedEventId});
       }
       req.then((res) => {
         if (!res.error) {

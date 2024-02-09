@@ -36,9 +36,7 @@ const UserProfileView = ({ id }) => {
               alt="Profile_Image"
               style={{ height: "107px", width: "107px", borderRadius: "107px", marginBottom:"15px" }}
             />
-        
-
-        </div>
+         </div>
           <div className={styles.profileDetails}>
             <div className={styles.description_subContainer}>
               <div className={styles.description_key}>
