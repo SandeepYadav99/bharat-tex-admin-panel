@@ -55,10 +55,6 @@ const ExhibitorCreate = () => {
 
   const { user } = useSelector((state) => state?.auth);
 
-  console.log(form?.is_partner,"is_partner is here");
-  console.log(form?.partner_tag,"is_partner is here")
-
-
   return (
     <div className={styles.container}>
       <div className={"plainPaper"}>
@@ -354,8 +350,8 @@ const ExhibitorCreate = () => {
                 label={"ZipCode"}
                 value={form?.zip_code}
                 onTextChange={(text, value) => {
-                  if (isNum(text) ) {
-                    changeTextData( text , "zip_code");
+                  if (isNum(text)) {
+                    changeTextData(text, "zip_code");
                   }
                 }}
                 onBlur={() => {
@@ -440,10 +436,9 @@ const ExhibitorCreate = () => {
                   label={"Partner Type"}
                   value={form?.partner_tag}
                   handleChange={(value) => {
-                    if(form?.is_partner){
+                    if (form?.is_partner) {
                       changeTextData(value, "partner_tag");
-                    }
-                    else{
+                    } else {
                       changeTextData(" ", "partner_tag");
                     }
                   }}
