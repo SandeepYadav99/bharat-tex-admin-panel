@@ -108,11 +108,13 @@ const ExhibitorDetail = () => {
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Type Of Company:</p>
                   {""}
+                  <div className={styles.wrappedField}>
                   {detail?.details?.business_nature?.length > 0
                     ? detail?.details?.business_nature?.map((val, id) => (
                         <span key={id}>{val},</span>
                       ))
                     : "--"}
+                  </div>  
                 </div>
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>State:</p>

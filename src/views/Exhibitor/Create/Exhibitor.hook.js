@@ -215,41 +215,41 @@ const useExhibitorCreate = ({ location }) => {
     });
   }, [errorData, setErrorData, form]);
 
-  const checkEmailValidation = useCallback(() => {
-    debounceValidationList({
-      email: form?.primary_email,
-      id: form?.primary_user_id,
-    }).then((res) => {
-      if (!res.error) {
-        const errors = JSON.parse(JSON.stringify(errorData));
-        if (res?.data?.is_exists) {
-          errors["primary_email"] = "Primary Email Already Exists";
-          setErrorData(errors);
-        }
-      }
-    });
-  }, [errorData, setErrorData, form]);
+  // const checkEmailValidation = useCallback(() => {
+  //   debounceValidationList({
+  //     email: form?.primary_email,
+  //     id: form?.primary_user_id,
+  //   }).then((res) => {
+  //     if (!res.error) {
+  //       const errors = JSON.parse(JSON.stringify(errorData));
+  //       if (res?.data?.is_exists) {
+  //         errors["primary_email"] = "Primary Email Already Exists";
+  //         setErrorData(errors);
+  //       }
+  //     }
+  //   });
+  // }, [errorData, setErrorData, form]);
 
-  const checkSecondaryEmailValidation = useCallback(() => {
-    debounceValidationList({
-      email: form?.secondary_email,
-      id: secondary ? secondary : "",
-    }).then((res) => {
-      if (!res.error) {
-        const errors = JSON.parse(JSON.stringify(errorData));
-        if (res?.data?.is_exists) {
-          errors["secondary_email"] = "Secondary Email Already Exists";
-          setErrorData(errors);
-        }
-      }
-    });
-  }, [errorData, setErrorData, form]);
+  // const checkSecondaryEmailValidation = useCallback(() => {
+  //   debounceValidationList({
+  //     email: form?.secondary_email,
+  //     id: secondary ? secondary : "",
+  //   }).then((res) => {
+  //     if (!res.error) {
+  //       const errors = JSON.parse(JSON.stringify(errorData));
+  //       if (res?.data?.is_exists) {
+  //         errors["secondary_email"] = "Secondary Email Already Exists";
+  //         setErrorData(errors);
+  //       }
+  //     }
+  //   });
+  // }, [errorData, setErrorData, form]);
 
-  useEffect(() => {
-    if (form?.primary_email) {
-      checkEmailValidation();
-    }
-  }, [form?.primary_email]);
+  // useEffect(() => {
+  //   if (form?.primary_email) {
+  //     checkEmailValidation();
+  //   }
+  // }, [form?.primary_email]);
 
   useEffect(() => {
     if (form?.primary_conatct_number) {
@@ -257,11 +257,11 @@ const useExhibitorCreate = ({ location }) => {
     }
   }, [form?.primary_conatct_number]);
 
-  useEffect(() => {
-    if (form?.secondary_email) {
-      checkSecondaryEmailValidation();
-    }
-  }, [form?.secondary_email]);
+  // useEffect(() => {
+  //   if (form?.secondary_email) {
+  //     checkSecondaryEmailValidation();
+  //   }
+  // }, [form?.secondary_email]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -300,13 +300,13 @@ const useExhibitorCreate = ({ location }) => {
     if (form?.primary_email && !isEmail(form?.primary_email)) {
       errors["primary_email"] = "Invalid email address ";
     }
-    if (
-      form?.secondary_email?.length > 0 &&
-      form?.primary_email === form?.secondary_email
-    ) {
-      errors["secondary_email"] =
-        "Primary Email Address & Secondary Email Address cannot be same ";
-    }
+    // if (
+    //   form?.secondary_email?.length > 0 &&
+    //   form?.primary_email === form?.secondary_email
+    // ) {
+    //   errors["secondary_email"] =
+    //     "Primary Email Address & Secondary Email Address cannot be same ";
+    // }
     if (form?.secondary_email && !isEmail(form?.secondary_email)) {
       errors["secondary_email"] = "Invalid email address ";
     }
@@ -409,6 +409,12 @@ const useExhibitorCreate = ({ location }) => {
     [setErrorData, errorData]
   );
 
+  // useEffect(()=>{
+  //   if(form?.is_partner === false){
+  //     //  form?.partner_tag = ""
+  //   }
+  // },[form?.is_partner])
+
   const changeTextData = useCallback(
     (text, fieldName) => {
       let shouldRemoveError = true;
@@ -441,7 +447,7 @@ const useExhibitorCreate = ({ location }) => {
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },
-    [removeError, form, setForm, checkEmailValidation, checkPhoneValidation]
+    [removeError, form, setForm, checkPhoneValidation]
   );
 
   const onBlurHandler = useCallback(
@@ -450,7 +456,7 @@ const useExhibitorCreate = ({ location }) => {
         changeTextData(form?.[type].trim(), type);
       }
     },
-    [changeTextData, checkEmailValidation, checkPhoneValidation]
+    [changeTextData, checkPhoneValidation]
   );
 
   const changeFeatureData = useCallback(

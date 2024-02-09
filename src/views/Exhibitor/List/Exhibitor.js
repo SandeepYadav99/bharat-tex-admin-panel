@@ -58,16 +58,15 @@ const ExhibitorList = ({}) => {
   const tableStructure = useMemo(() => {
     return [
       {
-        key: "company",
+        key: "company_name",
         label: "Company Name",
         sortable: true,
         render: (value, all) => <div>{all?.company_name}</div>,
       },
-
       {
-        key: "group",
+        key: "group_name",
         label: "Product Group",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => (
           <div>
             {all.product_groups?.map((val) => {
@@ -78,9 +77,9 @@ const ExhibitorList = ({}) => {
       },
 
       {
-        key: "vanue",
+        key: "venue",
         label: "Venue",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => (
           <div>{capitalizeFirstLetter(all?.event_venue)}</div>
         ),
@@ -88,7 +87,7 @@ const ExhibitorList = ({}) => {
       {
         key: "zone",
         label: "Zone",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => (
           <div>
             {all?.zone_tag
@@ -105,7 +104,7 @@ const ExhibitorList = ({}) => {
       {
         key: "partner_type",
         label: "Partner Type",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => (
           <div>
             {all?.partner_tag ? capitalizeFirstLetter(all?.partner_tag) : "--"}
@@ -115,7 +114,7 @@ const ExhibitorList = ({}) => {
       {
         key: "status",
         label: "STATUS",
-        sortable: true,
+        sortable: false,
         render: (temp, all) => <div>{<StatusPill status={all.status} />}</div>,
       },
       {
