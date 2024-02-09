@@ -180,7 +180,7 @@ const ExhibitorCreate = () => {
         </div>
         {user?.role === "ADMIN" && (
           <div className={"formFlex"}>
-            <div className={"formGroup"}>
+            <div className={"formGroup"} id={styles.maintainWidth}>
               <Autocomplete
                 multiple
                 id="tags-outlined"
@@ -202,7 +202,7 @@ const ExhibitorCreate = () => {
                 )}
               />
             </div>
-            <div className={"formGroup"}>
+            <div className={"formGroup"} id={styles.maintainWidth}>
               <Autocomplete
                 multiple
                 id="tags-outlined"
@@ -350,8 +350,8 @@ const ExhibitorCreate = () => {
                 label={"ZipCode"}
                 value={form?.zip_code}
                 onTextChange={(text, value) => {
-                  if (isNum(text) ) {
-                    changeTextData( text , "zip_code");
+                  if (isNum(text)) {
+                    changeTextData(text, "zip_code");
                   }
                 }}
                 onBlur={() => {
@@ -436,7 +436,11 @@ const ExhibitorCreate = () => {
                   label={"Partner Type"}
                   value={form?.partner_tag}
                   handleChange={(value) => {
-                    changeTextData(value, "partner_tag");
+                    if (form?.is_partner) {
+                      changeTextData(value, "partner_tag");
+                    } else {
+                      changeTextData(" ", "partner_tag");
+                    }
                   }}
                 >
                   <MenuItem value="PLATINUM_PARTNER">Platinum Partner</MenuItem>

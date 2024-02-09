@@ -52,10 +52,10 @@ const initialForm = {
   other: false,
   other_data: "",
   business_nature: [],
-  state:"",
-  country:"",
-  zip_code:"",
-  pavallian:"",
+  state: "",
+  country: "",
+  zip_code: "",
+  pavallian: "",
 };
 
 const featureKey = {
@@ -163,10 +163,10 @@ const useExhibitorCreate = ({ location }) => {
             is_partner: data?.is_partner,
             primary_user_id: data?.primary_user_id ? data.primary_user_id : "",
             hall_no: data?.hall_no,
-            state:data?.state,
-            country:data?.country,
-            zip_code:data?.zip_code,
-            pavallian:data?.pavallian,
+            state: data?.state,
+            country: data?.country,
+            zip_code: data?.zip_code,
+            pavallian: data?.pavallian,
           });
           // setPdf(data?.company_brochure);
           setFeature({ ...feature, ...business_nature });
@@ -176,7 +176,6 @@ const useExhibitorCreate = ({ location }) => {
       });
     }
   }, [empId]);
-
 
   useEffect(() => {
     setForm((prevForm) => {
@@ -198,7 +197,6 @@ const useExhibitorCreate = ({ location }) => {
     });
   }, [feature]);
 
-
   const checkPhoneValidation = useCallback(() => {
     debounceValidationList({
       contact: form?.primary_conatct_number,
@@ -214,6 +212,15 @@ const useExhibitorCreate = ({ location }) => {
       }
     });
   }, [errorData, setErrorData, form]);
+
+  useEffect(()=>{
+    if(!form?.is_partner){
+      setForm({
+        ...form,
+        partner_tag:"",
+      })
+    }
+  },[form?.is_partner])
 
   // const checkEmailValidation = useCallback(() => {
   //   debounceValidationList({
@@ -326,11 +333,11 @@ const useExhibitorCreate = ({ location }) => {
     const fd = new FormData();
     Object.keys(form).forEach((key) => {
       if (
-        key !== "company_logo",
+        (key !== "company_logo",
         // key !== "gallery_images"
         // key !== "company_brochure"
         key !== "other_data",
-        key !== "other"
+        key !== "other")
       ) {
         if (key === "status") {
           fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
@@ -409,12 +416,6 @@ const useExhibitorCreate = ({ location }) => {
     [setErrorData, errorData]
   );
 
-  // useEffect(()=>{
-  //   if(form?.is_partner === false){
-  //     //  form?.partner_tag = ""
-  //   }
-  // },[form?.is_partner])
-
   const changeTextData = useCallback(
     (text, fieldName) => {
       let shouldRemoveError = true;
@@ -441,7 +442,13 @@ const useExhibitorCreate = ({ location }) => {
         } else {
           SnackbarUtils.error("Maximum 2 products can be added");
         }
-      } else if (fieldName) {
+      }
+      // else if (fieldName === "is_partner") {
+      //    if(fieldName === "partner_tag"){
+
+      //    }
+      // }
+      else if (fieldName) {
         t[fieldName] = text;
       }
       setForm(t);
