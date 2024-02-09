@@ -135,7 +135,7 @@ const CityGuidView = ({ location }) => {
           <div className={"formGroup"}>
             <File
               max_size={10 * 1024 * 1024}
-              type={["jpeg", "jpg", "png"]}
+              type={["jpeg", "jpg", "png"]} // jpeg/png/jpg
               fullWidth={true}
               name="od1"
               label="Upload  Banner Image"
