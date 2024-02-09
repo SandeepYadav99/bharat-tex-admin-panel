@@ -409,11 +409,6 @@ const useExhibitorCreate = ({ location }) => {
     [setErrorData, errorData]
   );
 
-  // useEffect(()=>{
-  //   if(form?.is_partner === false){
-  //     //  form?.partner_tag = ""
-  //   }
-  // },[form?.is_partner])
 
   const changeTextData = useCallback(
     (text, fieldName) => {
@@ -441,7 +436,13 @@ const useExhibitorCreate = ({ location }) => {
         } else {
           SnackbarUtils.error("Maximum 2 products can be added");
         }
-      } else if (fieldName) {
+      }
+      // else if (fieldName === "is_partner") {
+      //    if(fieldName === "partner_tag"){
+
+      //    }
+      // }
+       else if (fieldName) {
         t[fieldName] = text;
       }
       setForm(t);

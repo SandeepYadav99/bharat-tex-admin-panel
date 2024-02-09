@@ -55,6 +55,10 @@ const ExhibitorCreate = () => {
 
   const { user } = useSelector((state) => state?.auth);
 
+  console.log(form?.is_partner,"is_partner is here");
+  console.log(form?.partner_tag,"is_partner is here")
+
+
   return (
     <div className={styles.container}>
       <div className={"plainPaper"}>
@@ -180,7 +184,7 @@ const ExhibitorCreate = () => {
         </div>
         {user?.role === "ADMIN" && (
           <div className={"formFlex"}>
-            <div className={"formGroup"}>
+            <div className={"formGroup"} id={styles.maintainWidth}>
               <Autocomplete
                 multiple
                 id="tags-outlined"
@@ -202,7 +206,7 @@ const ExhibitorCreate = () => {
                 )}
               />
             </div>
-            <div className={"formGroup"}>
+            <div className={"formGroup"} id={styles.maintainWidth}>
               <Autocomplete
                 multiple
                 id="tags-outlined"
@@ -436,7 +440,12 @@ const ExhibitorCreate = () => {
                   label={"Partner Type"}
                   value={form?.partner_tag}
                   handleChange={(value) => {
-                    changeTextData(value, "partner_tag");
+                    if(form?.is_partner){
+                      changeTextData(value, "partner_tag");
+                    }
+                    else{
+                      changeTextData(" ", "partner_tag");
+                    }
                   }}
                 >
                   <MenuItem value="PLATINUM_PARTNER">Platinum Partner</MenuItem>
