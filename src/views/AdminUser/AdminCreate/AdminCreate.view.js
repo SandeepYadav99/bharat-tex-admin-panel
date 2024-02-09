@@ -161,9 +161,9 @@ const AdminCreateView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
               changeTextData(value, "role");
             }}
           >
-            <MenuItem value="GENERAL">GENERAL</MenuItem>
-            <MenuItem value="CHAPTER_ADMIN">CHAPTER ADMIN</MenuItem>
-            <MenuItem value="EVENT_MANAGER">EVENT MANAGER</MenuItem>
+            <MenuItem value="ADMIN">ADMIN</MenuItem>
+            {/* <MenuItem value="CHAPTER_ADMIN">CHAPTER ADMIN</MenuItem>
+            <MenuItem value="EVENT_MANAGER">EVENT MANAGER</MenuItem> */}
           </CustomSelectField>
         </div>
       </div>
