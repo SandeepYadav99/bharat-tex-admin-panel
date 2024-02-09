@@ -73,6 +73,18 @@ const ExhibitorDetail = () => {
                       : "--"}
                   </div>
                 </div>
+                <div className={styles.headingDataType}>
+                  <p className={styles.text}>ZipCode:</p>
+                  {""}
+                  {detail?.details?.zip_code ? detail?.details?.zip_code : "--"}
+                </div>
+                <div className={styles.headingDataType}>
+                  <p className={styles.text}>Pavallian:</p>
+                  {""}
+                  {detail?.details?.pavallian
+                    ? detail?.details?.pavallian
+                    : "--"}
+                </div>
               </div>
               <div className={styles.flexGap2Row}>
                 <div className={styles.headingDataType}>
@@ -97,10 +109,20 @@ const ExhibitorDetail = () => {
                   <p className={styles.text}>Type Of Company:</p>
                   {""}
                   {detail?.details?.business_nature?.length > 0
-                  ? detail?.details?.business_nature?.map((val, id) => (
-                      <span key={id}>{val},</span>
-                    ))
-                  : "--"}
+                    ? detail?.details?.business_nature?.map((val, id) => (
+                        <span key={id}>{val},</span>
+                      ))
+                    : "--"}
+                </div>
+                <div className={styles.headingDataType}>
+                  <p className={styles.text}>State:</p>
+                  {""}
+                  {detail?.details?.state ? detail?.details?.state : "--"}
+                </div>
+                <div className={styles.headingDataType}>
+                  <p className={styles.text}>Country:</p>
+                  {""}
+                  {detail?.details?.country ? detail?.details?.country : "--"}
                 </div>
               </div>
             </div>
