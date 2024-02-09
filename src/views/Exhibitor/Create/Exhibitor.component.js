@@ -20,6 +20,7 @@ import historyUtils from "../../../libs/history.utils";
 import { useSelector } from "react-redux";
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
 import { removeUnderScore } from "../../../helper/helper";
+import { isNum } from "../../../libs/RegexUtils";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -343,12 +344,15 @@ const ExhibitorCreate = () => {
           <div className={"formFlex"}>
             <div className={"formGroup"}>
               <CustomTextField
+                type="tel"
                 isError={errorData?.zip_code}
                 errorText={errorData?.zip_code}
                 label={"ZipCode"}
                 value={form?.zip_code}
-                onTextChange={(text) => {
-                  changeTextData(text, "zip_code");
+                onTextChange={(text, value) => {
+                  if (isNum(text) ) {
+                    changeTextData( text , "zip_code");
+                  }
                 }}
                 onBlur={() => {
                   onBlurHandler("zip_code");

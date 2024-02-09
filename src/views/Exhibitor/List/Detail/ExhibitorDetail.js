@@ -108,11 +108,13 @@ const ExhibitorDetail = () => {
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Type Of Company:</p>
                   {""}
+                  <div className={styles.wrappedField}>
                   {detail?.details?.business_nature?.length > 0
                     ? detail?.details?.business_nature?.map((val, id) => (
                         <span key={id}>{val},</span>
                       ))
                     : "--"}
+                  </div>  
                 </div>
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>State:</p>
@@ -230,7 +232,7 @@ const ExhibitorDetail = () => {
               </div>
             </div>
           </div>
-          <div className={styles.headingDataType}>
+          {/* <div className={styles.headingDataType}>
             <p className={styles.text}>Instagram:</p>{" "}
             {detail?.details?.instagram_link ? (
               <a
@@ -299,7 +301,7 @@ const ExhibitorDetail = () => {
             ) : (
               "--"
             )}
-          </div>
+          </div> */}
         </div>
         <div className={"plainPaper"}>
           <div style={{ marginBottom: "20px" }}>
@@ -308,9 +310,9 @@ const ExhibitorDetail = () => {
           <div className={styles.thirdPaper}>
             <b>Description </b>
             <div>{detail?.details?.company_description}</div>
-            <b>Gallery Images</b>
+            {/* <b>Gallery Images</b> */}
           </div>
-          <div className={styles.wrappedContentImage}>
+          {/* <div className={styles.wrappedContentImage}>
             {detail?.details?.gallery_images.length > 0 ? (
               detail?.details?.gallery_images?.map((val) => (
                 <a href={val} target="_blank">
@@ -365,7 +367,8 @@ const ExhibitorDetail = () => {
                 ? detail?.details?.updatedAtText
                 : "--"}
             </div>
-          </div>
+          </div> */}
+          <br/>
         </div>
       </div>
     </div>
