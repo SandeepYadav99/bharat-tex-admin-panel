@@ -101,6 +101,7 @@ const useEventScheduleHook = ({
       "eve_description",
       "start_time",
       "end_time",
+      "category",
       // "speakers",
     ];
 
