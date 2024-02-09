@@ -307,6 +307,70 @@ const ExhibitorCreate = () => {
             </div>
           </div>
         )}
+         {user.role === "ADMIN" && (
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                isError={errorData?.state}
+                errorText={errorData?.state}
+                label={"State"}
+                value={form?.state}
+                onTextChange={(text) => {
+                  changeTextData(text, "state");
+                }}
+                onBlur={() => {
+                  onBlurHandler("state");
+                }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomTextField
+                isError={errorData?.country}
+                errorText={errorData?.country}
+                label={"Country"}
+                value={form?.country}
+                onTextChange={(text) => {
+                  changeTextData(text, "country");
+                }}
+                onBlur={() => {
+                  onBlurHandler("country");
+                }}
+              />
+            </div>
+          </div>
+        )}
+         {user.role === "ADMIN" && (
+          <div className={"formFlex"}>
+            <div className={"formGroup"}>
+              <CustomTextField
+                isError={errorData?.zipcode}
+                errorText={errorData?.zipcode}
+                label={"ZipCode"}
+                value={form?.zipcode}
+                onTextChange={(text) => {
+                  changeTextData(text, "zipcode");
+                }}
+                onBlur={() => {
+                  onBlurHandler("zipcode");
+                }}
+              />
+            </div>
+            <div className={"formGroup"}>
+              <CustomTextField
+                isError={errorData?.pavallian}
+                errorText={errorData?.pavallian}
+                label={"Pavallian"}
+                value={form?.pavallian}
+                onTextChange={(text) => {
+                  changeTextData(text, "pavallian");
+                }}
+                onBlur={() => {
+                  onBlurHandler("pavallian");
+                }}
+              />
+            </div>
+          </div>
+        )}
         {user?.role === "ADMIN" && (
           <div className={"formFlex"}>
             <div className={"formGroup"}>

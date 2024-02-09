@@ -52,6 +52,10 @@ const initialForm = {
   other: false,
   other_data: "",
   business_nature: [],
+  state:"",
+  country:"",
+  zipcode:"",
+  pavallian:"",
 };
 
 const featureKey = {
