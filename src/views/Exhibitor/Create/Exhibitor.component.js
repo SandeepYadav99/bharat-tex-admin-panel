@@ -1001,7 +1001,7 @@ const ExhibitorCreate = () => {
           handleChange={() => {
             changeTextData(!form?.status, "status");
           }}
-          label={`Active`}
+          label={form?.status ? "Active" : "Inactive"}
         />
         <div className={styles.btnWrappepr}>
           <ButtonBase
