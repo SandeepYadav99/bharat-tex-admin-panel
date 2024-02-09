@@ -355,19 +355,25 @@ export const EventData = [
     image: event,
     url: RouteName.INFOR_CENTER,
   },
-  {
-    key: "testimonial",
-    name: "Testimonial",
-    image: event,
-    url: RouteName.EVENT_TESTIMONIAL,
-  },
+  // {
+  //   key: "testimonial",
+  //   name: "Testimonial",
+  //   image: event,
+  //   url: RouteName.EVENT_TESTIMONIAL,
+  // },
    {
     key: "exhibitor",
     name: "Exhibitor",
     image: event,
     url: RouteName.EXHIBITOR_LIST,
   },
-  // {F
+  {
+    key: "testimonial",
+    name: "Testimonial",
+    image: event,
+    url: RouteName.EVENT_TESTIMONIAL,
+  },
+  // {
   //   key: "networking",
   //   name: "Information Center",
   //   image: event,

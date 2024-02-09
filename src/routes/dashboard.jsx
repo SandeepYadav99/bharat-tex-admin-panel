@@ -66,11 +66,6 @@ import EventUserCreateView from "../views/EventDesk/User/Create/EventUserCreate"
 import CategoryCreateView from "../views/EventDesk/Category/Create/CategoryCreate.view";
 import EventGallery from "../views/EventGallery/List/EventGallery.view";
 import EventFeed from "../views/EventFeed/List/EventFeed.view";
-import EventUserList from "../views/EventUserRequest/List/EventUser_List";
-import BusinessList from "../views/BusinessGreeting/Business.view";
-import ReportedList from "../views/ReportedUser/ReportedList.js";
-import ReportedFeed from "../views/ReportedFeed/ReportedFeed";
-import PollResult from "../views/PollResults/PollResult";
 import BusinessCreate from "../views/BusinessGreeting/BusinessCreate/BusinessCreate.view";
 import BusinessDetail from "../views/BusinessGreeting/BusinessDetail/BusinessDetail.view";
 import ProductGroupList from "../views/ProductGroup/List/List.component.js";
@@ -318,7 +313,7 @@ const dashboardRoutes = [
   },
   {
     path: `${RouteName.EVENT_TESTIMONIAL}:id`,
-   
+
     component: TestimonialList,
     is_protect: true,
     is_sidebar: false,
@@ -674,7 +669,7 @@ const dashboardRoutes = [
     is_sidebar:false,
     is_protect: true,
   },
-  
+
   // {
   //   path: `${RouteName.KNOWLEDGE_CENTER}`,
   //   sidebarName: "Knowledge Center",
@@ -699,7 +694,7 @@ const dashboardRoutes = [
     path: `${RouteName.KNOWLEDGE_CENTER_LIST}/:id`,
     component: knowledgeList,
     is_protect: true,
-  }, 
+  },
   {
     path: `${RouteName.KNOWLEDGE_CENTER_STAMP_CREATE}`,
     component: knowledgeStampCreate,

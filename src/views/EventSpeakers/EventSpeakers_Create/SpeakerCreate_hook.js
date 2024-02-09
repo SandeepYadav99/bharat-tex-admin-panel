@@ -64,12 +64,15 @@ function useSpeakerCreateHook({ location }) {
     let required = [
       //  "s_image",
       "s_name",
-      "s_description",
+     
+      "s_company",
+      "s_designation"
+    
     ];
 
-    if (!id) {
-      required.push("s_image");
-    }
+    // if (!id) {
+    //   required.push("s_image");
+    // }
     required.forEach((val) => {
       if (
         (!form?.[val] && parseInt(form?.[val]) != 0) ||
@@ -191,6 +194,7 @@ function useSpeakerCreateHook({ location }) {
     images,
     setImage,
     speaker,
+    id
   };
 }
 

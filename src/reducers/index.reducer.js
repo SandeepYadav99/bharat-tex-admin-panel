@@ -102,8 +102,8 @@ const rootReducer = combineReducers({
   // Product Category 2/01/2024
   productCategory:ProductCategoryReducer,
   productGroups:ProductGroupReducer,
+  Exhibitor:ExhibitorReducer,
   testimonial:TestimonialReducer,
-  Exhibitor:ExhibitorReducer
 });
 
 export default rootReducer;

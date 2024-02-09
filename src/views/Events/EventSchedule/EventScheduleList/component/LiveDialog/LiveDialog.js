@@ -37,7 +37,7 @@ const LiveDialog = ({
         </div>
         <div>
           <p style={{ fontSize: ".87rem", textAlign: "center" }}>
-            "Make Hide confirmation Are you sure want to Hide" Should show
+             Are you sure want to {title} 
           </p>
         </div>
         <div className={styles.confirmedWrapper}>

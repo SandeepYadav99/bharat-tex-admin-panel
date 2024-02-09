@@ -34,7 +34,7 @@ function useEventSponsorCreate({ location }) {
     linkedin: "",
     insta: "",
     youtube: "",
-    status: false,
+    status: true,
     // country_code:"",
   };
   const [form, setForm] = useState({ ...initialForm });
@@ -103,9 +103,9 @@ function useEventSponsorCreate({ location }) {
     const errors = { ...errorData };
     let required = [
       "name",
-      "web_url",
-      "priority",
-      "contact",
+      // "web_url",
+      // "priority",
+      // "contact",
       "type",
     ];
     

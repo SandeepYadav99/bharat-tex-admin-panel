@@ -27,8 +27,7 @@ const useAlbumCreateHook = () => {
     status: true,
     all_chapters: "",
     chapters: "",
-    videos:"",
-
+    videos: "",
   };
   const eventkeys = ["all_chapters", "chapters"];
   const [form, setForm] = useState({ ...initialForm });
@@ -40,7 +39,7 @@ const useAlbumCreateHook = () => {
   const descriptionRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectImages, setSelectImages] = useState([]);
-  const [selectVideos,setSelectVideos] = useState([]);
+  const [selectVideos, setSelectVideos] = useState([]);
   const [thumbnail, setThumbnail] = useState("");
   const [listData, setListData] = useState({
     ADMIN: [],
@@ -49,7 +48,13 @@ const useAlbumCreateHook = () => {
   });
 
   useEffect(() => {
-    serviceGetList(["ADMIN","CHAPTERS", "EVENTS","ADMIN_CHAPTERS","ADMIN_EVENTS"]).then((res) => {
+    serviceGetList([
+      "ADMIN",
+      "CHAPTERS",
+      "EVENTS",
+      "ADMIN_CHAPTERS",
+      "ADMIN_EVENTS",
+    ]).then((res) => {
       if (!res.error) {
         setListData(res.data);
       }
@@ -103,10 +108,9 @@ const useAlbumCreateHook = () => {
     setSelectImages([...image]);
   };
 
-
-  const renderVideo =(videos)=>{
-    setSelectVideos([...videos])
-  }
+  const renderVideo = (videos) => {
+    setSelectVideos([...videos]);
+  };
   useEffect(() => {
     if (select === "all_chapters") {
       setForm({ ...form, visible_chapter_ids: [] });
@@ -132,8 +136,8 @@ const useAlbumCreateHook = () => {
 
     const requiredFields = [
       "name",
-      "event_date",
-      "description",
+      // "event_date",
+      // "description",
       ...(id ? [] : ["thumbnail", "images"]),
     ];
 
@@ -190,11 +194,11 @@ const useAlbumCreateHook = () => {
       const t = { ...form };
       if (fieldName === "name") {
         t[fieldName] = text;
-      } else if (fieldName === "visible_event_ids" ) {
+      } else if (fieldName === "visible_event_ids") {
         t[fieldName] = text.filter((item, index, self) => {
           return index === self.findIndex((i) => i.id === item.id);
         });
-      }else if (fieldName === "visible_chapter_ids" ) {
+      } else if (fieldName === "visible_chapter_ids") {
         t[fieldName] = text.filter((item, index, self) => {
           return index === self.findIndex((i) => i.id === item.id);
         });
@@ -213,6 +217,9 @@ const useAlbumCreateHook = () => {
         setIsSubmitting(true);
         const fd = new FormData();
 
+        if (!form.event_date) {
+       delete  form.event_date 
+        }
         const chapterId =
           Array.isArray(form?.visible_chapter_ids) &&
           form.visible_chapter_ids.length > 0
@@ -261,7 +268,7 @@ const useAlbumCreateHook = () => {
           if (
             key !== "thumbnail" &&
             key !== "images" &&
-            key !=="videos" &&
+            key !== "videos" &&
             key !== "related_event_id" &&
             key !== "related_chapter_id"
           ) {

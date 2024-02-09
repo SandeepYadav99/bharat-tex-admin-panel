@@ -67,12 +67,12 @@ const NotificationList = ({}) => {
         sortable: false,
         render: (temp, all) => <div>{all?.createdAtText}</div>,
       },
-      {
-        key: "event",
-        label: "RELATED EVENT",
-        sortable: false,
-        render: (temp, all) => <div>{all?.event?.name ? all?.event?.name : "-"}</div>,
-      },
+      // {
+      //   key: "event",
+      //   label: "RELATED EVENT",
+      //   sortable: false,
+      //   render: (temp, all) => <div>{all?.event?.name ? all?.event?.name : "-"}</div>,
+      // },
       {
         key: "module",
         label: "RELATED SCREEN/MODULE",

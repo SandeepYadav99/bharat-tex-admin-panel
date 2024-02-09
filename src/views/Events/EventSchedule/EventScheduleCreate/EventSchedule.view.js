@@ -39,11 +39,31 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
     handleSubmit,
     onBlurHandler,
     changeTextData,
+    
   } = useEventScheduleHook({ handleToggleSidePannel, isSidePanel, empId });
   const classes = useStyles();
 
   return (
     <div className={styles.departmentWrap}>
+       <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomSelectField
+              isError={errorData?.category}
+              errorText={errorData?.category}
+              label={"Category" }
+              value={form?.category}
+              handleChange={(value) => {
+                changeTextData(value, "category");
+              }}
+            >
+              <MenuItem value="ROUNDTABLES">Roundtables</MenuItem>
+              <MenuItem value="PANNEL_DISCUSSION">Panel Discussions</MenuItem>
+              <MenuItem value="MASTERCLASS">Masterclass</MenuItem> 
+              <MenuItem value="COUNTRY_REGIONAL_SESSION">Country / Regional Session</MenuItem> 
+              <MenuItem value="STATE_SESSION">State Sessions</MenuItem> 
+            </CustomSelectField>
+          </div>
+        </div>
       <div className={"formFlex"}>
         <div className={"formGroup"}>
           <CustomTextField
@@ -136,6 +156,10 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                   id="tags-outlined"
                   onChange={(e, value) => {
                       changeTextData(value, "speakers");
+                      if (value.some(user => form?.moderator?.includes(user))) {
+                        // changeTextData([], "moderator");
+                        changeTextData(form.moderator.filter(user => !value.includes(user)), "moderator");
+                      }
                   }}
                   value={form?.speakers}
                   // id="tags-standard"
@@ -153,25 +177,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
               />
           </div>
         </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomSelectField
-              isError={errorData?.category}
-              errorText={errorData?.category}
-              label={"Category" }
-              value={form?.category}
-              handleChange={(value) => {
-                changeTextData(value, "category");
-              }}
-            >
-              <MenuItem value="ROUNDTABLES">Roundtables</MenuItem>
-              <MenuItem value="PANNEL_DISCUSSION">Panel Discussions</MenuItem>
-              <MenuItem value="MASTERCLASS">Masterclass</MenuItem> 
-              <MenuItem value="COUNTRY_REGIONAL_SESSION">Country / Regional Session</MenuItem> 
-              <MenuItem value="STATE_SESSION">State Sessions</MenuItem> 
-            </CustomSelectField>
-          </div>
-        </div>
+       
         <div className={"formFlex"}>
           <div className={"formGroup"}>
               <Autocomplete
@@ -179,6 +185,10 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                   id="tags-outlined"
                   onChange={(e, value) => {
                       changeTextData(value, "moderator");
+                      if (value.some(user => form?.speakers?.includes(user))) {
+                        // changeTextData([], "speakers");
+                         changeTextData(form.speakers.filter(user => !value.includes(user)), "speakers");
+                      }
                   }}
                   value={form?.moderator}
                   // id="tags-standard"
@@ -210,7 +220,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
             handleChange={() => {
               changeTextData(!form?.status, "status");
             }}
-            label={`Active`}
+            label={form?.status ? `Active` :"Inactive"}
           />
         </div>
       </div>
