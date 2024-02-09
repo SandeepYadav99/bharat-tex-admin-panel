@@ -307,7 +307,7 @@ const ExhibitorCreate = () => {
             </div>
           </div>
         )}
-         {user.role === "ADMIN" && (
+        {user.role === "ADMIN" && (
           <div className={"formFlex"}>
             <div className={"formGroup"}>
               <CustomTextField
@@ -339,19 +339,19 @@ const ExhibitorCreate = () => {
             </div>
           </div>
         )}
-         {user.role === "ADMIN" && (
+        {user.role === "ADMIN" && (
           <div className={"formFlex"}>
             <div className={"formGroup"}>
               <CustomTextField
-                isError={errorData?.zipcode}
-                errorText={errorData?.zipcode}
+                isError={errorData?.zip_code}
+                errorText={errorData?.zip_code}
                 label={"ZipCode"}
-                value={form?.zipcode}
+                value={form?.zip_code}
                 onTextChange={(text) => {
-                  changeTextData(text, "zipcode");
+                  changeTextData(text, "zip_code");
                 }}
                 onBlur={() => {
-                  onBlurHandler("zipcode");
+                  onBlurHandler("zip_code");
                 }}
               />
             </div>
@@ -542,27 +542,26 @@ const ExhibitorCreate = () => {
           </div>
         )}
         <div className={"formFlex"}>
-        <div className={"formGroup"}></div>
-        {
-          form?.other &&  <div className={"formGroup"}>
-          <CustomTextField
-            isError={errorData?.other_data}
-            errorText={errorData?.other_data}
-            label={"Other"}
-            value={form?.other_data}
-            onTextChange={(text) => {
-              changeTextData(text, "other_data");
-            }}
-            onBlur={() => {
-              onBlurHandler("other_data");
-            }}
-          />
+          <div className={"formGroup"}></div>
+          {form?.other && (
+            <div className={"formGroup"}>
+              <CustomTextField
+                isError={errorData?.other_data}
+                errorText={errorData?.other_data}
+                label={"Other"}
+                value={form?.other_data}
+                onTextChange={(text) => {
+                  changeTextData(text, "other_data");
+                }}
+                onBlur={() => {
+                  onBlurHandler("other_data");
+                }}
+              />
+            </div>
+          )}
         </div>
-        }
-       
       </div>
-      </div>
-      
+
       <div className={"plainPaper"}>
         <div>
           {" "}

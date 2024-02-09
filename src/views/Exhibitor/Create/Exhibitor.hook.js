@@ -54,7 +54,7 @@ const initialForm = {
   business_nature: [],
   state:"",
   country:"",
-  zipcode:"",
+  zip_code:"",
   pavallian:"",
 };
 
@@ -165,7 +165,7 @@ const useExhibitorCreate = ({ location }) => {
             hall_no: data?.hall_no,
             state:data?.state,
             country:data?.country,
-            zipcode:data?.zipcode,
+            zip_code:data?.zip_code,
             pavallian:data?.pavallian,
           });
           // setPdf(data?.company_brochure);
