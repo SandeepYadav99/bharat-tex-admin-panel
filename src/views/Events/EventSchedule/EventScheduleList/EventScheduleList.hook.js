@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import historyUtils from "../../../../libs/history.utils";
 import RouteName from "../../../../routes/Route.name";
 import {
+  actionChangePageEventSchedule,
   actionCreateEventSchedule,
   actionDeleteEventSchedule,
   actionFetchEventSchedule,
@@ -62,7 +63,7 @@ const useEventScheduleList = ({}) => {
 
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    // dispatch(actionSetPageAdminUser(type));
+    dispatch(actionChangePageEventSchedule(type));
   }, []);
 
   const handleDataSave = useCallback(

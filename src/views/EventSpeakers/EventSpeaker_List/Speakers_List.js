@@ -1,11 +1,6 @@
-import React, { useCallback,  useMemo } from "react";
-import {
-  IconButton,
-  
-  ButtonBase,
-  
-} from "@material-ui/core";
-import {  useSelector } from "react-redux";
+import React, { useCallback, useMemo } from "react";
+import { IconButton, ButtonBase } from "@material-ui/core";
+import { useSelector } from "react-redux";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../../Datatables/Datatable.table";
@@ -13,9 +8,10 @@ import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import StatusPill from "../../../components/Status/StatusPill.component";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import { Add, DoneAll, Edit,  Clear } from "@material-ui/icons";
+import { Add, DoneAll, Edit, Clear } from "@material-ui/icons";
 import useSpeakerListHook from "./SpeakerList_hook";
 import historyUtils from "../../../libs/history.utils";
+import speakerDefault from "../../../assets/img/speaker_list_deafult.png";
 
 const EventSpeakerList = ({}) => {
   const {
@@ -58,7 +54,11 @@ const EventSpeakerList = ({}) => {
         sortable: true,
         render: (temp, all) => (
           <div className={styles.firstCellFlex}>
-            <img src={all?.s_image} alt="" className={styles.driverImgCont} />
+            <img
+              src={all?.s_image ? all?.s_image : speakerDefault}
+              alt=""
+              className={styles.driverImgCont}
+            />
             {all?.s_name}
           </div>
         ),
@@ -96,7 +96,7 @@ const EventSpeakerList = ({}) => {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
-          <div>
+          <div style={{display:"flex",flexWrap:"wrap",gap:"5px"}}>
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
@@ -164,14 +164,14 @@ const EventSpeakerList = ({}) => {
     <>
       <PageBox>
         <div className={styles.headerContainer}>
-        <ButtonBase onClick={() => historyUtils.goBack()}>
+          <ButtonBase onClick={() => historyUtils.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <div>
-            <span className={styles.title}>Speakers</span>
-            <div className={styles.newLine} />
-          </div>
+              <span className={styles.title}>Speakers</span>
+              <div className={styles.newLine} />
+            </div>
           </ButtonBase>
-          
+
           <div className={styles.BtnWrapper}>
             <ButtonBase onClick={handleCreateFed} className={"createBtn"}>
               ADD SPEAKER
