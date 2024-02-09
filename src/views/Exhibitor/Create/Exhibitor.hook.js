@@ -163,6 +163,10 @@ const useExhibitorCreate = ({ location }) => {
             is_partner: data?.is_partner,
             primary_user_id: data?.primary_user_id ? data.primary_user_id : "",
             hall_no: data?.hall_no,
+            state:data?.state,
+            country:data?.country,
+            zipcode:data?.zipcode,
+            pavallian:data?.pavallian,
           });
           // setPdf(data?.company_brochure);
           setFeature({ ...feature, ...business_nature });
