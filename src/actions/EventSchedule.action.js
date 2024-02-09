@@ -85,7 +85,7 @@ export function actionDeleteEventSchedule(id) {
   };
 }
 
-export function actionChangePageAdminUser(page) {
+export function actionChangePageEventSchedule(page) {
   return (dispatch) => {
     dispatch({ type: CHANGE_PAGE, payload: page });
   };
