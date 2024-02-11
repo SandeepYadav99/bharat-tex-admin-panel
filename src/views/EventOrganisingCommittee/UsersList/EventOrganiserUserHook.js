@@ -11,7 +11,7 @@ import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
 import { useParams } from "react-router";
 
-const useEventOrganiserUserList = ({}) => {
+const useEventOrganiserUserList = ({location}) => {
   const [isSidePanel, setSidePanel] = useState(false);
   const [isCalling, setIsCalling] = useState(false);
   const [editData, setEditData] = useState(null);
@@ -19,6 +19,10 @@ const useEventOrganiserUserList = ({}) => {
   const isMountRef = useRef(false);
   const { id } = useParams();
 
+  const selectedEventId = useMemo(() => {
+    return location?.state?.event_id;
+  }, [location]);
+console.log(selectedEventId, "Selected id ")
   const {
     sorting_data: sortingData,
     is_fetching: isFetching,
@@ -39,6 +43,7 @@ const useEventOrganiserUserList = ({}) => {
           query: isMountRef.current ? query : null,
           query_data: isMountRef.current ? queryData : null,
           organising_id: id,
+          event_id:selectedEventId
         }
       )
     );
@@ -147,6 +152,7 @@ const useEventOrganiserUserList = ({}) => {
     (data) => {
       historyUtils.push(RouteName.EVENT_ORGANISER_USER_UPDATE + data?.id, {
         organising_id: id,
+        event_id:selectedEventId
       });
     },
     [setEditData, setSidePanel]
