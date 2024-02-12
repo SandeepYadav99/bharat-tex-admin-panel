@@ -15,7 +15,7 @@ import Chip from "@material-ui/core/Chip";
 import { Autocomplete } from "@material-ui/lab";
 import CustomSwitch from "../../../components/FormFields/CustomSwitch";
 import CountryCode from "../../../assets/country_code.json";
-import { ArrowBackIos } from "@material-ui/icons";
+import { ArrowBackIos, ContactSupportOutlined } from "@material-ui/icons";
 import historyUtils from "../../../libs/history.utils";
 import { useSelector } from "react-redux";
 import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
@@ -51,7 +51,10 @@ const ExhibitorCreate = () => {
     pdf,
     feature,
     changeFeatureData,
+    deatilsValue,
   } = useExhibitorCreate({});
+
+  console.log(deatilsValue, "deatilsValue is Here ")
 
   const { user } = useSelector((state) => state?.auth);
 
@@ -470,7 +473,7 @@ const ExhibitorCreate = () => {
                     changeFeatureData(!feature?.manufacturer, "manufacturer");
                   }}
                   label={"Manufacture"}
-                  checked={feature?.manufacturer}
+                  checked={feature?.manufacturer || deatilsValue.includes("manufacturer")}
                 />
               </div>
               <div className={"formGroup"}>
@@ -480,7 +483,7 @@ const ExhibitorCreate = () => {
                     changeFeatureData(!feature?.sole_agent, "sole_agent");
                   }}
                   label={"Sole Agent"}
-                  checked={feature?.sole_agent}
+                  checked={feature?.sole_agent || deatilsValue.includes("sole_agent")}
                 />
               </div>
               <div className={"formGroup"}>
@@ -493,7 +496,7 @@ const ExhibitorCreate = () => {
                     );
                   }}
                   label={"Product Designer"}
-                  checked={feature?.product_designer}
+                  checked={feature?.product_designer || deatilsValue.includes("product_designer")}
                 />
               </div>
               <div className={"formGroup"}>
@@ -503,7 +506,7 @@ const ExhibitorCreate = () => {
                   handleChange={(text) => {
                     changeFeatureData(!feature?.publisher, "publisher");
                   }}
-                  checked={feature?.publisher}
+                  checked={feature?.publisher || deatilsValue.includes("publisher")}
                 />
               </div>
               <div className={"formGroup"}>
@@ -513,7 +516,7 @@ const ExhibitorCreate = () => {
                   handleChange={(text) => {
                     changeFeatureData(!feature?.exporter, "exporter");
                   }}
-                  checked={feature?.exporter}
+                  checked={feature?.exporter || deatilsValue.includes("exporter") }
                 />
               </div>
               <div className={"formGroup"}>
@@ -523,7 +526,7 @@ const ExhibitorCreate = () => {
                   handleChange={(text) => {
                     changeFeatureData(!feature?.whole_saler, "whole_saler");
                   }}
-                  checked={feature?.whole_saler}
+                  checked={feature?.whole_saler || deatilsValue.includes("whole_saler")}
                 />
               </div>
               <div className={"formGroup"}>
@@ -533,7 +536,7 @@ const ExhibitorCreate = () => {
                   handleChange={(text) => {
                     changeFeatureData(!feature?.merchants, "merchants");
                   }}
-                  checked={feature?.merchants}
+                  checked={feature?.merchants || deatilsValue.includes("merchants")}
                 />
               </div>
               <div className={"formGroup"}>
@@ -543,7 +546,7 @@ const ExhibitorCreate = () => {
                   handleChange={(text) => {
                     changeTextData(!form?.other, "other");
                   }}
-                  checked={form?.other}
+                  checked={form?.other || deatilsValue.includes("other") }
                 />
               </div>
             </div>
@@ -557,7 +560,7 @@ const ExhibitorCreate = () => {
                 isError={errorData?.other_data}
                 errorText={errorData?.other_data}
                 label={"Other"}
-                value={form?.other_data}
+                value={form?.other_data }
                 onTextChange={(text) => {
                   changeTextData(text, "other_data");
                 }}
@@ -630,9 +633,9 @@ const ExhibitorCreate = () => {
                 onTextChange={(text) => {
                   changeTextData(text, "primary_email");
                 }}
-                // onBlur={() => {
-                //   onBlurHandler("primary_email");
-                // }}
+              // onBlur={() => {
+              //   onBlurHandler("primary_email");
+              // }}
               />
             </div>
             {/* <div className={"formGroup"}>
@@ -691,9 +694,9 @@ const ExhibitorCreate = () => {
                 onTextChange={(text) => {
                   changeTextData(text, "secondary_email");
                 }}
-                // onBlur={() => {
-                //   onBlurHandler("secondary_email");
-                // }}
+              // onBlur={() => {
+              //   onBlurHandler("secondary_email");
+              // }}
               />
             </div>
           </div>
@@ -709,9 +712,9 @@ const ExhibitorCreate = () => {
                 onTextChange={(text) => {
                   changeTextData(text, "secondary_email");
                 }}
-                // onBlur={() => {
-                //   onBlurHandler("secondary_email");
-                // }}
+              // onBlur={() => {
+              //   onBlurHandler("secondary_email");
+              // }}
               />
             </div>
             {/* <div className={"formGroup"}>
@@ -761,9 +764,9 @@ const ExhibitorCreate = () => {
                 onTextChange={(text) => {
                   changeTextData(text, "primary_conatct_number");
                 }}
-                // onBlur={() => {
-                //   onBlurHandler("primary_conatct_number");
-                // }}
+              // onBlur={() => {
+              //   onBlurHandler("primary_conatct_number");
+              // }}
               />
             </div>
           ) : (

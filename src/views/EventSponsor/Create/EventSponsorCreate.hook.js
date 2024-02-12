@@ -104,7 +104,7 @@ function useEventSponsorCreate({ location }) {
     let required = [
       "name",
       // "web_url",
-      // "priority",
+      "priority",
       // "contact",
       "type",
     ];
