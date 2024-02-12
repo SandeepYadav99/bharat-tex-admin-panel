@@ -15,6 +15,7 @@ function useEventUserCreateHook({ location }) {
   const initialForm = {
     name: "",
     status: true,
+    priority:"",
   };
   const { id } = useParams();
   const eventId = location?.state?.event_id;
@@ -43,7 +44,7 @@ function useEventUserCreateHook({ location }) {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["name"];
+    let required = ["name","priority"];
 
     required.forEach((val) => {
       if (
