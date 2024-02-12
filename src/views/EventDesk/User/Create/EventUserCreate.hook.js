@@ -34,6 +34,7 @@ function useEventUserCreateHook({ location }) {
             id: data._id,
             name: data?.name,
             status: data?.status === constants.GENERAL_STATUS.ACTIVE,
+            priority:data?.priority,
           });
         } else {
           SnackbarUtils.error(res?.message);
