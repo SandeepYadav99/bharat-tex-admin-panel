@@ -84,6 +84,7 @@ const useExhibitorCreate = ({ location }) => {
   });
   const [pdf, setPdf] = useState("");
   const [secondary, setSecondary] = useState("");
+  const [deatilsValue, setDetailsValue] = useState([]);
 
   const EventListManager = [
     "FIBERS_YARNS",
@@ -122,6 +123,7 @@ const useExhibitorCreate = ({ location }) => {
     setChecked(() => !checked);
   };
 
+
   useEffect(() => {
     if (empId) {
       serviceGetExhibitorsDetails({ id: empId }).then((res) => {
@@ -129,6 +131,7 @@ const useExhibitorCreate = ({ location }) => {
           const data = res?.data?.details;
           const { business_nature } = data;
           // setSelectImages(data?.gallery_images);
+          setDetailsValue(business_nature);
           setImage(data?.company_logo);
           setSecondary(data?.secondary_user_id);
           setForm({
@@ -213,14 +216,14 @@ const useExhibitorCreate = ({ location }) => {
     });
   }, [errorData, setErrorData, form]);
 
-  useEffect(()=>{
-    if(!form?.is_partner){
+  useEffect(() => {
+    if (!form?.is_partner) {
       setForm({
         ...form,
-        partner_tag:"",
-      })
+        partner_tag: "",
+      });
     }
-  },[form?.is_partner])
+  }, [form?.is_partner]);
 
   // const checkEmailValidation = useCallback(() => {
   //   debounceValidationList({
@@ -508,6 +511,7 @@ const useExhibitorCreate = ({ location }) => {
     pdf,
     changeFeatureData,
     feature,
+    deatilsValue,
   };
 };
 
