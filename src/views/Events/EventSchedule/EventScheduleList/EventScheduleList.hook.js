@@ -97,6 +97,11 @@ const useEventScheduleList = ({}) => {
     [sortingData, query, queryData, id]
   );
 
+
+  const handleAddCategory =()=>{
+   historyUtils.push(RouteName.CATEGORY_EVENT_ADD)
+  }
+
   const handleFilterDataChange = useCallback(
     (value) => {
       console.log("_handleFilterDataChange", value);
@@ -235,6 +240,7 @@ const useEventScheduleList = ({}) => {
     isRejectPopUp,
     toggleRejectDialog,
     dataValue,
+    handleAddCategory,
   };
 };
 

@@ -26,6 +26,8 @@ const initialForm = {
   status: true,
   category: "",
   moderator: [],
+  hall_no:"",
+  event_venue:"",
 };
 
 const useEventScheduleHook = ({
@@ -79,6 +81,8 @@ const useEventScheduleHook = ({
             speakers: modifiedSpeaker,
             moderator: modifiedModerator,
             status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
+            hall_no:data?.hall_no,
+            event_venue:data?.event_venue,
           });
         } else {
           SnackbarUtils.error(res?.message);

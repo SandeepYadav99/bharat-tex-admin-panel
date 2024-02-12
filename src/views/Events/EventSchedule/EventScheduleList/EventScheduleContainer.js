@@ -34,6 +34,7 @@ const EventScheduleContainer = ({}) => {
     handleToggleSidePannel,
     isRejectPopUp,
     toggleRejectDialog,
+    handleAddCategory,
     dataValue,
   } = useEventScheduleList({});
   // console.log(editData, "Edit Data")
@@ -197,7 +198,13 @@ const EventScheduleContainer = ({}) => {
             </div>
           </ButtonBase>
           <div></div>
-          <div>
+          <div className={styles.btnContainer}>
+          <ButtonBase
+              onClick={handleAddCategory}
+              className={styles.download}
+            >
+              Add Category
+            </ButtonBase>
             <ButtonBase
               onClick={handleToggleSidePannel}
               className={"createBtn"}

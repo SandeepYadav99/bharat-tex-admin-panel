@@ -130,3 +130,17 @@
   margin-left: 1px;
   background-image: linear-gradient(265deg, #ab183d, #e56056) !important;
 }
+.btnContainer{
+  display: flex;
+  gap: 5px !important;
+}
+.download {
+  border: 2px solid #29cb97 !important;
+  border-radius: 30px !important;
+  color: #29cb97 !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  padding: 7px 50px !important;
+  text-transform: uppercase !important;
+  height: 40px !important;
+}
