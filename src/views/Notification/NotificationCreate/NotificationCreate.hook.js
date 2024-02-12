@@ -16,9 +16,9 @@ function useNotificationCreate() {
     title: "",
     message: "",
     next_screen: "",
-    chapter_id: "",
+    // chapter_id: "",
     send_to: "ALL",
-    event_id: "",
+    // event_id: "",
     send_priority: "NOW",
     send_timestamp: "",
   };
@@ -70,14 +70,14 @@ function useNotificationCreate() {
       "title",
       "message",
       "next_screen",
-      "send_to",
-      "event_id",
-      "send_priority",
+      // "send_to",
+    
+      // "send_priority",
     ];
-    if (form?.send_to === "CHAPTER") {
+    if (form?.send_to === "EXHIBITORS") { // Exhibitors
       required.push("chapter_id");
     }
-    if (form?.send_to === "EVENT") {
+    if (form?.send_to === "VISITORS") { // Visitors
       required.push("event_id");
     }
     if (form?.send_priority === "LATER") {
@@ -132,12 +132,13 @@ function useNotificationCreate() {
     },
     [removeError, form, setForm]
   );
-
+console.log(form, "Form")
   const submitToServer = useCallback(
     (status) => {
       if (!isSubmitting) {
         setIsSubmitting(true);
-        serviceSendNotifications({ ...form, event_id: form?.event_id === 'NONE' ? null : form?.event_id }).then((res) => {
+        // , event_id: form?.event_id === 'NONE' ? null : form?.event_id
+        serviceSendNotifications({ ...form, id:id ? id : null }).then((res) => {
           if (!res.error) {
             historyUtils.goBack();
             SnackbarUtils.success("Notification Sent");
@@ -169,7 +170,7 @@ function useNotificationCreate() {
         return true;
       }
 
-      submitToServer(status);
+     await submitToServer(status);
     },
     [checkFormValidation, setErrorData, form, submitToServer]
   );
