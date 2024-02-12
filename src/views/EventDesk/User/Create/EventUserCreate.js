@@ -56,6 +56,20 @@ function EventUserCreateView({ location }) {
               }}
             />
           </div>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.priority}
+              errorText={errorData?.priority}
+              label={"Priority"}
+              value={form?.priority}
+              onTextChange={(text) => {
+                changeTextData(text, "priority");
+              }}
+              onBlur={() => {
+                onBlurHandler("priority");
+              }}
+            />
+          </div>
         </div>
       </div>
       <div className={"plainPaper"}>

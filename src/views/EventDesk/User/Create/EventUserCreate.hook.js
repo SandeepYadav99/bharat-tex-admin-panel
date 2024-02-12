@@ -15,6 +15,7 @@ function useEventUserCreateHook({ location }) {
   const initialForm = {
     name: "",
     status: true,
+    priority:"",
   };
   const { id } = useParams();
   const eventId = location?.state?.event_id;
@@ -33,6 +34,7 @@ function useEventUserCreateHook({ location }) {
             id: data._id,
             name: data?.name,
             status: data?.status === constants.GENERAL_STATUS.ACTIVE,
+            priority:data?.priority,
           });
         } else {
           SnackbarUtils.error(res?.message);
@@ -43,7 +45,7 @@ function useEventUserCreateHook({ location }) {
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["name"];
+    let required = ["name","priority"];
 
     required.forEach((val) => {
       if (
