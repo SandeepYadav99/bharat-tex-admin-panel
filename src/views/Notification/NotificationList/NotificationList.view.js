@@ -59,7 +59,7 @@ const NotificationList = ({}) => {
         key: "message",
         label: "message",
         sortable: false,
-        render: (temp, all) => <div>{all?.message}</div>,
+        render: (temp, all) => <div className={styles.message}>{all?.message}</div>,
       },
       {
         key: "created",
@@ -149,13 +149,14 @@ const NotificationList = ({}) => {
           </div>
         </div>
 
-        <div>
+        <div style={{ width: "90%" }}>
           <FilterComponent
             is_progress={isFetching}
-            filters={configFilter}
+            filters={[]}
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
+            </div>
           <div>
             <br />
             <div style={{ width: "100%" }}>
@@ -165,7 +166,7 @@ const NotificationList = ({}) => {
               />
             </div>
           </div>
-        </div>
+      
       </PageBox>
     </>
   );
