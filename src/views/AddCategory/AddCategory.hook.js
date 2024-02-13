@@ -139,7 +139,6 @@ function useAddCategory({ location }) {
   );
   
   
-  console.log("form", form);
   return {
     form,
     errorData,
