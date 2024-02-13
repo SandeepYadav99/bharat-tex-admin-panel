@@ -110,6 +110,9 @@ function EventSpeakerCreateView({ location }) {
                     }
                   }}
                 />
+                {
+                  form?.file && <a href={form?.file} target="_blank">Preview</a>
+                }
             
               </div>
             </div>

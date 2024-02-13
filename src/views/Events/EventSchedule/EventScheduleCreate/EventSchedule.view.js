@@ -98,15 +98,15 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
         </div>
         <div className={"formGroup"}>
           <CustomTextField
-            isError={errorData?.event_venue}
-            errorText={errorData?.event_venue}
+            isError={errorData?.venue}
+            errorText={errorData?.venue}
             label={"Event Venue"}
-            value={form?.event_venue}
+            value={form?.venue}
             onTextChange={(text) => {
-              changeTextData(text, "event_venue");
+              changeTextData(text, "venue");
             }}
             onBlur={() => {
-              onBlurHandler("event_venue");
+              onBlurHandler("venue");
             }}
           />
         </div>
