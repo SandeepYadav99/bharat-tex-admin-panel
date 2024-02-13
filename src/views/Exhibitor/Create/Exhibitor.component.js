@@ -437,14 +437,15 @@ const ExhibitorCreate = () => {
                   isError={errorData?.partner_tag}
                   errorText={errorData?.partner_tag}
                   label={"Partner Type"}
-                  value={form?.partner_tag}
+                  value={form?.partner_tag ? form?.partner_tag : ""}
+                  defaultValue={form?.partner_tag ? form?.partner_tag : ""} 
                   handleChange={(value) => {
                     changeTextData(value, "partner_tag");
                   }}
                 >{
                     partnerList?.map((val) => {
                       return (
-                        <MenuItem value={val?.type} key={val?.id}>{val?.type}</MenuItem>
+                        <MenuItem value={val?.type} key={val?.id}>{val?.type }</MenuItem>
                       )
                     })
                   }
@@ -536,9 +537,9 @@ const ExhibitorCreate = () => {
                   color={"primary"}
                   label={"Others"}
                   handleChange={(text) => {
-                    changeTextData(!form?.other, "other");
+                    changeTextData(!form?.is_business_nature_other, "is_business_nature_other");
                   }}
-                  checked={form?.other || deatilsValue.includes("other")}
+                  checked={form?.is_business_nature_other}
                 />
               </div>
             </div>
@@ -546,18 +547,18 @@ const ExhibitorCreate = () => {
         )}
         <div className={"formFlex"}>
           <div className={"formGroup"}></div>
-          {form?.other && (
+          {form?.is_business_nature_other && (
             <div className={"formGroup"}>
               <CustomTextField
-                isError={errorData?.other_data}
-                errorText={errorData?.other_data}
+                isError={errorData?.business_nature_other}
+                errorText={errorData?.business_nature_other}
                 label={"Other"}
-                value={form?.other_data}
+                value={form?.business_nature_other}
                 onTextChange={(text) => {
-                  changeTextData(text, "other_data");
+                  changeTextData(text, "business_nature_other");
                 }}
                 onBlur={() => {
-                  onBlurHandler("other_data");
+                  onBlurHandler("business_nature_other");
                 }}
               />
             </div>

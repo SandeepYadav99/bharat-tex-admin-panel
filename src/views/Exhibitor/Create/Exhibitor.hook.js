@@ -51,8 +51,8 @@ const initialForm = {
   youtube_link: "",
   is_partner: false,
   hall_no: "",
-  other: false,
-  other_data: "",
+  is_business_nature_other: false,
+  business_nature_other: "",
   business_nature: [],
   state: "",
   country: "",
@@ -87,9 +87,10 @@ const useExhibitorCreate = ({ location }) => {
   const [pdf, setPdf] = useState("");
   const [secondary, setSecondary] = useState("");
   const [deatilsValue, setDetailsValue] = useState([]);
-  const [partnerList,setPartnerList] = useState([]);
+  const [partnerList, setPartnerList] = useState([]);
 
-  const {user} = useSelector((state)=>state?.auth)
+  const { user } = useSelector((state) => state?.auth);
+
 
   const EventListManager = [
     "FIBERS_YARNS",
@@ -101,7 +102,6 @@ const useExhibitorCreate = ({ location }) => {
     "HANDICRAFTS_CARPETS",
     "INTELLIGENT_MANUFACTURING",
   ];
-
 
   useEffect(() => {
     serviceExhibitorsList({ list: ["PRODUCT_CATEGORY", "PRODUCT_GROUP"] }).then(
@@ -175,6 +175,8 @@ const useExhibitorCreate = ({ location }) => {
             state: data?.state,
             country: data?.country,
             zip_code: data?.zip_code,
+            business_nature_other: data?.business_nature_other,
+            is_business_nature_other: data?.is_business_nature_other,
             // pavallian: data?.pavallian,
           });
           // setPdf(data?.company_brochure);
@@ -186,17 +188,15 @@ const useExhibitorCreate = ({ location }) => {
     }
   }, [empId]);
 
-  useEffect(()=>{
-    if(empId){
+  useEffect(() => {
+    if (empId) {
       Object.keys(feature).forEach((key) => {
-        if(deatilsValue.includes(feature[key])){
-           feature[key] = true;
+        if (deatilsValue.includes(feature[key])) {
+          feature[key] = true;
         }
-      })
-
+      });
     }
-  },[empId])
-
+  }, [empId]);
 
   useEffect(() => {
     setForm((prevForm) => {
@@ -357,8 +357,8 @@ const useExhibitorCreate = ({ location }) => {
         (key !== "company_logo",
         // key !== "gallery_images"
         // key !== "company_brochure"
-        key !== "other_data",
-        key !== "other")
+        key !== "business_nature_other",
+        key !== "is_business_nature_other")
       ) {
         if (key === "status") {
           fd.append(key, form[key] ? "ACTIVE" : "INACTIVE");
@@ -372,8 +372,10 @@ const useExhibitorCreate = ({ location }) => {
         ) {
           if (key === "business_nature") {
             let values = form[key];
-            if (form?.other) {
-              values.push(form?.other_data);
+            if (form?.is_business_nature_other) {
+              if(!values.includes(form?.business_nature_other)){
+                values.push(form?.business_nature_other);
+              }
             }
             fd.append(key, JSON.stringify(values));
           } else {
@@ -391,6 +393,11 @@ const useExhibitorCreate = ({ location }) => {
     // if (form?.company_brochure) {
     //   fd.append("company_brochure", form?.company_brochure);
     // }
+
+    if(form?.is_business_nature_other){
+      fd.append("is_business_nature_other",form?.is_business_nature_other)
+    }
+
     if (form?.company_logo) {
       fd.append("company_logo", form?.company_logo);
     }
@@ -399,8 +406,8 @@ const useExhibitorCreate = ({ location }) => {
     //     fd.append("gallery_images", item);
     //   });
     // }
-    if(!form?.is_partner){
-      fd.append("partner_tag","");
+    if (!form?.is_partner) {
+      fd.append("partner_tag", "");
     }
     if (selectImages?.length > 0) {
       fd.append("remote_images", JSON.stringify(selectImages));
@@ -509,13 +516,17 @@ const useExhibitorCreate = ({ location }) => {
     setSelectImages([...image]);
   };
 
-
-  useEffect(()=>{
+  useEffect(() => {
     servicesPartnerTypeList({
-      "list": ["SPONSOR_TYPE"],
-      "event_id": `${user?.event_id}`
-  }).then((res)=>setPartnerList(res?.data?.SPONSOR_TYPE)).catch((res)=>res.error)
-  },[]);
+      list: ["SPONSOR_TYPE"],
+      event_id: `${user?.event_id}`,
+    })
+      .then((res) => setPartnerList(res?.data?.SPONSOR_TYPE))
+      .catch((res) => res.error);
+  }, []);
+
+
+  
 
   return {
     form,
