@@ -33,7 +33,6 @@ function useNotificationCreate() {
     EVENTS: [],
   });
 
-
   useEffect(() => {
     if (id) {
       serviceGetNotificationDetails({ id: id }).then((res) => {
@@ -71,13 +70,15 @@ function useNotificationCreate() {
       "message",
       "next_screen",
       // "send_to",
-    
+
       // "send_priority",
     ];
-    if (form?.send_to === "EXHIBITORS") { // Exhibitors
+    if (form?.send_to === "EXHIBITORS") {
+      // Exhibitors
       required.push("chapter_id");
     }
-    if (form?.send_to === "VISITORS") { // Visitors
+    if (form?.send_to === "VISITORS") {
+      // Visitors
       required.push("event_id");
     }
     if (form?.send_priority === "LATER") {
@@ -92,8 +93,8 @@ function useNotificationCreate() {
       }
     });
 
-    if (form?.send_to === 'EVENT' && form?.event_id === 'NONE') {
-      errors['event_id'] = true;
+    if (form?.send_to === "EVENT" && form?.event_id === "NONE") {
+      errors["event_id"] = true;
     }
     if (form?.send_timestamp) {
       const date = new Date(form?.send_timestamp);
@@ -125,28 +126,41 @@ function useNotificationCreate() {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-
-      t[fieldName] = text;
+      if (fieldName === "send_priority") {
+        t[fieldName] = text;
+      } else {
+        t[fieldName] = text;
+      }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },
     [removeError, form, setForm]
   );
-console.log(form, "Form")
+  console.log(form, "Form");
   const submitToServer = useCallback(
     (status) => {
       if (!isSubmitting) {
         setIsSubmitting(true);
         // , event_id: form?.event_id === 'NONE' ? null : form?.event_id
-        serviceSendNotifications({ ...form, id:id ? id : null }).then((res) => {
-          if (!res.error) {
-            historyUtils.goBack();
-            SnackbarUtils.success("Notification Sent");
-          } else {
-            SnackbarUtils.error(res?.message);
+        const updatedData = {
+          title: form?.title,
+          message: form?.message,
+          next_screen: form?.next_screen,
+          send_to: form?.send_to,
+          send_priority: form?.send_priority,
+          send_timestamp: form?.send_timestamp,
+        };
+        serviceSendNotifications({ ...form, id: id ? id : null }).then(
+          (res) => {
+            if (!res.error) {
+              historyUtils.goBack();
+              SnackbarUtils.success("Notification Sent");
+            } else {
+              SnackbarUtils.error(res?.message);
+            }
+            setIsSubmitting(false);
           }
-          setIsSubmitting(false);
-        });
+        );
       }
     },
     [form, isSubmitting, setIsSubmitting]
@@ -170,7 +184,7 @@ console.log(form, "Form")
         return true;
       }
 
-     await submitToServer(status);
+      await submitToServer(status);
     },
     [checkFormValidation, setErrorData, form, submitToServer]
   );

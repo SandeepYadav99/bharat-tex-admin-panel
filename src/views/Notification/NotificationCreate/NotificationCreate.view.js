@@ -92,6 +92,8 @@ function NotificationCreate() {
           isError={errorData?.send_timestamp}
         />
       );
+    }else {
+      return null
     }
   }, [form, changeTextData, errorData]);
 

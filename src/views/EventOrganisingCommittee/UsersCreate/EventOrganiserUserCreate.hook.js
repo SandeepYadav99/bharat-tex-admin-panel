@@ -16,6 +16,10 @@ const initialForm = {
   image: "",
   company: "",
   priority: "",
+  webUrl:"",
+  name:"",
+  phoneNumber:"",
+  about:""
   // user: null,
 };
 
