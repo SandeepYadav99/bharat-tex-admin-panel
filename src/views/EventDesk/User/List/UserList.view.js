@@ -51,12 +51,12 @@ const UserList = ({}) => {
         render: (temp, all) => <div>{all?.priority ? all?.priority : "--"}</div>,
       },
 
-      {
-        key: "user",
-        label: "user",
-        sortable: false,
-        render: (temp, all) => <div>{all?.user}</div>,
-      },
+      // {
+      //   key: "user",
+      //   label: "user",
+      //   sortable: false,
+      //   render: (temp, all) => <div>{all?.user}</div>,
+      // },
 
       {
         key: "status",
