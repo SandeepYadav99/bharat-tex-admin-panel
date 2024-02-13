@@ -13,7 +13,8 @@ export default {
   CITY_ASSOCIATION_CREATE: "/city/create",
   CITY_ASSOCIATION_UPDATE: "/city/update/",
 
-  CATEGORY_EVENT_ADD:"/category/event/add",
+  CATEGORY_EVENT_ADD:"/category/event/add/",
+  CATEGORY_LIST:"/category/event/list",
 
   ADMIN: "/admin",
   ADMIN_CREATE: "/admin/create",

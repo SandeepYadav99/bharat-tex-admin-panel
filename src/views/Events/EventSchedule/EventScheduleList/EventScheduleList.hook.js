@@ -99,7 +99,7 @@ const useEventScheduleList = ({}) => {
 
 
   const handleAddCategory =()=>{
-   historyUtils.push(RouteName.CATEGORY_EVENT_ADD)
+   historyUtils.push(RouteName.CATEGORY_LIST)
   }
 
   const handleFilterDataChange = useCallback(

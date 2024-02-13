@@ -84,6 +84,7 @@ const ExhibitorCreate = lazy(()=>import("../views/Exhibitor/Create/Exhibitor.com
 const ExhibitionDetails = lazy(()=>import("../views/Exhibitor/List/Detail/ExhibitorDetail.js"));
 
 const AddCategoryData = lazy(()=>import("../views/AddCategory/AddCategory.component.js"));
+const AddCategoryList = lazy(()=>import("../views/AddCategory/List/List.module.js"))
 
 
 const Roles = Constants.ROLES;
@@ -825,8 +826,19 @@ const dashboardRoutes = [
     component: AddCategoryData,
     is_sidebar:false,
     is_protect:true,
+  },
+  {
+    path:`${RouteName.CATEGORY_EVENT_ADD}:id`,
+    component: AddCategoryData,
+    is_sidebar:false,
+    is_protect:true,
+  },
+  {
+    path:RouteName.CATEGORY_LIST,
+    component: AddCategoryList,
+    is_sidebar:false,
+    is_protect:true,
   }
-
 ];
 
 export default dashboardRoutes;
