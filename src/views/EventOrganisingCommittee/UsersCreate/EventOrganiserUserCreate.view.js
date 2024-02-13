@@ -8,6 +8,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import File from "../../../components/FileComponent/FileComponent.component";
 import CustomAutoComplete from "../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import useEventOrganiserUserCreate from "./EventOrganiserUserCreate.hook";
+import CustomPhoneContactField from "../../../components/FormFields/CustomPhoneContactField";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const EventOrganiserUserCreate = ({ location }) => {
-  console.log(location, "Location")
+  console.log(location, "Location");
   const {
     form,
     errorData,
@@ -38,7 +39,7 @@ const EventOrganiserUserCreate = ({ location }) => {
   } = useEventOrganiserUserCreate({ location });
 
   const classes = useStyles();
-  console.log(location?.state?.organising_id, "IDDD")
+  console.log(location?.state?.organising_id, "IDDD");
   const UserField = useMemo(() => {
     if (isEnterManually) {
       return (
@@ -123,10 +124,7 @@ const EventOrganiserUserCreate = ({ location }) => {
             />
           </div>
           <div className={styles.lowerWrap}>
-         
-
             <div className={"formFlex"}>
-             
               <div className={"formGroup"}>
                 <CustomTextField
                   label={"Company"}
@@ -139,10 +137,6 @@ const EventOrganiserUserCreate = ({ location }) => {
                   }}
                 />
               </div>
-            </div>
-
-            <div className={"formFlex"}>
-             
               <div className={"formGroup"}>
                 <CustomTextField
                   isError={errorData?.priority}
@@ -158,6 +152,80 @@ const EventOrganiserUserCreate = ({ location }) => {
                 />
               </div>
             </div>
+
+            <div className={"formFlex"}>
+              <div className={"formGroup"}>
+                <CustomTextField
+                  isError={errorData?.webUrl}
+                  errorText={errorData?.webUrl}
+                  label={"Website"}
+                  value={form?.webUrl}
+                  onTextChange={(text) => {
+                    changeTextData(text, "webUrl");
+                  }}
+                  onBlur={() => {
+                    onBlurHandler("webUrl");
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.name}
+              errorText={errorData?.name}
+              label={"Name"}
+              value={form?.name}
+              onTextChange={(text) => {
+                changeTextData(text, "name");
+              }}
+              onBlur={() => {
+                onBlurHandler("name");
+              }}
+            />
+          </div>
+          <div className={"formGroup"}>
+            <CustomPhoneContactField
+              isError={errorData?.phoneNumber}
+              errorText={errorData?.phoneNumber}
+              label={"Phone number "}
+              value={form?.phoneNumber}
+              onTextChange={(text) => {
+                changeTextData(text, "phoneNumber");
+              }}
+            
+              isValid={(value) => {
+             
+                if (value.match(/12345/)) {
+                  return "";
+                } else if (value.match(/1234/)) {
+                  return false;
+                } else {
+                  return true;
+                }
+            
+                }}
+            />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.about}
+              errorText={errorData?.about}
+              label={"About"}
+              value={form?.about}
+              onTextChange={(text) => {
+                changeTextData(text, "about");
+              }}
+              onBlur={() => {
+                onBlurHandler("about");
+              }}
+              multiline
+              rows={4}
+            />
           </div>
         </div>
         <div className={styles.btnCont}>
