@@ -27,21 +27,23 @@ function useEventUserCreateHook({ location }) {
   useEffect(() => {
     if (id) {
       serviceGetEventUserDetails({ id: id }).then((res) => {
-        if (!res.error) {
-          const data = res?.data?.details;
-          setForm({
-            ...form,
-            id: data._id,
-            name: data?.name,
-            status: data?.status === constants.GENERAL_STATUS.ACTIVE,
-            priority:data?.priority,
-          });
-        } else {
+        const data = res?.data;
+        if (res?.error) {
           SnackbarUtils.error(res?.message);
+          return;
         }
+      
+        setForm(prevForm => ({
+          ...prevForm,
+          id: data?._id,
+          name: data?.name,
+          status: data?.status === constants.GENERAL_STATUS.ACTIVE,
+          priority: data?.priority,
+        }));
       });
+    
     }
-  }, [eventId, id]);
+  }, [ id]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };

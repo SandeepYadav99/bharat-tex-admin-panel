@@ -1,25 +1,20 @@
-import React, { Component, useCallback, useEffect, useMemo } from "react";
+import React, {  useMemo } from "react";
 import {
-  Button,
-  Paper,
-  Checkbox,
+ 
   IconButton,
-  MenuItem,
+ 
   ButtonBase,
-  Menu,
+
 } from "@material-ui/core";
-import classNames from "classnames";
-import { connect, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
-import StatusPill from "../../../components/Status/StatusPill.component";
 import useNotificationList from "./NotificationList.hook";
-import { Add, Edit, InfoOutlined } from "@material-ui/icons";
-import RoomOutlinedIcon from "@material-ui/icons/RoomOutlined";
-import PeopleOutlineOutlinedIcon from "@material-ui/icons/PeopleOutlineOutlined";
+import { Add,  InfoOutlined } from "@material-ui/icons";
+
 
 const NotificationList = ({}) => {
   const {
@@ -94,7 +89,7 @@ const NotificationList = ({}) => {
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
-              disabled={isCalling}
+              disabled={all?.is_sent} //  && isCalling
               onClick={() => {
                 handleViewDetails(all);
               }}
