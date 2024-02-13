@@ -438,7 +438,7 @@ const ExhibitorCreate = () => {
                   errorText={errorData?.partner_tag}
                   label={"Partner Type"}
                   value={form?.partner_tag ? form?.partner_tag : ""}
-                  defaultValue={form?.partner_tag ? form?.partner_tag : ""} 
+                  // defaultValue={form?.partner_tag ? form?.partner_tag : ""} 
                   handleChange={(value) => {
                     changeTextData(value, "partner_tag");
                   }}

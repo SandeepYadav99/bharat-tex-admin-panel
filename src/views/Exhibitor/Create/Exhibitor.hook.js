@@ -167,7 +167,7 @@ const useExhibitorCreate = ({ location }) => {
             brand_name: data?.brand_name,
             secondary_email: data?.secondary_email,
             other_conatct_number: data?.other_conatct_number,
-            partner_tag: data?.partner_tag,
+            partner_tag:data?.partner_tag ?  data?.partner_tag?.toUpperCase() : "" ,
             status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
             is_partner: data?.is_partner,
             primary_user_id: data?.primary_user_id ? data.primary_user_id : "",
