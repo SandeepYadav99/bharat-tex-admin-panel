@@ -439,19 +439,15 @@ const ExhibitorCreate = () => {
                   label={"Partner Type"}
                   value={form?.partner_tag}
                   handleChange={(value) => {
-                    if (form?.is_partner) {
-                      changeTextData(value, "partner_tag");
-                    } else {
-                      changeTextData(" ", "partner_tag");
-                    }
+                    changeTextData(value, "partner_tag");
                   }}
                 >{
-                  partnerList?.map((val)=>{
-                    return(
-                      <MenuItem value={val?.type} key={val?.id}>{val?.type}</MenuItem>
-                    )
-                  })
-                }
+                    partnerList?.map((val) => {
+                      return (
+                        <MenuItem value={val?.type} key={val?.id}>{val?.type}</MenuItem>
+                      )
+                    })
+                  }
                 </CustomSelectField>
               )}
             </div>
@@ -512,7 +508,7 @@ const ExhibitorCreate = () => {
                   handleChange={(text) => {
                     changeFeatureData(!feature?.exporter, "exporter");
                   }}
-                  checked={feature?.exporter || deatilsValue.includes("exporter") }
+                  checked={feature?.exporter || deatilsValue.includes("exporter")}
                 />
               </div>
               <div className={"formGroup"}>
@@ -542,7 +538,7 @@ const ExhibitorCreate = () => {
                   handleChange={(text) => {
                     changeTextData(!form?.other, "other");
                   }}
-                  checked={form?.other || deatilsValue.includes("other") }
+                  checked={form?.other || deatilsValue.includes("other")}
                 />
               </div>
             </div>
@@ -556,7 +552,7 @@ const ExhibitorCreate = () => {
                 isError={errorData?.other_data}
                 errorText={errorData?.other_data}
                 label={"Other"}
-                value={form?.other_data }
+                value={form?.other_data}
                 onTextChange={(text) => {
                   changeTextData(text, "other_data");
                 }}
