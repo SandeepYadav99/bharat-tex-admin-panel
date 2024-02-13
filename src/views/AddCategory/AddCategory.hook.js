@@ -4,17 +4,17 @@ import { useParams } from "react-router";
 import SnackbarUtils from "../../libs/SnackbarUtils";
 import historyUtils from "../../libs/history.utils";
 import LogUtils from "../../libs/LogUtils";
-import {
-  serviceCreateTypeList,
-  serviceGetTypeListDetails,
-  serviceUpdateTypeList,
-} from "../../services/TypeList.service";
 import { useMemo } from "react";
+import { serviceCreateCategory } from "../../services/AddCategory.service";
+import { useSelector } from "react-redux";
 
 function useAddCategory({ location }) {
+  const { user } = useSelector((state) => state.auth);
   const initialForm = {
     priority: "",
     name: "",
+    status: true,
+    event_id: `${user?.event_id}`,
   };
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
@@ -24,25 +24,24 @@ function useAddCategory({ location }) {
     return location?.state?.eventId;
   }, [location]);
 
-
-  useEffect(() => {
-    if (id) {
-      serviceGetTypeListDetails({ id: id }).then((res) => {
-        if (!res.error) {
-          const data = res?.data;
-          setForm({
-            ...form,
-            id: id,
-            priority: data?.priority,
-            name: data?.type,
-          });
-        } else {
-          SnackbarUtils.error(res?.message);
-          historyUtils.goBack();
-        }
-      });
-    }
-  }, [id]);
+  // useEffect(() => {
+  //   if (id) {
+  //     serviceGetTypeListDetails({ id: id }).then((res) => {
+  //       if (!res.error) {
+  //         const data = res?.data;
+  //         setForm({
+  //           ...form,
+  //           id: id,
+  //           priority: data?.priority,
+  //           name: data?.type,
+  //         });
+  //       } else {
+  //         SnackbarUtils.error(res?.message);
+  //         historyUtils.goBack();
+  //       }
+  //     });
+  //   }
+  // }, [id]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -92,18 +91,25 @@ function useAddCategory({ location }) {
     [removeError, form, setForm]
   );
 
+  useEffect(() => {
+    if (form?.status) {
+      setForm({
+        ...form,
+        status: "ACTIVE",
+      });
+    } else {
+      setForm({
+        ...form,
+        status: "INACTIVE",
+      });
+    }
+  }, [form?.status]);
+
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      if (selectedEventId) {
-        form.event_id = selectedEventId;
-      }
       let req;
-      if (id) {
-        req = serviceUpdateTypeList({ ...form });
-      } else {
-        req = serviceCreateTypeList({ ...form });
-      }
+      req = serviceCreateCategory({ ...form });
       req.then((res) => {
         if (!res.error) {
           historyUtils.goBack();
@@ -132,13 +138,12 @@ function useAddCategory({ location }) {
         setErrorData(errors);
         return true;
       }
-      
+
       submitToServer(status);
     },
     [checkFormValidation, setErrorData, form, submitToServer]
   );
-  
-  
+
   return {
     form,
     errorData,
@@ -147,7 +152,7 @@ function useAddCategory({ location }) {
     removeError,
     handleSubmit,
     isSubmitting,
-    selectedEventId
+    selectedEventId,
   };
 }
 

@@ -54,7 +54,7 @@
     align-items: center;
     gap: 30px;
     margin: 15px 20px;
-    justify-content: flex-end;
+    justify-content: space-between !important;
   }
   .download {
     border: 2px solid #29cb97 !important;

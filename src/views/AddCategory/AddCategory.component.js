@@ -6,6 +6,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 // import useTypeCreate from "./TypeCreate.hook";
 import CustomTextField from "../../components/FormFields/TextField/TextField.component";
 import useAddCategory from "./AddCategory.hook";
+import CustomSwitch from "../../components/FormFields/CustomSwitch";
 
 function AddCategory({ location }) {
   const {
@@ -73,6 +74,13 @@ function AddCategory({ location }) {
       </div>
       <div className={"plainPaper"}>
         <div className={styles.btnWrappepr}>
+        <CustomSwitch
+          value={form?.status}
+          handleChange={() => {
+            changeTextData(!form?.status, "status");
+          }}
+          label={form?.status ? "Active" : "Inactive"}
+        />
           <ButtonBase
             disabled={isSubmitting ? true : false}
             type={"button"}

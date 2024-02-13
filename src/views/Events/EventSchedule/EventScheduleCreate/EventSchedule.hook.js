@@ -14,7 +14,8 @@ import { serviceGetList } from "../../../../services/Common.service";
 import LogUtils from "../../../../libs/LogUtils";
 import { useParams } from "react-router";
 import { actionFetchEventSchedule } from "../../../../actions/EventSchedule.action";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { serviceAddCategoryList } from "../../../../services/AddCategory.service";
 
 const initialForm = {
   eve_name: "",
@@ -48,6 +49,10 @@ const useEventScheduleHook = ({
     SPEAKERS: [],
   });
 
+  const {user} = useSelector((state)=>state?.auth)
+
+  const [categoryList,setCategoryList] = useState([])
+
   useEffect(() => {
     serviceGetList(["SPEAKERS"], { event_id: id }).then((res) => {
       if (!res.error) {
@@ -56,7 +61,20 @@ const useEventScheduleHook = ({
     });
   }, []);
 
-  console.log("empId", empId);
+
+  const paylaod = {
+    "index": 1,
+    "row": null,
+    "order": null,
+    "query": "",
+    "query_data": null,
+    "event_id": `${user?.event_id}`
+  }
+
+  useEffect(()=>{
+    serviceAddCategoryList(paylaod)?.then((res)=>setCategoryList(res?.data)).catch((res)=>res.error)
+  },[]);
+
   useEffect(() => {
     if (empId) {
       serviceGetEventScheduleDetails({ id: empId }).then((res) => {
@@ -243,6 +261,7 @@ const useEventScheduleHook = ({
     empId,
     showPasswordCurrent,
     setShowPasswordCurrent,
+    categoryList,
   };
 };
 
