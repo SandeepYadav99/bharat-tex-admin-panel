@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import historyUtils from "../../../../libs/history.utils";
 import RouteName from "../../../../routes/Route.name";
 import {
+  actionChangePageEventSchedule,
   actionCreateEventSchedule,
   actionDeleteEventSchedule,
   actionFetchEventSchedule,
@@ -62,7 +63,7 @@ const useEventScheduleList = ({}) => {
 
   const handlePageChange = useCallback((type) => {
     console.log("_handlePageChange", type);
-    // dispatch(actionSetPageAdminUser(type));
+    dispatch(actionChangePageEventSchedule(type));
   }, []);
 
   const handleDataSave = useCallback(
@@ -95,6 +96,11 @@ const useEventScheduleList = ({}) => {
     },
     [sortingData, query, queryData, id]
   );
+
+
+  const handleAddCategory =()=>{
+   historyUtils.push(RouteName.CATEGORY_EVENT_ADD)
+  }
 
   const handleFilterDataChange = useCallback(
     (value) => {
@@ -234,6 +240,7 @@ const useEventScheduleList = ({}) => {
     isRejectPopUp,
     toggleRejectDialog,
     dataValue,
+    handleAddCategory,
   };
 };
 

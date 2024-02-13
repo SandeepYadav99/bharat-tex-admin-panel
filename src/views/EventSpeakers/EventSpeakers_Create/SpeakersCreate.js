@@ -165,7 +165,7 @@ function EventSpeakerCreateView({ location }) {
               handleChange={() => {
                 changeTextData(!form?.s_status, "s_status");
               }}
-              label={`Active`}
+              label={form?.s_status ? "Active" : "Inactive"}
             />
           </div>
         </div>

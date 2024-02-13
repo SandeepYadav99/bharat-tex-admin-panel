@@ -26,5 +26,13 @@ export async function serviceGetProductList(){
   return await postRequest("product/group/tages")
 }
 
+export async function debounceValidationList(params){
+  return await postRequest("users/exists",params)
+}
+
+export async function servicesPartnerTypeList(params){
+  return await postRequest("list",params)
+}
+
 
 

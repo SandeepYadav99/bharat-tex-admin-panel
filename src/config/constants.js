@@ -399,11 +399,8 @@ export default {
     CANCELLED: "cancelled",
   },
   ROLES: {
-    GENERAL: 'GENERAL',
-    CHAPTER_ADMIN: 'CHAPTER_ADMIN',
-    EVENT_MANAGER: 'EVENT_MANAGER',
-    OTHERS:"OTHERS",
-    ADMIN:"ADMIN"
+    ADMIN: 'ADMIN',
+    EXHIBITOR: 'EXHIBITOR',
   },
   LOG_ENABLED: true,
   WARNING_ENABLED: true,

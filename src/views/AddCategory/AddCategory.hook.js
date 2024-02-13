@@ -1,52 +1,52 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import { useState } from "react";
 import { useParams } from "react-router";
-import SnackbarUtils from "../../../../libs/SnackbarUtils";
-
+import SnackbarUtils from "../../libs/SnackbarUtils";
+import historyUtils from "../../libs/history.utils";
+import LogUtils from "../../libs/LogUtils";
 import {
-  serviceCreateEventUser,
-  serviceGetEventUserDetails,
-  serviceUpdateEventUser,
-} from "../../../../services/EventUser.service";
-import historyUtils from "../../../../libs/history.utils";
-import constants from "../../../../config/constants";
+  serviceCreateTypeList,
+  serviceGetTypeListDetails,
+  serviceUpdateTypeList,
+} from "../../services/TypeList.service";
+import { useMemo } from "react";
 
-function useEventUserCreateHook({ location }) {
+function useAddCategory({ location }) {
   const initialForm = {
+    priority: "",
     name: "",
-    status: true,
-    priority:"",
   };
-  const { id } = useParams();
-  const eventId = location?.state?.event_id;
-
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
+  const { id } = useParams();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const selectedEventId = useMemo(() => {
+    return location?.state?.eventId;
+  }, [location]);
+
 
   useEffect(() => {
     if (id) {
-      serviceGetEventUserDetails({ id: id }).then((res) => {
+      serviceGetTypeListDetails({ id: id }).then((res) => {
         if (!res.error) {
-          const data = res?.data?.details;
+          const data = res?.data;
           setForm({
             ...form,
-            id: data._id,
-            name: data?.name,
-            status: data?.status === constants.GENERAL_STATUS.ACTIVE,
-            priority:data?.priority,
+            id: id,
+            priority: data?.priority,
+            name: data?.type,
           });
         } else {
           SnackbarUtils.error(res?.message);
+          historyUtils.goBack();
         }
       });
     }
-  }, [eventId, id]);
+  }, [id]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
-    let required = ["name","priority"];
-
+    let required = ["priority", "name"];
     required.forEach((val) => {
       if (
         (!form?.[val] && parseInt(form?.[val]) != 0) ||
@@ -55,6 +55,7 @@ function useEventUserCreateHook({ location }) {
         errors[val] = true;
       }
     });
+
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -76,7 +77,15 @@ function useEventUserCreateHook({ location }) {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
-      t[fieldName] = text;
+      if (fieldName === "name") {
+        t[fieldName] = text;
+      } else if (fieldName === "priority") {
+        if (text >= 0) {
+          t[fieldName] = text;
+        }
+      } else {
+        t[fieldName] = text;
+      }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },
@@ -86,18 +95,15 @@ function useEventUserCreateHook({ location }) {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      const fd = { ...form };
-      if (eventId) {
-        fd.event_id = eventId;
+      if (selectedEventId) {
+        form.event_id = selectedEventId;
       }
-      fd.status = form?.status ? "ACTIVE" : "INACTIVE";
       let req;
       if (id) {
-        req = serviceUpdateEventUser(fd);
+        req = serviceUpdateTypeList({ ...form });
       } else {
-        req = serviceCreateEventUser(fd);
+        req = serviceCreateTypeList({ ...form });
       }
-
       req.then((res) => {
         if (!res.error) {
           historyUtils.goBack();
@@ -107,7 +113,7 @@ function useEventUserCreateHook({ location }) {
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, id, eventId]);
+  }, [form, isSubmitting, setIsSubmitting]);
 
   const onBlurHandler = useCallback(
     (type) => {
@@ -121,15 +127,18 @@ function useEventUserCreateHook({ location }) {
   const handleSubmit = useCallback(
     async (status) => {
       const errors = checkFormValidation();
+      LogUtils.log("errors==>", errors);
       if (Object.keys(errors)?.length > 0) {
         setErrorData(errors);
         return true;
       }
+      
       submitToServer(status);
     },
     [checkFormValidation, setErrorData, form, submitToServer]
   );
-
+  
+  
   return {
     form,
     errorData,
@@ -138,7 +147,8 @@ function useEventUserCreateHook({ location }) {
     removeError,
     handleSubmit,
     isSubmitting,
+    selectedEventId
   };
 }
 
-export default useEventUserCreateHook;
+export default useAddCategory;

@@ -25,7 +25,7 @@ function EventDetail() {
     editMasterEvent,
     handleViewEventsPush,
   } = useEventDetail({});
-  
+
   const UpperInfo = useCallback((obj) => {
     if (obj) {
       return (
@@ -59,7 +59,7 @@ function EventDetail() {
           </ButtonBase>
         </div>
       </div>
-      
+
       <UpperClaimInfo data={employeeDetail} />
       <div className={styles.plainPaper}>
         <div className={styles.toggleWrap}>

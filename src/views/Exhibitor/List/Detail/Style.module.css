@@ -63,6 +63,23 @@
 
 }
 
+.linkDataText{
+    text-decoration: underline;
+    color: blue !important;
+}
+
+.flexGap2Row{
+    display: flex;
+    flex-direction: column;
+    gap: 10px !important;
+}
+
+.wrappedField{
+    display: flex;
+    flex-wrap: wrap !important;
+    margin-left: 10px !important;
+}
+
 @media only screen and (max-width:769px) {
     .subContainer {
         display: flex;

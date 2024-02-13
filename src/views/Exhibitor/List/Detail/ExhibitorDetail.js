@@ -3,6 +3,8 @@ import useExhibitorDetail from "./ExhibitorDetail.hook";
 import styles from "./Style.module.css";
 import { ArrowBackIos } from "@material-ui/icons";
 import historyUtils from "../../../../libs/history.utils";
+import defaultCompany from "../../../../assets/img/defaultCompany.jpg";
+import { removeUnderScore } from "../../../../helper/helper";
 
 const ExhibitorDetail = () => {
   const { detail } = useExhibitorDetail({});
@@ -16,7 +18,7 @@ const ExhibitorDetail = () => {
         <ArrowBackIos fontSize={"small"} />{" "}
         <span>
           <span className={styles.title}>
-            <b>Exhibition Detail</b>
+            <b>Exhibitors Detail</b>
           </span>
         </span>
       </ButtonBase>
@@ -32,8 +34,12 @@ const ExhibitorDetail = () => {
                   width={"120px"}
                 />
               ) : (
-                <div style={{ border: "1px solid black" }}>
-                  <img alt="No Image Uploaded" />
+                <div>
+                  <img
+                    alt="No Image Uploaded"
+                    src={defaultCompany}
+                    width={"120px"}
+                  />
                 </div>
               )}
             </div>
@@ -54,33 +60,71 @@ const ExhibitorDetail = () => {
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Venue:</p>
                   {detail?.details?.event_venue
-                    ? detail?.details?.event_venue
+                    ? removeUnderScore(detail?.details?.event_venue)
+                    : "--"}
+                </div>
+                <div className={styles.headingDataType}>
+                  <p className={styles.text}>Zone:</p>
+                  <div className={styles.wrappedContent}>
+                    {detail?.details?.zone_tag?.length > 0
+                      ? detail?.details?.zone_tag?.map((val) => (
+                          <span>{val}</span>
+                        ))
+                      : "--"}
+                  </div>
+                </div>
+                <div className={styles.headingDataType}>
+                  <p className={styles.text}>ZipCode:</p>
+                  {""}
+                  {detail?.details?.zip_code ? detail?.details?.zip_code : "--"}
+                </div>
+                <div className={styles.headingDataType}>
+                  <p className={styles.text}>Pavallian:</p>
+                  {""}
+                  {detail?.details?.pavallian
+                    ? detail?.details?.pavallian
                     : "--"}
                 </div>
               </div>
-              <div>
-                <div style={{ height: "30px" }}> </div>
+              <div className={styles.flexGap2Row}>
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Partner Type:</p>
-                  {detail?.details?.company_name
-                    ? detail?.details?.company_name
+                  {detail?.details?.partner_tag
+                    ? removeUnderScore(detail?.details?.partner_tag)
                     : "--"}
                 </div>
-                <div className={styles.alignRow}>
-                  <div className={styles.headingDataType}>
-                    <b>Zone:</b>
-                    <div className={styles.wrappedContent}>
-                      {detail?.details?.zone_tag?.length > 0
-                        ? detail?.details?.zone_tag?.map((val) => (
-                            <span>{val}</span>
-                          ))
-                        : "--"}
-                    </div>
-                  </div>
-                  <div className={styles.headingDataType}>
-                    <b>Booth:</b>
-                    {detail?.details?.zone_tag[0]}
-                  </div>
+                <div className={styles.headingDataType}>
+                  <p className={styles.text}>Booth:</p>
+                  {""}
+                  {detail?.details?.event_stall
+                    ? detail?.details?.event_stall
+                    : "--"}
+                </div>
+                <div className={styles.headingDataType}>
+                  <p className={styles.text}>Hall Number:</p>
+                  {""}
+                  {detail?.details?.hall_no ? detail?.details?.hall_no : "--"}
+                </div>
+                <div className={styles.headingDataType}>
+                  <p className={styles.text}>Type Of Company:</p>
+                  {""}
+                  <div className={styles.wrappedField}>
+                  {detail?.details?.business_nature?.length > 0
+                    ? detail?.details?.business_nature?.map((val, id) => (
+                        <span key={id}>{val},</span>
+                      ))
+                    : "--"}
+                  </div>  
+                </div>
+                <div className={styles.headingDataType}>
+                  <p className={styles.text}>State:</p>
+                  {""}
+                  {detail?.details?.state ? detail?.details?.state : "--"}
+                </div>
+                <div className={styles.headingDataType}>
+                  <p className={styles.text}>Country:</p>
+                  {""}
+                  {detail?.details?.country ? detail?.details?.country : "--"}
                 </div>
               </div>
             </div>
@@ -110,10 +154,8 @@ const ExhibitorDetail = () => {
               <p className={styles.text}>Product:</p>
               <div className={styles.wrappedContent}>
                 {detail?.details?.products?.length > 0
-                  ? detail?.details?.products?.map((val) => (
-                      <span>
-                        {val?.name},{""}
-                      </span>
+                  ? detail?.details?.products?.map((val, id) => (
+                      <span key={id}>{val},</span>
                     ))
                   : "--"}
               </div>
@@ -121,6 +163,9 @@ const ExhibitorDetail = () => {
           </div>
         </div>
         <div className={"plainPaper"}>
+          <div style={{ marginBottom: "20px" }}>
+            <b>Contact Details</b>
+          </div>
           <div className={styles.second}>
             <div>
               <div className={styles.headingDataType}>
@@ -131,13 +176,27 @@ const ExhibitorDetail = () => {
               </div>
               <div className={styles.headingDataType}>
                 <p className={styles.text}>Phone Number:</p>
+                {detail?.details?.country_code
+                  ? detail?.details?.country_code
+                  : ""}{" "}
+                {"  "}
                 {detail?.details?.primary_conatct_number
                   ? detail?.details?.primary_conatct_number
                   : "--"}
               </div>
               <div className={styles.headingDataType}>
                 <p className={styles.text}>Website:</p>
-                {detail?.details?.website ? detail?.details?.website : "--"}
+                {detail?.details?.website ? (
+                  <a
+                    className={styles.linkDataText}
+                    href={detail?.details?.website}
+                    target="_blank"
+                  >
+                    {detail?.details?.website}
+                  </a>
+                ) : (
+                  "--"
+                )}
               </div>
               <div className={styles.headingDataType}>
                 <p className={styles.text}>Primary Email:</p>
@@ -173,64 +232,130 @@ const ExhibitorDetail = () => {
               </div>
             </div>
           </div>
-          <div className={styles.headingDataType}>
+          {/* <div className={styles.headingDataType}>
             <p className={styles.text}>Instagram:</p>{" "}
-            {detail?.details?.instagram_link
-              ? detail?.details?.instagram_link
-              : "--"}
+            {detail?.details?.instagram_link ? (
+              <a
+                className={styles.linkDataText}
+                href={detail?.details?.instagram_link}
+                target="_blank"
+              >
+                {detail?.details?.instagram_link}
+              </a>
+            ) : (
+              "--"
+            )}
           </div>
           <div className={styles.headingDataType}>
             <p className={styles.text}>Facebook:</p>
-            {detail?.details?.facebook_link
-              ? detail?.details?.facebook_link
-              : "--"}
+            {detail?.details?.facebook_link ? (
+              <a
+                className={styles.linkDataText}
+                href={detail?.details?.facebook_link}
+                target="_blank"
+              >
+                {detail?.details?.facebook_link}
+              </a>
+            ) : (
+              "--"
+            )}
           </div>
           <div className={styles.headingDataType}>
             <p className={styles.text}>Twitter:</p>
-            {detail?.details?.twitter_link
-              ? detail?.details?.twitter_link
-              : "--"}
+            {detail?.details?.twitter_link ? (
+              <a
+                className={styles.linkDataText}
+                href={detail?.details?.twitter_link}
+                target="_blank"
+              >
+                {detail?.details?.twitter_link}
+              </a>
+            ) : (
+              "--"
+            )}
           </div>
           <div className={styles.headingDataType}>
             <p className={styles.text}>Youtube:</p>{" "}
-            {detail?.details?.youtube_link
-              ? detail?.details?.youtube_link
-              : "--"}
+            {detail?.details?.youtube_link ? (
+              <a
+                className={styles.linkDataText}
+                href={detail?.details?.youtube_link}
+                target="_blank"
+              >
+                {detail?.details?.youtube_link}
+              </a>
+            ) : (
+              "--"
+            )}
           </div>
           <div className={styles.headingDataType}>
             <p className={styles.text}>LinkedIn:</p>{" "}
-            {detail?.details?.linkedin_link
-              ? detail?.details?.linkedin_link
-              : "--"}
-          </div>
+            {detail?.details?.linkedin_link ? (
+              <a
+                className={styles.linkDataText}
+                href={detail?.details?.linkedin_link}
+                target="_blank"
+              >
+                {detail?.details?.linkedin_link}
+              </a>
+            ) : (
+              "--"
+            )}
+          </div> */}
         </div>
         <div className={"plainPaper"}>
-          <div className={styles.thirdPaper}>
-            <b>Product Category </b>
-            <div>{detail?.details?.company_description}</div>
-            <b>Gallery Images</b>
+          <div style={{ marginBottom: "20px" }}>
+            <b>Company Details</b>
           </div>
-          <div className={styles.wrappedContentImage}>
+          <div className={styles.thirdPaper}>
+            <b>Description </b>
+            <div>{detail?.details?.company_description}</div>
+            {/* <b>Gallery Images</b> */}
+          </div>
+          {/* <div className={styles.wrappedContentImage}>
             {detail?.details?.gallery_images.length > 0 ? (
               detail?.details?.gallery_images?.map((val) => (
-                <img src={val} alt="images" height={"100px"} width={"100px"} />
+                <a href={val} target="_blank">
+                  <img
+                    src={val}
+                    alt="images"
+                    height={"100px"}
+                    width={"100px"}
+                  />
+                </a>
               ))
             ) : (
-              <div
-                style={{
-                  border: "1px solid black",
-                  width: "150px",
-                  height: "150px",
-                }}
+              <span>No Image ..</span>
+            )}
+          </div>
+          <div
+            style={{
+              marginBottom: "10px",
+              marginTop: "10px",
+              display: "flex",
+              justifyContent: "flex-start",
+              gap: "20px",
+            }}
+          >
+            <b style={{ fontSize: "16px" }}>Company Brochure :</b>
+            {detail?.details?.company_brochure ? (
+              <a
+                href={detail?.details?.company_brochure}
+                target="_blank"
+                style={{ fontWeight: "600", color: "blue" }}
               >
-                <img alt="No Image Uploaded" />
-              </div>
+                <span>View Preview </span>
+              </a>
+            ) : (
+              "N/A"
             )}
           </div>
           <div className={styles.lastBlock}>
             <div className={styles.headingDataType}>
               <p className={styles.text}>Created at:</p>
-              {detail?.details?.createdAt ? detail?.details?.createdAt : "--"}
+              {detail?.details?.createdAtText
+                ? detail?.details?.createdAtText
+                : "--"}
             </div>
             <div className={styles.headingDataType}>
               <p className={styles.text}>Status:</p>
@@ -238,9 +363,12 @@ const ExhibitorDetail = () => {
             </div>
             <div className={styles.headingDataType}>
               <p className={styles.text}>Updated on:</p>
-              {detail?.details?.updatedAt ? detail?.details?.updatedAt : "--"}
+              {detail?.details?.updatedAtText
+                ? detail?.details?.updatedAtText
+                : "--"}
             </div>
-          </div>
+          </div> */}
+          <br/>
         </div>
       </div>
     </div>

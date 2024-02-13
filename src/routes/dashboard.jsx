@@ -66,11 +66,6 @@ import EventUserCreateView from "../views/EventDesk/User/Create/EventUserCreate"
 import CategoryCreateView from "../views/EventDesk/Category/Create/CategoryCreate.view";
 import EventGallery from "../views/EventGallery/List/EventGallery.view";
 import EventFeed from "../views/EventFeed/List/EventFeed.view";
-import EventUserList from "../views/EventUserRequest/List/EventUser_List";
-import BusinessList from "../views/BusinessGreeting/Business.view";
-import ReportedList from "../views/ReportedUser/ReportedList.js";
-import ReportedFeed from "../views/ReportedFeed/ReportedFeed";
-import PollResult from "../views/PollResults/PollResult";
 import BusinessCreate from "../views/BusinessGreeting/BusinessCreate/BusinessCreate.view";
 import BusinessDetail from "../views/BusinessGreeting/BusinessDetail/BusinessDetail.view";
 import ProductGroupList from "../views/ProductGroup/List/List.component.js";
@@ -88,6 +83,8 @@ const ExhibitorList = lazy(()=>import("../views/Exhibitor/List/Exhibitor.js"));
 const ExhibitorCreate = lazy(()=>import("../views/Exhibitor/Create/Exhibitor.component.js"));
 const ExhibitionDetails = lazy(()=>import("../views/Exhibitor/List/Detail/ExhibitorDetail.js"));
 
+const AddCategoryData = lazy(()=>import("../views/AddCategory/AddCategory.component.js"));
+
 
 const Roles = Constants.ROLES;
 
@@ -100,16 +97,6 @@ const dashboardRoutes = [
     component: NewDashboard,
     is_sidebar: true,
   },
-  // {
-  //   path: `${RouteName.CHAPTERS_MASTER}`,
-  //   sidebarName: "Chapters Master",
-  //   navbarName: "Chapters Master",
-  //   icon: PeopleOutlined,
-  //   component: MasterList,
-  //   is_sidebar: true,
-  //   is_protect: true,
-  //   roles: [Roles.CHAPTER_ADMIN,Roles.GENERAL],
-  // },
   {
     path: `${RouteName.USER_PROFILE + ":id"}`,
     component: UserProfile,
@@ -328,7 +315,7 @@ const dashboardRoutes = [
   },
   {
     path: `${RouteName.EVENT_TESTIMONIAL}:id`,
-   
+
     component: TestimonialList,
     is_protect: true,
     is_sidebar: false,
@@ -684,7 +671,7 @@ const dashboardRoutes = [
     is_sidebar:false,
     is_protect: true,
   },
-  
+
   // {
   //   path: `${RouteName.KNOWLEDGE_CENTER}`,
   //   sidebarName: "Knowledge Center",
@@ -709,7 +696,7 @@ const dashboardRoutes = [
     path: `${RouteName.KNOWLEDGE_CENTER_LIST}/:id`,
     component: knowledgeList,
     is_protect: true,
-  }, 
+  },
   {
     path: `${RouteName.KNOWLEDGE_CENTER_STAMP_CREATE}`,
     component: knowledgeStampCreate,
@@ -728,6 +715,7 @@ const dashboardRoutes = [
     component: ProductGroupList,
     is_sidebar: true,
     is_protect: true,
+    roles: [Roles.ADMIN],
   },
    {
     path: `${RouteName.PRODUCT_CATEGORY}`,
@@ -737,6 +725,7 @@ const dashboardRoutes = [
     component: ProductCategory,
     is_sidebar: true,
     is_protect: true,
+    roles: [Roles.ADMIN],
   },
   {
     path: `${RouteName.PRODUCT_CATEGORY_CREATE}`,
@@ -793,9 +782,21 @@ const dashboardRoutes = [
     is_protect: true,
   },
   {
-    path: `${RouteName.EXHIBITOR_LIST}:id`,
-    navbarName: "Exhibitor",
+    path: `${RouteName.EXHIBITOR_LIST}`,
     component: ExhibitorList,
+    sidebarName: "Exhibitor",
+    navbarName: "Exhibitor",
+    is_sidebar:true,
+    icon: PeopleOutlined,
+    is_protect: true,
+  },
+  {
+    path: `${RouteName.EXHIBITOR_LIST}:id`,
+    component: ExhibitorList,
+    sidebarName: "Exhibitor",
+    navbarName: "Exhibitor",
+    is_sidebar:false,
+    icon: PeopleOutlined,
     is_protect: true,
   },
   {
@@ -819,6 +820,12 @@ const dashboardRoutes = [
     is_sidebar: false,
     is_protect: true,
   },
+  {
+    path:RouteName.CATEGORY_EVENT_ADD,
+    component: AddCategoryData,
+    is_sidebar:false,
+    is_protect:true,
+  }
 
 ];
 

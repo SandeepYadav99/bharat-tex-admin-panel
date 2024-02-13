@@ -13,6 +13,8 @@ export default {
   CITY_ASSOCIATION_CREATE: "/city/create",
   CITY_ASSOCIATION_UPDATE: "/city/update/",
 
+  CATEGORY_EVENT_ADD:"/category/event/add",
+
   ADMIN: "/admin",
   ADMIN_CREATE: "/admin/create",
   ADMIN_UPDATE: "/admin/update/",
@@ -33,7 +35,7 @@ export default {
     ALBUMS_UPDATE: "/album/update/",
     ALBUMS_DETAILS: "/album/details/",
     ALBUMS_UPDATE_CREATE:"/details/create",
-    
+
     POLICIES: "/policies",
     POLICIES_CREATE: "/policies/create",
     POLICIES_UPDATE: "/policies/update/",
@@ -49,7 +51,7 @@ export default {
     EVENTS_CREATE: "/event/create",
     EVENTS_UPDATE: "/event/update/",
     EVENTS_DETAILS: "/event/details/",
-    
+
     EVENTS_SPEAKERS_LIST: "/events/speakers/",
     ADD_SPEAKERS_CREATE: "/speakers/create",
     ADD_SPEAKERS_UPDATE: "/speakers/update/",
@@ -70,7 +72,7 @@ export default {
   REPORTED_USER:"/reported/user",
   REPORTED_FEED:"/reported/feed",
 
-  
+
   INFOR_CENTER:"/events/information/center/",
   INFOR_CENTER_CREATE:"/information/center/create",
   INFOR_CENTER_UPDATE:"/information/center/update/",
@@ -130,8 +132,8 @@ export default {
   KNOWLEDGE_CENTER:"/knowledge-center",
   KNOWLEDGE_CENTER_CREATE:"/knowledge-center/create",
   KNOWLEDGE_CENTER_UPDATE:"/knowledge-center/update",
-  
-  
+
+
   /*Stamp Center is here*/
   KNOWLEDGE_CENTER_LIST:"/knowledge-center/list",
   KNOWLEDGE_CENTER_STAMP_CREATE:"/stamp/create",
@@ -146,8 +148,8 @@ export default {
   PRODUCT_GROUP_UPDATE:"/product/group/update/",
 
   // EXHIBITOR_LIST:"/exhibitor/list",
-  EXHIBITOR_CREATE:"/exhibitor/list/create",
-  EVENT_TESTIMONIAL:"/event/testimonial/", 
+  // EXHIBITOR_CREATE:"/exhibitor/list/create",
+  EVENT_TESTIMONIAL:"/event/testimonial/",
   TESTIMONIAL_CREATE:"/testimonial/create",
   TESTIMONIAL_UPDATE:"/testimonial/update/",
   EXHIBITOR_LIST:"/exhibitor/",
