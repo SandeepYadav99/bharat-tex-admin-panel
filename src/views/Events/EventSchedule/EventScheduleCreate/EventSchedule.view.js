@@ -39,7 +39,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
     handleSubmit,
     onBlurHandler,
     changeTextData,
-    
+    categoryList,
   } = useEventScheduleHook({ handleToggleSidePannel, isSidePanel, empId });
   const classes = useStyles();
 
@@ -55,12 +55,13 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
               handleChange={(value) => {
                 changeTextData(value, "category");
               }}
-            >
-              <MenuItem value="ROUNDTABLES">Roundtables</MenuItem>
-              <MenuItem value="PANNEL_DISCUSSION">Panel Discussions</MenuItem>
-              <MenuItem value="MASTERCLASS">Masterclass</MenuItem> 
-              <MenuItem value="COUNTRY_REGIONAL_SESSION">Country / Regional Session</MenuItem> 
-              <MenuItem value="STATE_SESSION">State Sessions</MenuItem> 
+            >{
+              categoryList?.map((val)=>{
+                return(
+                  <MenuItem value={val?.name} id={val?.id}>{val?.name}</MenuItem>
+                )
+              })
+            }           
             </CustomSelectField>
           </div>
         </div>
