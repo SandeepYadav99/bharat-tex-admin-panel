@@ -381,6 +381,9 @@ const useExhibitorCreate = ({ location }) => {
     //     fd.append("gallery_images", item);
     //   });
     // }
+    if(!form?.is_partner){
+      fd.append("partner_tag","");
+    }
     if (selectImages?.length > 0) {
       fd.append("remote_images", JSON.stringify(selectImages));
     }
