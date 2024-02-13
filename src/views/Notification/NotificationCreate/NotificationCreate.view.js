@@ -210,12 +210,12 @@ function NotificationCreate() {
                 control={<Radio />}
                 label="Exhibitors"
               /> */}
-              <FormControlLabel
+              {/* <FormControlLabel
                 style={{ marginLeft: "20px" }}
                 value="VISITOR"
                 control={<Radio />}
                 label="Visitors"
-              />
+              /> */}
             </RadioGroup>
           </div>
           {/* <div className={"formGroup"}>{sendToField}</div> */}
