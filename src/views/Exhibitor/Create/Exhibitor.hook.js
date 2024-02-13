@@ -9,11 +9,13 @@ import {
   serviceGetProductList,
   serviceGetExhibitorsDetails,
   debounceValidationList,
+  servicesPartnerTypeList,
 } from "../../../services/Exhibitor.service";
 import historyUtils from "../../../libs/history.utils";
 import { isEmail } from "../../../libs/RegexUtils";
 import useDebounce from "../../../hooks/DebounceHook";
 import Constants from "../../../config/constants";
+import { useSelector } from "react-redux";
 
 const initialForm = {
   company_logo: "",
@@ -85,6 +87,9 @@ const useExhibitorCreate = ({ location }) => {
   const [pdf, setPdf] = useState("");
   const [secondary, setSecondary] = useState("");
   const [deatilsValue, setDetailsValue] = useState([]);
+  const [partnerList,setPartnerList] = useState([]);
+
+  const {user} = useSelector((state)=>state?.auth)
 
   const EventListManager = [
     "FIBERS_YARNS",
@@ -96,6 +101,7 @@ const useExhibitorCreate = ({ location }) => {
     "HANDICRAFTS_CARPETS",
     "INTELLIGENT_MANUFACTURING",
   ];
+
 
   useEffect(() => {
     serviceExhibitorsList({ list: ["PRODUCT_CATEGORY", "PRODUCT_GROUP"] }).then(
@@ -491,6 +497,14 @@ const useExhibitorCreate = ({ location }) => {
     setSelectImages([...image]);
   };
 
+
+  useEffect(()=>{
+    servicesPartnerTypeList({
+      "list": ["SPONSOR_TYPE"],
+      "event_id": `${user?.event_id}`
+  }).then((res)=>setPartnerList(res?.data?.SPONSOR_TYPE)).catch((res)=>res.error)
+  },[]);
+
   return {
     form,
     changeTextData,
@@ -515,6 +529,7 @@ const useExhibitorCreate = ({ location }) => {
     changeFeatureData,
     feature,
     deatilsValue,
+    partnerList,
   };
 };
 

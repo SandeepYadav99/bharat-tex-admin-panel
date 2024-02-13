@@ -52,9 +52,9 @@ const ExhibitorCreate = () => {
     feature,
     changeFeatureData,
     deatilsValue,
+    partnerList,
   } = useExhibitorCreate({});
 
-  console.log(deatilsValue, "deatilsValue is Here ")
 
   const { user } = useSelector((state) => state?.auth);
 
@@ -445,17 +445,13 @@ const ExhibitorCreate = () => {
                       changeTextData(" ", "partner_tag");
                     }
                   }}
-                >
-                  <MenuItem value="PLATINUM_PARTNER">Platinum Partner</MenuItem>
-                  <MenuItem value="GOLD_PARTNER">Gold Partner</MenuItem>
-                  <MenuItem value="SILVER_PARTNER">Silver Partner</MenuItem>
-                  <MenuItem value="FASHION_PARTNER">Fashion Partner</MenuItem>
-                  <MenuItem value="SUSTAINBILITY_PARTNER">
-                    Sustainibility Partner
-                  </MenuItem>
-                  <MenuItem value="ASSOCIATE_PARTNER">
-                    Associate Partner
-                  </MenuItem>
+                >{
+                  partnerList?.map((val)=>{
+                    return(
+                      <MenuItem value={val?.type} key={val?.id}>{val?.type}</MenuItem>
+                    )
+                  })
+                }
                 </CustomSelectField>
               )}
             </div>
