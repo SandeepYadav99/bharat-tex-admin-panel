@@ -31,6 +31,8 @@ function useInfoCenterCreateHook({ location }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [image, setImage] = useState("");
 
+
+
   useEffect(() => {
     if (id) {
       serviceGetInfoCenterDetails({ id: id }).then((res) => {
@@ -42,7 +44,7 @@ function useInfoCenterCreateHook({ location }) {
             id: id,
             name: data?.name,
             priority: data?.priority,
-            // file: data?.file,
+            file: data?.file,
             status: data?.status === constants.GENERAL_STATUS.ACTIVE,
           });
         } else {
@@ -74,10 +76,11 @@ function useInfoCenterCreateHook({ location }) {
         errors[val] = true;
       }
     });
-    if (form?.file <= 5 * 1024 * 1024) {
+    if (form?.file.size <= 5 * 1024 * 1024) {
       errors["file"] = false;
     } else {
       SnackbarUtils.error("Maximum File Upload Size 5 MB");
+      errors["file"] = true;
     }
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
