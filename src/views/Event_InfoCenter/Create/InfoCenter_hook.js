@@ -31,8 +31,6 @@ function useInfoCenterCreateHook({ location }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [image, setImage] = useState("");
 
-
-
   useEffect(() => {
     if (id) {
       serviceGetInfoCenterDetails({ id: id }).then((res) => {
