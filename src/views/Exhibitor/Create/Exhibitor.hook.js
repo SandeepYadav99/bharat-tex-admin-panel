@@ -57,7 +57,7 @@ const initialForm = {
   state: "",
   country: "",
   zip_code: "",
-  pavallian: "",
+  // pavallian: "",
 };
 
 const featureKey = {
@@ -175,7 +175,7 @@ const useExhibitorCreate = ({ location }) => {
             state: data?.state,
             country: data?.country,
             zip_code: data?.zip_code,
-            pavallian: data?.pavallian,
+            // pavallian: data?.pavallian,
           });
           // setPdf(data?.company_brochure);
           setFeature({ ...feature, ...business_nature });
@@ -185,6 +185,17 @@ const useExhibitorCreate = ({ location }) => {
       });
     }
   }, [empId]);
+
+  useEffect(()=>{
+    if(empId){
+      Object.keys(feature).forEach((key) => {
+        if(deatilsValue.includes(feature[key])){
+           feature[key] = true;
+        }
+      })
+
+    }
+  },[empId])
 
 
   useEffect(() => {

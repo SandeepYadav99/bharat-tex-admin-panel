@@ -363,7 +363,7 @@ const ExhibitorCreate = () => {
               />
             </div>
             <div className={"formGroup"}>
-              <CustomTextField
+              {/* <CustomTextField
                 isError={errorData?.pavallian}
                 errorText={errorData?.pavallian}
                 label={"Pavallian"}
@@ -374,7 +374,7 @@ const ExhibitorCreate = () => {
                 onBlur={() => {
                   onBlurHandler("pavallian");
                 }}
-              />
+              /> */}
             </div>
           </div>
         )}

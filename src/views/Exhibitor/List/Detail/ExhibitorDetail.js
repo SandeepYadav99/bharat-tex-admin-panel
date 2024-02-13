@@ -9,6 +9,15 @@ import { removeUnderScore } from "../../../../helper/helper";
 const ExhibitorDetail = () => {
   const { detail } = useExhibitorDetail({});
 
+
+  const businessNatureLength = detail?.details?.business_nature?.length - 1;
+  const productGroup = detail?.details?.product_groups?.length - 1;
+  const productCategory = detail?.details?.product_categories?.length - 1;
+  const Product = detail?.details?.product?.length - 1;
+  const ZoneTagData = detail?.details?.zone_tag?.length - 1;
+
+
+
   return (
     <div>
       <ButtonBase
@@ -48,7 +57,7 @@ const ExhibitorDetail = () => {
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Company Name:</p>
                   {detail?.details?.company_name
-                    ? detail?.details?.company_name
+                    ? removeUnderScore(detail?.details?.company_name)
                     : "--"}
                 </div>
                 <div className={styles.headingDataType}>
@@ -62,14 +71,15 @@ const ExhibitorDetail = () => {
                   {detail?.details?.event_venue
                     ? removeUnderScore(detail?.details?.event_venue)
                     : "--"}
+                    {""}
                 </div>
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Zone:</p>
                   <div className={styles.wrappedContent}>
                     {detail?.details?.zone_tag?.length > 0
-                      ? detail?.details?.zone_tag?.map((val) => (
-                          <span>{val}</span>
-                        ))
+                      ? detail?.details?.zone_tag?.map((val, id) => (
+                        <span>{removeUnderScore(val)}{ZoneTagData === id ? "" : ","}{""}{""}</span>
+                      ))
                       : "--"}
                   </div>
                 </div>
@@ -78,13 +88,13 @@ const ExhibitorDetail = () => {
                   {""}
                   {detail?.details?.zip_code ? detail?.details?.zip_code : "--"}
                 </div>
-                <div className={styles.headingDataType}>
+                {/* <div className={styles.headingDataType}>
                   <p className={styles.text}>Pavallian:</p>
                   {""}
                   {detail?.details?.pavallian
                     ? detail?.details?.pavallian
                     : "--"}
-                </div>
+                </div> */}
               </div>
               <div className={styles.flexGap2Row}>
                 <div className={styles.headingDataType}>
@@ -97,7 +107,7 @@ const ExhibitorDetail = () => {
                   <p className={styles.text}>Booth:</p>
                   {""}
                   {detail?.details?.event_stall
-                    ? detail?.details?.event_stall
+                    ? removeUnderScore(detail?.details?.event_stall)
                     : "--"}
                 </div>
                 <div className={styles.headingDataType}>
@@ -109,22 +119,22 @@ const ExhibitorDetail = () => {
                   <p className={styles.text}>Type Of Company:</p>
                   {""}
                   <div className={styles.wrappedField}>
-                  {detail?.details?.business_nature?.length > 0
-                    ? detail?.details?.business_nature?.map((val, id) => (
-                        <span key={id}>{val},</span>
+                    {detail?.details?.business_nature?.length > 0
+                      ? detail?.details?.business_nature?.map((val, id) => (
+                        <span key={id}>{removeUnderScore(val)}{businessNatureLength === id ? "" : ","}{""}{""}</span>
                       ))
-                    : "--"}
-                  </div>  
+                      : "--"}
+                  </div>
                 </div>
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>State:</p>
                   {""}
-                  {detail?.details?.state ? detail?.details?.state : "--"}
+                  {detail?.details?.state ? removeUnderScore(detail?.details?.state) : "--"}
                 </div>
                 <div className={styles.headingDataType}>
                   <p className={styles.text}>Country:</p>
                   {""}
-                  {detail?.details?.country ? detail?.details?.country : "--"}
+                  {detail?.details?.country ? removeUnderScore(detail?.details?.country) : "--"}
                 </div>
               </div>
             </div>
@@ -133,9 +143,9 @@ const ExhibitorDetail = () => {
             <div className={styles.headingDataType}>
               <p className={styles.text}>Product Group:</p>{" "}
               <div className={styles.wrappedContent}>
-                {detail?.details?.product_groups?.map((val) => (
+                {detail?.details?.product_groups?.map((val, id) => (
                   <span>
-                    {val?.name},{""}
+                    {val?.name}{productGroup === id ? "" : ","}{""}{""}
                   </span>
                 ))}
               </div>
@@ -143,9 +153,9 @@ const ExhibitorDetail = () => {
             <div className={styles.headingDataType}>
               <p className={styles.text}>Product Categories:</p>
               <div className={styles.wrappedContent}>
-                {detail?.details?.product_categories?.map((val) => (
+                {detail?.details?.product_categories?.map((val, id) => (
                   <span>
-                    {val?.name},{""}
+                    {val?.name}{productCategory === id ? "" : ","}{""}{""}
                   </span>
                 ))}{" "}
               </div>
@@ -155,8 +165,8 @@ const ExhibitorDetail = () => {
               <div className={styles.wrappedContent}>
                 {detail?.details?.products?.length > 0
                   ? detail?.details?.products?.map((val, id) => (
-                      <span key={id}>{val},</span>
-                    ))
+                    <span key={id}>{val} {Product === id ? "" : ","}{""}{""}</span>
+                  ))
                   : "--"}
               </div>
             </div>
@@ -368,7 +378,7 @@ const ExhibitorDetail = () => {
                 : "--"}
             </div>
           </div> */}
-          <br/>
+          <br />
         </div>
       </div>
     </div>
