@@ -397,10 +397,12 @@ const useExhibitorCreate = ({ location }) => {
     if(form?.is_business_nature_other){
       fd.append("is_business_nature_other",form?.is_business_nature_other)
     }
-
-    if (form?.company_logo) {
-      fd.append("company_logo", form?.company_logo);
-    }
+    // if(empId){
+    //   if (form?.company_logo) {
+    //     fd.append("company_logo", form?.company_logo);
+    //   }
+    // }
+   
     // if (form?.gallery_images?.length > 0) {
     //   form?.gallery_images?.forEach((item) => {
     //     fd.append("gallery_images", item);
