@@ -50,6 +50,7 @@ import ExhibitorReducer from "./Exhibitor.reducer";
 import ProductCategoryReducer from "./ProductCategory.reducer";
 import ProductGroupReducer from "./ProductGroup.reducer";
 import TestimonialReducer from "./Testimonial.reducer";
+import CategoryReducer from "./AddCategory.reducer";
 
 const rootReducer = combineReducers({
   state: (state = {}) => state,
@@ -104,6 +105,7 @@ const rootReducer = combineReducers({
   productGroups:ProductGroupReducer,
   Exhibitor:ExhibitorReducer,
   testimonial:TestimonialReducer,
+  category_reducer:CategoryReducer,
 });
 
 export default rootReducer;
