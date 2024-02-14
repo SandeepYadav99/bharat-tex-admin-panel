@@ -9,6 +9,7 @@ import File from "../../../components/FileComponent/FileComponent.component";
 import CustomAutoComplete from "../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import useEventOrganiserUserCreate from "./EventOrganiserUserCreate.hook";
 import CustomPhoneContactField from "../../../components/FormFields/CustomPhoneContactField";
+import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -228,6 +229,16 @@ const EventOrganiserUserCreate = ({ location }) => {
             />
           </div>
         </div>
+      
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeTextData(!form?.should_show_profile, "should_show_profile");
+              }}
+              label={"Do not open profile"}
+               checked={form?.should_show_profile}
+            />
+         
         <div className={styles.btnCont}>
           <ButtonBase
             disabled={isSubmitting}

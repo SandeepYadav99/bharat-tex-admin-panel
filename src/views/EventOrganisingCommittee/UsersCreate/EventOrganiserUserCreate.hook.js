@@ -27,6 +27,7 @@ const initialForm = {
   contact: "",
   about: "",
   // user: null,
+  should_show_profile:true
 };
 
 const useEventOrganiserUserCreate = ({ location }) => {
@@ -56,6 +57,7 @@ const useEventOrganiserUserCreate = ({ location }) => {
             website: data?.website,
             contact: data?.contact,
             about: data?.about,
+            should_show_profile:data?.should_show_profile === true ? true : false,
           });
           setImage(data?.image);
         } else {
@@ -125,7 +127,7 @@ const useEventOrganiserUserCreate = ({ location }) => {
       setIsSubmitting(true);
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (["image", "status"].indexOf(key) < 0 && form[key]) {
+        if (["image", "status", "should_show_profile"].indexOf(key) < 0 && form[key]) {
           // , "user", "name"
           fd.append(key, form[key]);
         }
@@ -137,24 +139,11 @@ const useEventOrganiserUserCreate = ({ location }) => {
         fd.append("id", id);
       }
       fd.append("organising_id", location?.state?.organising_id);
-      // fd.append("event_id", location?.state?.event_id);
+    
+      // if(form?.should_show_profile){
 
-      // if(!form?.designation){
-      //   fd.append("designation"," ")
+         fd.append("should_show_profile", form?.should_show_profile === true ? true : false);
       // }
-      // company: "",
-      // priority: "",
-      // webUrl:"",
-      // name:"",
-      // phoneNumber:"",
-      // about:""
-      // if (isEnterManually) {
-      //   fd.append("name", form?.name);
-      // } else {
-      //   fd.append("name", form?.user?.name);
-      //   fd.append("user_id", form?.user?.id);
-      // }
-
       let req;
 
       if (id) {
@@ -213,6 +202,8 @@ const useEventOrganiserUserCreate = ({ location }) => {
         if (!text || isNum(text)) {
           t[fieldName] = text;
         }
+      }  else if (fieldName === "should_show_profile") {
+        t[fieldName] = text; 
       } else if (fieldName === "code") {
         if (!text || (!isSpace(text) && isAlphaNumChars(text))) {
           t[fieldName] = text.toUpperCase();
