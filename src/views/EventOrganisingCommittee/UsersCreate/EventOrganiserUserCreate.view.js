@@ -156,15 +156,15 @@ const EventOrganiserUserCreate = ({ location }) => {
             <div className={"formFlex"}>
               <div className={"formGroup"}>
                 <CustomTextField
-                  isError={errorData?.webUrl}
-                  errorText={errorData?.webUrl}
+                  isError={errorData?.website}
+                  errorText={errorData?.website}
                   label={"Website"}
-                  value={form?.webUrl}
+                  value={form?.website}
                   onTextChange={(text) => {
-                    changeTextData(text, "webUrl");
+                    changeTextData(text, "website");
                   }}
                   onBlur={() => {
-                    onBlurHandler("webUrl");
+                    onBlurHandler("website");
                   }}
                 />
               </div>
@@ -188,12 +188,12 @@ const EventOrganiserUserCreate = ({ location }) => {
           </div>
           <div className={"formGroup"}>
             <CustomPhoneContactField
-              isError={errorData?.phoneNumber}
-              errorText={errorData?.phoneNumber}
+              isError={errorData?.contact}
+              errorText={errorData?.contact}
               label={"Phone number "}
-              value={form?.phoneNumber}
+              value={form?.contact}
               onTextChange={(text) => {
-                changeTextData(text, "phoneNumber");
+                changeTextData(text, "contact");
               }}
             
               isValid={(value) => {

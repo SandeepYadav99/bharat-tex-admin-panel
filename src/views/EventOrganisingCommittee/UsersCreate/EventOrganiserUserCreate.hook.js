@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
-import { isAlphaNumChars, isNum, isSpace } from "../../../libs/RegexUtils";
+import {
+  isAlphaNumChars,
+  isNum,
+  isSpace,
+  validateUrl,
+} from "../../../libs/RegexUtils";
 import useDebounce from "../../../hooks/DebounceHook";
 import LogUtils from "../../../libs/LogUtils";
 import {
@@ -11,15 +16,16 @@ import historyUtils from "../../../libs/history.utils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { useParams } from "react-router";
 import { serviceGetList } from "../../../services/index.services";
+import { parsePhoneNumber } from "libphonenumber-js";
 
 const initialForm = {
   image: "",
   company: "",
   priority: "",
-  webUrl:"",
-  name:"",
-  phoneNumber:"",
-  about:""
+  website: "",
+  name: "",
+  contact: "",
+  about: "",
   // user: null,
 };
 
@@ -46,6 +52,10 @@ const useEventOrganiserUserCreate = ({ location }) => {
             ...form,
             company: data?.company,
             priority: data?.priority,
+            name: data?.name,
+            website: data?.website,
+            contact: data?.contact,
+            about: data?.about,
           });
           setImage(data?.image);
         } else {
@@ -70,6 +80,21 @@ const useEventOrganiserUserCreate = ({ location }) => {
     if (!id) {
       required.push("image");
     }
+    if (form?.website && !validateUrl(form?.website)) {
+      errors.website = true;
+      SnackbarUtils.error("Please Enter the Valid Url");
+    }
+    if (form?.contact) {
+      const phoneNumber = parsePhoneNumber(form?.contact)
+      // console.log('phoneNumber', phoneNumber, (phoneNumber && phoneNumber.isValid()));
+      if (phoneNumber) {
+          if (phoneNumber.isValid() === false) {
+              errors.contact = 'Invalid Number';
+          }
+      } else {
+          errors.contact = 'Invalid Number';
+      }
+  }
     // if (isEnterManually) {
     //   required.push("name");
     //   delete errors["user"];
@@ -112,13 +137,17 @@ const useEventOrganiserUserCreate = ({ location }) => {
         fd.append("id", id);
       }
       fd.append("organising_id", location?.state?.organising_id);
-      fd.append("event_id", location?.state?.event_id);
-      fd.append("name", "ACTIVE");
+      // fd.append("event_id", location?.state?.event_id);
 
       // if(!form?.designation){
       //   fd.append("designation"," ")
       // }
-
+      // company: "",
+      // priority: "",
+      // webUrl:"",
+      // name:"",
+      // phoneNumber:"",
+      // about:""
       // if (isEnterManually) {
       //   fd.append("name", form?.name);
       // } else {
