@@ -15,7 +15,7 @@ function useEventUserCreateHook({ location }) {
   const initialForm = {
     name: "",
     status: true,
-    priority:"",
+    priority:"", 
   };
   const { id } = useParams();
   const eventId = location?.state?.event_id;
@@ -27,7 +27,7 @@ function useEventUserCreateHook({ location }) {
   useEffect(() => {
     if (id) {
       serviceGetEventUserDetails({ id: id }).then((res) => {
-        const data = res?.data;
+        const data = res?.data?.details;
         if (res?.error) {
           SnackbarUtils.error(res?.message);
           return;

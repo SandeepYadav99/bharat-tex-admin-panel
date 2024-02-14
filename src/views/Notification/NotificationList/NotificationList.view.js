@@ -14,6 +14,7 @@ import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
 import useNotificationList from "./NotificationList.hook";
 import { Add,  InfoOutlined } from "@material-ui/icons";
+import { capitalizeFirstLetter } from "../../../hooks/CapsLetter";
 
 
 const NotificationList = ({}) => {
@@ -72,7 +73,7 @@ const NotificationList = ({}) => {
         key: "module",
         label: "RELATED SCREEN/MODULE",
         sortable: false,
-        render: (temp, all) => <div>{all?.next_screen}</div>,
+        render: (temp, all) => <div>{capitalizeFirstLetter(all?.next_screen)}</div>,
       },
       {
         key: "is_sent",
@@ -100,7 +101,7 @@ const NotificationList = ({}) => {
         ),
       },
     ];
-  }, [handleViewDetails, handleEdit, isCalling]);
+  }, [handleViewDetails, handleEdit, isCalling, capitalizeFirstLetter]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
