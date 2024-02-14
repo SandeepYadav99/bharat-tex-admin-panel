@@ -75,11 +75,13 @@ const useEventScheduleHook = ({
     serviceAddCategoryList(paylaod)?.then((res)=>setCategoryList(res?.data)).catch((res)=>res.error)
   },[]);
 
+
   useEffect(() => {
     if (empId) {
       serviceGetEventScheduleDetails({ id: empId }).then((res) => {
         if (!res.error) {
           const data = res?.data;
+
 
           const modifiedSpeaker = data?.speakers?.map((item) => ({
             id: item?.s_id,
@@ -89,11 +91,14 @@ const useEventScheduleHook = ({
             id: item?.s_id,
             label: item?.s_name,
           }));
+          // const categoryData = data?.category?.toUpperCase();
+          // console.log(categoryData,"categoryData is here")
           setForm({
             ...form,
             id: data.id,
             eve_name: data?.eve_name,
             eve_description: data?.eve_description,
+            category:data?.category ,
             start_time: data?.start_date_time,
             end_time: data?.end_date_time,
             speakers: modifiedSpeaker,
@@ -101,6 +106,7 @@ const useEventScheduleHook = ({
             status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
             hall_no:data?.hall_no,
             venue:data?.venue,
+            category:data?.category,
           });
         } else {
           SnackbarUtils.error(res?.message);

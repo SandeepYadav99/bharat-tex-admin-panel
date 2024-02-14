@@ -13,6 +13,7 @@ import {
 import { useParams } from "react-router";
 import SnackbarUtils from "../../../../libs/SnackbarUtils";
 import {
+  serviceDeleteEventSchedule,
   serviceEventScheduleHideLive,
   serviceEventScheduleLive,
 } from "../../../../services/EventSchedule.service";
@@ -45,7 +46,6 @@ const useEventScheduleList = ({}) => {
     [isRejectPopUp, setDataValue]
   );
 
-  console.log("dataValue", dataValue);
   useEffect(() => {
     dispatch(
       actionFetchEventSchedule(
@@ -145,6 +145,11 @@ const useEventScheduleList = ({}) => {
     [setIsSubmitting, isSubmitting, dataValue]
   );
 
+
+  const handleDeleteData =(all)=>{
+    serviceDeleteEventSchedule({id:all?.id}).then((res)=>window.location.reload())
+  }
+
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
@@ -241,6 +246,7 @@ const useEventScheduleList = ({}) => {
     toggleRejectDialog,
     dataValue,
     handleAddCategory,
+    handleDeleteData,
   };
 };
 

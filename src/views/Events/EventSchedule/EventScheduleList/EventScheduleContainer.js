@@ -16,6 +16,7 @@ import LiveDialog from "./component/LiveDialog/LiveDialog";
 import WifiTetheringIcon from "@material-ui/icons/WifiTethering";
 import historyUtils from "../../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import DeleteIcon from "../../../../assets/img/ic_delete.png";
 
 const EventScheduleContainer = ({}) => {
   const {
@@ -36,6 +37,7 @@ const EventScheduleContainer = ({}) => {
     toggleRejectDialog,
     handleAddCategory,
     dataValue,
+    handleDeleteData,
   } = useEventScheduleList({});
   // console.log(editData, "Edit Data")
   const {
@@ -153,6 +155,16 @@ const EventScheduleContainer = ({}) => {
               }}
             >
               <Edit fontSize={"small"} />
+            </IconButton>
+            <IconButton
+              className={"tableActionBtn"}
+              color="secondary"
+              disabled={isCalling}
+              onClick={() => {
+                handleDeleteData(all)
+              }}
+            >
+              <img src={DeleteIcon} height={"20px"} width={"20px"} style={{border:"none !important"}}/>
             </IconButton>
           </div>
         ),

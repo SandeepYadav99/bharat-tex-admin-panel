@@ -155,5 +155,6 @@ export default {
   TESTIMONIAL_UPDATE:"/testimonial/update/",
   EXHIBITOR_LIST:"/exhibitor/",
   EXHIBITOR_CREATE:"/exhibitor/list/create/",
-  EXHIBITOR_DETAILS:"/exhibitor/detail/"
+  EXHIBITOR_DETAILS:"/exhibitor/detail/",
+  EXHIBITOR_QUERY:"/exhibitor-query",
 };
