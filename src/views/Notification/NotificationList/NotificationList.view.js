@@ -1,25 +1,21 @@
-import React, { Component, useCallback, useEffect, useMemo } from "react";
+import React, {  useMemo } from "react";
 import {
-  Button,
-  Paper,
-  Checkbox,
+ 
   IconButton,
-  MenuItem,
+ 
   ButtonBase,
-  Menu,
+
 } from "@material-ui/core";
-import classNames from "classnames";
-import { connect, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import PageBox from "../../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
 import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
-import StatusPill from "../../../components/Status/StatusPill.component";
 import useNotificationList from "./NotificationList.hook";
-import { Add, Edit, InfoOutlined } from "@material-ui/icons";
-import RoomOutlinedIcon from "@material-ui/icons/RoomOutlined";
-import PeopleOutlineOutlinedIcon from "@material-ui/icons/PeopleOutlineOutlined";
+import { Add,  InfoOutlined } from "@material-ui/icons";
+import { capitalizeFirstLetter } from "../../../hooks/CapsLetter";
+
 
 const NotificationList = ({}) => {
   const {
@@ -59,7 +55,7 @@ const NotificationList = ({}) => {
         key: "message",
         label: "message",
         sortable: false,
-        render: (temp, all) => <div>{all?.message}</div>,
+        render: (temp, all) => <div className={styles.message}>{all?.message}</div>,
       },
       {
         key: "created",
@@ -77,7 +73,7 @@ const NotificationList = ({}) => {
         key: "module",
         label: "RELATED SCREEN/MODULE",
         sortable: false,
-        render: (temp, all) => <div>{all?.next_screen}</div>,
+        render: (temp, all) => <div>{capitalizeFirstLetter(all?.next_screen)}</div>,
       },
       {
         key: "is_sent",
@@ -94,7 +90,7 @@ const NotificationList = ({}) => {
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
-              disabled={isCalling}
+              disabled={all?.is_sent} //  && isCalling
               onClick={() => {
                 handleViewDetails(all);
               }}
@@ -105,7 +101,7 @@ const NotificationList = ({}) => {
         ),
       },
     ];
-  }, [handleViewDetails, handleEdit, isCalling]);
+  }, [handleViewDetails, handleEdit, isCalling, capitalizeFirstLetter]);
 
   const tableData = useMemo(() => {
     const datatableFunctions = {
@@ -149,13 +145,14 @@ const NotificationList = ({}) => {
           </div>
         </div>
 
-        <div>
+        <div style={{ width: "90%" }}>
           <FilterComponent
             is_progress={isFetching}
-            filters={configFilter}
+            filters={[]}
             handleSearchValueChange={handleSearchValueChange}
             handleFilterDataChange={handleFilterDataChange}
           />
+            </div>
           <div>
             <br />
             <div style={{ width: "100%" }}>
@@ -165,7 +162,7 @@ const NotificationList = ({}) => {
               />
             </div>
           </div>
-        </div>
+      
       </PageBox>
     </>
   );

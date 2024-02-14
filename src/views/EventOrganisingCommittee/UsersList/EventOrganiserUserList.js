@@ -14,7 +14,7 @@ import useEventOrganiserUserList from "./EventOrganiserUserHook";
 import historyUtils from "../../../libs/history.utils";
 // import EventOrganiserUserCreateView from "../UsersList/EventOrganiserUserList.js";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-const EventOrganiserUserList = ({}) => {
+const EventOrganiserUserList = ({location}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -32,7 +32,7 @@ const EventOrganiserUserList = ({}) => {
     warehouses,
     handleEditList,
     handleToggleSidePannel,
-  } = useEventOrganiserUserList({});
+  } = useEventOrganiserUserList({location});
 
   const {
     data,

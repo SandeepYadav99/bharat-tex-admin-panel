@@ -57,21 +57,25 @@ import InforCenterLists from "../views/Event_InfoCenter/List/InfoCenter_List";
 import InforCenter_Create from "../views/Event_InfoCenter/Create/InfoCenter_Create";
 import YouTube_List from "../views/Event_YoutubeStreem/List/YouTube_List.js";
 import YouTube_Create from "../views/Event_YoutubeStreem/Create/YouTube_Create";
-import NotificationCreate from "../views/Notification/NotificationCreate/NotificationCreate.view";
-import NotificationList from "../views/Notification/NotificationList/NotificationList.view";
 
-import UserList from "../views/EventDesk/User/List/UserList.view";
-import CategoryList from "../views/EventDesk/Category/List/CategoryList.view";
-import EventUserCreateView from "../views/EventDesk/User/Create/EventUserCreate";
-import CategoryCreateView from "../views/EventDesk/Category/Create/CategoryCreate.view";
-import EventGallery from "../views/EventGallery/List/EventGallery.view";
-import EventFeed from "../views/EventFeed/List/EventFeed.view";
-import BusinessCreate from "../views/BusinessGreeting/BusinessCreate/BusinessCreate.view";
-import BusinessDetail from "../views/BusinessGreeting/BusinessDetail/BusinessDetail.view";
-import ProductGroupList from "../views/ProductGroup/List/List.component.js";
-import ProductGroupView from "../views/ProductGroup/Create/Create.component.js";
-import TestimonialList from "../views/Testimonials/List/TestimonialList.js";
-import TestimonialCreate from "../views/Testimonials/Create/TestimonialCreate";
+
+const UserList = lazy(() => import('../views/EventDesk/User/List/UserList.view'));
+const CategoryList = lazy(() => import('../views/EventDesk/Category/List/CategoryList.view'));
+const EventUserCreateView = lazy(() => import('../views/EventDesk/User/Create/EventUserCreate'));
+const CategoryCreateView = lazy(() => import('../views/EventDesk/Category/Create/CategoryCreate.view'));
+const EventGallery = lazy(() => import('../views/EventGallery/List/EventGallery.view'));
+const EventFeed = lazy(() => import('../views/EventFeed/List/EventFeed.view'));
+const BusinessCreate = lazy(() => import('../views/BusinessGreeting/BusinessCreate/BusinessCreate.view'));
+const BusinessDetail = lazy(() => import('../views/BusinessGreeting/BusinessDetail/BusinessDetail.view'));
+
+const NotificationCreate = lazy(() => import('../views/Notification/NotificationCreate/NotificationCreate.view'));
+const NotificationList = lazy(() => import('../views/Notification/NotificationList/NotificationList.view'));
+
+const ProductGroupList = lazy(() => import('../views/ProductGroup/List/List.component.js'));
+const ProductGroupView = lazy(() => import('../views/ProductGroup/Create/Create.component.js'));
+const TestimonialList = lazy(() => import('../views/Testimonials/List/TestimonialList.js'));
+const TestimonialCreate = lazy(() => import('../views/Testimonials/Create/TestimonialCreate.js'));
+
 const NewDashboard = lazy(() => import("../views/dashboard/NewDashboard.view"));
 const KnowledgeCenter = lazy(()=>import("../views/KnowledgeCenter/KnowledgeCenter.view"));
 const knowledgeCreate = lazy(()=>import("../views/KnowledgeCenter/Create/Create.view"));
@@ -292,18 +296,21 @@ const dashboardRoutes = [
     is_sidebar: true,
     is_protect: true,
     roles: [Roles.ADMIN],
+    should_regex: true,
   },
   {
     path: `${RouteName.NOTIFICATION_CREATE}`,
     component: NotificationCreate,
     is_sidebar: false,
     is_protect: true,
+    should_regex: true,
   },
   {
     path: `${RouteName.NOTIFICATION_UPDATE}:id`,
     component: NotificationCreate,
     is_sidebar: false,
     is_protect: true,
+    should_regex: true,
   },
   {
     path: `${RouteName.EVENTS}`,

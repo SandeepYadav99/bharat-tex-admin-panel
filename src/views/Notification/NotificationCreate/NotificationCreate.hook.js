@@ -10,15 +10,16 @@ import {
   serviceGetNotificationDetails,
   serviceSendNotifications,
 } from "../../../services/Notification.service";
+import { isAfter, isValid, startOfDay } from "date-fns";
 
 function useNotificationCreate() {
   const initialForm = {
     title: "",
     message: "",
     next_screen: "",
-    chapter_id: "",
+    // chapter_id: "",
     send_to: "ALL",
-    event_id: "",
+    // event_id: "",
     send_priority: "NOW",
     send_timestamp: "",
   };
@@ -32,7 +33,6 @@ function useNotificationCreate() {
     CHAPTERS: [],
     EVENTS: [],
   });
-
 
   useEffect(() => {
     if (id) {
@@ -70,14 +70,16 @@ function useNotificationCreate() {
       "title",
       "message",
       "next_screen",
-      "send_to",
-      "event_id",
-      "send_priority",
+      // "send_to",
+
+      // "send_priority",
     ];
-    if (form?.send_to === "CHAPTER") {
+    if (form?.send_to === "EXHIBITORS") {
+      // Exhibitors
       required.push("chapter_id");
     }
-    if (form?.send_to === "EVENT") {
+    if (form?.send_to === "VISITORS") {
+      // Visitors
       required.push("event_id");
     }
     if (form?.send_priority === "LATER") {
@@ -92,18 +94,26 @@ function useNotificationCreate() {
       }
     });
 
-    if (form?.send_to === 'EVENT' && form?.event_id === 'NONE') {
-      errors['event_id'] = true;
+    if (form?.send_to === "EVENT" && form?.event_id === "NONE") {
+      errors["event_id"] = true;
     }
+
     if (form?.send_timestamp) {
       const date = new Date(form?.send_timestamp);
-      const todayDate = new Date();
-      date.setHours(0, 0, 0, 0);
-      todayDate.setHours(0, 0, 0, 0);
-      if (date.getTime() < todayDate.getTime()) {
+      // Check if date is invalid or not a number (NaN)
+      if (isNaN(date.getTime())) {
         errors["send_timestamp"] = true;
+      } else {
+        const todayDate = new Date();
+        date.setHours(0, 0, 0, 0);
+        todayDate.setHours(0, 0, 0, 0);
+        // Check if selected date is before today
+        if (date.getTime() < todayDate.getTime()) {
+          errors["send_timestamp"] = true;
+        }
       }
     }
+
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -125,27 +135,45 @@ function useNotificationCreate() {
     (text, fieldName) => {
       let shouldRemoveError = true;
       const t = { ...form };
+      if (fieldName === "send_priority") {
+        t[fieldName] = text;
 
-      t[fieldName] = text;
+        if (text === "NOW") {
+          t["send_timestamp"] = "";
+        }
+      } else {
+        t[fieldName] = text;
+      }
       setForm(t);
       shouldRemoveError && removeError(fieldName);
     },
     [removeError, form, setForm]
   );
-
+  console.log(form, "Form");
   const submitToServer = useCallback(
     (status) => {
       if (!isSubmitting) {
         setIsSubmitting(true);
-        serviceSendNotifications({ ...form, event_id: form?.event_id === 'NONE' ? null : form?.event_id }).then((res) => {
-          if (!res.error) {
-            historyUtils.goBack();
-            SnackbarUtils.success("Notification Sent");
-          } else {
-            SnackbarUtils.error(res?.message);
+        // , event_id: form?.event_id === 'NONE' ? null : form?.event_id
+        const updatedData = {
+          title: form?.title,
+          message: form?.message,
+          next_screen: form?.next_screen,
+          send_to: form?.send_to,
+          send_priority: form?.send_priority,
+          send_timestamp: form?.send_timestamp,
+        };
+        serviceSendNotifications({ ...form, id: id ? id : null }).then(
+          (res) => {
+            if (!res.error) {
+              historyUtils.goBack();
+              SnackbarUtils.success("Notification Sent");
+            } else {
+              SnackbarUtils.error(res?.message);
+            }
+            setIsSubmitting(false);
           }
-          setIsSubmitting(false);
-        });
+        );
       }
     },
     [form, isSubmitting, setIsSubmitting]
@@ -169,7 +197,7 @@ function useNotificationCreate() {
         return true;
       }
 
-      submitToServer(status);
+      await submitToServer(status);
     },
     [checkFormValidation, setErrorData, form, submitToServer]
   );

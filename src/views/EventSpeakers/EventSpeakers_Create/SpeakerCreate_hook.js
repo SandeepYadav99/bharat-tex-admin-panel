@@ -66,7 +66,7 @@ function useSpeakerCreateHook({ location }) {
       "s_name",
      
       "s_company",
-      "s_designation"
+      // "s_designation"
     
     ];
 

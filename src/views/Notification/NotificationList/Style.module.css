@@ -138,3 +138,11 @@
   align-items: center;
   gap: 20px;
 }
+.message{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 350px;
+  /* height: 30px; */
+  white-space: normal;
+  word-wrap: break-word;
+}

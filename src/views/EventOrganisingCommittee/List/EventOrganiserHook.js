@@ -162,7 +162,7 @@ const useEventOrganiserList = ({}) => {
   }, []);
 
   const handleUsersClick = useCallback((data) => {
-    historyUtils.push(`${RouteName.EVENT_ORGANISER_USER}${data?.id}`);
+    historyUtils.push(`${RouteName.EVENT_ORGANISER_USER}${data?.id}`,{event_id:id});
     // historyUtils.push(RouteName.EVENT_ORGANISER_USER + data.id);
   }, []);
 

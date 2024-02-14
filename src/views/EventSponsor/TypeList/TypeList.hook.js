@@ -148,8 +148,10 @@ const useTypeList = ({}) => {
 
   const handleViewUpdate = useCallback((data) => {
     LogUtils.log("data", data);
-    historyUtils.push(`${RouteName.EVENT_SPONSOR_TYPE_UPDATE}${data?.id}`); //+data.id
-  }, []);
+    historyUtils.push(`${RouteName.EVENT_SPONSOR_TYPE_UPDATE}${data?.id}`, {
+      eventId: id,
+    }); //+data.id
+  }, [id]);
 
   const configFilter = useMemo(() => {
     return [];

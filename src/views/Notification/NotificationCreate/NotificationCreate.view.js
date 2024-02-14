@@ -92,6 +92,8 @@ function NotificationCreate() {
           isError={errorData?.send_timestamp}
         />
       );
+    }else {
+      return null
     }
   }, [form, changeTextData, errorData]);
 
@@ -204,18 +206,18 @@ function NotificationCreate() {
               row
             >
               <FormControlLabel value="ALL" control={<Radio />} label="All" />
-              <FormControlLabel
+              {/* <FormControlLabel
                 style={{ marginLeft: "20px" }}
-                value="CHAPTER"
+                value="EXHIBITOR"
                 control={<Radio />}
                 label="Exhibitors"
-              />
-              <FormControlLabel
+              /> */}
+              {/* <FormControlLabel
                 style={{ marginLeft: "20px" }}
-                value="EVENT"
+                value="VISITOR"
                 control={<Radio />}
                 label="Visitors"
-              />
+              /> */}
             </RadioGroup>
           </div>
           {/* <div className={"formGroup"}>{sendToField}</div> */}

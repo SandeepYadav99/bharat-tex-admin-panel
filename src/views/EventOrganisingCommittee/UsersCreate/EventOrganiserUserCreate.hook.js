@@ -16,6 +16,10 @@ const initialForm = {
   image: "",
   company: "",
   priority: "",
+  webUrl:"",
+  name:"",
+  phoneNumber:"",
+  about:""
   // user: null,
 };
 
@@ -108,7 +112,7 @@ const useEventOrganiserUserCreate = ({ location }) => {
         fd.append("id", id);
       }
       fd.append("organising_id", location?.state?.organising_id);
-      fd.append("event_id", location?.state?.organising_id);
+      fd.append("event_id", location?.state?.event_id);
       fd.append("name", "ACTIVE");
 
       // if(!form?.designation){

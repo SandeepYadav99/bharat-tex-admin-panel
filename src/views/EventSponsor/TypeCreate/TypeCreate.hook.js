@@ -10,11 +10,14 @@ import {
   serviceUpdateTypeList,
 } from "../../../services/TypeList.service";
 import { useMemo } from "react";
+import constants from "../../../config/constants";
 
 function useTypeCreate({ location }) {
   const initialForm = {
     priority: "",
     type: "",
+    status: true,
+    // event_id: "",
   };
   const [form, setForm] = useState({ ...initialForm });
   const [errorData, setErrorData] = useState({});
@@ -23,7 +26,6 @@ function useTypeCreate({ location }) {
   const selectedEventId = useMemo(() => {
     return location?.state?.eventId;
   }, [location]);
-
 
   useEffect(() => {
     if (id) {
@@ -35,6 +37,7 @@ function useTypeCreate({ location }) {
             id: id,
             priority: data?.priority,
             type: data?.type,
+            status: data?.status === constants.GENERAL_STATUS.ACTIVE,
           });
         } else {
           SnackbarUtils.error(res?.message);
@@ -96,14 +99,15 @@ function useTypeCreate({ location }) {
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
-      if (selectedEventId) {
-        form.event_id = selectedEventId;
-      }
+      // if (selectedEventId) {
+      //   form.event_id = selectedEventId;
+      // }
+      form.status = form?.status ? "ACTIVE" : "INACTIVE";
       let req;
       if (id) {
         req = serviceUpdateTypeList({ ...form });
       } else {
-        req = serviceCreateTypeList({ ...form });
+        req = serviceCreateTypeList({ ...form ,event_id:selectedEventId});
       }
       req.then((res) => {
         if (!res.error) {
@@ -138,8 +142,7 @@ function useTypeCreate({ location }) {
     },
     [checkFormValidation, setErrorData, form, submitToServer]
   );
-  
-  
+
   console.log("form", form);
   return {
     form,
@@ -149,7 +152,7 @@ function useTypeCreate({ location }) {
     removeError,
     handleSubmit,
     isSubmitting,
-    selectedEventId
+    selectedEventId,
   };
 }
 

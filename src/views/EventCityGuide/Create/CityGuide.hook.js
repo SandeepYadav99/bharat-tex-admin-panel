@@ -66,7 +66,7 @@ function useCityGuidCreateHook({ location }) {
     if (!banner) {
       required.push("banner");
     }
-    if (form.banner.type === "application/pdf") {
+    if (form?.banner?.type === "application/pdf") {
       SnackbarUtils.error("Please upload only jpeg/png/jpg file");
     }
     required.forEach((val) => {
@@ -115,7 +115,7 @@ function useCityGuidCreateHook({ location }) {
   );
 
   descriptionRef.current = changeTextData;
-
+console.log(id, "Id")
   const submitToServer = useCallback(
     (status) => {
       if (!isSubmitting) {
