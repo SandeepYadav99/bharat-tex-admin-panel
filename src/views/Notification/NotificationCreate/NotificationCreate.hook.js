@@ -10,6 +10,7 @@ import {
   serviceGetNotificationDetails,
   serviceSendNotifications,
 } from "../../../services/Notification.service";
+import { isAfter, isValid, startOfDay } from "date-fns";
 
 function useNotificationCreate() {
   const initialForm = {
@@ -96,15 +97,23 @@ function useNotificationCreate() {
     if (form?.send_to === "EVENT" && form?.event_id === "NONE") {
       errors["event_id"] = true;
     }
+
     if (form?.send_timestamp) {
       const date = new Date(form?.send_timestamp);
-      const todayDate = new Date();
-      date.setHours(0, 0, 0, 0);
-      todayDate.setHours(0, 0, 0, 0);
-      if (date.getTime() < todayDate.getTime()) {
+      // Check if date is invalid or not a number (NaN)
+      if (isNaN(date.getTime())) {
         errors["send_timestamp"] = true;
+      } else {
+        const todayDate = new Date();
+        date.setHours(0, 0, 0, 0);
+        todayDate.setHours(0, 0, 0, 0);
+        // Check if selected date is before today
+        if (date.getTime() < todayDate.getTime()) {
+          errors["send_timestamp"] = true;
+        }
       }
     }
+
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
@@ -128,6 +137,10 @@ function useNotificationCreate() {
       const t = { ...form };
       if (fieldName === "send_priority") {
         t[fieldName] = text;
+
+        if (text === "NOW") {
+          t["send_timestamp"] = "";
+        }
       } else {
         t[fieldName] = text;
       }
