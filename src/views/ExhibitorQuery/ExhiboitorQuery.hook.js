@@ -1,16 +1,23 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+// import {
+//     actionCreateAppUser,
+//     actionDeleteAppUser,
+//     actionFetchAppUser,
+//     actionSetPageAppUser,
+//     actionUpdateAppUser,
+// } from "../../actions/AppUser.action";
 import {
-    actionCreateAppUser,
-    actionDeleteAppUser,
-    actionFetchAppUser,
-    actionSetPageAppUser,
-    actionUpdateAppUser,
-} from "../../actions/AppUser.action";
+    actionCreateExhibitors,
+    actionDeleteExhibitors,
+    actionFetchExhibitors,
+    actionSetPageExhibitors,
+    actionUpdateExhibitors,
+  } from "../../actions/ExhibitorQuery.action";
 import historyUtils from "../../libs/history.utils";
 import RouteName from "../../routes/Route.name";
-import { actionFetchCategory, actionSetPageCategory } from "../../actions/AddCategory.action";
-import { actionCreateEventCategory, actionUpdateEventCategory } from "../../actions/UserCategory.action";
+// import { actionFetchCategory, actionSetPageCategory } from "../../actions/ExhibitorQuery.action";
+// import { actionCreateEventCategory, actionUpdateEventCategory } from "../../actions/ExhibitorQuery.action";
 
 const useExhibitorQuery = ({ }) => {
     const [isSidePanel, setSidePanel] = useState(false);
@@ -23,13 +30,15 @@ const useExhibitorQuery = ({ }) => {
         is_fetching: isFetching,
         query,
         query_data: queryData,
-    } = useSelector((state) => state.category_reducer);
+    } = useSelector((state) => state.exhibitor_query);
 
     useEffect(() => {
         // dispatch(actionFetchAppUser());
     }, []);
 
     const { user } = useSelector((state) => state?.auth)
+
+    console.log(user.event_id,"gggggg");
 
     const paylaod = {
         "row": null,
@@ -41,7 +50,7 @@ const useExhibitorQuery = ({ }) => {
 
     useEffect(() => {
         dispatch(
-            actionFetchCategory(1, {},
+            actionFetchExhibitors(1, {},
                 `${user?.event_id}`,
                 {
                     query: isMountRef.current ? query : null,
@@ -53,16 +62,16 @@ const useExhibitorQuery = ({ }) => {
 
     const handlePageChange = useCallback((type) => {
         console.log("_handlePageChange", type);
-        dispatch(actionSetPageCategory(type));
+        dispatch(actionSetPageExhibitors(type));
     }, []);
 
     const handleDataSave = useCallback(
         (data, type) => {
             // this.props.actionChangeStatus({...data, type: type});
             if (type == "CREATE") {
-                dispatch(actionCreateEventCategory(data));
+                dispatch(actionCreateExhibitors(data));
             } else {
-                dispatch(actionUpdateEventCategory(data));
+                dispatch(actionUpdateExhibitors(data));
             }
             setSidePanel((e) => !e);
             setEditData(null);
@@ -75,7 +84,7 @@ const useExhibitorQuery = ({ }) => {
             console.log("_queryFilter", key, value);
             // dispatch(actionSetPageAppUserRequests(1));
             dispatch(
-                actionFetchCategory(1, sortingData, {
+                actionFetchExhibitors(1, sortingData, {
                     query: key == "SEARCH_TEXT" ? value : query,
                     query_data: key == "FILTER_DATA" ? value : queryData,
                 })
@@ -104,9 +113,9 @@ const useExhibitorQuery = ({ }) => {
     const handleSortOrderChange = useCallback(
         (row, order) => {
             console.log(`handleSortOrderChange key:${row} order: ${order}`);
-            dispatch(actionSetPageCategory(1));
+            dispatch(actionSetPageExhibitors(1));
             dispatch(
-                actionFetchAppUser(
+                actionFetchExhibitors(
                     1,
                     { row, order },
                     {
@@ -125,7 +134,7 @@ const useExhibitorQuery = ({ }) => {
 
     const handleDelete = useCallback(
         (id) => {
-            dispatch(actionDeleteAppUser(id));
+            dispatch(actionDeleteExhibitors(id));
             setSidePanel(false);
             setEditData(null);
         },

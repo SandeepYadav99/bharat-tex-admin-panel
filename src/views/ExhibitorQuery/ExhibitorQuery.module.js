@@ -15,7 +15,7 @@ import RouteName from "../../routes/Route.name";
 import { Add } from "@material-ui/icons";
 import historyUtils from "../../libs/history.utils";
 
-const CategoryList = ({}) => {
+const ExhibitorQuery = ({}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -40,7 +40,7 @@ const CategoryList = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.category_reducer);
+  } = useSelector((state) => state.exhibitor_query);
 
   //   const UpperInfo = useCallback((obj) => {
   //     if (obj) {
@@ -60,27 +60,27 @@ const CategoryList = ({}) => {
         key: "query_from",
         label: "Query From",
         sortable: false,
-        render: (value, all) => <div>--</div>,
+        render: (value, all) => <div>{all?.user?.name ? all?.user?.name :"--"}</div>,
       },
 
       {
         key: "email",
         label: "email",
         sortable: false,
-        render: (temp, all) => <div>--</div>,
+        render: (temp, all) => <div>{all?.user?.email ? all?.user?.email:"--"}</div>,
       },
       {
         key: "query_to",
         label: "Query to",
         sortable: false,
-        render: (value, all) => <div>--</div>,
+        render: (value, all) => <div>{all?.exhibitor?.name  ? all?.exhibitor?.name :"--"}</div>,
       },
 
       {
         key: "query_on",
         label: "Query On",
         sortable: false,
-        render: (temp, all) => <div>--</div>,
+        render: (temp, all) => <div>{all?.createdAtText ? all?.createdAtText : "--"}</div>,
       },
       {
         key: "action",
@@ -154,4 +154,4 @@ const CategoryList = ({}) => {
   );
 };
 
-export default CategoryList;
+export default ExhibitorQuery;
