@@ -2,20 +2,20 @@ import React, { Component, useCallback, useEffect, useMemo } from "react";
 import { IconButton, MenuItem, ButtonBase } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { ArrowBackIos, Edit, InfoOutlined } from "@material-ui/icons";
-import PageBox from "../../../components/PageBox/PageBox.component";
+import PageBox from "../../components/PageBox/PageBox.component";
 import styles from "./Style.module.css";
-import DataTables from "../../../Datatables/Datatable.table";
-import Constants from "../../../config/constants";
-import FilterComponent from "../../../components/Filter/Filter.component";
+import DataTables from "../../Datatables/Datatable.table";
+import Constants from "../../config/constants";
+// import FilterComponent from "../../../components/Filter/Filter.component";
 // import StatusPill from "../../../components/Status/StatusPill.component";
-import useCategoryList from "./List.hook";
+import useExhibitorQuery from "./ExhiboitorQuery.hook";
 // import AppUserCreateView from "../AppUserCreate/AppUserCreate.view";
 import { Link } from "react-router-dom";
-import RouteName from "../../../routes/Route.name";
+import RouteName from "../../routes/Route.name";
 import { Add } from "@material-ui/icons";
-import historyUtils from "../../../libs/history.utils";
+import historyUtils from "../../libs/history.utils";
 
-const CategoryList = ({}) => {
+const ExhibitorQuery = ({}) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -33,14 +33,14 @@ const CategoryList = ({}) => {
     warehouses,
     handleToggleSidePannel,
     handleCreatecategory,
-  } = useCategoryList({});
+  } = useExhibitorQuery({});
 
   const {
     data,
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.category_reducer);
+  } = useSelector((state) => state.exhibitor_query);
 
   //   const UpperInfo = useCallback((obj) => {
   //     if (obj) {
@@ -57,17 +57,30 @@ const CategoryList = ({}) => {
   const tableStructure = useMemo(() => {
     return [
       {
-        key: "type",
-        label: "type",
+        key: "query_from",
+        label: "Query From",
         sortable: false,
-        render: (value, all) => <div>{all?.name}</div>,
+        render: (value, all) => <div>{all?.user?.name ? all?.user?.name :"--"}</div>,
       },
 
       {
-        key: "priority",
-        label: "priority",
+        key: "email",
+        label: "email",
         sortable: false,
-        render: (temp, all) => <div>{all.priority}</div>,
+        render: (temp, all) => <div>{all?.user?.email ? all?.user?.email:"--"}</div>,
+      },
+      {
+        key: "query_to",
+        label: "Query to",
+        sortable: false,
+        render: (value, all) => <div>{all?.exhibitor?.name  ? all?.exhibitor?.name :"--"}</div>,
+      },
+
+      {
+        key: "query_on",
+        label: "Query On",
+        sortable: false,
+        render: (temp, all) => <div>{all?.createdAtText ? all?.createdAtText : "--"}</div>,
       },
       {
         key: "action",
@@ -77,11 +90,9 @@ const CategoryList = ({}) => {
             <IconButton
               className={"tableActionBtn"}
               color="secondary"
-              onClick={() =>
-                historyUtils.push(`${RouteName.CATEGORY_EVENT_ADD}` + all?.id)
-              }
+              disabled={isCalling}
             >
-              <Edit fontSize={"small"} />
+              <InfoOutlined fontSize={"small"} />
             </IconButton>
           </div>
         ),
@@ -119,26 +130,15 @@ const CategoryList = ({}) => {
     <div>
       <PageBox>
         <div className={styles.headerContainer}>
-          <div >
-            <div className={styles.title}><ArrowBackIos fontSize={"small"} onClick={()=>historyUtils.goBack()} />Category List</div>
+          <div>
+            <div className={styles.title}>
+            <ArrowBackIos fontSize={"small"} onClick={()=>historyUtils.goBack()} />Exhibitor Query
+              </div>
             <div className={styles.newLine} />
           </div>
           <div></div>
-          <ButtonBase
-            onClick={handleCreatecategory}
-            className={styles.createBtn}
-          >
-            <b>Create</b>
-            <Add fontSize={"small"} className={"plusIcon"}></Add>
-          </ButtonBase>{" "}
         </div>
-        <div>
-          {/* <FilterComponent
-            is_progress={isFetching}
-            filters={configFilter}
-            handleSearchValueChange={handleSearchValueChange}
-            handleFilterDataChange={handleFilterDataChange}
-          /> */}
+        <div>      
           <div>
             <br />
             <div style={{ width: "100%" }}>
@@ -149,21 +149,9 @@ const CategoryList = ({}) => {
             </div>
           </div>
         </div>
-        {/* <SidePanelComponent
-          handleToggle={handleToggleSidePannel}
-          title={<UpperInfo />}
-          open={isSidePanel}
-          side={"right"}
-        >
-          <AppUserCreateView
-            handleToggleSidePannel={handleToggleSidePannel}
-            isSidePanel={isSidePanel}
-            empId={editData}
-          />
-        </SidePanelComponent> */}
       </PageBox>
     </div>
   );
 };
 
-export default CategoryList;
+export default ExhibitorQuery;

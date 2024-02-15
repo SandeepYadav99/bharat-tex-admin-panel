@@ -51,7 +51,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
               isError={errorData?.category}
               errorText={errorData?.category}
               label={"Category" }
-              value={form?.category}
+              value={form?.category ? form?.category : ""}
               handleChange={(value) => {
                 changeTextData(value, "category");
               }}
