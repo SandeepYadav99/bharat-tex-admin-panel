@@ -7,9 +7,9 @@ const NewEditor = ({editorData, handleChange, type, value, ...rest}) => {
     return (
         <div>
             <SunEditor
-            // placeholder="Please type here..."
+                // placeholder="Please type here..."
                 defaultValue={editorData}
-                setOptions={{ height: 200, buttonList: [['bold','italic', 'underline', 'list',],['image', 'link']] }}
+                setOptions={{ height: 200, buttonList: [['bold','italic', 'underline', 'list',],['image', 'link', 'codeView']] }}
                 onChange={(text) => {
                     handleChange(text)
                 }}
