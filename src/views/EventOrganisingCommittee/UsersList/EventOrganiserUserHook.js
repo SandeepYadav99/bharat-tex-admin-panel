@@ -43,7 +43,7 @@ console.log(selectedEventId, "Selected id ")
           query: isMountRef.current ? query : null,
           query_data: isMountRef.current ? queryData : null,
           organising_id: id,
-          event_id:selectedEventId
+          // event_id:selectedEventId
         }
       )
     );

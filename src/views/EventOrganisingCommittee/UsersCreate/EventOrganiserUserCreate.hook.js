@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
-import { isAlphaNumChars, isNum, isSpace } from "../../../libs/RegexUtils";
+import {
+  isAlphaNumChars,
+  isNum,
+  isSpace,
+  validateUrl,
+} from "../../../libs/RegexUtils";
 import useDebounce from "../../../hooks/DebounceHook";
 import LogUtils from "../../../libs/LogUtils";
 import {
@@ -11,16 +16,18 @@ import historyUtils from "../../../libs/history.utils";
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import { useParams } from "react-router";
 import { serviceGetList } from "../../../services/index.services";
+import { parsePhoneNumber } from "libphonenumber-js";
 
 const initialForm = {
   image: "",
   company: "",
   priority: "",
-  webUrl:"",
-  name:"",
-  phoneNumber:"",
-  about:""
+  website: "",
+  name: "",
+  contact: "",
+  about: "",
   // user: null,
+  should_show_profile:true
 };
 
 const useEventOrganiserUserCreate = ({ location }) => {
@@ -46,6 +53,11 @@ const useEventOrganiserUserCreate = ({ location }) => {
             ...form,
             company: data?.company,
             priority: data?.priority,
+            name: data?.name,
+            website: data?.website,
+            contact: data?.contact,
+            about: data?.about,
+            should_show_profile:data?.should_show_profile === true ? true : false,
           });
           setImage(data?.image);
         } else {
@@ -70,6 +82,21 @@ const useEventOrganiserUserCreate = ({ location }) => {
     if (!id) {
       required.push("image");
     }
+    if (form?.website && !validateUrl(form?.website)) {
+      errors.website = true;
+      SnackbarUtils.error("Please Enter the Valid Url");
+    }
+    if (form?.contact) {
+      const phoneNumber = parsePhoneNumber(form?.contact)
+      // console.log('phoneNumber', phoneNumber, (phoneNumber && phoneNumber.isValid()));
+      if (phoneNumber) {
+          if (phoneNumber.isValid() === false) {
+              errors.contact = 'Invalid Number';
+          }
+      } else {
+          errors.contact = 'Invalid Number';
+      }
+  }
     // if (isEnterManually) {
     //   required.push("name");
     //   delete errors["user"];
@@ -100,7 +127,7 @@ const useEventOrganiserUserCreate = ({ location }) => {
       setIsSubmitting(true);
       const fd = new FormData();
       Object.keys(form).forEach((key) => {
-        if (["image", "status"].indexOf(key) < 0 && form[key]) {
+        if (["image", "status", "should_show_profile"].indexOf(key) < 0 && form[key]) {
           // , "user", "name"
           fd.append(key, form[key]);
         }
@@ -112,20 +139,11 @@ const useEventOrganiserUserCreate = ({ location }) => {
         fd.append("id", id);
       }
       fd.append("organising_id", location?.state?.organising_id);
-      fd.append("event_id", location?.state?.event_id);
-      fd.append("name", "ACTIVE");
+    
+      // if(form?.should_show_profile){
 
-      // if(!form?.designation){
-      //   fd.append("designation"," ")
+         fd.append("should_show_profile", form?.should_show_profile === true ? true : false);
       // }
-
-      // if (isEnterManually) {
-      //   fd.append("name", form?.name);
-      // } else {
-      //   fd.append("name", form?.user?.name);
-      //   fd.append("user_id", form?.user?.id);
-      // }
-
       let req;
 
       if (id) {
@@ -184,6 +202,8 @@ const useEventOrganiserUserCreate = ({ location }) => {
         if (!text || isNum(text)) {
           t[fieldName] = text;
         }
+      }  else if (fieldName === "should_show_profile") {
+        t[fieldName] = text; 
       } else if (fieldName === "code") {
         if (!text || (!isSpace(text) && isAlphaNumChars(text))) {
           t[fieldName] = text.toUpperCase();
