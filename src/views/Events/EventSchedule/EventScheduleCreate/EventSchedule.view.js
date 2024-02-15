@@ -188,7 +188,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                   id="tags-outlined"
                   onChange={(e, value) => {
                       changeTextData(value, "speakers");
-                      if (value.some(user => form?.moderator?.includes(user)) || value.some(user => form?.co_chairs?.includes(user)) ||value.some(user => form?.chairs?.includes(user))) {
+                      if (value.some(user => form?.moderator?.includes(user))) {
                         // changeTextData([], "moderator");
                         changeTextData(form.moderator.filter(user => !value.includes(user)), "speakers");
                       }
@@ -216,7 +216,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                   id="tags-outlined"
                   onChange={(e, value) => {
                       changeTextData(value, "chairs");
-                      if (value.some(user => form?.moderator?.includes(user)) || value.some(user => form?.co_chairs?.includes(user)) || value.some(user => form?.speakers?.includes(user))) {
+                      if (value.some(user => form?.moderator?.includes(user))) {
                         // changeTextData([], "moderator");
                         changeTextData(form.chairs.filter(user => !value.includes(user)), "chairs");
                       }
@@ -244,7 +244,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                   id="tags-outlined"
                   onChange={(e, value) => {
                       changeTextData(value, "co_chairs");
-                      if (value.some(user => form?.chairs?.includes(user)) || value.some(user => form?.moderator?.includes(user)) || value.some(user => form?.speakers?.includes(user))) {
+                      if (value.some(user => form?.chairs?.includes(user)) ) {
                         // changeTextData([], "moderator");
                         changeTextData(form.co_chairs.filter(user => !value.includes(user)), "co_chairs");
                       }
