@@ -13,7 +13,7 @@ const ExhibitorDetail = () => {
   const businessNatureLength = detail?.details?.business_nature?.length - 1;
   const productGroup = detail?.details?.product_groups?.length - 1;
   const productCategory = detail?.details?.product_categories?.length - 1;
-  const Product = detail?.details?.product?.length - 1;
+  const Product = detail?.details?.products?.length - 1;
   const ZoneTagData = detail?.details?.zone_tag?.length - 1;
 
 
@@ -121,7 +121,7 @@ const ExhibitorDetail = () => {
                   <div className={styles.wrappedField}>
                     {detail?.details?.business_nature?.length > 0
                       ? detail?.details?.business_nature?.map((val, id) => (
-                        <span key={id}>{removeUnderScore(val)}{businessNatureLength === id ? "" : ","}{""}{""}</span>
+                        <span key={id} style={{marginLeft:"3px"}}>{removeUnderScore(val)}{businessNatureLength === id ? "" : ","}{""}{""}</span>
                       ))
                       : "--"}
                   </div>

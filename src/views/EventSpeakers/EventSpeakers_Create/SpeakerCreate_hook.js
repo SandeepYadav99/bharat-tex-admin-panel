@@ -37,6 +37,8 @@ function useSpeakerCreateHook({ location }) {
     return image;
   }, [image]);
 
+
+
   useEffect(() => {
     if (id) {
       serviceGetEventSpeakerDetails({ id: id }).then((res) => {
@@ -139,6 +141,19 @@ function useSpeakerCreateHook({ location }) {
         if (form?.s_image) {
           fd.append("s_image", form?.s_image);
         }
+
+        if(form?.priority){
+          fd.append("priority",form?.priority)
+        }
+        
+        // if(params?.id){
+        //   if (form?.s_image) {
+        //     fd.append("s_image", form?.s_image);
+        //   }
+        //   else{
+        //     fd.append("s_image")
+        //   }
+        // }
         if (eventId) {
           fd.append("event_id", eventId);
         }
