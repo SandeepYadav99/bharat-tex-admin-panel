@@ -1,5 +1,5 @@
-import React, { Component, useCallback, useEffect, useMemo } from "react";
-import { IconButton, MenuItem, ButtonBase } from "@material-ui/core";
+import React, { Component, useCallback, useEffect, useMemo, useState } from "react";
+import { IconButton, MenuItem, ButtonBase, Dialog } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { ArrowBackIos, Edit, InfoOutlined } from "@material-ui/icons";
 import PageBox from "../../components/PageBox/PageBox.component";
@@ -15,7 +15,7 @@ import RouteName from "../../routes/Route.name";
 import { Add } from "@material-ui/icons";
 import historyUtils from "../../libs/history.utils";
 
-const ExhibitorQuery = ({}) => {
+const ExhibitorQuery = ({ }) => {
   const {
     handleSortOrderChange,
     handleRowSize,
@@ -35,6 +35,40 @@ const ExhibitorQuery = ({}) => {
     handleCreatecategory,
   } = useExhibitorQuery({});
 
+  const [open, setOpen] = useState(false);
+  const [mess, setMess] = useState("");
+
+  const handleOpen = (data ) => {
+    setOpen(true)
+    setMess(data)
+  }
+
+
+  const PostPopUp = ({ open, commentDetail }) => {
+
+    return (
+      <Dialog
+        open={open}
+        aria-labelledby="dialog-title"
+        sx={{ width: "auto", padding: "20px", width: "100px",overFlowX:"none" }}
+        
+      >
+        <div className={styles.dialogTitle} onClick={() => setOpen(false)}>
+          <div className={styles.titleName}>
+            Exhibitor Query
+            <div className={styles.newLine} />{" "}
+          </div>
+          <div onClick={() => setOpen(false)} style={{ fontSize: "24px" }} className={styles.crossIconArea}>
+            x
+          </div>
+        </div>
+        <div className={styles.commentArea}>
+          {commentDetail}
+        </div>
+      </Dialog>
+    );
+  };
+
   const {
     data,
     all: allData,
@@ -42,38 +76,26 @@ const ExhibitorQuery = ({}) => {
     is_fetching: isFetching,
   } = useSelector((state) => state.exhibitor_query);
 
-  //   const UpperInfo = useCallback((obj) => {
-  //     if (obj) {
-  //       return (
-  //         <div className={styles.InfoWrap}>
-  //           <div>Add Admin Users</div>
-  //           <div className={styles.newLine}></div>
-  //         </div>
-  //       );
-  //     }
-  //     return null;
-  //   }, []);
-
   const tableStructure = useMemo(() => {
     return [
       {
         key: "query_from",
         label: "Query From",
         sortable: false,
-        render: (value, all) => <div>{all?.user?.name ? all?.user?.name :"--"}</div>,
+        render: (value, all) => <div>{all?.user?.name ? all?.user?.name : "--"}</div>,
       },
 
       {
         key: "email",
         label: "email",
         sortable: false,
-        render: (temp, all) => <div>{all?.user?.email ? all?.user?.email:"--"}</div>,
+        render: (temp, all) => <div>{all?.user?.email ? all?.user?.email : "--"}</div>,
       },
       {
         key: "query_to",
         label: "Query to",
         sortable: false,
-        render: (value, all) => <div>{all?.exhibitor?.name  ? all?.exhibitor?.name :"--"}</div>,
+        render: (value, all) => <div>{all?.exhibitor?.name ? all?.exhibitor?.name : "--"}</div>,
       },
 
       {
@@ -91,6 +113,7 @@ const ExhibitorQuery = ({}) => {
               className={"tableActionBtn"}
               color="secondary"
               disabled={isCalling}
+              onClick={() => handleOpen(all?.message)}
             >
               <InfoOutlined fontSize={"small"} />
             </IconButton>
@@ -132,13 +155,13 @@ const ExhibitorQuery = ({}) => {
         <div className={styles.headerContainer}>
           <div>
             <div className={styles.title}>
-            <ArrowBackIos fontSize={"small"} onClick={()=>historyUtils.goBack()} />Exhibitor Query
-              </div>
+              <ArrowBackIos fontSize={"small"} onClick={() => historyUtils.goBack()} />Exhibitor Query
+            </div>
             <div className={styles.newLine} />
           </div>
           <div></div>
         </div>
-        <div>      
+        <div>
           <div>
             <br />
             <div style={{ width: "100%" }}>
@@ -147,6 +170,7 @@ const ExhibitorQuery = ({}) => {
                 {...tableData.datatableFunctions}
               />
             </div>
+            {open && <PostPopUp open={open} commentDetail={mess} />}
           </div>
         </div>
       </PageBox>

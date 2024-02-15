@@ -38,7 +38,6 @@ const useExhibitorQuery = ({ }) => {
 
     const { user } = useSelector((state) => state?.auth)
 
-    console.log(user.event_id,"gggggg");
 
     const paylaod = {
         "row": null,
@@ -61,9 +60,16 @@ const useExhibitorQuery = ({ }) => {
     }, []);
 
     const handlePageChange = useCallback((type) => {
-        console.log("_handlePageChange", type);
         dispatch(actionSetPageExhibitors(type));
     }, []);
+
+    // const handleOpen =()=>{
+    //     setOpen(true);
+    // }
+
+    // const handleClose =()=>{
+    //     setOpen(false);
+    // }
 
     const handleDataSave = useCallback(
         (data, type) => {
@@ -96,7 +102,6 @@ const useExhibitorQuery = ({ }) => {
 
     const handleFilterDataChange = useCallback(
         (value) => {
-            console.log("_handleFilterDataChange", value);
             queryFilter("FILTER_DATA", value);
         },
         [queryFilter]
@@ -104,7 +109,6 @@ const useExhibitorQuery = ({ }) => {
 
     const handleSearchValueChange = useCallback(
         (value) => {
-            console.log("_handleSearchValueChange", value);
             queryFilter("SEARCH_TEXT", value);
         },
         [queryFilter]
@@ -112,7 +116,6 @@ const useExhibitorQuery = ({ }) => {
 
     const handleSortOrderChange = useCallback(
         (row, order) => {
-            console.log(`handleSortOrderChange key:${row} order: ${order}`);
             dispatch(actionSetPageExhibitors(1));
             dispatch(
                 actionFetchExhibitors(

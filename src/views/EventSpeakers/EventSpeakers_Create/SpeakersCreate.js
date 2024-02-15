@@ -145,6 +145,27 @@ function EventSpeakerCreateView({ location }) {
             />
           </div>
         </div>
+        <div className={""}>
+          <div className={"headerFlex"}>
+            {/* <h4 className={""}>
+              <div className={"heading"}>DESCRIPTION</div>
+            </h4> */}
+          </div>
+          <div className={"formGroup"}>
+            <CustomTextField
+              isError={errorData?.priority}
+              errorText={errorData?.priority}
+              label={"Priority"}
+              value={form?.priority}
+              onTextChange={(text) => {
+                changeTextData(text, "priority");
+              }}
+              onBlur={() => {
+                onBlurHandler("priority");
+              }}
+            />
+          </div>
+        </div>
       </div>
       <div className={"plainPaper"}>
         {/* <div style={{ display: "flex", marginTop: "10px", gap: "10px" }}>
