@@ -39,7 +39,7 @@ const NewDashboard = () => {
                 />
               </div>
               <div>
-                <div className={styles.number}>{data?.city}</div>
+                <div className={styles.number}>{data?.exhibitorCount}</div>
                 <div className={styles.prcStatus} style={{ color: "#818181" }}>
                 Exhibitors
                 </div>
@@ -55,7 +55,7 @@ const NewDashboard = () => {
                 />
               </div>
               <div>
-                <div className={styles.number}>{data?.state}</div>
+                <div className={styles.number}>{data?.appUserCount}</div>
                 <div className={styles.prcStatus} style={{ color: "#818181" }}>
                 App Users 
                 </div>

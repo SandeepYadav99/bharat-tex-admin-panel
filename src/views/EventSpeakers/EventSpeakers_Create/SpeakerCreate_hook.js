@@ -22,6 +22,7 @@ function useSpeakerCreateHook({ location }) {
     s_designation: "",
     s_status: true,
     is_moderator:true,
+    priority:'',
   };
   const { id } = useParams();
   const eventId = location?.state?.event_id;
@@ -49,6 +50,7 @@ function useSpeakerCreateHook({ location }) {
             s_company: data?.s_company,
             s_designation: data?.s_designation,
             s_status: data?.s_status === constants.GENERAL_STATUS.ACTIVE,
+            priority:data?.priority,
             // is_moderator
           });
           setImage(data?.s_image);
