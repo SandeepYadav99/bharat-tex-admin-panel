@@ -113,7 +113,7 @@ const EventScheduleContainer = ({}) => {
         key: "user_id",
         label: "Action",
         render: (temp, all) => (
-          <div>
+          <div style={{display:"flex",gap:"5px",flexWrap:"wrap"}}>
             {all?.is_live ? (
               <IconButton
                 className={"tableActionBtn"}
