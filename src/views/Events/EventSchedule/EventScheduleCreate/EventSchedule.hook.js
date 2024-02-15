@@ -29,6 +29,8 @@ const initialForm = {
   moderator: [],
   hall_no:"",
   venue:"",
+  chairs: [],
+  co_chairs: [],
 };
 
 const useEventScheduleHook = ({
@@ -82,7 +84,6 @@ const useEventScheduleHook = ({
         if (!res.error) {
           const data = res?.data;
 
-
           const modifiedSpeaker = data?.speakers?.map((item) => ({
             id: item?.s_id,
             label: item?.s_name,
@@ -91,6 +92,16 @@ const useEventScheduleHook = ({
             id: item?.s_id,
             label: item?.s_name,
           }));
+
+          const modifiedChairs = data?.chairs?.map((item)=>({
+            id: item?.s_id,
+            label: item?.s_name,
+          }))
+
+          const modifiedCoChairs = data?.co_chairs?.map((item)=>({
+            id: item?.s_id,
+            label: item?.s_name,
+          }))
           // const categoryData = data?.category?.toUpperCase();
           // console.log(categoryData,"categoryData is here")
           setForm({
@@ -108,6 +119,8 @@ const useEventScheduleHook = ({
             hall_no:data?.hall_no,
             venue:data?.venue,
             category:data?.category,
+            chairs:modifiedChairs,
+            co_chairs:modifiedCoChairs,
           });
         } else {
           SnackbarUtils.error(res?.message);
@@ -177,6 +190,8 @@ const useEventScheduleHook = ({
         ...form,
         speakers: form?.speakers?.map((val) => val.id),
         moderator: form?.moderator?.map((val) => val.id),
+        chairs: form?.chairs?.map((val) => val.id),
+        co_chairs: form?.co_chairs?.map((val) => val.id),
         event_id: id,
         status: form?.status ? "ACTIVE" : "INACTIVE",
       }).then((res) => {

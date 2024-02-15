@@ -41,6 +41,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
     changeTextData,
     categoryList,
   } = useEventScheduleHook({ handleToggleSidePannel, isSidePanel, empId });
+
   const classes = useStyles();
 
   return (
@@ -189,7 +190,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                       changeTextData(value, "speakers");
                       if (value.some(user => form?.moderator?.includes(user))) {
                         // changeTextData([], "moderator");
-                        changeTextData(form.moderator.filter(user => !value.includes(user)), "moderator");
+                        changeTextData(form.moderator.filter(user => !value.includes(user)), "speakers");
                       }
                   }}
                   value={form?.speakers}
@@ -203,6 +204,63 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
                           variant="outlined"
                           label="Speakers"
                           error={errorData?.speakers}
+                      />
+                  )}
+              />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+              <Autocomplete
+                  multiple
+                  id="tags-outlined"
+                  onChange={(e, value) => {
+                      changeTextData(value, "chairs");
+                      // if (value.some(user => form?.chairs?.includes(user))) {
+                      //   console.log(value.some(user => form?.chairs?.includes(user)),"njdhjd")
+                      //   // changeTextData([], "moderator");
+                      //   changeTextData(form.chairs.filter(user => !value.includes(user)), "chairs");
+                      // }
+                  }}
+                  value={form?.chairs}
+                  // id="tags-standard"
+                  options={listData?.SPEAKERS ? listData?.SPEAKERS : []}
+                  getOptionLabel={(option) => option.label}
+                  defaultValue={form?.chairs}
+                  renderInput={(params) => (
+                      <TextField
+                          {...params}
+                          variant="outlined"
+                          label="Chairs"
+                          error={errorData?.chairs}
+                      />
+                  )}
+              />
+          </div>
+        </div>
+        <div className={"formFlex"}>
+          <div className={"formGroup"}>
+              <Autocomplete
+                  multiple
+                  id="tags-outlined"
+                  onChange={(e, value) => {
+                      changeTextData(value, "co_chairs");
+                      // if (value.some(user => form?.co_chairs?.includes(user))) {
+                      //   // changeTextData([], "moderator");
+                      //   changeTextData(form.co_chairs.filter(user => !value.includes(user)), "co_chairs");
+                      // }
+                  }}
+                  value={form?.co_chairs}
+                  // id="tags-standard"
+                  options={listData?.SPEAKERS ? listData?.SPEAKERS : []}
+                  getOptionLabel={(option) => option.label}
+                  defaultValue={form?.co_chairs}
+                  renderInput={(params) => (
+                      <TextField
+                          {...params}
+                          variant="outlined"
+                          label="Co-Chairs"
+                          error={errorData?.co_chairs}
                       />
                   )}
               />
