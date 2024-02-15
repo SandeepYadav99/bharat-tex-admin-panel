@@ -9,6 +9,7 @@ import File from "../../../components/FileComponent/FileComponent.component";
 import CustomAutoComplete from "../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import useEventOrganiserUserCreate from "./EventOrganiserUserCreate.hook";
 import CustomPhoneContactField from "../../../components/FormFields/CustomPhoneContactField";
+import CustomCheckbox from "../../../components/FormFields/CustomCheckbox";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
@@ -156,15 +157,15 @@ const EventOrganiserUserCreate = ({ location }) => {
             <div className={"formFlex"}>
               <div className={"formGroup"}>
                 <CustomTextField
-                  isError={errorData?.webUrl}
-                  errorText={errorData?.webUrl}
+                  isError={errorData?.website}
+                  errorText={errorData?.website}
                   label={"Website"}
-                  value={form?.webUrl}
+                  value={form?.website}
                   onTextChange={(text) => {
-                    changeTextData(text, "webUrl");
+                    changeTextData(text, "website");
                   }}
                   onBlur={() => {
-                    onBlurHandler("webUrl");
+                    onBlurHandler("website");
                   }}
                 />
               </div>
@@ -188,12 +189,12 @@ const EventOrganiserUserCreate = ({ location }) => {
           </div>
           <div className={"formGroup"}>
             <CustomPhoneContactField
-              isError={errorData?.phoneNumber}
-              errorText={errorData?.phoneNumber}
+              isError={errorData?.contact}
+              errorText={errorData?.contact}
               label={"Phone number "}
-              value={form?.phoneNumber}
+              value={form?.contact}
               onTextChange={(text) => {
-                changeTextData(text, "phoneNumber");
+                changeTextData(text, "contact");
               }}
             
               isValid={(value) => {
@@ -228,6 +229,16 @@ const EventOrganiserUserCreate = ({ location }) => {
             />
           </div>
         </div>
+      
+            <CustomCheckbox
+              color={"primary"}
+              handleChange={(text) => {
+                changeTextData(!form?.should_show_profile, "should_show_profile");
+              }}
+              label={"Do not open profile"}
+               checked={form?.should_show_profile}
+            />
+         
         <div className={styles.btnCont}>
           <ButtonBase
             disabled={isSubmitting}
