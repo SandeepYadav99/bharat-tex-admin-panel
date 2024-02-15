@@ -7,7 +7,7 @@ import styles from "./Style.module.css";
 import DataTables from "../../../Datatables/Datatable.table";
 import Constants from "../../../config/constants";
 import FilterComponent from "../../../components/Filter/Filter.component";
-// import StatusPill from "../../../components/Status/StatusPill.component";
+import StatusPill from "../../../components/Status/StatusPill.component";
 import useCategoryList from "./List.hook";
 // import AppUserCreateView from "../AppUserCreate/AppUserCreate.view";
 import { Link } from "react-router-dom";
@@ -57,8 +57,8 @@ const CategoryList = ({}) => {
   const tableStructure = useMemo(() => {
     return [
       {
-        key: "type",
-        label: "type",
+        key: "Company_name",
+        label: "Company Name",
         sortable: false,
         render: (value, all) => <div>{all?.name}</div>,
       },
@@ -68,6 +68,12 @@ const CategoryList = ({}) => {
         label: "priority",
         sortable: false,
         render: (temp, all) => <div>{all.priority}</div>,
+      },
+      {
+        key: "status",
+        label: "status",
+        sortable: false,
+        render: (temp, all) => <div>{<StatusPill status={all.status} />}</div>,
       },
       {
         key: "action",
