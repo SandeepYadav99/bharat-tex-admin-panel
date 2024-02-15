@@ -351,7 +351,7 @@ export const EventData = [
   },
   {
     key: "information_center",
-    name: "Information Center",
+    name: "Hall Layouts",
     image: event,
     url: RouteName.INFOR_CENTER,
   },
