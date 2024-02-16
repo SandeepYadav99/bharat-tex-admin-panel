@@ -30,18 +30,17 @@ const useCalendarCount = ({}) => {
     query_data: queryData,
   } = useSelector((state) => state.Exhibitor);
 
-//   useEffect(() => {
-//     serviceCalendarCountList({ list: ["PRODUCT_CATEGORY", "PRODUCT_GROUP"] }).then(
-//       (res) => {
-//         if (!res.error) {
-//           setListData(res.data);
-//         }
-//       }
-//     );
-//   }, []);
+  //   useEffect(() => {
+  //     serviceCalendarCountList({ list: ["PRODUCT_CATEGORY", "PRODUCT_GROUP"] }).then(
+  //       (res) => {
+  //         if (!res.error) {
+  //           setListData(res.data);
+  //         }
+  //       }
+  //     );
+  //   }, []);
 
-
-  const {user} = useSelector((state)=>state.auth)
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(
@@ -85,10 +84,15 @@ const useCalendarCount = ({}) => {
     (key, value) => {
       // dispatch(actionSetPageCalendarCountRequests(1));
       dispatch(
-        actionFetchCalendarCount(1, sortingData, {
-          query: key == "SEARCH_TEXT" ? value : query,
-          query_data: key == "FILTER_DATA" ? value : queryData,
-        })
+        actionFetchCalendarCount(
+          1,
+          user?.event_id,
+          sortingData,
+          {
+            query: key == "SEARCH_TEXT" ? value : query,
+            // query_data: key == "FILTER_DATA" ? value : queryData,
+          }
+        )
       );
     },
     [sortingData, query, queryData]
@@ -104,7 +108,6 @@ const useCalendarCount = ({}) => {
 
   const handleSearchValueChange = useCallback(
     (value) => {
-      console.log("_handleSearchValueChange", value);
       queryFilter("SEARCH_TEXT", value);
     },
     [queryFilter]
@@ -116,6 +119,7 @@ const useCalendarCount = ({}) => {
       dispatch(
         actionFetchCalendarCount(
           1,
+          user?.event_id,
           { row, order },
           {
             query: query,
