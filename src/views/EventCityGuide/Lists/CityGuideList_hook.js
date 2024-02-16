@@ -166,6 +166,7 @@ const useCityGuidListHook = ({}) => {
     LogUtils.log("data", data);
     historyUtils.push(`${RouteName.CITYGUIDE_CONTENT_LIST}${data?.id}`, {
       eventId: id,
+      name:data?.title,
     });
   }, []);
 

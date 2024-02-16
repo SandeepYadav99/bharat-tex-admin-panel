@@ -42,6 +42,9 @@ const CityGuidContent_List = ({ location }) => {
     handleDeleteContent
   } = useCityGuidContent_ListHook({ location });
 
+
+  
+
   const {
     data,
     all: allData,
@@ -158,7 +161,7 @@ const CityGuidContent_List = ({ location }) => {
               <ButtonBase onClick={() => history.goBack()}>
                 <ArrowBackIosIcon fontSize={"small"} />
                 <span className={"capitalize"}>
-                  <b>Top 10 Places to eat</b>
+                  <b>{location?.state?.name}</b>
                 </span>
               </ButtonBase>
               <div className={styles.newLine} />

@@ -7,6 +7,7 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CustomTextField from "../../components/FormFields/TextField/TextField.component";
 import useAddCategory from "./AddCategory.hook";
 import CustomSwitch from "../../components/FormFields/CustomSwitch";
+import { useParams } from "react-router-dom";
 
 function AddCategory({ location }) {
   const {
@@ -20,6 +21,10 @@ function AddCategory({ location }) {
     isSubmitting,
     selectedEventId
   } =useAddCategory({ location });
+
+  const params = useParams();
+  
+  
   return (
     <div className={styles.claimListWrapper}>
       <div className={styles.outerFlex}>
@@ -27,7 +32,7 @@ function AddCategory({ location }) {
           <ButtonBase onClick={() => history.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <span className={"capitalize"}>
-              <b> Add Category type</b>
+              <b> {params?.id ? "Edit" :"Add"}{" "}Category type</b>
             </span>
           </ButtonBase>
           <div className={styles.newLine} />
