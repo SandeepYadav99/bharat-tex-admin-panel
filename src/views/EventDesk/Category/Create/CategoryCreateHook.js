@@ -165,8 +165,8 @@ const useCategoryCreate = ({ location }) => {
           t[fieldName] = text;
         }
       } else if (fieldName === "contact" || fieldName === "priority") {
-        if (text >= 0 && text?.length <= 10) {
-          t[fieldName] = text;
+        if (text?.trim().length >= 0 && text?.trim().length <= 10 ) {
+          t[fieldName] = text.trim();
         }
       } else {
         t[fieldName] = text;
