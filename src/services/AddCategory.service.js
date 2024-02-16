@@ -7,7 +7,6 @@ export async function serviceCreateCategory(params) {
 
 export async function serviceAddCategoryList(params){
     return await postRequest("events/schedule/categories", params);
-
 }
 export async function serviceAddCategoryDetails(params){
     return await postRequest("events/schedule/categories/detail", params);

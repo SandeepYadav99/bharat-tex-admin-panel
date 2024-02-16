@@ -18,3 +18,8 @@ export async function serviceGetVendorsList() {
 export async function serviceGetList(list, otherParams = {}) {
     return await postRequest('list', { list: list, ...otherParams });
 }
+
+
+export async function serviceUploadImage(params) {
+    return await formDataRequest("upload/image", params);
+}
