@@ -22,6 +22,7 @@ function useSpeakerCreateHook({ location }) {
     s_designation: "",
     s_status: true,
     is_moderator:true,
+    priority:'',
   };
   const { id } = useParams();
   const eventId = location?.state?.event_id;
@@ -36,6 +37,8 @@ function useSpeakerCreateHook({ location }) {
     return image;
   }, [image]);
 
+
+
   useEffect(() => {
     if (id) {
       serviceGetEventSpeakerDetails({ id: id }).then((res) => {
@@ -49,6 +52,7 @@ function useSpeakerCreateHook({ location }) {
             s_company: data?.s_company,
             s_designation: data?.s_designation,
             s_status: data?.s_status === constants.GENERAL_STATUS.ACTIVE,
+            priority:data?.priority,
             // is_moderator
           });
           setImage(data?.s_image);
@@ -137,6 +141,19 @@ function useSpeakerCreateHook({ location }) {
         if (form?.s_image) {
           fd.append("s_image", form?.s_image);
         }
+
+        if(form?.priority){
+          fd.append("priority",form?.priority)
+        }
+        
+        // if(params?.id){
+        //   if (form?.s_image) {
+        //     fd.append("s_image", form?.s_image);
+        //   }
+        //   else{
+        //     fd.append("s_image")
+        //   }
+        // }
         if (eventId) {
           fd.append("event_id", eventId);
         }

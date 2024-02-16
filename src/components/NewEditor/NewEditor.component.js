@@ -16,6 +16,7 @@ const NewEditor = ({editorData, handleChange, type, value, ...rest}) => {
                 defaultValue={editorData}
                 setOptions={{ height: 200, buttonList: [['bold','italic', 'underline', 'list',]] }}
                 onChange={(text) => {
+
                     handleChangeCallback(text)
                 }}
                 {...rest}
