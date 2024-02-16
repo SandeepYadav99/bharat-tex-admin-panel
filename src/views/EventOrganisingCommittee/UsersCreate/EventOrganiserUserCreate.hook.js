@@ -195,9 +195,9 @@ const useEventOrganiserUserCreate = ({ location }) => {
       let shouldRemoveError = true;
       const t = { ...form };
       if (fieldName === "name") {
-        if (!text || (isAlphaNumChars(text) && text.toString().length <= 30)) {
+      
           t[fieldName] = text;
-        }
+       
       } else if (fieldName === "priority") {
         if (!text || isNum(text)) {
           t[fieldName] = text;
