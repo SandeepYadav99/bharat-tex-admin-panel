@@ -293,6 +293,17 @@ const useExhibitorCreate = ({ location }) => {
   //   }
   // }, [form?.primary_email]);
 
+  useEffect(()=>{
+    if(!form?.is_business_nature_other){
+      setForm(
+        {
+          ...form,
+          business_nature_other:"",
+        }
+      )
+    }
+  },[form?.is_business_nature_other])
+
   useEffect(() => {
     if (form?.primary_conatct_number) {
       checkPhoneValidation();
@@ -408,9 +419,8 @@ const useExhibitorCreate = ({ location }) => {
     //   fd.append("company_brochure", form?.company_brochure);
     // }
 
-    if(form?.is_business_nature_other){
       fd.append("is_business_nature_other",form?.is_business_nature_other)
-    }
+     
     // if(empId){
     //   if (form?.company_logo) {
     //     fd.append("company_logo", form?.company_logo);
