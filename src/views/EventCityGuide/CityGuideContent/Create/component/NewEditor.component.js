@@ -60,8 +60,8 @@ const NewEditor = ({editorData, handleChange, type, value, ...rest}) => {
     return (
         <div>
             <SunEditor
-                // getSunEditorInstance={getSunEditorInstance}
-                // onImageUploadBefore={onImageUploadBefore}
+                getSunEditorInstance={getSunEditorInstance}
+                onImageUploadBefore={onImageUploadBefore}
                 // placeholder="Please type here..."
                 defaultValue={editorData}
                 setOptions={{ height: 200, buttonList: [['bold','italic', 'underline', 'list',],['image', 'link', 'codeView']] }}
