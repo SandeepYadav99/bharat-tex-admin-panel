@@ -60,6 +60,7 @@ function useInfoCenterCreateHook({ location }) {
       // "file",
       "priority",
       // "thumbnail",
+      
     ];
 
     if (!id) {
@@ -186,6 +187,7 @@ function useInfoCenterCreateHook({ location }) {
     handleSubmit,
     isSubmitting,
     image,
+    id
   };
 }
 

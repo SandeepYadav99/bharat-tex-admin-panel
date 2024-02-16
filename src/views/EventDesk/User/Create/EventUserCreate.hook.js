@@ -140,6 +140,7 @@ function useEventUserCreateHook({ location }) {
     removeError,
     handleSubmit,
     isSubmitting,
+    id
   };
 }
 

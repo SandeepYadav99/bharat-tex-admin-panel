@@ -114,7 +114,7 @@ const useCategoryCreate = ({ location }) => {
       setIsSubmitting(true);
       const fd = { ...form };
       fd.status = form?.status ? "ACTIVE" : "INACTIVE";
-      fd.contact = `${countryCode} ${form?.contact}`;
+      fd.contact = `${countryCode}${form?.contact}`;
       if (eventId) {
         fd.event_id = eventId;
       }
@@ -165,7 +165,7 @@ const useCategoryCreate = ({ location }) => {
           t[fieldName] = text;
         }
       } else if (fieldName === "contact" || fieldName === "priority") {
-        if (text?.trim().length >= 0 && text?.trim().length <= 10 ) {
+        if (text > 0 && text?.length <= 10 ) {
           t[fieldName] = text.trim();
         }
       } else {

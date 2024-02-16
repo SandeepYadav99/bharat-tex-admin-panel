@@ -17,6 +17,7 @@ function EventSpeakerCreateView({ location }) {
     handleSubmit,
     isSubmitting,
     image,
+    id
   } = useInfoCenterCreateHook({ location });
 
   return (
@@ -26,7 +27,7 @@ function EventSpeakerCreateView({ location }) {
           <ButtonBase onClick={() => historyUtils.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <span className={"capitalize"}>
-              <b>Add Hall Layouts File</b>
+              <b> {id ? "Edit" : "Add"} Hall Layouts File</b>
             </span>
           </ButtonBase>
           <div className={styles.newLine} />

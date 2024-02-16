@@ -18,6 +18,7 @@ function EventUserCreateView({ location }) {
     removeError,
     handleSubmit,
     isSubmitting,
+    id
   } = useEventUserCreateHook({ location });
 
   return (
@@ -27,7 +28,7 @@ function EventUserCreateView({ location }) {
           <ButtonBase onClick={() => historyUtils.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <span className={"capitalize"}>
-              <b>Add Category Name</b>
+              <b> {id ? "Edit" : "Add" } Category Name</b>
             </span>
           </ButtonBase>
           <div className={styles.newLine} />
