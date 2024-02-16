@@ -90,6 +90,7 @@ const ExhibitionDetails = lazy(()=>import("../views/Exhibitor/List/Detail/Exhibi
 const AddCategoryData = lazy(()=>import("../views/AddCategory/AddCategory.component.js"));
 const AddCategoryList = lazy(()=>import("../views/AddCategory/List/List.module.js"));
 const ExhibitorQuery = lazy(()=>import("../views/ExhibitorQuery/ExhibitorQuery.module.js"));
+const CalendarCount = lazy(()=>import("../views/CalendarCount/CalendarCount.module.js"));
 
 
 const Roles = Constants.ROLES;
@@ -856,6 +857,16 @@ const dashboardRoutes = [
     icon: PeopleOutlined,
     is_protect: true,
   },
+  {
+    path: `${RouteName.CALENDAR_COUNT}`,
+    component: CalendarCount,
+    sidebarName: "Calendar Count",
+    navbarName: "Calendar Count",
+    is_sidebar:true,
+    icon: PeopleOutlined,
+    is_protect: true,
+  },
+  
 ];
 
 export default dashboardRoutes;
