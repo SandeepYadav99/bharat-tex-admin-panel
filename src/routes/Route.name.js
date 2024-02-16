@@ -157,4 +157,6 @@ export default {
   EXHIBITOR_CREATE:"/exhibitor/list/create/",
   EXHIBITOR_DETAILS:"/exhibitor/detail/",
   EXHIBITOR_QUERY:"/exhibitor-query",
+
+  CALENDAR_COUNT:"/calendar",
 };

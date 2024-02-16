@@ -181,11 +181,12 @@ const ExhibitorList = ({}) => {
       <PageBox>
         <div className={styles.headerContainer}>
           <ButtonBase
-            onClick={() => historyUtils.goBack()}
+            // onClick={() => historyUtils.goBack()}
             style={{ marginBottom: "20px" }}
           >
             <div style={{ display: "flex", flexDirection: "column" }}>
               <div style={{ display: "flex", alignItems: "center" }}>
+              <ArrowBackIos fontSize={"small"} onClick={() => historyUtils.goBack()} />
                 <span className={styles.title}>
                   <b>Exhibitors List</b>
                 </span>

@@ -129,7 +129,7 @@ const EventSpeakerList = ({}) => {
         <div>
             <ButtonBase onClick={() => historyUtils.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
-            <span className={styles.title}>Information Center</span>
+            <span className={styles.title}>Hall Layouts</span>
             </ButtonBase>
             <div className={styles.newLine} />
           </div>
