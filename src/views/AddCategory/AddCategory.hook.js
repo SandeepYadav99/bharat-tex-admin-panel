@@ -95,34 +95,23 @@ function useAddCategory({ location }) {
   );
 
 
-  useEffect(()=>{
-    if(form?.status){
-      setForm({
-        ...form,
-       status:"ACTIVE" ,
-      })
-    }
-    else{
-      setForm({
-        ...form,
-       status:"INACTIVE",
-      })
-    }
-  },[id,form?.status])
-
- 
 
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
       let req;
      
+      setForm({
+        ...form,
+        status: form?.status ? "ACTIVE" : "INACTIVE",
+      })
 
       if (id){
         let payload = {
+          ...form,
           id:id,
           event_id:`${user?.event_id}`,
-          ...form
+          status: form?.status ? "ACTIVE" : "INACTIVE",
         }
         req = serviceUpdateCategory({ ...payload });
       }
