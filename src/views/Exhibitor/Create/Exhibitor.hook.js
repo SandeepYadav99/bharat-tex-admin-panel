@@ -88,6 +88,7 @@ const useExhibitorCreate = ({ location }) => {
   const [secondary, setSecondary] = useState("");
   const [deatilsValue, setDetailsValue] = useState([]);
   const [partnerList, setPartnerList] = useState([]);
+  const [textData,setTextData] = useState("");
 
   const { user } = useSelector((state) => state?.auth);
 
@@ -180,6 +181,7 @@ const useExhibitorCreate = ({ location }) => {
             // pavallian: data?.pavallian,
           });
           // setPdf(data?.company_brochure);
+          setTextData(form?.business_nature_other)
           // setFeature({ ...feature, });
         } else {
           SnackbarUtils.error(res?.message);
@@ -305,6 +307,12 @@ const useExhibitorCreate = ({ location }) => {
           business_nature_other:"",
         }
       )
+    }
+    else{
+      if(textData !== form?.business_nature_other){
+        const index = form?.business_nature.indexOf(form?.business_nature_other);
+        form?.business_nature.splice(index,1);
+      }
     }
   },[form?.is_business_nature_other])
 
