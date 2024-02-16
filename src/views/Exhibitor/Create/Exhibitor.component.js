@@ -466,7 +466,7 @@ const ExhibitorCreate = () => {
                     changeFeatureData(!feature?.manufacturer, "manufacturer");
                   }}
                   label={"Manufacture"}
-                  checked={feature?.manufacturer || deatilsValue.includes("manufacturer")}
+                  checked={feature?.manufacturer }
                 />
               </div>
               <div className={"formGroup"}>
@@ -476,7 +476,7 @@ const ExhibitorCreate = () => {
                     changeFeatureData(!feature?.sole_agent, "sole_agent");
                   }}
                   label={"Sole Agent"}
-                  checked={feature?.sole_agent || deatilsValue.includes("sole_agent")}
+                  checked={feature?.sole_agent }
                 />
               </div>
               <div className={"formGroup"}>
@@ -489,7 +489,7 @@ const ExhibitorCreate = () => {
                     );
                   }}
                   label={"Product Designer"}
-                  checked={feature?.product_designer || deatilsValue.includes("product_designer")}
+                  checked={feature?.product_designer }
                 />
               </div>
               <div className={"formGroup"}>
@@ -499,7 +499,7 @@ const ExhibitorCreate = () => {
                   handleChange={(text) => {
                     changeFeatureData(!feature?.publisher, "publisher");
                   }}
-                  checked={feature?.publisher || deatilsValue.includes("publisher")}
+                  checked={feature?.publisher }
                 />
               </div>
               <div className={"formGroup"}>
@@ -509,7 +509,7 @@ const ExhibitorCreate = () => {
                   handleChange={(text) => {
                     changeFeatureData(!feature?.exporter, "exporter");
                   }}
-                  checked={feature?.exporter || deatilsValue.includes("exporter")}
+                  checked={feature?.exporter }
                 />
               </div>
               <div className={"formGroup"}>
@@ -519,7 +519,7 @@ const ExhibitorCreate = () => {
                   handleChange={(text) => {
                     changeFeatureData(!feature?.whole_saler, "whole_saler");
                   }}
-                  checked={feature?.whole_saler || deatilsValue.includes("whole_saler")}
+                  checked={feature?.whole_saler }
                 />
               </div>
               <div className={"formGroup"}>
@@ -529,7 +529,7 @@ const ExhibitorCreate = () => {
                   handleChange={(text) => {
                     changeFeatureData(!feature?.merchants, "merchants");
                   }}
-                  checked={feature?.merchants || deatilsValue.includes("merchants")}
+                  checked={feature?.merchants }
                 />
               </div>
               <div className={"formGroup"}>
