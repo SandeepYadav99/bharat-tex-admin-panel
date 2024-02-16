@@ -295,6 +295,10 @@ const useExhibitorCreate = ({ location }) => {
 
   useEffect(()=>{
     if(!form?.is_business_nature_other){
+      if(form?.business_nature?.includes(form?.business_nature_other)){
+        const index = form?.business_nature.indexOf(form?.business_nature_other);
+        form?.business_nature.splice(index,1);
+      }
       setForm(
         {
           ...form,
