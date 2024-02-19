@@ -95,28 +95,28 @@ function useAddCategory({ location }) {
   );
 
 
-
   const submitToServer = useCallback(() => {
     if (!isSubmitting) {
       setIsSubmitting(true);
       let req;
-     
-      setForm({
+
+      let createPayload ={
         ...form,
-        status: form?.status ? "ACTIVE" : "INACTIVE",
-      })
+        status: form?.status  ? "ACTIVE" : "INACTIVE",
+      }
+      
 
       if (id){
         let payload = {
           ...form,
           id:id,
           event_id:`${user?.event_id}`,
-          status: form?.status ? "ACTIVE" : "INACTIVE",
+          status: form?.status === true ? "ACTIVE" : "INACTIVE",
         }
         req = serviceUpdateCategory({ ...payload });
       }
       else{
-        req = serviceCreateCategory({ ...form });
+        req = serviceCreateCategory({ ...createPayload });
       }
       
       req.then((res) => {
