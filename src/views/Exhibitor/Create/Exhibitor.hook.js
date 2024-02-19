@@ -137,6 +137,7 @@ const useExhibitorCreate = ({ location }) => {
         if (!res.error) {
           const data = res?.data?.details;
           const { business_nature } = data;
+
           // setSelectImages(data?.gallery_images);
           setDetailsValue(business_nature);
           setImage(data?.company_logo);

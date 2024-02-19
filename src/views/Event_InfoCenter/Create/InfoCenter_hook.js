@@ -76,10 +76,12 @@ function useInfoCenterCreateHook({ location }) {
     });
     if (form?.file.size <= 5 * 1024 * 1024) {
       errors["file"] = false;
-    } else {
-      SnackbarUtils.error("Maximum File Upload Size 5 MB");
-      errors["file"] = true;
-    }
+    } 
+    // else {
+    //   SnackbarUtils.error("Maximum File Upload Size 5 MB");
+    //   errors["file"] = true;
+    // }
+    
     Object.keys(errors).forEach((key) => {
       if (!errors[key]) {
         delete errors[key];
