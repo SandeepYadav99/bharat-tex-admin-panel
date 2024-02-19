@@ -46,7 +46,7 @@ const HallMasterList = ({}) => {
         return (
           <div className={styles.InfoWrap}>
             <div>
-              {editData ? "Add Hall " : "Edit Hall "}{" "}
+              {editData ? "Edit Hall " : "Add Hall "}{" "}
             </div>
             <div className={styles.newLine}></div>
           </div>
