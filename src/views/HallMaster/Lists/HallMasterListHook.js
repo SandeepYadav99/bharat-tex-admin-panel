@@ -5,12 +5,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import historyUtils from "../../../libs/history.utils";
 import RouteName from "../../../routes/Route.name";
 import {
-  actionCreatePolicyList,
-  actionDeletePolicyList,
-  actionFetchPolicyList,
-  actionSetPagePolicyList,
-  actionUpdatePolicyList,
-} from "../../../actions/PolicyList.action";
+  actionCreateHallMasterList,
+  actionDeleteHallMasterList,
+  actionFetchHallMasterList,
+  actionSetPageHallMasterList,
+  actionUpdateHallMasterList,
+} from "../../../actions/HallMaster.action";
 
 const useHallMaster = ({}) => {
   const [isSidePanel, setSidePanel] = useState(false);
@@ -24,7 +24,7 @@ const useHallMaster = ({}) => {
     is_fetching: isFetching,
     query,
     query_data: queryData,
-  } = useSelector((state) => state.policyList);
+  } = useSelector((state) => state.hallMaster);
 
   useEffect(() => {
     // dispatch(actionFetchAdminUser());
@@ -32,7 +32,7 @@ const useHallMaster = ({}) => {
 
   useEffect(() => {
     dispatch(
-      actionFetchPolicyList(
+      actionFetchHallMasterList(
         1,
         {},
         {
@@ -54,9 +54,9 @@ const useHallMaster = ({}) => {
       console.log(type, data);
       // this.props.actionChangeStatus({...data, type: type});
       if (type == "CREATE") {
-        dispatch(actionCreatePolicyList(data));
+        dispatch(actionCreateHallMasterList(data));
       } else {
-        dispatch(actionUpdatePolicyList(data));
+        dispatch(actionUpdateHallMasterList(data));
       }
       setSidePanel((e) => !e);
       setEditData(null);
@@ -69,7 +69,7 @@ const useHallMaster = ({}) => {
       console.log("_queryFilter", key, value);
       // dispatch(actionSetPageAdminUserRequests(1));
       dispatch(
-        actionFetchPolicyList(1, sortingData, {
+        actionFetchHallMasterList(1, sortingData, {
           query: key == "SEARCH_TEXT" ? value : query,
           query_data: key == "FILTER_DATA" ? value : queryData,
         })
@@ -98,9 +98,9 @@ const useHallMaster = ({}) => {
   const handleSortOrderChange = useCallback(
     (row, order) => {
       console.log(`handleSortOrderChange key:${row} order: ${order}`);
-      dispatch(actionSetPagePolicyList(1));
+      dispatch(actionSetPageHallMasterList(1));
       dispatch(
-        actionFetchPolicyList(
+        actionFetchHallMasterList(
           1,
           { row, order },
           {
@@ -119,7 +119,7 @@ const useHallMaster = ({}) => {
 
   const handleDelete = useCallback(
     (id) => {
-      dispatch(actionDeletePolicyList(id));
+      dispatch(actionDeleteHallMasterList(id));
       setSidePanel(false);
       setEditData(null);
     },

@@ -102,7 +102,7 @@ class SidePanelComponent extends Component {
     _handleOpen() {
         // historyUtils.goBack()
         this.props.handleToggle();
-        window.location.reload()
+        // window.location.reload()
     }
 
     render() {

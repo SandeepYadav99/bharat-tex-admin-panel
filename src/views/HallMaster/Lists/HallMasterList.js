@@ -38,7 +38,7 @@ const HallMasterList = ({}) => {
     all: allData,
     currentPage,
     is_fetching: isFetching,
-  } = useSelector((state) => state.policyList);
+  } = useSelector((state) => state.hallMaster);
 
   const UpperInfo = useCallback(
     (obj) => {
