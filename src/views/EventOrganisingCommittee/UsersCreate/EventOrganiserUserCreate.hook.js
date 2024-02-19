@@ -27,7 +27,7 @@ const initialForm = {
   contact: "",
   about: "",
   // user: null,
-  should_show_profile:false
+  should_show_profile:true
 };
 
 const useEventOrganiserUserCreate = ({ location }) => {

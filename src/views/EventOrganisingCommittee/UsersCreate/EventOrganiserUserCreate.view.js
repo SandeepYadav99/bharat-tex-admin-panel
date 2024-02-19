@@ -234,7 +234,7 @@ const EventOrganiserUserCreate = ({ location }) => {
               handleChange={(text) => {
                 changeTextData(!form?.should_show_profile, "should_show_profile");
               }}
-              label={"Do not open profile"}
+              label={"Open profile"}
                checked={form?.should_show_profile}
             />
          
