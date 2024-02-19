@@ -115,3 +115,9 @@
   .inst{
     color: red;
   }
+
+  .description{
+    width: 400px !important;
+    text-wrap: wrap !important;
+    text-align: justify !important;
+  }

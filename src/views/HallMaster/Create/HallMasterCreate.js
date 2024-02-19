@@ -1,18 +1,12 @@
 import React from "react";
 import {
-
   ButtonBase,
   CircularProgress,
-  
 } from "@material-ui/core";
 import styles from "./Style.module.css";
 import { makeStyles } from "@material-ui/styles";
 import CustomTextField from "../../../components/FormFields/TextField/TextField.component";
-
 import CustomSwitch from "../../../components/FormFields/CustomSwitch";
-
-import { ArrowBackIos} from "@material-ui/icons";
-import historyUtils from "../../../libs/history.utils";
 import useHallMasterHook from "./HallMasterCreateHook";
 
 const useStyles = makeStyles((theme) => ({
@@ -76,15 +70,15 @@ const HallMasterCreate = ({
         <div className={"formFlex"}>
           <div className={"formGroup"}>
             <CustomTextField
-              isError={errorData?.name}
-              errorText={errorData?.name}
+              isError={errorData?.des}
+              errorText={errorData?.des}
               label={"Descriprion"}
-              value={form?.name}
+              value={form?.des}
               onTextChange={(text) => {
-                changeTextData(text, "name");
+                changeTextData(text, "des");
               }}
               onBlur={() => {
-                onBlurHandler("name");
+                onBlurHandler("des");
               }}
               multiline
               rows={4}

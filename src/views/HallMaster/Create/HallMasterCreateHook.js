@@ -2,21 +2,22 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import SnackbarUtils from "../../../libs/SnackbarUtils";
 import Constants from "../../../config/constants";
+
 import {
-  serviceCreateProductCategory,
-  serviceGetProductCategoryDetails,
-  serviceUpdateProductCategory,
-} from "../../../services/ProductCategory.service";
-import historyUtils from "../../../libs/history.utils";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import useHallMaster from "../Lists/HallMasterListHook";
+  serviceCreateHallMasterList,
+  serviceGetHallMasterDetails,
+  serviceUpdateHallMasterList,
+} from "../../../services/HallMaster.service";
+import { actionFetchHallMasterList } from "../../../actions/HallMaster.action";
+import { useDispatch } from "react-redux";
 
 const initialForm = {
   name: "",
+  des: "",
   status: true,
 };
 
-const useHallMasterHook = ({}) => {
+const useHallMasterHook = ({ handleToggleSidePannel, isSidePanel, empId }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPasswordCurrent, setShowPasswordCurrent] = useState(false);
   const [errorData, setErrorData] = useState({});
@@ -24,17 +25,18 @@ const useHallMasterHook = ({}) => {
   const [form, setForm] = useState({ ...initialForm });
   const [isEdit, setIsEdit] = useState(false);
   const includeRef = useRef(null);
-  const { id: empId } = useParams();
-
+  // const { id: empId } = useParams();
+  const dispatch = useDispatch();
   useEffect(() => {
     if (empId) {
-      serviceGetProductCategoryDetails({ id: empId }).then((res) => {
+      serviceGetHallMasterDetails({ id: empId }).then((res) => {
         if (!res.error) {
           const data = res?.data;
           console.log(data, "Data ");
           setForm({
             ...form,
-            name: data?.name,
+            name: data?.hall_no,
+            des: data?.description,
             status: data?.status === Constants.GENERAL_STATUS.ACTIVE,
           });
         } else {
@@ -43,6 +45,12 @@ const useHallMasterHook = ({}) => {
       });
     }
   }, [empId]);
+
+  useEffect(() => {
+    if (!isSidePanel) {
+      handleReset();
+    }
+  }, [isSidePanel]);
 
   const checkFormValidation = useCallback(() => {
     const errors = { ...errorData };
@@ -69,26 +77,29 @@ const useHallMasterHook = ({}) => {
     if (!isSubmitting) {
       setIsSubmitting(true);
       const payloadData = {
-        name: form?.name,
+        hall_no: form?.name,
+        description: form?.des,
         status: form?.status ? "ACTIVE" : "INACTIVE",
       };
       let req;
       if (empId) {
-        req = serviceUpdateProductCategory({ ...payloadData, id: empId });
+        req = serviceUpdateHallMasterList({ ...payloadData, id: empId });
       } else {
-        req = serviceCreateProductCategory(payloadData);
+        req = serviceCreateHallMasterList(payloadData);
       }
       req.then((res) => {
         if (!res.error) {
-          historyUtils.goBack();
+          // historyUtils.goBack();
           // window.location.reload();
+          handleToggleSidePannel();
+          dispatch(actionFetchHallMasterList(1));
         } else {
           SnackbarUtils.error(res.message);
         }
         setIsSubmitting(false);
       });
     }
-  }, [form, isSubmitting, setIsSubmitting, empId]);
+  }, [form, isSubmitting, setIsSubmitting, empId, isSidePanel]);
 
   const handleSubmit = useCallback(async () => {
     const errors = checkFormValidation();
@@ -114,6 +125,8 @@ const useHallMasterHook = ({}) => {
       const t = { ...form };
       if (fieldName === "name") {
         t[fieldName] = text?.replace(/^\s+/, "");
+      } else if (fieldName === "des") {
+        t[fieldName] = text?.replace(/^\s+/, "");
       } else {
         t[fieldName] = text;
       }
@@ -136,7 +149,7 @@ const useHallMasterHook = ({}) => {
 
   const handleReset = useCallback(() => {
     setForm({ ...initialForm });
-  }, [form]);
+  }, [form, isSidePanel]);
 
   return {
     form,

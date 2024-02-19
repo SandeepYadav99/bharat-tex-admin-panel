@@ -160,7 +160,7 @@ const useHallMaster = ({}) => {
   const handleFileView = useCallback((data) => {
     window.open(data?.document, "_blank");
   }, []);
-  
+
   const configFilter = useMemo(() => {
     return [
       {

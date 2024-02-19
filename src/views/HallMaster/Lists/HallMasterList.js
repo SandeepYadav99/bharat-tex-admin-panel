@@ -64,16 +64,16 @@ const HallMasterList = ({}) => {
         label: "HALL NUMBER",
         sortable: false,
         render: (temp, all) => (
-          <a href={all?.document} target="_blank" className={styles.inst}>
-            {all?.name}
-          </a>
+          <div>
+            {all?.hall_no}
+          </div>
         ),
       },
       {
         key: "description",
         label: "DESCRIPTION",
         sortable: true,
-        render: (value, all) => <div>{all?.effectiveDateText}</div>,
+        render: (value, all) => <div className={styles.description}>{all?.description}</div>,
       },
 
       {
