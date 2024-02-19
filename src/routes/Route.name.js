@@ -159,4 +159,5 @@ export default {
   EXHIBITOR_QUERY:"/exhibitor-query",
 
   CALENDAR_COUNT:"/calendar",
+  HALL_MASTER:"/hall/master"
 };

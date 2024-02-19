@@ -59,6 +59,7 @@ import YouTube_List from "../views/Event_YoutubeStreem/List/YouTube_List.js";
 import YouTube_Create from "../views/Event_YoutubeStreem/Create/YouTube_Create";
 
 
+const HallMasterList = lazy(() => import('../views/HallMaster/Lists/HallMasterList'));
 const UserList = lazy(() => import('../views/EventDesk/User/List/UserList.view'));
 const CategoryList = lazy(() => import('../views/EventDesk/Category/List/CategoryList.view'));
 const EventUserCreateView = lazy(() => import('../views/EventDesk/User/Create/EventUserCreate'));
@@ -866,7 +867,15 @@ const dashboardRoutes = [
     icon: PeopleOutlined,
     is_protect: true,
   },
-  
+  {
+    path: `${RouteName.HALL_MASTER}`,
+    component: HallMasterList,
+    sidebarName: "Hall Master",
+    navbarName: "Hall Master",
+    is_sidebar:true,
+    icon: PeopleOutlined,
+    is_protect: true,
+  },
 ];
 
 export default dashboardRoutes;
