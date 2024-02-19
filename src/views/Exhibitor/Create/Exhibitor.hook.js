@@ -178,7 +178,7 @@ const useExhibitorCreate = ({ location }) => {
             country: data?.country,
             zip_code: data?.zip_code,
             business_nature_other: data?.business_nature_other,
-            is_business_nature_other: data?.is_business_nature_other,
+            is_business_nature_other: data?.is_business_nature_other ? data?.is_business_nature_other : false,
             // pavallian: data?.pavallian,
           });
           // setPdf(data?.company_brochure);
