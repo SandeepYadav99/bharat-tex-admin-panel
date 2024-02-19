@@ -7,6 +7,7 @@ import File from "../../../components/FileComponent/FileComponent.component";
 import CustomSwitch from "../../../components/FormFields/CustomSwitch";
 import historyUtils from "../../../libs/history.utils";
 import useInfoCenterCreateHook from "./InfoCenter_hook";
+import { useParams } from "react-router-dom";
 
 function EventSpeakerCreateView({ location }) {
   const {
@@ -19,6 +20,8 @@ function EventSpeakerCreateView({ location }) {
     image,
   } = useInfoCenterCreateHook({ location });
 
+  const params = useParams();
+
   return (
     <div className={styles.claimListWrapper}>
       <div className={styles.outerFlex}>
@@ -26,7 +29,7 @@ function EventSpeakerCreateView({ location }) {
           <ButtonBase onClick={() => historyUtils.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <span className={"capitalize"}>
-              <b>Add Hall Layouts File</b>
+              <b>{params?.id ? "Edit" : "Add"} Hall Layouts File</b>
             </span>
           </ButtonBase>
           <div className={styles.newLine} />
