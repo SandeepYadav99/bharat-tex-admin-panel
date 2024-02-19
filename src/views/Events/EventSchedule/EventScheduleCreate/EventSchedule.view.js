@@ -19,7 +19,6 @@ import { Autocomplete } from "@material-ui/lab";
 import CustomAutoComplete from "../../../../components/FormFields/AutoCompleteText/CustomAutoComplete";
 import LogUtils from "../../../../libs/LogUtils";
 
-
 const useStyles = makeStyles((theme) => ({
   iconBtnError: {
     color: theme.palette.error.dark,
@@ -46,26 +45,27 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
 
   return (
     <div className={styles.departmentWrap}>
-       <div className={"formFlex"}>
-          <div className={"formGroup"}>
-            <CustomSelectField
-              isError={errorData?.category}
-              errorText={errorData?.category}
-              label={"Category" }
-              value={form?.category ? form?.category : ""}
-              handleChange={(value) => {
-                changeTextData(value, "category");
-              }}
-            >{
-              categoryList?.map((val)=>{
-                return(
-                  <MenuItem value={val?.name} id={val?.id}>{val?.name}</MenuItem>
-                )
-              })
-            }           
-            </CustomSelectField>
-          </div>
+      <div className={"formFlex"}>
+        <div className={"formGroup"}>
+          <CustomSelectField
+            isError={errorData?.category}
+            errorText={errorData?.category}
+            label={"Category"}
+            value={form?.category ? form?.category : ""}
+            handleChange={(value) => {
+              changeTextData(value, "category");
+            }}
+          >
+            {categoryList?.map((val) => {
+              return (
+                <MenuItem value={val?.name} id={val?.id}>
+                  {val?.name}
+                </MenuItem>
+              );
+            })}
+          </CustomSelectField>
         </div>
+      </div>
       <div className={"formFlex"}>
         <div className={"formGroup"}>
           <CustomTextField
@@ -112,7 +112,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
           />
         </div>
       </div>
-        {/* <div className={"formFlex"}>
+      {/* <div className={"formFlex"}>
             <div className={"formGroup"}>
                 <CustomTextField
                     isError={errorData?.eve_title}
@@ -148,15 +148,15 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
       </div>
       <div className={"formFlex"}>
         <div className={"formGroup"}>
-            <CustomDateTimePicker
-                clearable
-                label={"Start Time"}
-                onChange={(date) => {
-                    changeTextData(date, "start_time");
-                }}
-                value={form?.start_time}
-                isError={errorData?.start_time}
-            />
+          <CustomDateTimePicker
+            clearable
+            label={"Start Time"}
+            onChange={(date) => {
+              changeTextData(date, "start_time");
+            }}
+            value={form?.start_time}
+            isError={errorData?.start_time}
+          />
           {/*<CustomDatePicker*/}
           {/*  clearable*/}
           {/*  label={"Date"}*/}
@@ -168,133 +168,165 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
           {/*  isError={errorData?.effective_date}*/}
           {/*/>*/}
         </div>
-          <div className={"formGroup"}>
-              <CustomDateTimePicker
-                  clearable
-                  label={"End Time"}
-                  onChange={(date) => {
-                      changeTextData(date, "end_time");
-                  }}
-                  value={form?.end_time}
-                  isError={errorData?.end_time}
-              />
-          </div>
+        <div className={"formGroup"}>
+          <CustomDateTimePicker
+            clearable
+            label={"End Time"}
+            onChange={(date) => {
+              changeTextData(date, "end_time");
+            }}
+            value={form?.end_time}
+            isError={errorData?.end_time}
+          />
+        </div>
       </div>
 
       <div className={"formFlex"}>
-          <div className={"formGroup"}>
-              <Autocomplete
-                  multiple
-                  id="tags-outlined"
-                  onChange={(e, value) => {
-                      changeTextData(value, "speakers");
-                      if (value.some(user => form?.moderator?.includes(user)) || value.some(user => form?.co_chairs?.includes(user)) || value.some(user => form?.chairs?.includes(user))) {
-                        // changeTextData([], "moderator");
-                        changeTextData(form.moderator.filter(user => !value.includes(user)), "speakers");
-                      }
-                  }}
-                  value={form?.speakers}
-                  // id="tags-standard"
-                  options={listData?.SPEAKERS ? listData?.SPEAKERS : []}
-                  getOptionLabel={(option) => option.label}
-                  defaultValue={form?.speakers}
-                  renderInput={(params) => (
-                      <TextField
-                          {...params}
-                          variant="outlined"
-                          label="Speakers"
-                          error={errorData?.speakers}
-                      />
-                  )}
+        <div className={"formGroup"}>
+          <Autocomplete
+            multiple
+            rows={3}
+            id="tags-outlined"
+            onChange={(e, value) => {
+              changeTextData(value, "speakers");
+              if (
+                value.some((user) => form?.moderator?.includes(user)) ||
+                value.some((user) => form?.co_chairs?.includes(user)) ||
+                value.some((user) => form?.chairs?.includes(user))
+              ) {
+                // changeTextData([], "moderator");
+                changeTextData(
+                  form.moderator.filter((user) => !value.includes(user)),
+                  "speakers"
+                );
+              }
+            }}
+            value={form?.speakers}
+            // id="tags-standard"
+            options={listData?.SPEAKERS ? listData?.SPEAKERS : []}
+            getOptionLabel={(option) => option.label}
+            defaultValue={form?.speakers}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                label="Speakers"
+                error={errorData?.speakers}
               />
-          </div>
+            )}
+          />
         </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-              <Autocomplete
-                  multiple
-                  id="tags-outlined"
-                  onChange={(e, value) => {
-                      changeTextData(value, "chairs");
-                      if (value.some(user => form?.moderator?.includes(user)) || value.some(user => form?.speakers?.includes(user))|| value.some(user => form?.co_chairs?.includes(user))) {
-                        // changeTextData([], "moderator");
-                        changeTextData(form.chairs.filter(user => !value.includes(user)), "chairs");
-                      }
-                  }}
-                  value={form?.chairs}
-                  // id="tags-standard"
-                  options={listData?.SPEAKERS ? listData?.SPEAKERS : []}
-                  getOptionLabel={(option) => option.label}
-                  defaultValue={form?.chairs}
-                  renderInput={(params) => (
-                      <TextField
-                          {...params}
-                          variant="outlined"
-                          label="Chairs"
-                          error={errorData?.chairs}
-                      />
-                  )}
+      </div>
+      <div className={"formFlex"}>
+        <div className={"formGroup"}>
+          <Autocomplete
+            multiple
+            rows={3}
+            id="tags-outlined"
+            onChange={(e, value) => {
+              changeTextData(value, "chairs");
+              if (
+                value.some((user) => form?.moderator?.includes(user)) ||
+                value.some((user) => form?.speakers?.includes(user)) ||
+                value.some((user) => form?.co_chairs?.includes(user))
+              ) {
+                // changeTextData([], "moderator");
+                changeTextData(
+                  form.chairs.filter((user) => !value.includes(user)),
+                  "chairs"
+                );
+              }
+            }}
+            value={form?.chairs}
+            // id="tags-standard"
+            options={listData?.SPEAKERS ? listData?.SPEAKERS : []}
+            getOptionLabel={(option) => option.label}
+            defaultValue={form?.chairs}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                label="Chairs"
+                error={errorData?.chairs}
               />
-          </div>
+            )}
+          />
         </div>
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-              <Autocomplete
-                  multiple
-                  id="tags-outlined"
-                  onChange={(e, value) => {
-                      changeTextData(value, "co_chairs");
-                      if (value.some(user => form?.chairs?.includes(user)) || value.some(user => form?.moderator?.includes(user)) || value.some(user => form?.speakers?.includes(user))) {
-                        // changeTextData([], "moderator");
-                        changeTextData(form.co_chairs.filter(user => !value.includes(user)), "co_chairs");
-                      }
-                  }}
-                  value={form?.co_chairs}
-                  // id="tags-standard"
-                  options={listData?.SPEAKERS ? listData?.SPEAKERS : []}
-                  getOptionLabel={(option) => option.label}
-                  defaultValue={form?.co_chairs}
-                  renderInput={(params) => (
-                      <TextField
-                          {...params}
-                          variant="outlined"
-                          label="Co-Chairs"
-                          error={errorData?.co_chairs}
-                      />
-                  )}
+      </div>
+      <div className={"formFlex"}>
+        <div className={"formGroup"}>
+          <Autocomplete
+            multiple
+            rows={3}
+            id="tags-outlined"
+            onChange={(e, value) => {
+              changeTextData(value, "co_chairs");
+              if (
+                value.some((user) => form?.chairs?.includes(user)) ||
+                value.some((user) => form?.moderator?.includes(user)) ||
+                value.some((user) => form?.speakers?.includes(user))
+              ) {
+                // changeTextData([], "moderator");
+                changeTextData(
+                  form.co_chairs.filter((user) => !value.includes(user)),
+                  "co_chairs"
+                );
+              }
+            }}
+            value={form?.co_chairs}
+            // id="tags-standard"
+            options={listData?.SPEAKERS ? listData?.SPEAKERS : []}
+            getOptionLabel={(option) => option.label}
+            defaultValue={form?.co_chairs}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                label="Co-Chairs"
+                error={errorData?.co_chairs}
               />
-          </div>
+            )}
+          />
         </div>
-       
-        <div className={"formFlex"}>
-          <div className={"formGroup"}>
-              <Autocomplete
-                  multiple
-                  id="tags-outlined"
-                  onChange={(e, value) => {
-                      changeTextData(value, "moderator");
-                      if (value.some(user => form?.speakers?.includes(user)) || value.some(user => form?.co_chairs?.includes(user)) || value.some(user => form?.chairs?.includes(user)) ) {
-                        // changeTextData([], "speakers");
-                         changeTextData(form.moderator.filter(user => !value.includes(user)), "moderator");
-                      }
-                  }}
-                  value={form?.moderator}
-                  // id="tags-standard"
-                  options={listData?.SPEAKERS ? listData?.SPEAKERS : []}
-                  getOptionLabel={(option) => option.label}
-                  defaultValue={form?.moderator}
-                  renderInput={(params) => (
-                      <TextField
-                          {...params}
-                          variant="outlined"
-                          label="Moderator"
-                          error={errorData?.moderator}
-                      />
-                  )}
+      </div>
+
+      <div className={"formFlex"}>
+        <div className={"formGroup"}>
+          <Autocomplete
+            multiple
+            rows={3}
+            id="tags-outlined"
+            onChange={(e, value) => {
+              changeTextData(value, "moderator");
+              if (
+                value.some((user) => form?.speakers?.includes(user)) ||
+                value.some((user) => form?.co_chairs?.includes(user)) ||
+                value.some((user) => form?.chairs?.includes(user))
+              ) {
+                // changeTextData([], "speakers");
+                changeTextData(
+                  form.moderator.filter((user) => !value.includes(user)),
+                  "moderator"
+                );
+              }
+            }}
+            value={form?.moderator}
+            // id="tags-standard"
+            options={listData?.SPEAKERS ? listData?.SPEAKERS : []}
+            getOptionLabel={(option) => option.label}
+            defaultValue={form?.moderator}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                label="Moderator"
+                error={errorData?.moderator}
               />
-          </div>
+            )}
+          />
         </div>
-      
+      </div>
+
       <div className={"headerFlex"}>
         <h4 className={"infoTitle"}>
           <div className={"heading"}>Status</div>
@@ -308,7 +340,7 @@ const EventScheduleView = ({ handleToggleSidePannel, isSidePanel, empId }) => {
             handleChange={() => {
               changeTextData(!form?.status, "status");
             }}
-            label={form?.status ? `Active` :"Inactive"}
+            label={form?.status ? `Active` : "Inactive"}
           />
         </div>
       </div>

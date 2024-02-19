@@ -15,6 +15,7 @@ import StatusPill from "../../../components/Status/StatusPill.component";
 import EventOrganiserCreateView from "../Create/EventOrganiserCreate.view";
 import historyUtils from "../../../libs/history.utils";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import { useParams } from "react-router-dom";
 
 const EventOrganiserList = ({}) => {
   const {
@@ -44,11 +45,13 @@ const EventOrganiserList = ({}) => {
     is_fetching: isFetching,
   } = useSelector((state) => state.eventOrganiser);
 
+  const params = useParams();
+
   const UpperInfo = useCallback((obj) => {
     if (obj) {
       return (
         <div className={styles.InfoWrap}>
-          <div>Add Event Organising Committee</div>
+          <div>Event Organising Committee</div>
           <div className={styles.newLine}></div>
         </div>
       );

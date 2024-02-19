@@ -155,7 +155,7 @@ const ExhibitorQuery = ({ }) => {
         <div className={styles.headerContainer}>
           <div>
             <div className={styles.title}>
-              <ArrowBackIos fontSize={"small"} onClick={() => historyUtils.goBack()} />Exhibitor Query
+              Exhibitor Query
             </div>
             <div className={styles.newLine} />
           </div>

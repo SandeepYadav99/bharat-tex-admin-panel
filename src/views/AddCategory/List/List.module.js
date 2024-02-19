@@ -57,8 +57,8 @@ const CategoryList = ({}) => {
   const tableStructure = useMemo(() => {
     return [
       {
-        key: "Company_name",
-        label: "Company Name",
+        key: "category_name",
+        label: "Category Name",
         sortable: false,
         render: (value, all) => <div>{all?.name}</div>,
       },

@@ -34,7 +34,6 @@ const CityGuidView = ({ location }) => {
   //     />
   //   );
   // }, [form?.description, thumb]);
-  console.log("dd", thumb, banner);
   return (
     <div className={styles.claimListWrapper}>
       <div className={styles.outerFlex}>

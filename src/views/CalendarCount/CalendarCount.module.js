@@ -80,7 +80,9 @@ const CalendarCount = ({}) => {
         key: "session_time",
         label: "Session Time",
         sortable: false,
-        render: (temp, all) => <div>{all?.end_time_text ? all?.end_time_text :"--"}</div>,
+        render: (temp, all) => <div>{all?.date_text ? all?.date_text :"--"}<br/>
+        {all?.start_time_text ? all?.start_time_text :"--"}{" "}-{" "}{all?.end_time_text ? all?.end_time_text :"--"}
+        </div>,
       },
     ];
   }, [handleViewDetails, handleEdit, isCalling, capitalizeFirstLetter]);
@@ -123,10 +125,6 @@ const CalendarCount = ({}) => {
           >
             <div style={{ display: "flex", flexDirection: "column" }}>
               <div style={{ display: "flex", alignItems: "center" }}>
-                <ArrowBackIos
-                  fontSize={"small"}
-                  onClick={() => historyUtils.goBack()}
-                />
                 <span className={styles.title}>
                   <b>Calendar Count</b>
                 </span>

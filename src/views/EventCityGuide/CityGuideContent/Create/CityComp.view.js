@@ -6,6 +6,7 @@ import useCityCompHook from "./CityComp.hook";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import history from "../../../../libs/history.utils";
 import NewEditor from "./component/NewEditor.component";
+import { useParams } from "react-router-dom";
 
 function CityCompView({ location }) {
   const {
@@ -18,6 +19,8 @@ function CityCompView({ location }) {
     onBlurHandler,
   } = useCityCompHook({ location });
 
+  const params = useParams();
+
   return (
     <div className={styles.cagrWrapper}>
       <div className={styles.outerFlex}>
@@ -25,7 +28,7 @@ function CityCompView({ location }) {
           <ButtonBase onClick={() => history.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <span className={"capitalize"}>
-              <b>Add Venue guide  Content</b>
+              <b>{params?.id ? "Edit" : "Add"} {" "} Venue guide  Content</b>
             </span>
           </ButtonBase>
           <div className={styles.newLine} />

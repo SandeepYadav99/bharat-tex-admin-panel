@@ -78,6 +78,9 @@ const useEventScheduleHook = ({
   },[]);
 
 
+  console.log(form,"form is here");
+
+
   useEffect(() => {
     if (empId) {
       serviceGetEventScheduleDetails({ id: empId }).then((res) => {
@@ -86,21 +89,21 @@ const useEventScheduleHook = ({
 
           const modifiedSpeaker = data?.speakers?.map((item) => ({
             id: item?.s_id,
-            label: item?.s_name,
+            label: `${item?.s_name}  (${item?.s_company})`,
           }));
           const modifiedModerator = data?.moderator?.map((item) => ({
             id: item?.s_id,
-            label: item?.s_name,
+            label: `${item?.s_name}  (${item?.s_company})`,
           }));
 
           const modifiedChairs = data?.chairs?.map((item)=>({
             id: item?.s_id,
-            label: item?.s_name,
+            label: `${item?.s_name}  (${item?.s_company})`,
           }))
 
           const modifiedCoChairs = data?.co_chairs?.map((item)=>({
             id: item?.s_id,
-            label: item?.s_name,
+            label: `${item?.s_name}  (${item?.s_company})`,
           }))
           // const categoryData = data?.category?.toUpperCase();
           // console.log(categoryData,"categoryData is here")

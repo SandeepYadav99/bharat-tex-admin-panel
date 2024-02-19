@@ -88,6 +88,7 @@ const useExhibitorCreate = ({ location }) => {
   const [secondary, setSecondary] = useState("");
   const [deatilsValue, setDetailsValue] = useState([]);
   const [partnerList, setPartnerList] = useState([]);
+  const [textData,setTextData] = useState("");
 
   const { user } = useSelector((state) => state?.auth);
 
@@ -136,6 +137,7 @@ const useExhibitorCreate = ({ location }) => {
         if (!res.error) {
           const data = res?.data?.details;
           const { business_nature } = data;
+
           // setSelectImages(data?.gallery_images);
           setDetailsValue(business_nature);
           setImage(data?.company_logo);
@@ -176,11 +178,12 @@ const useExhibitorCreate = ({ location }) => {
             country: data?.country,
             zip_code: data?.zip_code,
             business_nature_other: data?.business_nature_other,
-            is_business_nature_other: data?.is_business_nature_other,
+            is_business_nature_other: data?.is_business_nature_other ? data?.is_business_nature_other : false,
             // pavallian: data?.pavallian,
           });
           // setPdf(data?.company_brochure);
-          setFeature({ ...feature, ...business_nature });
+          setTextData(form?.business_nature_other)
+          // setFeature({ ...feature, });
         } else {
           SnackbarUtils.error(res?.message);
         }
@@ -189,12 +192,26 @@ const useExhibitorCreate = ({ location }) => {
   }, [empId]);
 
   useEffect(() => {
+    const updatedFeature = { ...feature };
+  
+    deatilsValue.forEach((value) => {
+      if (value in feature) {
+        updatedFeature[value] = true;
+      }
+    });
+    setFeature(updatedFeature);
+  }, [deatilsValue]);
+
+
+  useEffect(() => {
+    const updatedFeature = { ...feature };
     if (empId) {
       Object.keys(feature).forEach((key) => {
         if (deatilsValue.includes(feature[key])) {
-          feature[key] = true;
+          updatedFeature[key] = true;
         }
       });
+      setFeature(updatedFeature)
     }
   }, [empId]);
 
@@ -278,6 +295,27 @@ const useExhibitorCreate = ({ location }) => {
   //     checkEmailValidation();
   //   }
   // }, [form?.primary_email]);
+
+  useEffect(()=>{
+    if(!form?.is_business_nature_other){
+      if(form?.business_nature?.includes(form?.business_nature_other)){
+        const index = form?.business_nature.indexOf(form?.business_nature_other);
+        form?.business_nature.splice(index,1);
+      }
+      setForm(
+        {
+          ...form,
+          business_nature_other:"",
+        }
+      )
+    }
+    else{
+      if(textData !== form?.business_nature_other){
+        const index = form?.business_nature.indexOf(form?.business_nature_other);
+        form?.business_nature.splice(index,1);
+      }
+    }
+  },[form?.is_business_nature_other])
 
   useEffect(() => {
     if (form?.primary_conatct_number) {
@@ -394,9 +432,8 @@ const useExhibitorCreate = ({ location }) => {
     //   fd.append("company_brochure", form?.company_brochure);
     // }
 
-    if(form?.is_business_nature_other){
       fd.append("is_business_nature_other",form?.is_business_nature_other)
-    }
+     
     // if(empId){
     //   if (form?.company_logo) {
     //     fd.append("company_logo", form?.company_logo);

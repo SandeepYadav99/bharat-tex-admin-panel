@@ -14,6 +14,7 @@ import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import File from "../../../components/FileComponent/FileComponent.component";
 import CustomSwitch from "../../../components/FormFields/CustomSwitch";
 import CustomSelectField from "../../../components/FormFields/SelectField/SelectField.component";
+import { useParams } from "react-router-dom";
 
 function EventBannerCreate({ location }) {
   const {
@@ -30,6 +31,9 @@ function EventBannerCreate({ location }) {
     isLinkDisabled,
     setIsLinkDisabled,
   } = useEventBannerCreate({ location });
+
+  const params = useParams();
+
   return (
     <div className={styles.claimListWrapper}>
       <div className={styles.outerFlex}>
@@ -37,7 +41,7 @@ function EventBannerCreate({ location }) {
           <ButtonBase onClick={() => history.goBack()}>
             <ArrowBackIosIcon fontSize={"small"} />
             <span className={"capitalize"}>
-              <b>Add Banner</b>
+              {params?.id ? <b>Edit Banner</b> : <b>Add Banner</b>}
             </span>
           </ButtonBase>
           <div className={styles.newLine} />
